@@ -1,0 +1,154 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: 'Graphik LCG';
+  src: url('../fonts/GraphikLCG-Medium.woff2') format('woff2'),
+    url('../fonts/GraphikLCG-Medium.woff') format('woff');
+  font-display: swap;
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('../fonts/Gilroy-Regular.woff2') format('woff2'),
+    url('../fonts/Gilroy-Regular.woff') format('woff');
+  font-display: swap;
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('../fonts/Gilroy-ExtraBold.woff2') format('woff2'),
+    url('../fonts/Gilroy-ExtraBold.woff') format('woff');
+  font-display: swap;
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('../fonts/Gilroy-Medium.woff2') format('woff2'),
+    url('../fonts/Gilroy-Medium.woff') format('woff');
+  font-display: swap;
+  font-weight: 500;
+  font-style: normal;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Gilroy', sans-serif;
+}
+
+button {
+  display: inline-flex;
+  padding: 0.8125rem 1.25rem;
+  align-items: flex-start;
+  gap: 0.625rem;
+
+  border-radius: 0.625rem;
+  border: 1px solid #c93;
+}
+
+button:hover,
+button:focus {
+  border: none;
+  background: #c93;
+  color: white;
+}
+
+button:active {
+  border: none;
+  background: #a47312;
+}
+
+a {
+  display: flex;
+  width: 7.1875rem;
+  height: 1rem;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+a:hover {
+  color: #cc9933;
+}
+
+a:focus {
+  display: inline-flex;
+  padding: 0.3125rem;
+  align-items: flex-start;
+  gap: 0.625rem;
+  border: 1px solid #c93;
+}
+
+a.active {
+  color: #a47312;
+}
+
+.link-color-status {
+  display: flex;
+  /* width: 9.6875rem; */
+  height: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3125rem;
+  flex-shrink: 0;
+  color: #cc9933;
+  font-family: Muller;
+}
+
+.link-color-status:hover {
+  display: flex;
+  /* width: 10.125rem; */
+  height: 1.5rem;
+  padding-right: 0px;
+  align-items: center;
+  gap: 0.3125rem;
+  flex-shrink: 0;
+  color: #cc9933;
+  font-family: Muller;
+}
+.link-color-status:focus {
+  display: flex;
+  /* width: 10.3125rem; */
+  height: 2.125rem;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  color: #f0bf5f;
+}
+.link-color-status:active {
+  display: flex;
+  /* width: 9.6875rem; */
+  height: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3125rem;
+  flex-shrink: 0;
+  color: #f0bf5f;
+}
+.icon-- {
+  background-image: url(/static/img/keyboard-tab.svg);
+}
+
+.return {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.return > span {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 3px;
+  display: inline-block;
+  background-image: url(/static/img/return.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
