@@ -196,7 +196,7 @@ button:active {
   margin-right: 0.44rem;
   height: 0.9rem;
   width: 1.3rem;
-  background-image: url(/static/img/svg/decoration/for-private-office-link.svg);
+  background-image: url(../img/svg/decoration/for-private-office-link.svg);
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -205,7 +205,7 @@ button:active {
   color: var(--link-hover-color);
 
   .private-office-link-decoration {
-    background-image: url(/static/img/svg/decoration/for-private-office-link__hover.svg);
+    background-image: url(../img/svg/decoration/for-private-office-link__hover.svg);
   }
 }
 
@@ -279,7 +279,7 @@ button:active {
       rgba(48, 64, 89, 0.84) -2.9%,
       rgba(53, 65, 83, 0) 65.7%
     ),
-    url(/static/img/jpg/special/b1.jpg);
+    url(../img/jpg/special/b1.jpg);
   margin-bottom: 24px;
 }
 
@@ -289,11 +289,11 @@ button:active {
       rgba(48, 64, 89, 0.84) -2.9%,
       rgba(53, 65, 83, 0) 65.7%
     ),
-    url(/static/img/jpg/special/b2.jpg);
+    url(../img/jpg/special/b2.jpg);
 }
 
 .special-img-3 {
-  background-image: url(/static/img/jpg/special/b3.jpg);
+  background-image: url(../img/jpg/special/b3.jpg);
 }
 
 .spec-price {
@@ -382,7 +382,7 @@ h3 {
   margin-left: 2px;
   transform: translateY(2px);
   display: inline-block;
-  background-image: url(/static/img/svg/decoration/for-services-link.svg);
+  background-image: url(../img/svg/decoration/for-services-link.svg);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: right;
@@ -393,7 +393,7 @@ h3 {
     color: var(--link-hover-color);
   }
   .services-link-decoration {
-    background-image: url(/static/img/svg/decoration/for-services-link__hover.svg);
+    background-image: url(../img/svg/decoration/for-services-link__hover.svg);
     width: 2rem;
   }
 }
@@ -443,28 +443,28 @@ h3 {
 }
 
 .advantage-img__1 {
-  background-image: url(/static/img/svg/advantage/bathtub.svg);
+  background-image: url(../img/svg/advantage/bathtub.svg);
 }
 .advantage-img__2 {
-  background-image: url(/static/img/svg/advantage/hanger.svg);
+  background-image: url(../img/svg/advantage/hanger.svg);
 }
 .advantage-img__3 {
-  background-image: url(/static/img/svg/advantage/heating.svg);
+  background-image: url(../img/svg/advantage/heating.svg);
 }
 .advantage-img__4 {
-  background-image: url(/static/img/svg/advantage/hotel-key.svg);
+  background-image: url(../img/svg/advantage/hotel-key.svg);
 }
 .advantage-img__5 {
-  background-image: url(/static/img/svg/advantage/parking.svg);
+  background-image: url(../img/svg/advantage/parking.svg);
 }
 .advantage-img__6 {
-  background-image: url(/static/img/svg/advantage/reception.svg);
+  background-image: url(../img/svg/advantage/reception.svg);
 }
 .advantage-img__7 {
-  background-image: url(/static/img/svg/advantage/security-box.svg);
+  background-image: url(../img/svg/advantage/security-box.svg);
 }
 .advantage-img__8 {
-  background-image: url(/static/img/svg/advantage/swimming-pool.svg);
+  background-image: url(../img/svg/advantage/swimming-pool.svg);
 }
 
 /* Placing */
@@ -578,7 +578,7 @@ h3 {
   height: 1rem;
   margin-left: 2px;
   display: inline-block;
-  background-image: url(/static/img/svg/decoration/for-services-link-etc.svg);
+  background-image: url(../img/svg/decoration/for-services-link-etc.svg);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: right;
