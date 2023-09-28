@@ -614,7 +614,7 @@ h3 {
   margin-left: 41px;
 }
 
-.order-item-left > input {
+.order-item-left select {
   width: 169px;
 }
 
@@ -622,15 +622,25 @@ h3 {
   width: 121px;
 }
 
-.order-form-item > input {
+.order-form-item > :is(input, select) {
+  background-color: white;
   border: none;
 }
-.order-form-item > input:focus {
+.order-form-item > :is(input:focus, select:focus) {
   outline: none;
+}
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  opacity: 1;
 }
 
 input[type='number'] {
   border-bottom: 1px solid #e9e9e9;
+}
+
+#city,
+#country {
+  display: none;
 }
 
 .order-btn {

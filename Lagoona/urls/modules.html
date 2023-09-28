@@ -6,6 +6,14 @@
     <link rel="icon" href="favicon.svg" />
     <link rel="stylesheet" href="../static/css/normalize.css" />
     <link rel="stylesheet" href="../static/css/styles.css" />
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+        let today = new Date().toLocaleString();
+        today = today.split(',')[0].split('.');
+        today = `${today[2]}-${today[1]}-${today[0]}`;
+        document.getElementById('date').min = today;
+      });
+    </script>
     <title>Modules</title>
   </head>
   <body>
@@ -515,11 +523,29 @@
             >
               <div class="order-form-item order-item-left">
                 <label for="city"> Город вылета </label>
-                <input type="" name="city" id="city" required />
+                <input
+                  type="text"
+                  list="cities"
+                  name="city"
+                  id="city"
+                  required
+                />
+                <select id="cities">
+                  <option label="Минск"></option>
+                </select>
               </div>
               <div class="order-form-item order-item-left">
                 <label for="country"> Страна </label>
-                <input type="" name="country" id="country" required />
+                <input
+                  type="text"
+                  list="countries"
+                  name="country"
+                  id="country"
+                  required
+                />
+                <select id="countries">
+                  <option label="Беларусь"></option>
+                </select>
               </div>
               <div class="order-form-item order-item-right">
                 <label for="date"> Дата прибытия </label>
