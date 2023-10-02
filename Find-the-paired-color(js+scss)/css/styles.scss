@@ -1,12 +1,8 @@
-@import 'flip-cards';
+$CONTAINER_NAME: 'fpc';
 
-.footer {
-  &__nav {
-  }
+:export {
+  CONTAINER_NAME: $CONTAINER_NAME;
+}
 
-  &__navlist {
-  }
-
-  &__burger {
-  }
+.#{$CONTAINER_NAME} {
 }
