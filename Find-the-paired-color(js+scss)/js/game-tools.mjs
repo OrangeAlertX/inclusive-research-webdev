@@ -2,8 +2,8 @@
 
 const CONTAINER_NAME = 'fpc';
 
-const newElem = (elemName = 'section', styleName = '') => {
-  if (styleName === false) styleName = elemName;
+const newElem = (elemName = 'section', styleName = '', styleMod = '') => {
+  if (!styleName) styleName = elemName;
 
   const className =
     elemName != 'section' ? `${CONTAINER_NAME}__${styleName}` : CONTAINER_NAME;
@@ -11,16 +11,44 @@ const newElem = (elemName = 'section', styleName = '') => {
   const elem = document.createElement(elemName);
   if (elem instanceof HTMLUnknownElement) throw 'HTMLUnknownElement created!';
 
-  elem.className = className;
+  elem.classList.add(className);
+  if (styleMod) elem.classList.add(`${className}--${styleMod}`);
 
   return elem;
 };
 
+const createDifficulties = (numberOfModes) => {
+  const allPossibleModes = [
+    'Easy',
+    'Medium',
+    'Hard',
+    'Challenge',
+    'Extreme',
+    'Nightmare',
+    'Impossible',
+  ];
+
+  if (!(numberOfModes <= 7 && numberOfModes > 0)) {
+    alert('Only 7 mods exist now, but you put ' + numberOfModes);
+    return;
+  }
+
+  const elems = [];
+  for (let i = 0; i < numberOfModes; i++) {
+    const elem = newElem('button', 'btn', `btn${i + 1}`);
+    elem.textContent = allPossibleModes[i];
+
+    elems[i] = elem;
+  }
+
+  return elems;
+};
+
 const componentDifficultySelection = () => {
   const difficulty = newElem('div', 'difficulty');
-  const button1 = newElem('button', 'btn');
-  button1.textContent = 'Easy';
-  difficulty.append(button1);
+  const buttons = createDifficulties(7);
+
+  difficulty.append(...buttons);
 
   return difficulty;
 };
@@ -34,4 +62,4 @@ const initGameItems = () => {
   return container;
 };
 
-export { initGameItems };
+export { initGameItems, newElem, CONTAINER_NAME };

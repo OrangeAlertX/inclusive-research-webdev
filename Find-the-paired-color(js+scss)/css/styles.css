@@ -1,3 +1,101 @@
-:export {
-  CONTAINER_NAME: "fpc";
+.fpc__btn--btn1 {
+  background-color: #c6fefb;
+}
+
+.fpc__btn--btn2 {
+  background-color: #f7f7ba;
+}
+
+.fpc__btn--btn3 {
+  background-color: #f7caba;
+}
+
+.fpc__btn--btn4 {
+  background-color: #fea5a5;
+}
+
+.fpc__btn--btn5 {
+  background-color: #8a86fe;
+}
+
+.fpc__btn--btn6 {
+  background-color: #4448c1;
+}
+
+.fpc__btn--btn7 {
+  background-color: #420f07;
+}
+
+:root {
+  --currentDifficulty: aquamarine;
+}
+
+.fpc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.fpc__difficulty {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  padding: 5px 15px;
+  background-color: var(--currentDifficulty);
+  border-radius: 0 0 15px 15px;
+}
+.fpc__playground {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.fpc__btn {
+  padding: 5px;
+  margin: 1px;
+  border-radius: 5px;
+  color: black;
+  text-wrap: nowrap;
+  text-shadow: 0.1em 0 rgb(182, 182, 182), 0 0.1em rgb(182, 182, 182), -0.1em 0 rgb(182, 182, 182), 0 -0.1em rgb(182, 182, 182), -0.1em -0.1em rgb(182, 182, 182), -0.1em 0.1em rgb(182, 182, 182), 0.1em -0.1em rgb(182, 182, 182), 0.1em 0.1em rgb(182, 182, 182);
+  letter-spacing: 0.2em;
+}
+.fpc__btn:hover {
+  box-shadow: rgba(46, 65, 240, 0.4) 0px 5px, rgba(46, 75, 240, 0.3) 0px 10px, rgba(46, 75, 240, 0.2) 0px 15px, rgba(46, 107, 240, 0.1) 0px 20px, rgba(46, 65, 240, 0.05) 0px 25px;
+  cursor: pointer;
+}
+.fpc__grid {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  gap: 50px;
+  flex-wrap: wrap;
+  margin: auto 5vw;
+  margin-top: 50px;
+}
+.fpc__card {
+  position: relative;
+  width: 50px;
+  height: 100px;
+  perspective: 1000px;
+}
+.fpc__cardBody {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+.fpc__cardFace, .fpc__cardBack {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+.fpc__cardFace {
+  background-color: var(--currentDifficulty);
+}
+.fpc__cardBack {
+  background-color: #420f07;
+  transform: rotateY(180deg);
 }/*# sourceMappingURL=styles.css.map */
