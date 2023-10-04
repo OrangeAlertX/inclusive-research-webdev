@@ -1,16 +1,16 @@
 import { newElem } from './game-tools.mjs';
 
-const easyCards = 16;
-
-const createEasyGame = () => {
+const createEasyGame = (playground) => {
+  const qtEasyCards = 16;
+  const bunchSize = 2;
   const grid = newElem('div', 'grid');
-  const cards = createCards(16);
+  const cards = createCards(qtEasyCards, bunchSize);
   grid.append(...cards);
-
-  return grid;
+  playground.append(grid);
+  initFlipEvents(grid, bunchSize);
 };
 
-const createCards = (qt, bunchSize = 2) => {
+const createCards = (qt, bunchSize) => {
   const cards = [];
   const bunches = parseInt(qt / bunchSize);
 
@@ -30,6 +30,51 @@ const createCards = (qt, bunchSize = 2) => {
   }
 
   return cards;
+};
+
+const initFlipEvents = (grid, bunchSize) => {
+  const cards = grid.children;
+  grid.memory = [];
+  for (let i = 0; i < cards.length; i++) {
+    let card = cards[i];
+    console.log(card.addEventListener);
+    card.addEventListener('click', () => console.log('click'));
+  }
+};
+
+const actionFlipCard = function (e) {
+  console.log(this);
+
+  flipTheCard(card);
+  if (grid.memory.length) cardsMatching(grid.memory, card);
+  else grid.memory.push(card);
+  if (grid.memory.length === bunchSize) acceptCards(grid.memory);
+};
+
+const flipTheCard = (card) =>
+  (card.children[0].style.transform = card.children[0].style.transform
+    ? ''
+    : 'rotateY(180deg)');
+const cardsMatching = (memory, card) => {
+  for (const cardM of memory) {
+    if (cardM.cardID !== card.cardID) {
+      clearGridMemory(grid.memory);
+      return;
+    }
+  }
+  memory.push(e);
+};
+const clearGridMemory = (memory) => {
+  for (const cardM of memory) {
+    flipTheCard(cardM);
+  }
+  memory.length = 0;
+};
+const acceptCards = (memory) => {
+  for (const cardM of memory) {
+    cardM.style.visibility = 'hidden';
+  }
+  memory.length = 0;
 };
 
 export { createEasyGame };

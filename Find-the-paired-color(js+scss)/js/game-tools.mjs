@@ -59,7 +59,7 @@ const initGameItems = () => {
   const playground = newElem('div', 'playground');
   container.append(difficulty, playground);
 
-  return container;
+  return playground;
 };
 
-export { initGameItems, newElem, CONTAINER_NAME };
+export { initGameItems, newElem };
