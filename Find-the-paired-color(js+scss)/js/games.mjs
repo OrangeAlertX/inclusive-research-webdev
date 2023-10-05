@@ -21,7 +21,8 @@ const createCards = (qt, bunchSize) => {
     const cardBack = newElem('div', 'cardBack');
     card.append(cardBody);
     cardBody.append(cardFace, cardBack);
-    card.bunchID = `bunch${i + 1}`;
+    card.setAttribute('bunchID', `bunch${i + 1}`);
+    cardBack.style.backgroundColor = `rgb(${getColor()},${getColor()},${getColor()})`;
     cards.push(card);
     for (let i = 1; i < bunchSize; i++) {
       const cardCopy = card.cloneNode(true);
@@ -32,43 +33,52 @@ const createCards = (qt, bunchSize) => {
   return cards;
 };
 
+const getColor = () => Math.floor(Math.random() * 256);
 const initFlipEvents = (grid, bunchSize) => {
   const cards = grid.children;
-  grid.memory = [];
+  const memory = [];
   for (let i = 0; i < cards.length; i++) {
     let card = cards[i];
-    console.log(card.addEventListener);
-    card.addEventListener('click', () => console.log('click'));
+    card.addEventListener('click', () =>
+      actionFlipCard(card, bunchSize, memory)
+    );
   }
 };
 
-const actionFlipCard = function (e) {
-  console.log(this);
+const actionFlipCard = (card, bunchSize, memory) => {
+  console.log(memory);
+  if (!flipTheCard(card, memory)) return;
+  memory.push(card);
 
-  flipTheCard(card);
-  if (grid.memory.length) cardsMatching(grid.memory, card);
-  else grid.memory.push(card);
-  if (grid.memory.length === bunchSize) acceptCards(grid.memory);
+  cardsMatching(memory, card);
+  if (memory.length === bunchSize) acceptCards(memory);
 };
 
-const flipTheCard = (card) =>
-  (card.children[0].style.transform = card.children[0].style.transform
-    ? ''
-    : 'rotateY(180deg)');
+const flipTheCard = (card, memory) => {
+  if (card.children[0].style.transform) {
+    memory.splice(0, memory.length, ...memory.filter((elem) => card !== elem));
+    card.children[0].style.transform = '';
+    return false;
+  } else card.children[0].style.transform = 'rotateY(180deg)';
+
+  return true;
+};
+
 const cardsMatching = (memory, card) => {
   for (const cardM of memory) {
-    if (cardM.cardID !== card.cardID) {
-      clearGridMemory(grid.memory);
-      return;
+    if (cardM.getAttribute('bunchID') !== card.getAttribute('bunchID')) {
+      clearGridMemory(memory, card.parentElement); //setTimeout
     }
   }
-  memory.push(e);
 };
-const clearGridMemory = (memory) => {
+const clearGridMemory = (memory, grid) => {
   for (const cardM of memory) {
-    flipTheCard(cardM);
+    flipTheCard(cardM, memory);
   }
   memory.length = 0;
+  for (const card of grid.children) {
+    if (card.children[0].style.transform) card.children[0].style.transform = '';
+  }
 };
 const acceptCards = (memory) => {
   for (const cardM of memory) {
