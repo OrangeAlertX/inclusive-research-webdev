@@ -2,17 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=1920px, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="/css/normalize.css" />
-    <link rel="stylesheet" href="/css/common.css" />
-    <link rel="stylesheet" href="/css/index/index.css" />
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/index/index.css" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
     />
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-    <script src="/js/swiper.js"></script>
+    <script defer src="js/swiper.js"></script>
+    <script defer src="js/burger.js"></script>
     <title>Evclid</title>
   </head>
   <body>
@@ -20,40 +21,61 @@
       <div class="header__logo">
         <img
           class="header__svg"
-          src="/images/header/Logo.svg"
+          src="images/header/Logo.svg"
           alt="Проектные системы Евклид"
         />
       </div>
-      <button class="header__burger">
-        <nav class="header__nav">
-          <img src="/images/header/X.svg" alt="Close navigation" class="header__close">
-          <ul class="header__list">
-            <li class="header__item"><a href="##"> О нас </a></li>
-            <li class="header__item"><a href="##"> Проекты </a></li>
-            <li class="header__item"><a href="##"> Этапы </a></li>
-            <li class="header__item"><a href="##"> Отзывы </a></li>
-            <li class="header__item"><a href="##"> Контакты </a></li>
-          </ul>
-        </nav>
-      </button>
-      <div class="header__search"></div>
+      <nav class="header__nav">
+        <img
+          src="images/header/X.svg"
+          alt="Close navigation"
+          class="header__close"
+        />
+        <ul class="header__list">
+          <li class="header__item"><a href="##"> О нас </a></li>
+          <li class="header__item"><a href="##"> Проекты </a></li>
+          <li class="header__item"><a href="##"> Этапы </a></li>
+          <li class="header__item"><a href="##"> Отзывы </a></li>
+          <li class="header__item"><a href="##"> Контакты </a></li>
+        </ul>
+      </nav>
+      <button class="header__burger"></button>
+      <button class="header__search"></button>
+      <div class="header__bar">
+        <form
+          target="_blank"
+          action="https://jsonplaceholder.typicode.com/posts"
+          autocomplite
+          method="POST"
+          class="header__form"
+        >
+          <input
+            type="text"
+            name="Header search"
+            placeholder="What are we looking for?"
+            class="header__input"
+          />
+          <button type="submit" class="header__btn"></button>
+        </form>
+        <button class="header__return"></button>
+      </div>
     </header>
-    <main class="main">
+    <!-- <main class="main">
       <section class="order">
         <div class="swiper">
           <div class="swiper-wrapper">
             <div class="swiper-slide">
               <img
-                src="/images/order/order-1.jpg"
+                src="images/order/order-1.jpg"
                 alt="High rise"
                 class="order__img"
               />
             </div>
             <div class="swiper-slide">
-              <img src="/images/order/order-2.jpg" alt="" class="order__img" />
+              <img src="images/order/order-2.jpg" alt="" class="order__img" />
             </div>
             <div class="swiper-slide">
-              <img src="/images/order/order-3.jpg" alt="" class="order__img" />
+              <img src="images/order/order-3.jpg" alt="" class="order__img" />
             </div>
           </div>
           <div class="swiper-pagination"></div>
@@ -84,7 +106,7 @@
         <div class="about__content">
           <div class="about__left">
             <img
-              src="/images/about/about-1.jpg"
+              src="images/about/about-1.jpg"
               alt="Working builder"
               class="about__img"
             />
@@ -146,6 +168,6 @@
       <div class="footer__right">
         <p class="footer__text"></p>
       </div>
-    </footer>
+    </footer> -->
   </body>
 </html>
