@@ -10,4 +10,24 @@ ul {
 
 a {
   text-decoration: none;
+  color: black;
+}
+
+img {
+  max-width: 100%;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+input,
+select {
+  border: none;
+  background-color: var(--element-background);
+}
+input:focus,
+select:focus {
+  outline: none;
 }

@@ -1,0 +1,141 @@
+// Global Scss Variables //
+$border-radius: 1.6666vw;
+@mixin selectDisable() {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+:root {
+  --main-color: tan;
+  --text-color: black;
+  --element-background: white;
+  --UI-color: #ff9900;
+
+  // --global-indentation: 0;
+  @include poly-fluid-sizing(
+    '--global-indentation',
+    (
+      320px: 15px,
+      768px: 50px,
+      1024px: 50px,
+      1920px: 75px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--header__margin-bottom',
+    (
+      320px: 30px,
+      768px: 40px,
+      1024px: 40px,
+      1920px: 50px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--header__height',
+    (
+      320px: 69px,
+      768px: 69px,
+      1024px: 100px,
+      1920px: 100px,
+    )
+  );
+}
+
+.header {
+  @include poly-fluid-sizing(
+    '--border-radius',
+    (
+      320px: 16px,
+      768px: 24px,
+      1024px: 32px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--burger__padding',
+    (
+      320px: 78px auto auto 15px,
+      768px: 152px auto auto 50px,
+      1024px: 170px auto auto 50px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--logo__width',
+    (
+      320px: 110px,
+      768px: 150px,
+      1024px: 150px,
+      1920px: 225px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--logo__height',
+    (
+      320px: 35px,
+      768px: 48px,
+      1024px: 48px,
+      1920px: 72px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--close__left',
+    (
+      320px: 15px,
+      768px: 48px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--close__top',
+    (
+      320px: 22px,
+      768px: 22px,
+      1024px: 38px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--nav__width',
+    (
+      320px: 320px,
+      768px: 420px,
+      1024px: 420px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--nav__margin-left',
+    (
+      1025px: 100px,
+      1920px: 553px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--item__margin-bottom',
+    (
+      320px: 32px,
+      768px: 60px,
+      1024px: 60px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--item__font-size',
+    (
+      320px: 16px,
+      768px: 24px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--bar__width',
+    (
+      320px: 320px,
+      768px: 539px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--bar__height',
+    (
+      320px: 69px,
+      768px: 60px,
+    )
+  );
+}
