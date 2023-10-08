@@ -13,7 +13,7 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script defer src="js/swiper.js"></script>
-    <script defer src="js/burger.js"></script>
+    <script defer src="js/script.js"></script>
     <title>Evclid</title>
   </head>
   <body>
@@ -40,7 +40,9 @@
         </ul>
       </nav>
       <button class="header__burger"></button>
-      <button class="header__search"></button>
+      <button class="header__search">
+        <object data="images/header/search.svg" type="image/svg+xml"></object>
+      </button>
       <div class="header__bar">
         <form
           target="_blank"
@@ -55,9 +57,14 @@
             placeholder="What are we looking for?"
             class="header__input"
           />
-          <button type="submit" class="header__btn"></button>
+          <button type="submit" class="header__btn">
+            <object
+              data="images/header/search.svg"
+              type="image/svg+xml"
+            ></object>
+          </button>
+          <button class="header__return"></button>
         </form>
-        <button class="header__return"></button>
       </div>
     </header>
     <!-- <main class="main">

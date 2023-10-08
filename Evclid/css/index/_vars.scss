@@ -7,6 +7,20 @@ $border-radius: 1.6666vw;
   -o-user-select: none;
   user-select: none;
 }
+@mixin objectSVG() {
+  position: relative;
+  > object {
+    position: absolute;
+    pointer-events: none;
+    left: 0;
+    top: 0;
+  }
+}
+@mixin buttonDropDefault() {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
 
 :root {
   --main-color: tan;

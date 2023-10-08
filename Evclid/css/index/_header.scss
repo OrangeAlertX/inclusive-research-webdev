@@ -30,12 +30,10 @@ p {
   }
 
   &__burger {
-    display: none;
+    @include buttonDropDefault();
     width: 30px;
     height: 23px;
-    background-color: transparent;
     background-image: url(../../images/header/burger.svg);
-    border: none;
   }
 
   &__close {
@@ -61,12 +59,16 @@ p {
   }
 
   &__search {
-    background-image: url(../../images/header/search.svg);
-    background-color: transparent;
-    border: none;
+    --color_fill: black;
+    // background-image: url(../../images/header/search.svg);
+    @include buttonDropDefault();
     width: 24px;
     height: 24px;
-    justify-self: flex-end;
+
+    @include objectSVG();
+    &--svg {
+      color: black;
+    }
   }
 
   &__bar {
@@ -145,6 +147,10 @@ p {
       &--active {
         display: flex;
       }
+    }
+
+    &__form {
+      display: flex;
       align-items: center;
     }
 
@@ -157,17 +163,21 @@ p {
 
     &__btn,
     &__return {
-      background-color: transparent;
-      border: none;
+      @include buttonDropDefault();
+
       width: 24px;
       height: 24px;
     }
 
     &__btn {
-      color: #ff9900;
       margin-left: 14px;
       margin-right: 20px;
-      background-image: url(../../images/header/search.svg);
+
+      @include objectSVG();
+
+      &--svg {
+        color: #ff9900;
+      }
     }
 
     &__return {

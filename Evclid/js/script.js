@@ -1,3 +1,4 @@
+// Header //
 (() => {
   'use strict';
   const nav = document.querySelector('.header__nav');
@@ -10,7 +11,10 @@
   close.addEventListener('click', () => switcher(nav));
 
   const returner = document.querySelector('.header__return');
-  returner.addEventListener('click', () => switcher(bar));
+  returner.addEventListener('click', (e) => {
+    e.preventDefault();
+    switcher(bar);
+  });
 
   const search = document.querySelector('.header__search');
   search.addEventListener('click', () => switcher(bar));
