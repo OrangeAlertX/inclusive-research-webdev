@@ -1,5 +1,4 @@
 // Global Scss Variables //
-$border-radius: 1.6666vw;
 @mixin selectDisable() {
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -16,17 +15,13 @@ $border-radius: 1.6666vw;
     top: 0;
   }
 }
-@mixin buttonDropDefault() {
-  background-color: transparent;
-  border: none;
-  padding: 0;
-}
 
 :root {
   --main-color: tan;
   --text-color: black;
   --element-background: white;
   --UI-color: #ff9900;
+  --UI-color-active: #e1670e;
 
   // --global-indentation: 0;
   @include poly-fluid-sizing(
@@ -36,6 +31,7 @@ $border-radius: 1.6666vw;
       768px: 50px,
       1024px: 50px,
       1920px: 75px,
+      10000px: 360px,
     )
   );
   @include poly-fluid-sizing(
@@ -150,6 +146,28 @@ $border-radius: 1.6666vw;
     (
       320px: 69px,
       768px: 60px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--input__width',
+    (
+      320px: 222px,
+      768px: 412px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--input__margin',
+    (
+      320px: auto 1px 21px 15px,
+      768px: auto 14px 16px 32px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--return__right',
+    (
+      320px: 15px,
+      768px: 13px,
+      1024px: 18px,
     )
   );
 }

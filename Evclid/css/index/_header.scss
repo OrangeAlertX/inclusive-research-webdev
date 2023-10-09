@@ -13,14 +13,18 @@ p {
 }
 
 .header {
+  position: relative;
   display: flex;
   align-items: center;
   max-width: 1920px;
   height: var(--header__height);
+  margin-left: auto;
+  margin-right: auto;
   padding: 0 var(--global-indentation);
   margin-bottom: var(--header__margin-bottom);
   background-color: var(--element-background);
   border-radius: 0 0 var(--border-radius) var(--border-radius);
+  box-shadow: 0px 3px 10px 4px rgba(0, 0, 0, 0.15);
 
   &__logo {
     display: flex;
@@ -30,10 +34,17 @@ p {
   }
 
   &__burger {
-    @include buttonDropDefault();
+    display: none;
     width: 30px;
     height: 23px;
-    background-image: url(../../images/header/burger.svg);
+
+    &:focus {
+      outline: 2px solid var(--UI-color);
+      outline-offset: 5px;
+    }
+    &:active {
+      color: var(--UI-color-active);
+    }
   }
 
   &__close {
@@ -56,31 +67,104 @@ p {
     font-weight: 600;
     color: var(--text-color);
     margin-right: 4.427vw;
+
+    & > a:hover {
+      margin-bottom: -2px;
+      border-bottom: 2px solid var(--UI-color);
+    }
+    & > a:focus {
+      outline: 2px solid var(--UI-color);
+      outline-offset: 5px;
+    }
+    & > a:active {
+      color: var(--UI-color-active);
+      margin-bottom: -2px;
+      border-bottom: 2px solid var(--UI-color-active);
+    }
   }
 
   &__search {
-    --color_fill: black;
-    // background-image: url(../../images/header/search.svg);
-    @include buttonDropDefault();
     width: 24px;
     height: 24px;
 
-    @include objectSVG();
-    &--svg {
-      color: black;
+    &:focus {
+      outline: 2px solid var(--UI-color);
+      outline-offset: 4px;
+    }
+    &:hover {
+      color: var(--UI-color);
     }
   }
 
   &__bar {
-    display: none;
+    visibility: hidden;
+    opacity: 0;
     right: 0;
     position: absolute;
     z-index: 6;
 
-    border-radius: 24px;
+    display: flex;
+    background-color: var(--element-background);
+    width: var(--bar__width);
+    height: var(--bar__height);
+    box-shadow: 0px 2px 8px 4px rgba(0, 0, 0, 0.25);
 
+    transition: opacity 0.25s ease-in-out;
+    &--active {
+      opacity: 100%;
+      visibility: visible;
+    }
+
+    border-radius: 24px;
     @media (max-width: 320px) {
       border-radius: 0 0 24px 24px;
+    }
+  }
+
+  &__form {
+    display: flex;
+    align-items: center;
+  }
+
+  &__input {
+    margin: var(--input__margin);
+    border-bottom: 1px solid #cacaca;
+    width: var(--input__width);
+    height: auto;
+  }
+
+  &__btn,
+  &__return {
+    width: 24px;
+    height: 24px;
+  }
+
+  &__btn {
+    margin-right: 20px;
+
+    &:hover,
+    &:active {
+      color: var(--UI-color);
+    }
+    &:focus {
+      outline: 2px solid var(--UI-color);
+      outline-offset: 4px;
+    }
+  }
+
+  &__return {
+    color: #cacaca;
+    margin-right: (--return__right);
+
+    &:hover {
+      color: var(--UI-color);
+    }
+    &:focus {
+      outline: 2px solid var(--UI-color);
+      outline-offset: 4px;
+    }
+    &:active {
+      color: black;
     }
   }
 }
@@ -106,6 +190,7 @@ p {
 
     &__nav {
       position: absolute;
+      visibility: hidden;
       left: 0;
       top: 0;
       margin: 0;
@@ -115,7 +200,10 @@ p {
       z-index: 5;
       background-color: var(--element-background);
 
+      transition: transform 0.3s ease-out;
+
       &--active {
+        visibility: visible;
         transform: translateX(0%);
       }
     }
@@ -125,7 +213,6 @@ p {
       position: relative;
       flex-direction: column;
       align-items: normal;
-      // margin: top auto auto left;
     }
 
     &__item {
@@ -137,52 +224,6 @@ p {
         font-weight: 700;
         color: #333333;
       }
-    }
-
-    &__bar {
-      background-color: var(--element-background);
-      width: var(--bar__width);
-      height: var(--bar__height);
-      box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-      &--active {
-        display: flex;
-      }
-    }
-
-    &__form {
-      display: flex;
-      align-items: center;
-    }
-
-    &__input {
-      margin: 16px 0 16px 32px;
-      border-bottom: 1px solid #cacaca;
-      width: 412px;
-      height: auto;
-    }
-
-    &__btn,
-    &__return {
-      @include buttonDropDefault();
-
-      width: 24px;
-      height: 24px;
-    }
-
-    &__btn {
-      margin-left: 14px;
-      margin-right: 20px;
-
-      @include objectSVG();
-
-      &--svg {
-        color: #ff9900;
-      }
-    }
-
-    &__return {
-      color: #cacaca;
-      background-image: url(../../images/header/closed_search.svg);
     }
   }
 }

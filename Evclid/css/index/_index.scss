@@ -1,34 +1,9 @@
-.main {
-  @include poly-fluid-sizing(
-    'margin',
-    (
-      10000px: 0 390px,
-      1920px: 0 75px,
-      1024px: 0 50px,
-      320px: 0 15px,
-    )
-  );
-  width: auto;
-}
 .order {
   &__img {
     width: 100%;
     height: auto;
     border-radius: $border-radius;
   }
-
-  &__content {
-  }
-
-  &__title {
-  }
-
-  &__text {
-  }
-
-  &__btn {
-  }
-
   .swiper {
     width: 100%;
   }
