@@ -1,43 +1,24 @@
-// (() => {
-//   let active = false;
+// Viewport resize for big monitors //
+(() => {
+  const viewport = document.querySelector('meta[name="viewport"]');
+  const defaultViewport = viewport.getAttribute('content');
 
-//   window.addEventListener('resize', function () {
-//     if (parseInt(window.innerWidth) > 2560) {
-//       switchScale();
-//       if (active) return;
-//       else {
-//         switchWidth();
-//       }
-//     } else if (active) {
-//       switchScale((reverse = true));
-//       switchWidth('width=2560', 'width=device-width');
-//     }
+  resizer();
 
-//     function switchScale(reverse = false) {
-//       let defaultScale = 'initial-scale=1';
+  window.addEventListener('resize', resizer);
 
-//       let viewport = document.querySelector('meta[name="viewport"]');
+  function resizer() {
+    const viewport = document.querySelector('meta[name="viewport"]');
+    const width = window.outerWidth;
 
-//       let a = /\binitial-scale=\w*(?:,|$)/g;
-//       let b = reverse
-//         ? defaultScale
-//         : `initial-scale=${window.innerWidth / 2560}`;
-//       console.log(a, b);
-//       let content = viewport.getAttribute('content').replace(a, b);
-//       viewport.setAttribute('content', content);
-//     }
-
-//     function switchWidth(a = 'width=device-width', b = 'width=2560') {
-//       active = !active;
-//       console.log('switchWidth');
-
-//       let viewport = document.querySelector('meta[name="viewport"]');
-
-//       let content = viewport.getAttribute('content').replace(a, b);
-//       viewport.setAttribute('content', content);
-//     }
-//   });
-// })();
+    if (width > 2560) {
+      viewport.setAttribute(
+        'content',
+        `width=2560, initial-scale=${width / 2560}`
+      );
+    } else viewport.setAttribute('content', defaultViewport);
+  }
+})();
 
 // Header //
 (() => {
