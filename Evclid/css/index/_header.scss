@@ -31,6 +31,10 @@ p {
     align-items: center;
     width: var(--logo__width);
     height: var(--logo__height);
+
+    > img {
+      max-width: 100%;
+    }
   }
 
   &__burger {
@@ -150,6 +154,9 @@ p {
       outline: 2px solid var(--UI-color);
       outline-offset: 4px;
     }
+  }
+  .active {
+    color: var(--UI-color);
   }
 
   &__return {

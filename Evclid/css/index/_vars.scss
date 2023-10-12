@@ -22,6 +22,7 @@
   --element-background: white;
   --UI-color: #ff9900;
   --UI-color-active: #e1670e;
+  --btn-color-focus: #ffb84d;
 
   // --global-indentation: 0;
   @include poly-fluid-sizing(
@@ -34,6 +35,17 @@
       10000px: 360px,
     )
   );
+  @include poly-fluid-sizing(
+    '--border-radius',
+    (
+      320px: 16px,
+      768px: 24px,
+      1024px: 32px,
+    )
+  );
+}
+
+.header {
   @include poly-fluid-sizing(
     '--header__margin-bottom',
     (
@@ -50,17 +62,6 @@
       768px: 69px,
       1024px: 100px,
       1920px: 100px,
-    )
-  );
-}
-
-.header {
-  @include poly-fluid-sizing(
-    '--border-radius',
-    (
-      320px: 16px,
-      768px: 24px,
-      1024px: 32px,
     )
   );
   @include poly-fluid-sizing(
@@ -168,6 +169,120 @@
       320px: 15px,
       768px: 13px,
       1024px: 18px,
+    )
+  );
+}
+
+.order {
+  @include poly-fluid-sizing(
+    '--content__padding',
+    (
+      320px: 60px 21px,
+      768px: 160px 40px,
+      1024px: 160px 77px,
+      1920px: 100px 80px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--h1__size',
+    (
+      320px: 20px,
+      768px: 50px,
+      1024px: 60px,
+      1920px: 70px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--title__bottom',
+    (
+      320px: 6px,
+      768px: 16px,
+      1024px: 16px,
+      1920px: 24px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--title__width',
+    (
+      320px: 247px,
+      768px: 588px,
+      1024px: 770px,
+      1920px: 837px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--title__height',
+    (
+      320px: 49px,
+      768px: 122px,
+      1024px: 146px,
+      1920px: 170px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--text__width',
+    (
+      320px: 247px,
+      768px: 588px,
+      1024px: 660px,
+      1920px: 790px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--text__font',
+    (
+      320px: 12px,
+      768px: 18px,
+      1024px: 20px,
+      1920px: 24px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--btn__padding',
+    (
+      320px: 13px 28px,
+      768px: 25px 39px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--border-radius-btn',
+    (
+      320px: 8px,
+      768px: 16px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--btn__font',
+    (
+      320px: 12px,
+      768px: 23px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--swiper__width',
+    (
+      320px: 290px,
+      768px: 668px,
+      1024px: 924px,
+      1920px: 1770px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--swiper__height',
+    (
+      320px: 308px,
+      768px: 662px,
+      1024px: 662px,
+      1920px: 620px,
     )
   );
 }
