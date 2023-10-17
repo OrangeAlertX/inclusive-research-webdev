@@ -2,6 +2,7 @@
   position: relative;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: var(--order__bottom);
   width: var(--swiper__width);
   height: var(--swiper__height);
 
@@ -28,6 +29,7 @@
 
     color: white;
     font-size: var(--h1__size);
+    line-height: 1.214em;
     text-wrap: nowrap;
     font-weight: 900;
   }
@@ -104,7 +106,20 @@
 
   .swiper-pagination-bullet {
     background-color: var(--main-color);
-    width: 15px;
-    height: 15px;
+    width: var(--bullet-size);
+    height: var(--bullet-size);
+    --swiper-pagination-bullet-horizontal-gap: 10px;
+  }
+}
+
+@media (max-width: 767px) {
+  .order {
+    &__title,
+    &__text,
+    &__btn {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 }

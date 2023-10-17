@@ -15,6 +15,20 @@
     top: 0;
   }
 }
+@mixin scaleBasedOnMaxMinWidth(
+  $maxWidth,
+  $minWidth,
+  $maxCSS,
+  $minCSS,
+  $nameOfVar
+) {
+  $diffWidth: $maxWidth - $minWidth;
+  $diffCSS: $maxCSS - $minCSS;
+  $cssPixelOnEveryWidthPixel: $diffCSS / $diffWidth;
+  #{$nameOfVar}: calc(
+    $minCSS + (100% - $minWidth) * $cssPixelOnEveryWidthPixel
+  );
+}
 
 :root {
   --main-color: tan;
@@ -23,6 +37,7 @@
   --UI-color: #ff9900;
   --UI-color-active: #e1670e;
   --btn-color-focus: #ffb84d;
+  --border-color: #cacaca;
 
   // --global-indentation: 0;
   @include poly-fluid-sizing(
@@ -41,6 +56,14 @@
       320px: 16px,
       768px: 24px,
       1024px: 32px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--border-radius-btn',
+    (
+      320px: 8px,
+      768px: 16px,
     )
   );
 }
@@ -175,6 +198,15 @@
 
 .order {
   @include poly-fluid-sizing(
+    '--order__bottom',
+    (
+      320px: 60px,
+      768px: 40px,
+      1024px: 40px,
+      1920px: 50px,
+    )
+  );
+  @include poly-fluid-sizing(
     '--content__padding',
     (
       320px: 60px 21px,
@@ -252,14 +284,6 @@
   );
 
   @include poly-fluid-sizing(
-    '--border-radius-btn',
-    (
-      320px: 8px,
-      768px: 16px,
-    )
-  );
-
-  @include poly-fluid-sizing(
     '--btn__font',
     (
       320px: 12px,
@@ -285,4 +309,158 @@
       1920px: 620px,
     )
   );
+  @include poly-fluid-sizing(
+    '--bullet-size',
+    (
+      320px: 10px,
+      768px: 15px,
+    )
+  );
+}
+
+.about {
+  @include poly-fluid-sizing(
+    '--about_bottom',
+    (
+      320px: 60px,
+      768px: 80px,
+      1024px: 83px,
+      1920px: 100px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--title__font',
+    (
+      320px: 24px,
+      768px: 48px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--text__font',
+    (
+      320px: 14px,
+      768px: 16px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--text__width',
+    (
+      320px: 290px,
+      768px: 668px,
+      1024px: 924px,
+      1920px: 1235px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--text__bottom',
+    (
+      320px: 13px,
+      768px: 55px,
+      1024px: 55px,
+      1920px: 46px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--text__width--content',
+    (
+      320px: 290px,
+      768px: 450px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--img__height',
+    (
+      320px: 200px,
+      768px: 650px,
+      1024px: 640px,
+      1920px: 622px,
+    )
+  );
+
+  @media (min-width: 320px) {
+    .about {
+      --img__height: 200px;
+    }
+  }
+  @media (min-width: 768px) {
+    .about {
+      --img__height: 650px;
+    }
+  }
+  @media (min-width: 1024px) {
+    .about {
+      --img__height: 640px;
+    }
+  }
+  @media (min-width: 1920px) {
+    .about {
+      --img__height: 622px;
+    }
+  }
+
+  @include poly-fluid-sizing(
+    '--svg__width',
+    (
+      768px: 72px,
+      1440px: 120px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--svg1__height',
+    (
+      768px: 79px,
+      1440px: 132px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--svg2__size',
+    (
+      768px: 81px,
+      1440px: 135px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--svg__translate',
+    (
+      768px: 5.5px,
+      1440px: 7px,
+    )
+  );
+
+  &__rightitem {
+    @include scaleBasedOnMaxMinWidth(924px, 668px, 77px, 40px, '--margin-left');
+    @include scaleBasedOnMaxMinWidth(
+      924px,
+      668px,
+      50px,
+      16px,
+      '--margin-right'
+    );
+    @include scaleBasedOnMaxMinWidth(
+      924px,
+      668px,
+      65px,
+      35px,
+      '--padding-height'
+    );
+  }
+
+  &__more {
+    @include scaleBasedOnMaxMinWidth(
+      924px,
+      668px,
+      50px,
+      40px,
+      '--resize-margin'
+    );
+  }
 }

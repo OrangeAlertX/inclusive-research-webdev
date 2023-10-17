@@ -66,15 +66,26 @@ p {
   }
 
   &__item {
+    position: relative;
     white-space: nowrap;
     font-size: 18px;
     font-weight: 600;
     color: var(--text-color);
     margin-right: 4.427vw;
 
-    & > a:hover {
-      margin-bottom: -2px;
-      border-bottom: 2px solid var(--UI-color);
+    & > a::after {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      content: '';
+      width: 0%;
+      height: 2px;
+      background-color: var(--UI-color);
+      transition: width 0.3s cubic-bezier(0, 1.25, 1, 1);
+    }
+
+    & > a:hover::after {
+      width: 100%;
     }
     & > a:focus {
       outline: 2px solid var(--UI-color);
