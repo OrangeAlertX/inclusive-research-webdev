@@ -215,7 +215,7 @@ p {
       transform: translateX(-100%);
       width: var(--nav__width);
       min-height: 100vh;
-      z-index: 5;
+      z-index: 105;
       background-color: var(--element-background);
 
       transition: transform 0.3s ease-out;
