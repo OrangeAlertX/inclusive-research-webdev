@@ -1,35 +1,39 @@
-import { initGameItems } from './game-tools.mjs';
-import { createGame } from './games.mjs';
+import createGame from './games.mjs';
+import componentDifficultySelection from './difficulties.mjs';
+import newElem from './game-tools.mjs';
 
-const createGameWrapper = () => {
+function createGameWrapper() {
   const container = initGameItems();
   document.body.append(container);
   setGameGreation(container);
-};
+}
 
-const setGameGreation = (container) => {
+function initGameItems() {
+  const container = newElem();
+  const difficulty = componentDifficultySelection();
+  const playground = newElem('div', 'playground');
+  container.append(difficulty, playground);
+
+  return container;
+}
+
+function setGameGreation(container) {
   const difficulties = container.children[0];
-  difficulties.children[0].addEventListener('click', (e) => {
-    createGame(e, container.children[1], 8, 2);
+  const options = [
+    [10, 2],
+    [14, 2],
+    [18, 3],
+    [24, 3],
+    [24, 4],
+    [32, 4],
+    [36, 6],
+  ];
+
+  Array.from(difficulties.children).forEach((dif, i) => {
+    dif.addEventListener('click', (e) =>
+      createGame(e, container.children[1], ...options[i])
+    );
   });
-  difficulties.children[1].addEventListener('click', (e) => {
-    createGame(e, container.children[1], 12, 2);
-  });
-  difficulties.children[2].addEventListener('click', (e) => {
-    createGame(e, container.children[1], 18, 3);
-  });
-  difficulties.children[3].addEventListener('click', (e) => {
-    createGame(e, container.children[1], 24, 3);
-  });
-  difficulties.children[4].addEventListener('click', (e) => {
-    createGame(e, container.children[1], 24, 4);
-  });
-  difficulties.children[5].addEventListener('click', (e) => {
-    createGame(e, container.children[1], 32, 4);
-  });
-  difficulties.children[6].addEventListener('click', (e) => {
-    createGame(e, container.children[1], 30, 6);
-  });
-};
+}
 
 createGameWrapper();

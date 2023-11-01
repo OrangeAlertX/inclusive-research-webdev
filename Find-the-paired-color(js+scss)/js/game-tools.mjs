@@ -2,7 +2,7 @@
 
 const CONTAINER_NAME = 'fpc';
 
-const newElem = (elemName = 'section', styleName = '', styleMod = '') => {
+function newElem(elemName = 'section', styleName = '', styleMod = '') {
   if (!styleName) styleName = elemName;
 
   const className =
@@ -15,51 +15,6 @@ const newElem = (elemName = 'section', styleName = '', styleMod = '') => {
   if (styleMod) elem.classList.add(`${className}--${styleMod}`);
 
   return elem;
-};
+}
 
-const createDifficulties = (numberOfModes) => {
-  const allPossibleModes = [
-    'Easy',
-    'Medium',
-    'Hard',
-    'Challenge',
-    'Extreme',
-    'Nightmare',
-    'Impossible',
-  ];
-
-  if (!(numberOfModes <= 7 && numberOfModes > 0)) {
-    alert('Only 7 mods exist now, but you put ' + numberOfModes);
-    return;
-  }
-
-  const elems = [];
-  for (let i = 0; i < numberOfModes; i++) {
-    const elem = newElem('button', 'btn', `btn${i + 1}`);
-    elem.textContent = allPossibleModes[i];
-
-    elems[i] = elem;
-  }
-
-  return elems;
-};
-
-const componentDifficultySelection = () => {
-  const difficulty = newElem('div', 'difficulty');
-  const buttons = createDifficulties(7);
-
-  difficulty.append(...buttons);
-
-  return difficulty;
-};
-
-const initGameItems = () => {
-  const container = newElem();
-  const difficulty = componentDifficultySelection();
-  const playground = newElem('div', 'playground');
-  container.append(difficulty, playground);
-
-  return container;
-};
-
-export { initGameItems, newElem };
+export default newElem;
