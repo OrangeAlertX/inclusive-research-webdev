@@ -2,9 +2,12 @@ import createGame from './games.mjs';
 import componentDifficultySelection from './difficulties.mjs';
 import newElem from './game-tools.mjs';
 
+import '../css/index.css';
+
 function createGameWrapper() {
   const container = initGameItems();
-  document.body.append(container);
+
+  document.getElementById('content').append(container);
   setGameGreation(container);
 }
 
