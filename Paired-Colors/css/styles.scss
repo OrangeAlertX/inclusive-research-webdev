@@ -1,0 +1,145 @@
+@mixin selectDisable() {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+$CONTAINER_NAME: 'fpc';
+
+// :export {
+//   CONTAINER_NAME: $CONTAINER_NAME;
+// }
+
+$colors: (
+  1: #c6fefb,
+  2: #f7f7ba,
+  3: #f7caba,
+  4: #fea5a5,
+  5: #8a86fe,
+  6: #4448c1,
+  7: #420f07,
+);
+
+@each $index, $color in $colors {
+  $path_to_colors: $CONTAINER_NAME + '__btn--btn' + $index;
+  .#{$path_to_colors} {
+    background-color: $color;
+  }
+}
+
+:root {
+  --currentDifficulty: aquamarine;
+}
+
+.#{$CONTAINER_NAME} {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include selectDisable();
+
+  &__difficulty {
+    position: absolute;
+    max-width: 100%;
+    z-index: 1;
+    display: flex;
+    padding: 5px 15px;
+    background-color: var(--currentDifficulty);
+    border-radius: 0 0 15px 15px;
+    overflow-x: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__playground {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  &__btn {
+    padding: 5px;
+    margin: 1px;
+    border-radius: 5px;
+
+    color: black;
+    text-wrap: nowrap;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+
+    &:nth-last-child(-n + 4) {
+      text-shadow: rgb(255, 88, 88) 10px 10px 10px;
+    }
+
+    &:hover {
+      box-shadow: rgba(46, 65, 240, 0.4) 0px 5px;
+      cursor: pointer;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    gap: 50px;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    padding: 50px 5vw 10px 5vw;
+
+    @media (max-width: 1024px) {
+      & {
+        gap: 25px;
+      }
+    }
+  }
+
+  &__card {
+    position: relative;
+    min-height: 50px;
+    max-height: 100px;
+    perspective: 1000px;
+
+    &Body {
+      position: relative;
+      z-index: 100;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+
+    &Face,
+    &Back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+
+    &Face {
+      border: 5px solid var(--currentDifficulty);
+      outline: 1px solid black;
+    }
+    &Back {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      -webkit-text-stroke: 1.5px #ffffff; /* Толщина и цвет обводки */
+      letter-spacing: 0;
+      background-color: #420f07;
+      transform: rotateY(180deg);
+    }
+  }
+}
