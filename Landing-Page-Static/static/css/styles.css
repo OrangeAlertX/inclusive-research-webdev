@@ -47,6 +47,10 @@
 a {
   text-decoration: none;
   color: #666666;
+
+  align-self: flex-start;
+
+  -webkit-user-drag: none;
 }
 
 p {
@@ -71,6 +75,8 @@ img {
 html {
   font-family: 'Muller';
   background-color: var(--background-color);
+
+  scroll-behavior: smooth;
 }
 
 h2 {
@@ -151,6 +157,10 @@ button:active {
   margin: 30px 0px;
 }
 
+.header > a {
+  align-self: center;
+}
+
 .logo-header {
   background-color: var(--link-hover-color);
   border-radius: 15px;
@@ -169,6 +179,8 @@ button:active {
 
 .telephone {
   color: #666666;
+
+  align-self: center;
 }
 
 .telephone:hover {
@@ -186,8 +198,6 @@ button:active {
 }
 
 .private-office-link {
-  display: flex;
-  align-items: center;
   color: var(--link-normal-color);
 }
 
@@ -560,6 +570,8 @@ h3 {
   font-size: 20px;
   color: white;
   font-weight: 500;
+
+  align-self: flex-end;
 }
 
 .placing-etc-link::before {
@@ -694,6 +706,11 @@ input[type='number'] {
   font-weight: bold;
 }
 
+.contacts-group {
+  display: flex;
+  flex-direction: column;
+}
+
 .footer-telephone {
   display: block;
 }
@@ -763,8 +780,12 @@ footer a {
   pointer-events: none;
 }
 
+.footer-group {
+  display: flex;
+  flex-direction: column;
+}
+
 .footer-group:not(:last-child) {
-  display: block;
   margin-bottom: 15px;
 }
 
@@ -778,6 +799,12 @@ footer a {
   /* color: #999999; */
   filter: invert(55%) sepia(97%) saturate(0%) hue-rotate(181deg) brightness(90%)
     contrast(99%);
+
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 }
 
 .footer-social:hover,

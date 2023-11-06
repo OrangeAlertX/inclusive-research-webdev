@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="favicon.svg" />
     <link rel="stylesheet" href="static/css/normalize.css" />
     <link rel="stylesheet" href="static/css/styles.css" />
@@ -21,23 +20,25 @@
       <header>
         <div class="flexer header">
           <div class="flexer logo-header">
-            <img
-              class="lagoona-img"
-              src="static/img/svg/logo/logo-text.svg"
-              alt="Lagoona"
-            />
-            <img src="static/img/svg/logo/logo-img.svg" alt="" />
+            <a href="">
+              <img
+                class="lagoona-img"
+                src="static/img/svg/logo/logo-text.svg"
+                alt="Lagoona"
+              />
+              <img src="static/img/svg/logo/logo-img.svg" alt="" />
+            </a>
           </div>
           <a class="telephone telephone-header" href="tel:+74953225448"
             >+7 495 322-54-48</a
           >
-          <a href="##" class="private-office-link"
+          <a href="##" class="private-office-link flexer"
             ><span class="private-office-link-decoration"></span>Личный
             кабинет</a
           >
         </div>
         <div class="flexer navigation">
-          <nav class="flexer">
+          <nav class="flexer" id="nav">
             <ul class="flexer">
               <li class="nav-link">
                 <a class="telephone" href="#nav1">
@@ -113,7 +114,9 @@
           </div>
         </section>
         <section id="nav1">
-          <h2>О нас</h2>
+          <a href="#nav">
+            <h2>О нас</h2>
+          </a>
           <p class="content">
             Идейные соображения высшего порядка, а также сложившаяся структура
             организации влечёт за собой процесс внедрения и модернизации системы
@@ -126,7 +129,9 @@
           </p>
         </section>
         <section id="nav2">
-          <h2>Услуги</h2>
+          <a href="#nav">
+            <h2>Услуги</h2>
+          </a>
           <div class="services-wrapper">
             <div class="services-div">
               <div class="services-image-div">
@@ -203,7 +208,9 @@
           </div>
         </section>
         <section id="nav3">
-          <h2>Преимущества</h2>
+          <a href="#nav">
+            <h2>Преимущества</h2>
+          </a>
           <div class="advantage-wrapper">
             <div class="advantage-cell">
               <span class="advantage-img advantage-img__1"></span>
@@ -264,7 +271,9 @@
           </div>
         </section>
         <section id="nav4">
-          <h2>Размещение</h2>
+          <a href="#nav">
+            <h2>Размещение</h2>
+          </a>
           <div class="placing">
             <div class="placing-card">
               <div class="placing-img">
@@ -498,7 +507,9 @@
         </section>
         <section id="nav5">
           <div class="order-wrapper">
-            <h2>Хочу тур</h2>
+            <a href="#nav">
+              <h2>Хочу тур</h2>
+            </a>
             <form
               target="_blank"
               class="order-form"
@@ -508,13 +519,13 @@
             >
               <div class="order-form-item order-item-left">
                 <label for="city"> Город вылета </label>
-                <select name="city" id="city">
+                <select name="city" id="city" autocomplete="on">
                   <option label="Минск" value="Minsk"></option>
                 </select>
               </div>
               <div class="order-form-item order-item-left">
                 <label for="country"> Страна </label>
-                <select name="country" id="country">
+                <select name="country" id="country" autocomplete="on">
                   <option label="Беларусь" value="Belarus"></option>
                 </select>
               </div>
@@ -549,7 +560,9 @@
           </div>
         </section>
         <section id="nav6">
-          <h2>Контакты</h2>
+          <a href="#nav">
+            <h2>Контакты</h2>
+          </a>
           <div class="contacts-wrapper">
             <div class="contacts-content-wrapper">
               <ul class="contacts">
