@@ -12,7 +12,7 @@
   &__text {
     display: block;
     width: var(--text__width);
-    font-size: var(--text__font);
+    font-size: var(--text__minfont);
     line-height: 2em;
     margin-bottom: var(--text__bottom);
   }
@@ -68,7 +68,7 @@
     &__more {
       &--text {
         margin: 0;
-        font-size: var(--text__font);
+        font-size: var(--text__minfont);
         line-height: 2em;
       }
     }
@@ -99,7 +99,7 @@
     &__text {
       &--content {
         margin: 0;
-        font-size: var(--text__font);
+        font-size: var(--text__minfont);
         line-height: 2em;
       }
     }
@@ -231,7 +231,7 @@
     &__text {
       &--content {
         margin: 0;
-        font-size: var(--text__font);
+        font-size: var(--text__minfont);
         line-height: 2em;
       }
     }

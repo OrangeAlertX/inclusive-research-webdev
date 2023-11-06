@@ -1,0 +1,54 @@
+.details {
+  &__title {
+    font-size: var(--title__font);
+    font-weight: 400;
+    margin: 0;
+    margin-bottom: 50px;
+  }
+
+  &__list {
+    display: flex;
+  }
+
+  &__item {
+    &--active {
+      color: var(--UI-color-active);
+    }
+  }
+
+  &__content {
+    display: flex;
+  }
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__mintitle {
+    margin: 0;
+    margin-bottom: 8px;
+    text-wrap: nowrap;
+
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  &__text {
+    margin: 0;
+    font-size: var(--text__minfont);
+    line-height: 2em;
+  }
+
+  &__btngroup {
+  }
+
+  &__btn1 {
+  }
+
+  &__btn2 {
+  }
+
+  &__right {
+  }
+}
