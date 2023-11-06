@@ -1,4 +1,4 @@
-import { newElem } from './game-tools.mjs';
+import newElem from './game-tools.mjs';
 
 const createGame = (e, playground, qtCards, bunchSize) => {
   const grid = newElem('div', 'grid');
@@ -7,7 +7,7 @@ const createGame = (e, playground, qtCards, bunchSize) => {
   playground.innerHTML = '';
   playground.append(grid);
   changeOrder(grid);
-  setGridSizes(grid, qtCards);
+  // setGridSizes(grid, qtCards);
   initFlipEvents(grid, bunchSize);
 
   const root = document.querySelector(':root');
@@ -92,19 +92,24 @@ const clearGridMemory = (memory, grid) => {
   }
   remain.click();
 };
-const acceptCards = (memory, card) => {
+const acceptCards = (memory) => {
   for (const cardM of memory) {
     setTimeout(() => {
       cardM.style.visibility = 'hidden';
     }, 1000);
   }
 
-  const cur = parseInt(card.parentElement.getAttribute('counter'));
-  if (cur <= memory.length)
+  const grid = memory[0].parentElement;
+
+  const cur = parseInt(grid.getAttribute('counter'));
+  if (cur <= memory.length) {
+    for (const cardM of memory) {
+      setTimeout(() => flipTheCard(cardM, memory), 1001);
+    }
     setTimeout(() => {
-      actionWinGame();
+      actionWinGame(grid);
     }, 1500);
-  else card.parentElement.setAttribute('counter', cur - memory.length);
+  } else grid.setAttribute('counter', cur - memory.length);
 
   memory.length = 0;
 };
@@ -115,8 +120,13 @@ const changeOrder = (grid) => {
   }
 };
 
-const actionWinGame = () => {
-  alert('You win!');
+const actionWinGame = (grid) => {
+  Array.from(grid.children).forEach((card, i) =>
+    setTimeout(() => {
+      card.style.visibility = 'visible';
+      card.children[0].style.transform = 'rotateY(180deg)';
+    }, 100 * i)
+  );
 };
 
 const setGridSizes = (grid, qt) => {
@@ -127,4 +137,4 @@ const setGridSizes = (grid, qt) => {
   grid.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
 };
 
-export { createGame };
+export default createGame;
