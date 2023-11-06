@@ -66,6 +66,22 @@
       768px: 16px,
     )
   );
+
+  @include poly-fluid-sizing(
+    '--title__font',
+    (
+      320px: 24px,
+      768px: 48px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--text__minfont',
+    (
+      320px: 14px,
+      768px: 16px,
+    )
+  );
 }
 
 .header {
@@ -326,22 +342,6 @@
       768px: 80px,
       1024px: 83px,
       1920px: 100px,
-    )
-  );
-
-  @include poly-fluid-sizing(
-    '--title__font',
-    (
-      320px: 24px,
-      768px: 48px,
-    )
-  );
-
-  @include poly-fluid-sizing(
-    '--text__font',
-    (
-      320px: 14px,
-      768px: 16px,
     )
   );
 
