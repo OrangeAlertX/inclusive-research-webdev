@@ -4,7 +4,7 @@ module.exports = (env, args) => {
   const isDev = args.mode === 'development';
 
   return {
-    entry: `./Paired-Colors/js/index.js`,
+    entry: `./Paired-Colors/js/createGameSection.js`,
     output: {
       path: path.resolve(__dirname, `Paired-Colors/dist`),
       filename: 'main.js',

@@ -1,6 +1,4 @@
-import newElem from './game-tools.mjs';
-
-function createDifficulties(numberOfModes) {
+export default function createDifficulties(numberOfModes, newElem) {
   const allPossibleModes = [
     'Easy',
     'Medium',
@@ -12,8 +10,7 @@ function createDifficulties(numberOfModes) {
   ];
 
   if (!(numberOfModes <= 7 && numberOfModes > 0)) {
-    alert('Only 7 mods exist now, but you put ' + numberOfModes);
-    return;
+    throw 'Only 7 mods exist now, but you put ' + numberOfModes;
   }
 
   const elems = [];
@@ -26,14 +23,3 @@ function createDifficulties(numberOfModes) {
 
   return elems;
 }
-
-function componentDifficultySelection() {
-  const difficulty = newElem('div', 'difficulty');
-  const buttons = createDifficulties(7);
-
-  difficulty.append(...buttons);
-
-  return difficulty;
-}
-
-export default componentDifficultySelection;
