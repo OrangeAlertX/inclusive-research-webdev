@@ -8,13 +8,41 @@
     "poly-fluid-sizing": "^1.2.1"
   },
   "devDependencies": {
-    "path": "^0.12.7",
+    "@babel/preset-env": "^7.23.3",
+    "babel-jest": "^29.7.0",
     "css-loader": "^6.8.1",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "path": "^0.12.7",
     "sass": "^1.69.5",
     "sass-loader": "^13.3.2",
     "style-loader": "^3.3.3",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "moduleFileExtensions": [
+      "js"
+    ],
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    },
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+    },
+    "testMatch": [
+      "<rootDir>/**/*.test.js"
+    ],
+    "globals": {
+      "__webpack_public_path__": "/"
+    }
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
   }
 }

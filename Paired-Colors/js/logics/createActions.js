@@ -1,11 +1,23 @@
 let counter;
 let bunchSize;
+let cardBunches;
 const memory = [];
 
-function createActions(grid, bS) {
-  const cards = grid.children;
+function groupCards(cards, bS) {
+  const cardBunches = new Map();
+
+  for (let i = 0; i < counter; i++) {
+    const bunchID = Math.floor(i / bS);
+    cardBunches.set(cards[i], bunchID);
+  }
+
+  return cardBunches;
+}
+
+function createActions(cards, bS) {
   counter = cards.length;
   bunchSize = bS;
+  cardBunches = groupCards(cards, bS);
 
   for (let i = 0; i < cards.length; i++) {
     const card = cards[i];
@@ -14,20 +26,27 @@ function createActions(grid, bS) {
 }
 
 const actionFlipCard = (card) => {
-  const isAlreadyFlipped = flipTheCard(card);
-  if (isAlreadyFlipped) return;
+  if (isAlreadyFlipped(card)) {
+    memory.splice(0, bunchSize, memoryWithoutCard(memory, card));
+    backFlip(card);
+    return;
+  } else {
+    forwardFlip(card);
+  }
 
   memory.push(card);
   if (cardsMatching(card) && memory.length === bunchSize)
     acceptCards(memory, card);
 };
+const memoryWithoutCard = (memory, card) => {
+  return memory.filter((item) => item !== card);
+};
 
 const cardsMatching = (card) => {
   memory.forEach((cardM) => {
-    const isNotTheSameCards =
-      cardM.getAttribute('bunchID') !== card.getAttribute('bunchID');
+    const isNotSameCards = cardBunches.get(cardM) !== cardBunches.get(card);
 
-    if (isNotTheSameCards) {
+    if (isNotSameCards) {
       clearGridMemory(card.parentElement);
       return false;
     }
@@ -37,17 +56,17 @@ const cardsMatching = (card) => {
 };
 
 const clearGridMemory = (grid) => {
-  const remain = memory.at(-1);
+  const last = memory.at(-1);
   for (let i = 0; i < memory.length - 1; i++) {
     const cardM = memory[i];
-    flipTheCard(cardM);
+    backFlip(cardM);
   }
 
   memory.length = 0;
   // for (const card of grid.children) {
   //   if (card.children[0].style.transform) card.children[0].style.transform = '';
   // }
-  memory.push(remain);
+  memory.push(last);
 };
 
 const acceptCards = (memory) => {
@@ -70,6 +89,7 @@ const acceptCards = (memory) => {
 
 const actionWinGame = (grid) => {
   const cards = Array.from(grid.children);
+  console.log(cards);
   cards.forEach((card, i) => {
     const cardBodyStyle = card.children[0].style;
     backFlip(cardBodyStyle);
@@ -81,23 +101,20 @@ const actionWinGame = (grid) => {
   });
 };
 
-const flipTheCard = (card) => {
+const isAlreadyFlipped = (card) => {
   const cardBodyStyle = card.children[0].style;
-  const isAlreadyFlipped = !!cardBodyStyle.getPropertyValue('transform');
-
-  if (isAlreadyFlipped) {
-    backFlip(cardBodyStyle);
-  } else forwardFlip(cardBodyStyle);
-
-  return isAlreadyFlipped;
+  return !!cardBodyStyle.getPropertyValue('transform');
 };
 
-const forwardFlip = (cardBodyStyle) => {
+const forwardFlip = (card) => {
+  const cardBodyStyle = card.children[0].style;
   cardBodyStyle.setProperty('transform', 'rotateY(180deg)');
 };
 
-const backFlip = (cardBodyStyle) => {
+const backFlip = (card) => {
+  const cardBodyStyle = card.children[0].style;
   cardBodyStyle.setProperty('transform', '');
 };
 
 export default createActions;
+export { memoryWithoutCard };

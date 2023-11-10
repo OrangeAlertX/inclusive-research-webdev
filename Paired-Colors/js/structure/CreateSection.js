@@ -4,7 +4,7 @@ function CreateSection(root) {
   Object.defineProperty(this, 'container', { get: () => container });
   Object.defineProperty(this, 'newElem', { get: () => newElem });
 
-  function newElem(elemName, styleName = '', styleMod = '') {
+  function newElem(elemName, styleName = '') {
     if (!styleName) styleName = elemName;
 
     const className = `${root}__${styleName}`;
@@ -12,8 +12,6 @@ function CreateSection(root) {
     const elem = document.createElement(elemName);
     if (elem instanceof HTMLUnknownElement) throw 'HTMLUnknownElement created!';
     elem.classList.add(className);
-
-    if (styleMod) elem.classList.add(`${className}--${styleMod}`);
 
     return elem;
   }

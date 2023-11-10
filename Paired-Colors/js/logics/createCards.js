@@ -1,4 +1,4 @@
-const getColor = () => Math.floor(Math.random() * 256);
+const genColor = () => Math.floor(Math.random() * 256);
 
 export default function createCards(qt, bunchSize, newElem) {
   const cards = [];
@@ -11,11 +11,10 @@ export default function createCards(qt, bunchSize, newElem) {
     const cardBack = newElem('div', 'cardBack');
     card.append(cardBody);
     cardBody.append(cardFace, cardBack);
-    card.setAttribute('bunchID', `bunch${i + 1}`);
     cardBack.textContent = `${i}`;
     cardBack.style.setProperty(
       'background-color',
-      `rgb(${getColor()},${getColor()},${getColor()})`
+      `rgb(${genColor()},${genColor()},${genColor()})`
     );
     cards.push(card);
     for (let i = 1; i < bunchSize; i++) {

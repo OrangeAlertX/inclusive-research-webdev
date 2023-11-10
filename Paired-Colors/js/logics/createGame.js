@@ -11,7 +11,7 @@ const createGame = (e, game, qtCards, bunchSize) => {
 
   setCardsTheme(e);
   changeOrder(cards);
-  createActions(grid, bunchSize);
+  createActions(cards, bunchSize);
 };
 
 const changeOrder = (cards) => {
