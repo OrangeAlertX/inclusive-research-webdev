@@ -1,11 +1,3 @@
-@mixin selectDisable() {
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-}
-
 $CONTAINER_NAME: 'fpc';
 
 $colors: (
@@ -34,7 +26,7 @@ $colors: (
   flex-direction: column;
   align-items: center;
 
-  @include selectDisable();
+  user-select: none;
 
   &__difficulty {
     position: absolute;
@@ -45,6 +37,10 @@ $colors: (
     background-color: var(--currentDifficulty);
     border-radius: 0 0 15px 15px;
     overflow-x: scroll;
+
+    outline: 1px solid grey;
+
+    box-shadow: gray 1px 1px 10px 1px;
 
     &::-webkit-scrollbar {
       display: none;
@@ -79,16 +75,27 @@ $colors: (
       box-shadow: rgba(46, 65, 240, 0.4) 0px 5px;
       cursor: pointer;
     }
+
+    @media (max-width: 1024px) {
+      & {
+        letter-spacing: normal;
+      }
+    }
   }
 
   &__grid {
     display: grid;
     justify-content: center;
+    align-content: flex-start;
     width: 100%;
     height: 100vh;
     gap: 50px;
     grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    grid-auto-rows: minmax(50px, 100px);
     padding: 50px 5vw 10px 5vw;
+
+    outline: 5px solid var(--currentDifficulty);
+    outline-offset: -5px;
 
     @media (max-width: 1024px) {
       & {
@@ -123,8 +130,9 @@ $colors: (
     }
 
     &Face {
-      border: 5px solid var(--currentDifficulty);
-      outline: 1px solid black;
+      background-color: var(--currentDifficulty);
+      // border: 5px solid var(--currentDifficulty);
+      outline: 1px solid grey;
     }
     &Back {
       display: flex;
