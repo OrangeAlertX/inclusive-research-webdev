@@ -1,12 +1,7 @@
-let counter;
-let bunchSize;
-let cardBunches;
-const memory = [];
-
 function groupCards(cards, bS) {
   const cardBunches = new Map();
 
-  for (let i = 0; i < counter; i++) {
+  for (let i = 0; i < cards.length; i++) {
     const bunchID = Math.floor(i / bS);
     cardBunches.set(cards[i], bunchID);
   }
@@ -14,40 +9,46 @@ function groupCards(cards, bS) {
   return cardBunches;
 }
 
+let counter;
 function createActions(cards, bS) {
   counter = cards.length;
-  bunchSize = bS;
-  cardBunches = groupCards(cards, bS);
+  const bunchSize = bS;
+  const cardBunches = groupCards(cards, bS);
+  const memory = [];
 
   for (let i = 0; i < cards.length; i++) {
     const card = cards[i];
-    card.addEventListener('click', () => actionFlipCard(card));
+    card.addEventListener('click', () =>
+      actionFlipCard(card, { bunchSize, cardBunches, memory })
+    );
   }
 }
 
-const actionFlipCard = (card) => {
+const actionFlipCard = (card, props) => {
+  const memory = props.memory;
+
   if (isAlreadyFlipped(card)) {
-    memory.splice(0, bunchSize, memoryWithoutCard(memory, card));
+    memory.splice(0, props.bunchSize, ...memoryWithoutCard(memory, card));
     backFlip(card);
     return;
-  } else {
-    forwardFlip(card);
   }
 
+  forwardFlip(card);
   memory.push(card);
-  if (cardsMatching(card) && memory.length === bunchSize)
-    acceptCards(memory, card);
+
+  if (cardsMatching(card, memory, props) && memory.length === props.bunchSize)
+    acceptCards(memory);
 };
 const memoryWithoutCard = (memory, card) => {
   return memory.filter((item) => item !== card);
 };
 
-const cardsMatching = (card) => {
+const cardsMatching = (card, memory, { cardBunches }) => {
   memory.forEach((cardM) => {
     const isNotSameCards = cardBunches.get(cardM) !== cardBunches.get(card);
 
     if (isNotSameCards) {
-      clearGridMemory(card.parentElement);
+      clearGridMemory(memory);
       return false;
     }
   });
@@ -55,22 +56,19 @@ const cardsMatching = (card) => {
   return true;
 };
 
-const clearGridMemory = (grid) => {
+const clearGridMemory = (memory) => {
   const last = memory.at(-1);
   for (let i = 0; i < memory.length - 1; i++) {
-    const cardM = memory[i];
-    backFlip(cardM);
+    backFlip(memory[i]);
   }
 
   memory.length = 0;
-  // for (const card of grid.children) {
-  //   if (card.children[0].style.transform) card.children[0].style.transform = '';
-  // }
   memory.push(last);
 };
 
 const acceptCards = (memory) => {
   memory.forEach((cardM) => {
+    cardM.style.setProperty('pointer-events', 'none');
     setTimeout(() => {
       cardM.style.setProperty('visibility', 'hidden');
     }, 1000);
@@ -89,14 +87,13 @@ const acceptCards = (memory) => {
 
 const actionWinGame = (grid) => {
   const cards = Array.from(grid.children);
-  console.log(cards);
+
   cards.forEach((card, i) => {
-    const cardBodyStyle = card.children[0].style;
-    backFlip(cardBodyStyle);
+    backFlip(card);
 
     setTimeout(() => {
       card.style.setProperty('visibility', 'visible');
-      forwardFlip(cardBodyStyle);
+      forwardFlip(card);
     }, 100 * i);
   });
 };
@@ -117,4 +114,4 @@ const backFlip = (card) => {
 };
 
 export default createActions;
-export { memoryWithoutCard };
+export { memoryWithoutCard, groupCards };

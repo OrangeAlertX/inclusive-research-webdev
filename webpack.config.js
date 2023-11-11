@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = (env, args) => {
-  const isDev = args.mode === 'development';
+  // const isDev = args.mode === 'development';
 
   return {
     entry: `./Paired-Colors/js/createGameSection.js`,
@@ -13,8 +13,8 @@ module.exports = (env, args) => {
     module: {
       rules: [
         {
-          test: /\.css$/,
-          use: ['style-loader', 'css-loader'],
+          test: /\.s?[ac]ss$/i,
+          use: ['style-loader', 'css-loader', 'sass-loader'],
         },
         {
           test: /\.(png|svg|jpg|jpeg|gif)$/i,

@@ -1,12 +1,22 @@
-import { memoryWithoutCard } from '../js/logics/createActions';
+import { memoryWithoutCard, groupCards } from '../js/logics/createActions';
 
-test('memoryWithoutCard', () => {
+describe('tests with virtual DOM', () => {
   const cards = [];
+  const card = document.createElement('div');
   for (let i = 0; i < 6; i++) {
-    const elem = document.createElement('div');
-    cards.push(elem);
+    cards.push(card.cloneNode(true));
   }
-  console.log(cards);
 
-  expect(memoryWithoutCard(cards, cards[0])).toHaveLength(5);
+  test('memoryWithoutCard', () => {
+    expect(memoryWithoutCard(cards, card)).toHaveLength(6);
+
+    const removedCard = cards[0];
+    const tempExpect = expect(memoryWithoutCard(cards, removedCard));
+    tempExpect.toHaveLength(5);
+    tempExpect.not.toContain(removedCard);
+  });
+
+  test('groupCards', () => {
+    expect(groupCards(cards, 2).size).toBe(cards.length);
+  });
 });

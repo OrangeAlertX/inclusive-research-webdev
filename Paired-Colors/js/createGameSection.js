@@ -2,7 +2,7 @@ import CreateSection from './structure/CreateSection';
 import createDifficulties from './structure/createDifficulties';
 import eventCreationGame from './structure/eventCreationGame';
 
-import '../css/index.css';
+import '../css/index.scss';
 
 const NUMBEROFMODES = 7;
 const OPTIONS = [
