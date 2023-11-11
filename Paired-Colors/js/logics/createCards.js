@@ -1,6 +1,6 @@
 const genColor = () => Math.floor(Math.random() * 256);
 
-export default function createCards(qt, bunchSize, newElem) {
+export default function createCards(qt, bunchSize, withDigits, newElem) {
   const cards = [];
   const bunches = parseInt(qt / bunchSize);
 
@@ -11,7 +11,7 @@ export default function createCards(qt, bunchSize, newElem) {
     const cardBack = newElem('div', 'cardBack');
     card.append(cardBody);
     cardBody.append(cardFace, cardBack);
-    cardBack.textContent = `${i}`;
+    if (withDigits) cardBack.textContent = `${i}`;
     cardBack.style.setProperty(
       'background-color',
       `rgb(${genColor()},${genColor()},${genColor()})`

@@ -6,13 +6,13 @@ import '../css/index.scss';
 
 const NUMBEROFMODES = 7;
 const OPTIONS = [
-  [10, 2],
-  [14, 2],
-  [18, 3],
-  [24, 3],
-  [24, 4],
-  [32, 4],
-  [36, 6],
+  [10, 2, true],
+  [14, 2, false],
+  [18, 3, true],
+  [24, 3, false],
+  [24, 4, true],
+  [32, 4, false],
+  [36, 6, false],
 ];
 // OPTIONS.forEach((op, i) => {
 //   if (op[0] % op[1] !== 0) throw `Wrong OPTION i`;

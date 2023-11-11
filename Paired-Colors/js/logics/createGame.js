@@ -1,9 +1,9 @@
 import createCards from './createCards';
 import createActions from './createActions';
 
-const createGame = (e, game, qtCards, bunchSize) => {
+const createGame = (e, game, qtCards, bunchSize, withDigits) => {
   const grid = game.newElem('div', 'grid');
-  const cards = createCards(qtCards, bunchSize, game.newElem);
+  const cards = createCards(qtCards, bunchSize, withDigits, game.newElem);
 
   grid.append(...cards);
   game.playground.innerHTML = '';
