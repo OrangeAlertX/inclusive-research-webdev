@@ -1,8 +1,9 @@
-import CreateSection from './structure/CreateSection';
+import '../css/index.scss';
+
+import Section from './structure/Section';
 import createDifficulties from './structure/createDifficulties';
 import eventCreationGame from './structure/eventCreationGame';
-
-import '../css/index.scss';
+import Records from './structure/Records';
 
 const NUMBEROFMODES = 7;
 const OPTIONS = [
@@ -19,7 +20,7 @@ const OPTIONS = [
 // });
 
 // Create Game Elements
-const game = new CreateSection('fpc');
+const game = new Section('fpc');
 game.difficulty = game.newElem('div', 'difficulty');
 game.difficulties = createDifficulties(NUMBEROFMODES, game.newElem);
 game.playground = game.newElem('div', 'playground');
@@ -29,6 +30,9 @@ document.getElementById('content').append(game.container);
 game.container.append(game.difficulty);
 game.container.append(game.playground);
 game.difficulty.append(...game.difficulties);
+
+// Add Records
+game.records = new Records(game.difficulty, game.newElem);
 
 // Add game generation
 eventCreationGame(game, OPTIONS);

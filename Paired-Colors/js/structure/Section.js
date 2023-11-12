@@ -1,4 +1,4 @@
-function CreateSection(root) {
+export default function Section(root) {
   const container = document.createElement('div');
   container.classList.add(root);
   Object.defineProperty(this, 'container', { get: () => container });
@@ -18,5 +18,3 @@ function CreateSection(root) {
     return elem;
   }
 }
-
-export default CreateSection;
