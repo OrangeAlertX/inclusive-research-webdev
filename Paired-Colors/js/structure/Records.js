@@ -24,6 +24,7 @@ export default function Records(container, btnContainer, newElem) {
     list: { get: () => list },
     addRecord: { get: () => addRecord },
     removeRecord: { get: () => removeRecord },
+    deactivateRecords: { get: () => deactivateRecords },
   });
 
   function addRecord(name, time, clicks) {
@@ -34,6 +35,10 @@ export default function Records(container, btnContainer, newElem) {
 
   function removeRecord(record) {
     list.removeChild(record);
+  }
+
+  function deactivateRecords() {
+    content.classList.remove(classNameActive);
   }
 }
 
