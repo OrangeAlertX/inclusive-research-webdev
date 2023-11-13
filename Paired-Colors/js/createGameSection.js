@@ -21,18 +21,20 @@ const OPTIONS = [
 
 // Create Game Elements
 const game = new Section('fpc');
+game.header = game.newElem('div', 'header');
 game.difficulty = game.newElem('div', 'difficulty');
 game.difficulties = createDifficulties(NUMBEROFMODES, game.newElem);
 game.playground = game.newElem('div', 'playground');
 
 // Append to DOM
 document.getElementById('content').append(game.container);
-game.container.append(game.difficulty);
+game.container.append(game.header);
 game.container.append(game.playground);
+game.header.append(game.difficulty);
 game.difficulty.append(...game.difficulties);
 
 // Add Records
-game.records = new Records(game.difficulty, game.newElem);
+game.records = new Records(game.header, game.difficulty, game.newElem);
 
 // Add game generation
 eventCreationGame(game, OPTIONS);
