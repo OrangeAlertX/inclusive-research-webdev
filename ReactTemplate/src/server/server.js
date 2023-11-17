@@ -1,15 +1,30 @@
 import express from 'express';
 import React from 'react';
-import ReactDOM from 'react-dom/server';
-import TestComponent from '../shared/TestComponent';
+import { renderToString } from 'react-dom/server';
+import App from '../shared/App';
 import indexHTML from './indexTemplate';
 
 const app = express();
 
-app.use(express.static('dist'));
+app.use('/client/', express.static('dist/client'));
 
-app.get('/', (req, res) =>
-  res.send(indexHTML(ReactDOM.renderToString(<TestComponent />)))
-);
+if (process.env.NODE_ENV === 'development') {
+  const webpackDevMiddleware = require('webpack-dev-middleware');
+  const webpackHotMiddleware = require('webpack-hot-middleware');
+  const clientConfig = require('/cfg/webpack.client.config');
+  const webpack = require('webpack');
 
-app.listen(5501, () => console.log(new Date().toLocaleTimeString()));
+  const compilerClient = webpack(clientConfig);
+
+  app.use(
+    webpackDevMiddleware(compilerClient, {
+      publicPath: clientConfig.output.publicPath,
+    })
+  );
+
+  app.use(webpackHotMiddleware(compilerClient));
+}
+
+app.get('/', (req, res) => res.send(indexHTML(renderToString(<App />))));
+
+app.listen(5500, () => console.log(new Date().toLocaleTimeString()));

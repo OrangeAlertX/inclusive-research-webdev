@@ -1,24 +1,22 @@
 const webpack = require('webpack');
-const webpackConfig = require('../webpack.config');
 const nodemon = require('nodemon');
 const path = require('path');
+const serverConfig = require('../cfg/webpack.server.config');
 
-const webpacker = webpack(webpackConfig);
+const compilerServer = webpack(serverConfig);
 
-console.time('Cold compilation');
+console.time('Server ready');
 
-webpacker.run(() => {
-  console.timeEnd('Cold compilation');
+compilerServer.run(() => {
+  console.timeEnd('Server ready');
 
-  webpacker.watch({}, () => {
-    console.log('Reloaded');
+  compilerServer.watch({}, () => {
+    console.log('Server reloaded');
   });
 
   nodemon({
     script: path.resolve(__dirname, '../dist/server/server.js'),
-    watch: [
-      path.resolve(__dirname, '../dist/server'),
-      path.resolve(__dirname, '../dist/client'),
-    ],
+    watch: [path.resolve(__dirname, '../dist/server')],
+    ignore: ['**/*.jsx'],
   });
 });

@@ -1,37 +1,26 @@
 const path = require('path');
-// const HTMLWebpackPlugin = require('html-webpack-plugin');
+const process = require('process');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { merge } = require('webpack-merge');
+const commonConfig = require('./webpack.common.config');
 
-const NODE_ENV = process.env.NODE_ENV; //for express
+const NODE_ENV = process.env.NODE_ENV;
 const isDev = NODE_ENV === 'development';
-if (!NODE_ENV || (!isDev && NODE_ENV !== 'production'))
+if (NODE_ENV !== 'development' && NODE_ENV !== 'production')
   throw 'NODE_ENV not development or production';
 
-module.exports = {
+const clientConfig = {
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
   },
-  mode: NODE_ENV,
-  entry: path.resolve(__dirname, '../src/client/client.js'),
+  entry: path.resolve(process.cwd(), './src/client/client.js'),
   output: {
-    path: path.resolve(__dirname, '../dist/client'),
+    path: path.resolve(process.cwd(), './dist/client'),
     filename: 'client.js',
+    publicPath: '/client/',
   },
-  module: {
-    rules: [
-      {
-        test: /\.[tj]sx?$/,
-        use: ['ts-loader'],
-      },
-    ],
-  },
-  //This is needed if you don't have your own server//
-  // plugins: [
-  //   new HTMLWebpackPlugin({ template: path.resolve(__dirname, 'index.html') }),
-  // ],
-  // devServer: {
-  //   port: 5500,
-  //   open: true,
-  //   hot: isDev,
-  // },
   devtool: isDev ? 'eval' : false,
+  plugins: isDev ? [new CleanWebpackPlugin()] : [],
 };
+
+module.exports = merge(commonConfig, clientConfig);
