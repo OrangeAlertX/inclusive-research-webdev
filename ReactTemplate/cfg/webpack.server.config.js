@@ -23,11 +23,6 @@ const serverConfig = {
     minimize: false,
   },
   plugins: isDev ? [new CleanWebpackPlugin()] : [],
-  // watchOptions: isDev
-  //   ? {
-  //       ignored: /App\.jsx/,
-  //     }
-  //   : {},
 };
 
 module.exports = merge(commonConfig, serverConfig);

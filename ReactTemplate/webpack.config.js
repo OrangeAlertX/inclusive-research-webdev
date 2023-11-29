@@ -3,4 +3,4 @@ const serverConfig = require('./cfg/webpack.server.config');
 
 const NODE_ENV = process.env.NODE_ENV;
 
-module.exports = [clientConfig, serverConfig];
+module.exports = { clientConfig, serverConfig };
