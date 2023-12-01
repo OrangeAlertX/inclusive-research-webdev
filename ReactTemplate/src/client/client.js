@@ -2,12 +2,20 @@ import React from 'react';
 import { hydrateRoot, createRoot } from 'react-dom/client';
 import App from '../shared/App';
 
-const root = createRoot(document.getElementById('app'));
-root.render(<App />); // hydrateRoot(document.getElementById('app'), <App />);
+if (process.env.NODE_ENV === 'production') {
+  // Production only
+  hydrateRoot(document.getElementById('app'), <App />);
+  ///////////////////////////////////
+} else {
+  // Develompent only
+  const root = createRoot(document.getElementById('app'));
+  root.render(<App />);
 
-if (module.hot) {
-  module.hot.accept('../shared/App', () => {
-    const HotApp = require('../shared/App').default;
-    root.render(<HotApp />);
-  });
+  if (module.hot) {
+    module.hot.accept('../shared/App', () => {
+      const HotApp = require('../shared/App').default;
+      root.render(<HotApp />);
+    });
+    /////////////////////////////////
+  }
 }

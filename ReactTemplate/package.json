@@ -7,7 +7,7 @@
     "dev": "env NODE_ENV=development node ./bin/dev.js ",
     "build": "env NODE_ENV=production webpack --config webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "testServer": "env NODE_ENV=development node ./src/server/server.js"
+    "prodDebug": "env NODE_ENV=production node ./bin/prodDebug.js"
   },
   "author": "",
   "license": "ISC",

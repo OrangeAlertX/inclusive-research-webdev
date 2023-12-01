@@ -1,6 +1,6 @@
 const path = require('path');
-const process = require('process');
 const nodeExternals = require('webpack-node-externals');
+const { WatchIgnorePlugin } = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { merge } = require('webpack-merge');
 const commonConfig = require('./webpack.common.config');
@@ -22,7 +22,9 @@ const serverConfig = {
   optimization: {
     minimize: false,
   },
-  plugins: isDev ? [new CleanWebpackPlugin()] : [],
+  plugins: isDev
+    ? [new CleanWebpackPlugin(), new WatchIgnorePlugin({ paths: [/\.jsx$/] })]
+    : [new CleanWebpackPlugin()],
 };
 
 module.exports = merge(commonConfig, serverConfig);

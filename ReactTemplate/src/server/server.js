@@ -1,23 +1,12 @@
 import express from 'express';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-// import App from '../shared/App';
 import indexHTML from './indexTemplate';
 
 const logger = require('morgan');
 const cors = require('cors');
-// const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
-
-// const proxyOptions = {
-//   target: 'http://localhost:5501',
-//   changeOrigin: true,
-// };
-
-// const proxy = createProxyMiddleware('/client', proxyOptions);
-
-// app.use('/client', proxy);
 
 if (process.env.NODE_ENV === 'development') {
   app.use(
@@ -36,8 +25,18 @@ app.use(logger('dev'));
 
 app.use('/client/', express.static('dist/client'));
 
-app.get('/', (req, res) => res.send(indexHTML(''))); //renderToString(<App />)
+if (process.env.NODE_ENV === 'production') {
+  const App = require('../shared/App').default;
+  var ReactSSR = indexHTML(renderToString(App()));
+  console.log(ReactSSR);
+} else {
+  var ReactSSR = indexHTML('');
+}
+
+app.get('/', (req, res) => res.send(ReactSSR));
 
 app.listen(5500, () =>
-  console.log('Server loaded: ', new Date().toLocaleTimeString())
+  console.log(
+    `Server loaded in ${new Date().toLocaleTimeString()} on http://localhost:5500/`
+  )
 );

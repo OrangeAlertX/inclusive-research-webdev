@@ -1,10 +1,10 @@
 import React from 'react';
 
-export default function App(params) {
+export default function App(props) {
   return (
     <div>
       <h1>Title</h1>
-      <p>red orange eeeeeee1111dsafgasdgas</p>
+      <p>orange 5</p>
     </div>
   );
 }

@@ -14,10 +14,12 @@ const clientConfig = {
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
   },
-  entry: [
-    path.resolve(process.cwd(), './src/client/client.js'),
-    'webpack-hot-middleware/client?path=http://localhost:5501/client/__webpack_hmr',
-  ],
+  entry: isDev
+    ? [
+        path.resolve(process.cwd(), './src/client/client.js'),
+        'webpack-hot-middleware/client?path=http://localhost:5501/client/__webpack_hmr',
+      ]
+    : [path.resolve(process.cwd(), './src/client/client.js')],
   output: {
     path: path.resolve(process.cwd(), './dist/client'),
     filename: 'client.js',
@@ -26,13 +28,15 @@ const clientConfig = {
   devtool: isDev ? 'eval' : false,
   plugins: isDev
     ? [new CleanWebpackPlugin(), new HotModuleReplacementPlugin()]
-    : [],
-  devServer: {
-    contentBase: path.resolve(process.cwd(), '../dist/client/'),
-    publicPath: '/client/',
-    port: '5500',
-    watchContentBase: true,
-  },
+    : [new CleanWebpackPlugin()],
+  devServer: isDev
+    ? {
+        contentBase: path.resolve(process.cwd(), '../dist/client/'),
+        publicPath: '/client/',
+        port: '5500',
+        watchContentBase: true,
+      }
+    : {},
 };
 
 module.exports = merge(commonConfig, clientConfig);

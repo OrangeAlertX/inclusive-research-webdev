@@ -1,24 +1,15 @@
 const webpack = require('webpack');
 const nodemon = require('nodemon');
 const path = require('path');
-const { serverConfig } = require('../webpack.config');
-const { clientConfig } = require('../webpack.config');
+const [clientConfig, serverConfig] = require('../webpack.config');
 
 const express = require('express');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const cors = require('cors');
-// const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const hmr = express();
 const compilerClient = webpack(clientConfig);
-
-// const hmrProxy = createProxyMiddleware({
-//   target: 'http://localhost:5500',
-//   changeOrigin: true,
-// });
-
-// hmr.use(hmrProxy);
 
 hmr.use(
   cors({
@@ -30,8 +21,6 @@ hmr.use(
     ],
   })
 );
-
-// hmr.use('/client/', express.static('dist/client'));
 
 hmr.use(
   webpackDevMiddleware(compilerClient, {
