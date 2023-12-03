@@ -12,6 +12,26 @@ const serverConfig = {
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
   },
+  module: {
+    rules: [
+      {
+        test: /\.s?[ac]ss$/i,
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                mode: 'local',
+                localIdentName: '[name]__[local]--[hash:base64:5]',
+              },
+              onlyLocals: true,
+            },
+          },
+          'sass-loader',
+        ],
+      },
+    ],
+  },
   target: 'node',
   entry: path.resolve(process.cwd(), './src/server/server.js'),
   output: {

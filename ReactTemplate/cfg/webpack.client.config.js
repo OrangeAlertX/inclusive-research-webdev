@@ -10,9 +10,36 @@ const isDev = NODE_ENV === 'development';
 if (NODE_ENV !== 'development' && NODE_ENV !== 'production')
   throw 'NODE_ENV not development or production';
 
+const GLOBAL_CSS = /\.global\.s?[ac]ss$/;
+
 const clientConfig = {
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+  },
+  module: {
+    rules: [
+      {
+        test: /\.s?[ac]ss$/i,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                mode: 'local',
+                localIdentName: '[name]__[local]--[hash:base64:5]',
+              },
+            },
+          },
+          'sass-loader',
+        ],
+        exclude: GLOBAL_CSS,
+      },
+      {
+        test: GLOBAL_CSS,
+        use: ['style-loader', 'sass-loader', 'css-loader'],
+      },
+    ],
   },
   entry: isDev
     ? [
