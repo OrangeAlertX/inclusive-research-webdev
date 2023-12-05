@@ -6,21 +6,9 @@ const [clientConfig, serverConfig] = require('../webpack.config');
 const express = require('express');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
-const cors = require('cors');
 
 const hmr = express();
 const compilerClient = webpack(clientConfig);
-
-hmr.use(
-  cors({
-    origin: [
-      'http://localhost:5501',
-      'http://localhost:5500',
-      'http://127.0.0.2:5500',
-      'http://127.0.0.2:5501',
-    ],
-  })
-);
 
 hmr.use(
   webpackDevMiddleware(compilerClient, {
