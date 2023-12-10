@@ -38,18 +38,13 @@ if (isDev) {
       ///////////////////
       const url = req.originalUrl.replace(base, '');
 
-      let templateHtml = await fs.readFile('../index.html', 'utf-8');
+      let templateHtml = await fs.readFile('./index.html', 'utf-8');
       templateHtml = await vite.transformIndexHtml(url, templateHtml);
 
-      const render = (await vite.ssrLoadModule('../src/entry-server.tsx'))
-        .render;
-      const rendered = await render(url);
+      const ssrLoader = await vite.ssrLoadModule('./src/entry-server.tsx');
+      const rendered = await ssrLoader.render({ url });
 
-      console.log(rendered.head);
-
-      const html = templateHtml
-        .replace(`<!--app-head-->`, rendered.head ?? '')
-        .replace(`<!--app-html-->`, rendered.html);
+      const html = templateHtml.replace(`<!--app-html-->`, rendered.html);
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
       ///////////////////
