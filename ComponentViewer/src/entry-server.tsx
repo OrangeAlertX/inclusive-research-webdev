@@ -1,9 +1,9 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import App from './App';
+import App from './components/App/App';
 
-export function render(props) {
-  const { url } = props;
+export function render(params) {
+  const { url } = params;
 
   const html = renderToString(
     <React.StrictMode>

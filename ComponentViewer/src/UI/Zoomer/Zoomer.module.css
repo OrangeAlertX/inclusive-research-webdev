@@ -1,0 +1,14 @@
+.outer {
+  position: relative;
+  flex: auto;
+  height: 100%;
+  outline: 1px solid gray;
+
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+}
+
+.inner {
+  flex: auto;
+}
