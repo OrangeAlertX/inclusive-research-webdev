@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './RangeSlider.module.css';
 
 interface RangeSlider {
@@ -10,21 +10,47 @@ RangeSlider.defaultProps = {
   resolution: 720,
 };
 
-let timeout;
+let timeoutForParentRerender;
+let timeoutForCurrentRerender;
+const setResolutionHandler = (e, setResolution, setCurrentResolution) => {
+  if (timeoutForParentRerender) clearTimeout(timeoutForParentRerender);
+  timeoutForParentRerender = setTimeout(() => {
+    setResolution(e.target.value);
+  }, 1000);
+
+  if (timeoutForCurrentRerender) clearTimeout(timeoutForCurrentRerender);
+  timeoutForCurrentRerender = setTimeout(() => {
+    setCurrentResolution(e.target.value);
+  }, 50);
+};
+
+const eventWheel = (e, setResolution, setCurrentResolution) => {
+  const cur = e.target.value;
+  const step = 10;
+  if (e.deltaY < 0) {
+    e.target.value = +cur + step;
+  } else {
+    e.target.value -= step;
+  }
+  e.preventDefault();
+  e.stopPropagation();
+  setResolutionHandler(e, setResolution, setCurrentResolution);
+};
+
 export default function RangeSlider(props) {
-  console.log('render RangeSlider');
+  const ref = useRef(null);
+  useEffect(() => {
+    ref.current.addEventListener(
+      'wheel',
+      (e) => eventWheel(e, setResolution, setCurrentResolution),
+      { passive: false }
+    );
+    console.log('useEffect');
+  }, []);
+
   const { resolution, setResolution } = props;
 
   const [currentResolution, setCurrentResolution] = useState(720);
-
-  const setResolutionHandler = (e) => {
-    setCurrentResolution(e.target.value);
-    if (timeout) clearTimeout(timeout);
-    timeout = setTimeout(() => {
-      setResolution(e.target.value);
-      console.log(e.target.value);
-    }, 1000);
-  };
 
   return (
     <div className={styles.container}>
@@ -33,10 +59,13 @@ export default function RangeSlider(props) {
         type="range"
         min="320"
         max="3840"
-        step="10"
-        onChange={(e) => setResolutionHandler(e)}
+        step="2"
+        onChange={(e) =>
+          setResolutionHandler(e, setResolution, setCurrentResolution)
+        }
         defaultValue={resolution}
         list="markersOfRangeSlider"
+        ref={ref}
       ></input>
       <span className={styles.tooltip}>{currentResolution}</span>
     </div>

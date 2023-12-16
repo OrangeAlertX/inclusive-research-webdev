@@ -9,7 +9,7 @@ export default function CounterButton(props) {
   const [count, setCount] = useState(0);
 
   return (
-    <div className="card">
+    <div className={styles.card}>
       <button onClick={() => setCount((count) => count + 1)}>
         Count is {count}!
       </button>

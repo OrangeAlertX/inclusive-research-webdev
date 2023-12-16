@@ -1,8 +1,13 @@
-.outer {
-  position: relative;
+.container {
   flex: auto;
   height: 100%;
   outline: 1px solid gray;
+
+  overflow: hidden;
+}
+
+.outer {
+  height: inherit;
 
   display: flex;
   align-items: center;

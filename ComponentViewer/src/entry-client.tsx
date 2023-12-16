@@ -5,16 +5,11 @@ import './index.css';
 
 if (import.meta.env.DEV) {
   //////////////////////
-  const root = createRoot(document.getElementById('root'));
+  const root = createRoot(document.getElementById('root') as HTMLElement);
   root.render(<App />);
   //////////////////////
 } else {
   //////////////////////
-  hydrateRoot(
-    document.getElementById('root') as HTMLElement,
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  );
+  hydrateRoot(document.getElementById('root') as HTMLElement, <App />);
   //////////////////////
 }

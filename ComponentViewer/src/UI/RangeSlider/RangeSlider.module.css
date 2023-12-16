@@ -25,6 +25,8 @@
   cursor: pointer;
   width: 15em;
 
+  /* touch-action: none; */
+
   --trackWidth: 0.1em;
   --thumbSize: 1em;
   --thumbTranslate: calc((var(--thumbSize) - var(--trackWidth)) / -2);

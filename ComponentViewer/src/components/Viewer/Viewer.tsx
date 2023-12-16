@@ -1,4 +1,4 @@
-import { useState, Children } from 'react';
+import { useState } from 'react';
 import styles from './Viewer.module.css';
 import RangeSlider from '../../UI/RangeSlider/RangeSlider';
 import Zoomer from '../../UI/Zoomer/Zoomer';
@@ -6,6 +6,7 @@ import Zoomer from '../../UI/Zoomer/Zoomer';
 interface Viewer {
   withRangeSlider?: boolean;
   children: React.ReactElement;
+  width?: number;
 }
 
 Viewer.defaultProps = {
@@ -13,7 +14,7 @@ Viewer.defaultProps = {
 };
 
 const breakpoints = [
-  320, 375, 480, 600, 720, 880, 1024, 1120, 1240, 1360, 1440, 1520, 1600, 1750,
+  320, 374, 480, 600, 720, 880, 1024, 1120, 1240, 1360, 1440, 1520, 1600, 1750,
   1900, 2100, 2400, 2560, 2800, 3300,
 ];
 
