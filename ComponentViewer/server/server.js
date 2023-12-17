@@ -42,7 +42,7 @@ if (isDev) {
       templateHtml = await vite.transformIndexHtml(url, templateHtml);
 
       const ssrLoader = await vite.ssrLoadModule('./src/entry-server.tsx');
-      const rendered = await ssrLoader.render({ url });
+      const rendered = await ssrLoader.render({ url, req });
 
       const html = templateHtml.replace(`<!--app-html-->`, rendered.html);
 

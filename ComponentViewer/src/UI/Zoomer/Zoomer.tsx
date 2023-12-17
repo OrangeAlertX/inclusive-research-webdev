@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './Zoomer.module.css';
+console.log(styles);
 
 interface Zoomer {
   children: React.ReactElement;
@@ -13,18 +14,18 @@ export default function Zoomer(props) {
 
   const { children, resolution } = props;
 
-  // let width = ;
   useEffect(() => {
     const container = refContainer.current;
     const containerWidth = container.offsetWidth;
 
     const outer = refOuter.current;
-    // outer.style.setProperty('transform', `scale(${outerWidth / resolution})`);
-    outer.style.setProperty('width', resolution + 'px');
+    outer.style.setProperty(
+      'transform',
+      `scale(${containerWidth / resolution})`
+    );
 
     const inner = refInner.current;
-    // inner.style.setProperty('width', resolution.toString());
-    // () => ({ width: resolution })
+    inner.style.setProperty('width', resolution + 'px');
   }, [resolution]);
 
   return (

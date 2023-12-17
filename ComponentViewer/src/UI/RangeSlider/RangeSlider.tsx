@@ -4,6 +4,8 @@ import styles from './RangeSlider.module.css';
 interface RangeSlider {
   resolution?: number;
   setResolution: React.Dispatch<React.SetStateAction<number>>;
+
+  className?: string;
 }
 
 RangeSlider.defaultProps = {
@@ -37,7 +39,14 @@ const eventWheel = (e, setResolution, setCurrentResolution) => {
   setResolutionHandler(e, setResolution, setCurrentResolution);
 };
 
-export default function RangeSlider(props) {
+export default function RangeSlider(props: RangeSlider) {
+  const { resolution, setResolution } = props;
+
+  let className = props.className;
+  if (className) className = styles.container + ' ' + className;
+  else className = styles.container;
+  ///////////////////////////////////
+
   const ref = useRef(null);
   useEffect(() => {
     ref.current.addEventListener(
@@ -48,12 +57,10 @@ export default function RangeSlider(props) {
     console.log('useEffect');
   }, []);
 
-  const { resolution, setResolution } = props;
-
   const [currentResolution, setCurrentResolution] = useState(720);
 
   return (
-    <div className={styles.container}>
+    <div className={className}>
       <input
         className={styles.slider}
         type="range"
