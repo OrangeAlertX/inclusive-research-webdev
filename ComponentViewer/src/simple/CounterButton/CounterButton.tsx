@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import styles from './CounterButton.module.css';
 
-interface CounterButton {}
+interface CounterButton {
+  children?: React.ReactElement;
+}
 
 export default function CounterButton(props) {
   const { children } = props;

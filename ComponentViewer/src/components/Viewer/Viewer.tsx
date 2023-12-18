@@ -2,15 +2,17 @@ import { useState } from 'react';
 import styles from './Viewer.module.css';
 import RangeSlider from '../../UI/RangeSlider/RangeSlider';
 import Zoomer from '../../UI/Zoomer/Zoomer';
+import EmbedComponent from '../../UI/Zoomer/EmbedComponent/EmbedComponent';
 
 interface Viewer {
   withRangeSlider?: boolean;
   children: React.ReactElement;
-  width?: number;
+  isEmbed: boolean;
 }
 
 Viewer.defaultProps = {
   withRangeSlider: true,
+  isEmbed: false,
 };
 
 const breakpoints = [
@@ -20,7 +22,7 @@ const breakpoints = [
 
 export default function Viewer(props: Viewer) {
   console.log('render Viewer');
-  const { withRangeSlider, children } = props;
+  const { withRangeSlider, children, isEmbed } = props;
 
   const [resolution, setResolution] = useState(720);
 
@@ -31,9 +33,12 @@ export default function Viewer(props: Viewer) {
   const ZoomerProps = {
     resolution,
   };
+
+  const ZoomerOrEmbed = isEmbed ? EmbedComponent : Zoomer;
+
   return (
     <div className={styles.container}>
-      <Zoomer {...ZoomerProps}>{children}</Zoomer>
+      <ZoomerOrEmbed {...ZoomerProps}>{children}</ZoomerOrEmbed>
       {withRangeSlider && <RangeSlider {...RangeSliderProps} />}
 
       <datalist id="markersOfRangeSlider">

@@ -10,29 +10,29 @@ const createComponent = function (name, pathToSrc, componentFolder) {
   const resolvedPath = path.resolve(process.cwd(), pathToSrc, componentFolder);
 
   const nameTSXcontent = `import { useState } from 'react';
-  import styles from './${name}.module.css';
-  
-  interface ${name} {
-      
-  }
-  
-  export default function ${name}(props) {
-    const { children } = props;
-  
-    return (<></>);
-  }`;
+import styles from './${name}.module.css';
+
+interface ${name} {
+    
+}
+
+export default function ${name}(props) {
+  const { children } = props;
+
+  return (<></>);
+}`;
 
   const cbError = (e) => {
     if (e) console.log(e);
   };
 
   const newFolder = path.resolve(resolvedPath, name);
-  fs.mkdir(newFolder, cbError);
+  fs.mkdirSync(newFolder, cbError);
 
   const nameTSXfile = path.resolve(newFolder, name + '.tsx');
   const nameCSSfile = path.resolve(newFolder, name + '.module.css');
-  fs.writeFile(nameTSXfile, nameTSXcontent, { flag: 'wx' }, cbError);
-  fs.writeFile(nameCSSfile, '', { flag: 'wx' }, cbError);
+  fs.writeFileSync(nameTSXfile, nameTSXcontent, { flag: 'wx' }, cbError);
+  fs.writeFileSync(nameCSSfile, '', { flag: 'wx' }, cbError);
 
   console.log('done!');
 };

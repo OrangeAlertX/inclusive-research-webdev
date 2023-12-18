@@ -16,4 +16,6 @@
 
 .inner {
   flex: auto;
+  display: flex;
+  justify-content: center;
 }

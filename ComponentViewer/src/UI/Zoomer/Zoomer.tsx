@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './Zoomer.module.css';
-console.log(styles);
 
 interface Zoomer {
   children: React.ReactElement;
