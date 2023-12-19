@@ -54,7 +54,6 @@ export default function RangeSlider(props: RangeSlider) {
       (e) => eventWheel(e, setResolution, setCurrentResolution),
       { passive: false }
     );
-    console.log('useEffect');
   }, []);
 
   const [currentResolution, setCurrentResolution] = useState(720);

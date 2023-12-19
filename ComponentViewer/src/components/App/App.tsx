@@ -11,11 +11,9 @@ export default function App() {
         path="/"
         element={
           <RootContainer>
-            <>
-              <Viewer isEmbed>
-                <CounterButton />
-              </Viewer>
-            </>
+            <Viewer isEmbed>
+              <CounterButton />
+            </Viewer>
           </RootContainer>
         }
       />
