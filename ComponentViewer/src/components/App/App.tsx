@@ -2,7 +2,6 @@ import { Route, Routes } from 'react-router-dom';
 import Viewer from '../Viewer/Viewer';
 import CounterButton from '../../simple/CounterButton/CounterButton';
 import RootContainer from '../RootContainer/RootContainer';
-import routes from './routes';
 
 export default function App() {
   return (
@@ -17,14 +16,6 @@ export default function App() {
           </RootContainer>
         }
       />
-      {routes.map((Component) => (
-        <Route
-          key={Component.name}
-          path={`/components/${Component.name}`}
-          element={<Component />}
-        />
-      ))}
-      {/* <Route path="/components/CounterButton" element={<CounterButton />} /> */}
     </Routes>
   );
 }
