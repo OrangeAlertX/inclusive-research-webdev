@@ -28,8 +28,10 @@ export default function Zoomer(props) {
   return (
     <div ref={refContainer} className={styles.container}>
       <div ref={refOuter} className={styles.outer}>
-        <div ref={refInner} className={styles.inner}>
-          {children}
+        <div className={styles.middle}>
+          <div ref={refInner} className={styles.inner}>
+            {children}
+          </div>
         </div>
       </div>
     </div>

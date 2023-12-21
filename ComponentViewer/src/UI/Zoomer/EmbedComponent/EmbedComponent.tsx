@@ -2,7 +2,13 @@ import { Children, useEffect, useState } from 'react';
 import styles from './EmbedComponent.module.css';
 import { createPortal } from 'react-dom';
 
-const cssOrLink = (name, cssLink, updateCssLink) => {
+interface EmbedComponent {
+  children: React.ReactElement;
+  resolution: number;
+}
+
+const mountedObservers = [];
+const cssOrLink = (cssLink, updateCssLink) => {
   if (cssLink) return cssLink;
 
   const head = document.head;
@@ -10,32 +16,32 @@ const cssOrLink = (name, cssLink, updateCssLink) => {
   if (import.meta.env.DEV) {
     const styles = head.querySelectorAll('style[type="text/css"]');
 
-    let styleOfIndex;
-    let styleOfComponent;
     styles.forEach((style) => {
-      const curStyle = style.getAttribute('data-vite-dev-id');
-      if (curStyle.includes('index.css')) styleOfIndex = style;
-      if (curStyle.includes(name)) {
-        styleOfComponent = style;
-      }
+      cssLink += style.innerHTML + ' ';
     });
 
-    cssLink = styleOfIndex.innerHTML + ' ' + styleOfComponent.innerHTML;
     const observer = new MutationObserver((mutationsList) => {
-      console.log(styleOfComponent.innerHTML);
-      updateCssLink(styleOfIndex.innerHTML + ' ' + styleOfComponent.innerHTML);
+      cssLink = '';
+      styles.forEach((style) => {
+        cssLink += style.innerHTML + ' ';
+      });
+      updateCssLink(cssLink);
     });
-    observer.observe(styleOfComponent, { childList: true });
+    mountedObservers.push(observer);
+    observer.observe(head, { childList: true });
   } else {
+    const cssBundle = head.querySelector('link[rel="stylesheet"]');
+    cssLink = cssBundle.getAttribute('href');
   }
 
   return cssLink;
 };
 
-export default function EmbedComponent(props) {
+export default function EmbedComponent(props: EmbedComponent) {
   if (typeof window === 'undefined') {
     return null;
   }
+
   const { children, resolution } = props;
 
   const [ref, setRef] = useState(null);
@@ -72,35 +78,25 @@ export default function EmbedComponent(props) {
     align-items: center;
     `;
 
-    // iframe.contentDocument
-    //   .getElementById('iframeRoot')
-    //   .style.setProperty('min-height', containerHeight / multiplier);
+    return () => {
+      mountedObservers.forEach((observer) => observer.disconnect());
+      mountedObservers.length = 0;
+    };
   }, [resolution, ref]);
 
   const mountNode = ref?.contentDocument.body;
   const headStyle = (
     <>
       {import.meta.env.DEV && (
-        <style>
-          {cssOrLink(Children.only(children).type.name, cssLink, updateCssLink)}
-        </style>
+        <style>{cssOrLink(cssLink, updateCssLink)}</style>
       )}
       {import.meta.env.PROD && (
-        <link
-          type="stylesheet"
-          href={cssOrLink(
-            Children.only(children).type.name,
-            cssLink,
-            updateCssLink
-          )}
-        ></link>
+        <link rel="stylesheet" href={cssOrLink(cssLink, updateCssLink)}></link>
       )}
     </>
   );
   const bodyStyleAndChildren = (
-    <div id="iframeRoot" style={{ margin: '0 auto' }}>
-      {children}
-    </div>
+    <div style={{ margin: '0 auto' }}>{children}</div>
   );
   return (
     <div className={styles.container}>

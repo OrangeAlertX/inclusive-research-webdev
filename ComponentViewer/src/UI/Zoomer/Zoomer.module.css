@@ -20,10 +20,14 @@
   justify-content: stretch;
 }
 
+.middle {
+  margin: 0 auto;
+}
+
 .inner {
   flex: auto;
   display: flex;
   justify-content: center;
 
-  outline: 1px solid gray;
+  /* outline: 1px solid gray; */
 }
