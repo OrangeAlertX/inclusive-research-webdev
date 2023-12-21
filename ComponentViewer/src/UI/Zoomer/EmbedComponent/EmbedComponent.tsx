@@ -1,6 +1,5 @@
 import { Children, useEffect, useState } from 'react';
 import styles from './EmbedComponent.module.css';
-import friendStyles from '../Zoomer.module.css';
 import { createPortal } from 'react-dom';
 
 const cssOrLink = (name, cssLink, updateCssLink) => {
@@ -42,11 +41,40 @@ export default function EmbedComponent(props) {
   const [ref, setRef] = useState(null);
   const [cssLink, updateCssLink] = useState('');
 
+  let containerHeight;
   useEffect(() => {
     const iframe = ref;
-    iframe?.style.setProperty('width', resolution + 'px');
 
-    iframe?.style.setProperty('transform', `scale(${900 / resolution})`);
+    if (!iframe) return;
+
+    const outer = iframe.parentElement;
+    const containerWidth = outer.parentElement.offsetWidth;
+    containerHeight = outer.parentElement.offsetHeight;
+
+    outer.style.setProperty('width', resolution + 'px');
+    const multiplier = containerWidth / resolution;
+    const adjustHeight =
+      containerHeight / 2 - (outer.offsetHeight * multiplier) / 2;
+    outer.style.setProperty(
+      'transform',
+      `scale(${containerWidth / resolution}) translateY(${
+        -adjustHeight / multiplier
+      }px)`
+    );
+    iframe.style.setProperty(
+      'height',
+      (resolution / containerWidth) * outer.offsetHeight + 'px'
+    );
+
+    iframe.contentDocument.body.style = `
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    `;
+
+    // iframe.contentDocument
+    //   .getElementById('iframeRoot')
+    //   .style.setProperty('min-height', containerHeight / multiplier);
   }, [resolution, ref]);
 
   const mountNode = ref?.contentDocument.body;
@@ -70,21 +98,14 @@ export default function EmbedComponent(props) {
     </>
   );
   const bodyStyleAndChildren = (
-    <>
-      <style>{`body {flex: auto;
-      display: flex;
-      justify-content: center;}`}</style>
+    <div id="iframeRoot" style={{ margin: '0 auto' }}>
       {children}
-    </>
+    </div>
   );
   return (
-    <div className={friendStyles.container}>
-      <div className={friendStyles.outer}>
-        <iframe
-          className={friendStyles.inner}
-          style={{ width: 720 }}
-          ref={setRef}
-        >
+    <div className={styles.container}>
+      <div className={styles.outer}>
+        <iframe className={styles.inner} ref={setRef}>
           {mountNode && createPortal(bodyStyleAndChildren, mountNode, 'first')}
           {mountNode &&
             createPortal(headStyle, ref.contentDocument.head, 'second')}

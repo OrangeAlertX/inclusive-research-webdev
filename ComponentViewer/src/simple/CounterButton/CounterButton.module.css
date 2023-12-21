@@ -1,5 +1,6 @@
 .card {
   padding: 2em;
+  font-size: 188px;
 }
 
 @media (max-width: 1600px) {

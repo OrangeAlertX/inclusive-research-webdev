@@ -1,12 +1,18 @@
 .container {
+  position: relative;
   flex: auto;
   height: 100%;
   outline: 1px solid gray;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   overflow: hidden;
 }
 
 .outer {
+  position: absolute;
   height: inherit;
 
   display: flex;
@@ -18,4 +24,6 @@
   flex: auto;
   display: flex;
   justify-content: center;
+
+  outline: 1px solid gray;
 }

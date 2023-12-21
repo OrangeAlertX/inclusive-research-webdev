@@ -22,9 +22,7 @@ export default function Zoomer(props) {
       'transform',
       `scale(${containerWidth / resolution})`
     );
-
-    const inner = refInner.current;
-    inner.style.setProperty('width', resolution + 'px');
+    outer.style.setProperty('width', resolution + 'px');
   }, [resolution]);
 
   return (
