@@ -9,7 +9,7 @@ interface EmbedComponent {
 
 const mountedObservers = [];
 const cssOrLink = (cssLink, updateCssLink) => {
-  if (cssLink) return cssLink;
+  if (cssLink || typeof window === 'undefined') return cssLink;
 
   const head = document.head;
 
@@ -38,16 +38,11 @@ const cssOrLink = (cssLink, updateCssLink) => {
 };
 
 export default function EmbedComponent(props: EmbedComponent) {
-  if (typeof window === 'undefined') {
-    return null;
-  }
-
   const { children, resolution } = props;
 
   const [ref, setRef] = useState(null);
   const [cssLink, updateCssLink] = useState('');
 
-  let containerHeight;
   useEffect(() => {
     const iframe = ref;
 
@@ -55,7 +50,7 @@ export default function EmbedComponent(props: EmbedComponent) {
 
     const outer = iframe.parentElement;
     const containerWidth = outer.parentElement.offsetWidth;
-    containerHeight = outer.parentElement.offsetHeight;
+    const containerHeight = outer.parentElement.offsetHeight;
 
     outer.style.setProperty('width', resolution + 'px');
     const multiplier = containerWidth / resolution;

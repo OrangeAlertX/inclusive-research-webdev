@@ -6,7 +6,7 @@ interface Zoomer {
   resolution: number;
 }
 
-export default function Zoomer(props) {
+export default function Zoomer(props: Zoomer) {
   const refContainer = useRef(null);
   const refOuter = useRef(null);
   const refInner = useRef(null);

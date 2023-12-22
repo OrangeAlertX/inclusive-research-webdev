@@ -49,11 +49,11 @@ export default function RangeSlider(props: RangeSlider) {
 
   const ref = useRef(null);
   useEffect(() => {
-    ref.current.addEventListener(
-      'wheel',
-      (e) => eventWheel(e, setResolution, setCurrentResolution),
-      { passive: false }
-    );
+    const cb = (e) => eventWheel(e, setResolution, setCurrentResolution);
+    ref.current.addEventListener('wheel', cb, { passive: false });
+
+    const oldRef = ref.current;
+    return () => oldRef.removeEventListener('wheel', cb);
   }, []);
 
   const [currentResolution, setCurrentResolution] = useState(720);

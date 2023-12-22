@@ -5,7 +5,7 @@ interface CounterButton {
   children?: React.ReactElement;
 }
 
-export default function CounterButton(props) {
+export default function CounterButton(props: CounterButton) {
   const { children } = props;
 
   const [count, setCount] = useState(0);
