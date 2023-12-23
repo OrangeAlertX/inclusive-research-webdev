@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import styles from './CounterButton.module.css';
 
-interface CounterButton {
+interface ICounterButton {
   children?: React.ReactElement;
 }
 
-export default function CounterButton(props: CounterButton) {
+export default function CounterButton(props: ICounterButton) {
   const { children } = props;
 
   const [count, setCount] = useState(0);

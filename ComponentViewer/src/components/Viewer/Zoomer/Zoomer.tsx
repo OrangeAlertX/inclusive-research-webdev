@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './Zoomer.module.css';
 
-interface Zoomer {
+interface IZoomer {
   children: React.ReactElement;
   resolution: number;
 }
 
-export default function Zoomer(props: Zoomer) {
+export default function Zoomer(props: IZoomer) {
   const refContainer = useRef(null);
   const refOuter = useRef(null);
   const refInner = useRef(null);

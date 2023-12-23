@@ -2,7 +2,7 @@ import { Children, useEffect, useState } from 'react';
 import styles from './EmbedComponent.module.css';
 import { createPortal } from 'react-dom';
 
-interface EmbedComponent {
+interface IEmbedComponent {
   children: React.ReactElement;
   resolution: number;
 }
@@ -37,7 +37,7 @@ const cssOrLink = (cssLink, updateCssLink) => {
   return cssLink;
 };
 
-export default function EmbedComponent(props: EmbedComponent) {
+export default function EmbedComponent(props: IEmbedComponent) {
   const { children, resolution } = props;
 
   const [ref, setRef] = useState(null);

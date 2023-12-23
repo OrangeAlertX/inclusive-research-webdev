@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './RangeSlider.module.css';
 
-interface RangeSlider {
+interface IRangeSlider {
   resolution?: number;
   setResolution: React.Dispatch<React.SetStateAction<number>>;
+  min: number;
+  max: number;
 
   className?: string;
 }
@@ -39,8 +41,8 @@ const eventWheel = (e, setResolution, setCurrentResolution) => {
   setResolutionHandler(e, setResolution, setCurrentResolution);
 };
 
-export default function RangeSlider(props: RangeSlider) {
-  const { resolution, setResolution } = props;
+export default function RangeSlider(props: IRangeSlider) {
+  const { resolution, setResolution, min, max } = props;
 
   let className = props.className;
   if (className) className = styles.container + ' ' + className;
@@ -52,9 +54,11 @@ export default function RangeSlider(props: RangeSlider) {
     const cb = (e) => eventWheel(e, setResolution, setCurrentResolution);
     ref.current.addEventListener('wheel', cb, { passive: false });
 
-    const oldRef = ref.current;
-    return () => oldRef.removeEventListener('wheel', cb);
-  }, []);
+    const curRef = ref.current;
+    return () => {
+      curRef.removeEventListener('wheel', cb);
+    };
+  }, [setResolution, ref]);
 
   const [currentResolution, setCurrentResolution] = useState(720);
 
@@ -63,8 +67,8 @@ export default function RangeSlider(props: RangeSlider) {
       <input
         className={styles.slider}
         type="range"
-        min="320"
-        max="3840"
+        min={min.toString()}
+        max={max.toString()}
         step="2"
         onChange={(e) =>
           setResolutionHandler(e, setResolution, setCurrentResolution)

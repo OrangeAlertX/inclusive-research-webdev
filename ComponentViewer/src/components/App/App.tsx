@@ -10,7 +10,7 @@ export default function App() {
         path="/"
         element={
           <RootContainer>
-            <Viewer isEmbed>
+            <Viewer min={350} max={1920}>
               <CounterButton />
             </Viewer>
           </RootContainer>

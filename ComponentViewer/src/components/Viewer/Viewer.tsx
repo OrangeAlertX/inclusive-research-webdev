@@ -1,18 +1,22 @@
-import { useState } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import styles from './Viewer.module.css';
-import RangeSlider from '../../UI/RangeSlider/RangeSlider';
-import Zoomer from '../../UI/Zoomer/Zoomer';
-import EmbedComponent from '../../UI/Zoomer/EmbedComponent/EmbedComponent';
+import RangeSlider from './RangeSlider/RangeSlider';
+import Zoomer from './Zoomer/Zoomer';
+import EmbedComponent from './Zoomer/EmbedComponent/EmbedComponent';
 
-interface Viewer {
+interface IViewer {
   withRangeSlider?: boolean;
   children: React.ReactElement;
   isEmbed: boolean;
+  min: number;
+  max: number;
 }
 
 Viewer.defaultProps = {
   withRangeSlider: true,
-  isEmbed: false,
+  isEmbed: true,
+  min: 320,
+  max: 3840,
 };
 
 const breakpoints = [
@@ -20,15 +24,27 @@ const breakpoints = [
   1900, 2100, 2400, 2560, 2800, 3300,
 ];
 
-export default function Viewer(props: Viewer) {
+export default function Viewer(props: IViewer) {
   console.log('render Viewer');
-  const { withRangeSlider, children, isEmbed } = props;
+  const { withRangeSlider, children, isEmbed, min, max } = props;
+
+  const breakpointsOnMinMax = useMemo(() => {
+    const newBreakpoints = breakpoints.filter((point) => {
+      if (point > min && point < max) return true;
+      return false;
+    });
+    newBreakpoints.push(max);
+    newBreakpoints.unshift(min);
+    return newBreakpoints;
+  }, [min, max]);
 
   const [resolution, setResolution] = useState(720);
 
   const RangeSliderProps = {
     resolution,
     setResolution,
+    min,
+    max,
   };
   const ZoomerProps = {
     resolution,
@@ -42,7 +58,7 @@ export default function Viewer(props: Viewer) {
       {withRangeSlider && <RangeSlider {...RangeSliderProps} />}
 
       <datalist id="markersOfRangeSlider">
-        {breakpoints.map((point) => {
+        {breakpointsOnMinMax.map((point) => {
           return (
             <option key={point} value={point} label={point.toString()}></option>
           );
