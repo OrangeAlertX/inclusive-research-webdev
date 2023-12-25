@@ -1,7 +1,7 @@
 import { Children, useEffect, useState } from 'react';
 import styles from './EmbedComponent.module.css';
 import { createPortal } from 'react-dom';
-import FullPage from '../../FullPage/FullPage';
+import FullPage from './FullPage/FullPage';
 
 interface IEmbedComponent {
   children: React.ReactElement;
@@ -43,6 +43,10 @@ export default function EmbedComponent(props: IEmbedComponent) {
 
   const [ref, setRef] = useState(null);
   const [cssLink, updateCssLink] = useState('');
+  const [fullscreen, toggleFullscreen] = useState(false);
+  const onClick = () => {
+    toggleFullscreen(!fullscreen);
+  };
 
   useEffect(() => {
     const iframe = ref;
@@ -71,7 +75,7 @@ export default function EmbedComponent(props: IEmbedComponent) {
     outer.style.setProperty('height', height);
     outer.style.setProperty('transform', `scale(${multiplier})`);
     iframe.style.setProperty('height', height);
-  }, [resolution, ref]);
+  }, [resolution, ref, fullscreen]);
 
   const mountBody = ref?.contentDocument.body;
   const mountHead = ref?.contentDocument.body;
@@ -87,7 +91,9 @@ export default function EmbedComponent(props: IEmbedComponent) {
   );
   const childrenDiv = <div style={{ margin: '0 auto' }}>{children}</div>;
   return (
-    <div className={styles.container}>
+    <div
+      className={styles.container + (fullscreen ? ' ' + styles.fullscreen : '')}
+    >
       <div className={styles.main}>
         <div className={styles.outer}>
           <iframe className={styles.inner} ref={setRef}>
@@ -96,7 +102,7 @@ export default function EmbedComponent(props: IEmbedComponent) {
           </iframe>
         </div>
       </div>
-      <FullPage className={styles.FullPage} />
+      <FullPage className={styles.FullPage} onClick={onClick} />
     </div>
   );
 }
