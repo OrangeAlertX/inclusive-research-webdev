@@ -1,6 +1,7 @@
 import { Children, useEffect, useState } from 'react';
 import styles from './EmbedComponent.module.css';
 import { createPortal } from 'react-dom';
+import FullPage from '../../FullPage/FullPage';
 
 interface IEmbedComponent {
   children: React.ReactElement;
@@ -48,25 +49,6 @@ export default function EmbedComponent(props: IEmbedComponent) {
 
     if (!iframe) return;
 
-    const outer = iframe.parentElement;
-    const containerWidth = outer.parentElement.offsetWidth;
-    const containerHeight = outer.parentElement.offsetHeight;
-
-    outer.style.setProperty('width', resolution + 'px');
-    const multiplier = containerWidth / resolution;
-    const adjustHeight =
-      containerHeight / 2 - (outer.offsetHeight * multiplier) / 2;
-    outer.style.setProperty(
-      'transform',
-      `scale(${containerWidth / resolution}) translateY(${
-        -adjustHeight / multiplier
-      }px)`
-    );
-    iframe.style.setProperty(
-      'height',
-      (resolution / containerWidth) * outer.offsetHeight + 'px'
-    );
-
     iframe.contentDocument.body.style = `
     display: flex;
     justify-content: center;
@@ -77,6 +59,32 @@ export default function EmbedComponent(props: IEmbedComponent) {
       mountedObservers.forEach((observer) => observer.disconnect());
       mountedObservers.length = 0;
     };
+  }, [ref]);
+
+  useEffect(() => {
+    const iframe = ref;
+
+    if (!iframe) return;
+
+    const outer = iframe.parentElement;
+    const containerWidth = outer.parentElement.offsetWidth;
+    const containerHeight = outer.parentElement.offsetHeight;
+
+    outer.style.setProperty('width', resolution + 'px');
+    const multiplier = containerWidth / resolution;
+    const adjustHeight =
+      containerHeight / 2 - (outer.offsetHeight * multiplier) / 2;
+
+    outer.style.setProperty(
+      'transform',
+      `scale(${containerWidth / resolution}) translateY(${
+        -adjustHeight / multiplier
+      }px)`
+    );
+    iframe.style.setProperty(
+      'height',
+      (resolution / containerWidth) * outer.offsetHeight + 'px'
+    );
   }, [resolution, ref]);
 
   const mountNode = ref?.contentDocument.body;
@@ -95,13 +103,17 @@ export default function EmbedComponent(props: IEmbedComponent) {
   );
   return (
     <div className={styles.container}>
-      <div className={styles.outer}>
-        <iframe className={styles.inner} ref={setRef}>
-          {mountNode && createPortal(bodyStyleAndChildren, mountNode, 'first')}
-          {mountNode &&
-            createPortal(headStyle, ref.contentDocument.head, 'second')}
-        </iframe>
+      <div className={styles.main}>
+        <div className={styles.outer}>
+          <iframe className={styles.inner} ref={setRef}>
+            {mountNode &&
+              createPortal(bodyStyleAndChildren, mountNode, 'first')}
+            {mountNode &&
+              createPortal(headStyle, ref.contentDocument.head, 'second')}
+          </iframe>
+        </div>
       </div>
+      <FullPage className={styles.FullPage} />
     </div>
   );
 }

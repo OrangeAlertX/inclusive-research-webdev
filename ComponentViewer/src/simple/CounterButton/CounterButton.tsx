@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styles from './CounterButton.module.css';
+import Button from '../../UI/Button/Button';
 
 interface ICounterButton {
   children?: React.ReactElement;
@@ -12,9 +13,9 @@ export default function CounterButton(props: ICounterButton) {
 
   return (
     <div className={styles.card}>
-      <button onClick={() => setCount((count) => count + 1)}>
-        Count is {count}!
-      </button>
+      <Button onClick={() => setCount(count + 1)}>
+        {() => `Count is ${count}!`}
+      </Button>
     </div>
   );
 }

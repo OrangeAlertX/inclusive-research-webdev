@@ -3,11 +3,14 @@
   flex: auto;
   height: 100%;
   outline: 1px solid gray;
+}
 
+.main {
   display: flex;
   align-items: center;
   justify-content: center;
 
+  height: inherit;
   overflow: hidden;
 }
 
@@ -22,4 +25,14 @@
 .inner {
   width: 100%;
   height: 100%;
+}
+
+.FullPage {
+  position: absolute;
+  z-index: 100;
+
+  top: 0;
+  right: 0;
+
+  transform: translate(120%, -10%);
 }

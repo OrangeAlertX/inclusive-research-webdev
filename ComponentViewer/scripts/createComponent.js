@@ -12,14 +12,18 @@ const createComponent = function (name, pathToSrc, componentFolder) {
   const nameTSXcontent = `import { useState } from 'react';
 import styles from './${name}.module.css';
 
-interface ${name} {
-    
+interface I${name} {
+  children: React.ReactElement | string | JSX.Element;
 }
 
-export default function ${name}(props) {
+${name}.defaultProps = {
+
+}
+
+export default function ${name}(props: I${name}) {
   const { children } = props;
 
-  return (<></>);
+  return (<div className={styles.${name}}></div>);
 }`;
 
   const cbError = (e) => {
@@ -38,7 +42,7 @@ export default function ${name}(props) {
 };
 
 const error1 =
-  'Wrong args, expected componentName and ?componentFolder(components are default)';
+  'Wrong args, expected ComponentName and ?componentFolder(components are default)';
 if (args.length > 2 || args.length < 1) throw error1;
 
 if (args[1]) componentFolder = './' + args[1];
