@@ -46,14 +46,9 @@ export default function EmbedComponent(props: IEmbedComponent) {
 
   useEffect(() => {
     const iframe = ref;
-
     if (!iframe) return;
 
-    iframe.contentDocument.body.style = `
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    `;
+    iframe.contentDocument.body.style = `display: flex; justify-content: center; align-items: center;`;
 
     return () => {
       mountedObservers.forEach((observer) => observer.disconnect());
@@ -63,31 +58,23 @@ export default function EmbedComponent(props: IEmbedComponent) {
 
   useEffect(() => {
     const iframe = ref;
-
     if (!iframe) return;
 
     const outer = iframe.parentElement;
     const containerWidth = outer.parentElement.offsetWidth;
     const containerHeight = outer.parentElement.offsetHeight;
 
-    outer.style.setProperty('width', resolution + 'px');
     const multiplier = containerWidth / resolution;
-    const adjustHeight =
-      containerHeight / 2 - (outer.offsetHeight * multiplier) / 2;
+    const height = (resolution / containerWidth) * containerHeight + 'px';
 
-    outer.style.setProperty(
-      'transform',
-      `scale(${containerWidth / resolution}) translateY(${
-        -adjustHeight / multiplier
-      }px)`
-    );
-    iframe.style.setProperty(
-      'height',
-      (resolution / containerWidth) * outer.offsetHeight + 'px'
-    );
+    outer.style.setProperty('width', resolution + 'px');
+    outer.style.setProperty('height', height);
+    outer.style.setProperty('transform', `scale(${multiplier})`);
+    iframe.style.setProperty('height', height);
   }, [resolution, ref]);
 
-  const mountNode = ref?.contentDocument.body;
+  const mountBody = ref?.contentDocument.body;
+  const mountHead = ref?.contentDocument.body;
   const headStyle = (
     <>
       {import.meta.env.DEV && (
@@ -98,18 +85,14 @@ export default function EmbedComponent(props: IEmbedComponent) {
       )}
     </>
   );
-  const bodyStyleAndChildren = (
-    <div style={{ margin: '0 auto' }}>{children}</div>
-  );
+  const childrenDiv = <div style={{ margin: '0 auto' }}>{children}</div>;
   return (
     <div className={styles.container}>
       <div className={styles.main}>
         <div className={styles.outer}>
           <iframe className={styles.inner} ref={setRef}>
-            {mountNode &&
-              createPortal(bodyStyleAndChildren, mountNode, 'first')}
-            {mountNode &&
-              createPortal(headStyle, ref.contentDocument.head, 'second')}
+            {mountBody && createPortal(childrenDiv, mountBody, 'embedZoomer')}
+            {mountHead && createPortal(headStyle, mountHead, 'injectedStyles')}
           </iframe>
         </div>
       </div>
