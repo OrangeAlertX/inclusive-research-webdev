@@ -1,9 +1,24 @@
-.container {
+.fullscreenViewer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 100vh;
+}
+
+.Viewer {
   width: 1024px;
+  max-width: 80vw;
+  min-width: 50vw;
   height: 400px;
   margin: 20px auto;
 
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.RangeSlider {
+  position: absolute;
+  right: 200px;
+  top: 15px;
 }

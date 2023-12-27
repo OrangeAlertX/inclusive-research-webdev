@@ -11,8 +11,18 @@ export default function App() {
         path="/"
         element={
           <RootContainer>
-            <Viewer min={350} max={1920}>
-              <CounterButton></CounterButton>
+            <Viewer min={1024}>
+              <>
+                <Viewer min={1880} max={1920}>
+                  <CounterButton></CounterButton>
+                </Viewer>
+                <Viewer min={350} max={1920}>
+                  <CounterButton></CounterButton>
+                </Viewer>
+                <Viewer min={350} max={1920}>
+                  <CounterButton></CounterButton>
+                </Viewer>
+              </>
             </Viewer>
           </RootContainer>
         }

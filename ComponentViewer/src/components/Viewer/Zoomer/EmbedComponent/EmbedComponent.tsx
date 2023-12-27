@@ -1,4 +1,4 @@
-import { Children, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './EmbedComponent.module.css';
 import { createPortal } from 'react-dom';
 import FullPage from './FullPage/FullPage';
@@ -6,6 +6,8 @@ import FullPage from './FullPage/FullPage';
 interface IEmbedComponent {
   children: React.ReactElement;
   resolution: number;
+  fullscreen: boolean;
+  onClick: () => void;
 }
 
 const mountedObservers = [];
@@ -39,14 +41,10 @@ const cssOrLink = (cssLink, updateCssLink) => {
 };
 
 export default function EmbedComponent(props: IEmbedComponent) {
-  const { children, resolution } = props;
+  const { children, resolution, fullscreen, onClick } = props;
 
   const [ref, setRef] = useState(null);
   const [cssLink, updateCssLink] = useState('');
-  const [fullscreen, toggleFullscreen] = useState(false);
-  const onClick = () => {
-    toggleFullscreen(!fullscreen);
-  };
 
   useEffect(() => {
     const iframe = ref;
@@ -90,6 +88,7 @@ export default function EmbedComponent(props: IEmbedComponent) {
     </>
   );
   const childrenDiv = <div style={{ margin: '0 auto' }}>{children}</div>;
+
   return (
     <div
       className={styles.container + (fullscreen ? ' ' + styles.fullscreen : '')}

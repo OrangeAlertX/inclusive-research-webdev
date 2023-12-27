@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import styles from './RangeSlider.module.css';
 
 interface IRangeSlider {
@@ -6,6 +6,7 @@ interface IRangeSlider {
   setResolution: React.Dispatch<React.SetStateAction<number>>;
   min: number;
   max: number;
+  fullscreen: boolean;
 
   className?: string;
 }
@@ -42,12 +43,7 @@ const eventWheel = (e, setResolution, setCurrentResolution) => {
 };
 
 export default function RangeSlider(props: IRangeSlider) {
-  const { resolution, setResolution, min, max } = props;
-
-  let className = props.className;
-  if (className) className = styles.container + ' ' + className;
-  else className = styles.container;
-  ///////////////////////////////////
+  const { resolution, setResolution, min, max, fullscreen } = props;
 
   const ref = useRef(null);
   useEffect(() => {
@@ -60,24 +56,32 @@ export default function RangeSlider(props: IRangeSlider) {
     };
   }, [setResolution, ref]);
 
-  const [currentResolution, setCurrentResolution] = useState(720);
+  const [currentResolution, setCurrentResolution] = useState(resolution);
 
   return (
-    <div className={className}>
-      <input
-        className={styles.slider}
-        type="range"
-        min={min.toString()}
-        max={max.toString()}
-        step="2"
-        onChange={(e) =>
-          setResolutionHandler(e, setResolution, setCurrentResolution)
-        }
-        defaultValue={resolution}
-        list="markersOfRangeSlider"
-        ref={ref}
-      ></input>
-      <span className={styles.tooltip}>{currentResolution}</span>
+    <div
+      className={
+        fullscreen && props.className
+          ? props.className + ' ' + styles.fullscreen
+          : ''
+      }
+    >
+      <div className={styles.container}>
+        <input
+          className={styles.slider}
+          type="range"
+          min={min.toString()}
+          max={max.toString()}
+          step="2"
+          onChange={(e) =>
+            setResolutionHandler(e, setResolution, setCurrentResolution)
+          }
+          defaultValue={resolution}
+          list="markersOfRangeSlider"
+          ref={ref}
+        ></input>
+        <span className={styles.tooltip}>{currentResolution}</span>
+      </div>
     </div>
   );
 }

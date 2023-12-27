@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, createContext } from 'react';
 import styles from './Viewer.module.css';
 import RangeSlider from './RangeSlider/RangeSlider';
 import Zoomer from './Zoomer/Zoomer';
@@ -24,6 +24,7 @@ const breakpoints = [
   1900, 2100, 2400, 2560, 2800, 3300,
 ];
 
+/////////////////////////
 export default function Viewer(props: IViewer) {
   console.log('render Viewer');
   const { withRangeSlider, children, isEmbed, min, max } = props;
@@ -38,22 +39,30 @@ export default function Viewer(props: IViewer) {
     return newBreakpoints;
   }, [min, max]);
 
-  const [resolution, setResolution] = useState(720);
+  const [resolution, setResolution] = useState(Math.max(720, min));
+  const [fullscreen, toggleFullscreen] = useState(false);
+  const onClick = () => {
+    toggleFullscreen(!fullscreen);
+  };
 
   const RangeSliderProps = {
     resolution,
     setResolution,
     min,
     max,
+    className: styles.RangeSlider,
+    fullscreen,
   };
   const ZoomerProps = {
     resolution,
+    fullscreen,
+    onClick,
   };
 
   const ZoomerOrEmbed = isEmbed ? EmbedComponent : Zoomer;
 
   return (
-    <div className={styles.container}>
+    <div className={fullscreen ? styles.fullscreenViewer : styles.Viewer}>
       <ZoomerOrEmbed {...ZoomerProps}>{children}</ZoomerOrEmbed>
       {withRangeSlider && <RangeSlider {...RangeSliderProps} />}
 
