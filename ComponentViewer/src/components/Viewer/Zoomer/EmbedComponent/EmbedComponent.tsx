@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import styles from './EmbedComponent.module.css';
 import { createPortal } from 'react-dom';
 import FullPage from './FullPage/FullPage';
@@ -45,6 +45,7 @@ export default function EmbedComponent(props: IEmbedComponent) {
 
   const [ref, setRef] = useState(null);
   const [cssLink, updateCssLink] = useState('');
+  const [containerWidth, setContainerWidth] = useState(0);
 
   useEffect(() => {
     const iframe = ref;
@@ -52,13 +53,21 @@ export default function EmbedComponent(props: IEmbedComponent) {
 
     iframe.contentDocument.body.style = `display: flex; justify-content: center; align-items: center;`;
 
+    const container = iframe.parentElement.parentElement;
+
+    const cb = () => setContainerWidth(container.offsetWidth);
+    const resizeObserver = new ResizeObserver(cb);
+    resizeObserver.observe(container);
+
     return () => {
       mountedObservers.forEach((observer) => observer.disconnect());
       mountedObservers.length = 0;
+
+      resizeObserver.disconnect();
     };
   }, [ref]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const iframe = ref;
     if (!iframe) return;
 
@@ -73,7 +82,7 @@ export default function EmbedComponent(props: IEmbedComponent) {
     outer.style.setProperty('height', height);
     outer.style.setProperty('transform', `scale(${multiplier})`);
     iframe.style.setProperty('height', height);
-  }, [resolution, ref, fullscreen]);
+  }, [resolution, ref, fullscreen, containerWidth]);
 
   const mountBody = ref?.contentDocument.body;
   const mountHead = ref?.contentDocument.body;
