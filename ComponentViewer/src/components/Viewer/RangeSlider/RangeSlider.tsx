@@ -7,6 +7,7 @@ interface IRangeSlider {
   min: number;
   max: number;
   fullscreen: boolean;
+  RangeSliderRef: React.MutableRefObject<any>;
 
   className?: string;
 }
@@ -43,7 +44,8 @@ const eventWheel = (e, setResolution, setCurrentResolution) => {
 };
 
 export default function RangeSlider(props: IRangeSlider) {
-  const { resolution, setResolution, min, max, fullscreen } = props;
+  const { resolution, setResolution, min, max, fullscreen, RangeSliderRef } =
+    props;
 
   const ref = useRef(null);
   useEffect(() => {
@@ -58,14 +60,12 @@ export default function RangeSlider(props: IRangeSlider) {
 
   const [currentResolution, setCurrentResolution] = useState(resolution);
 
+  const fullscreenContainer =
+    fullscreen && props.className
+      ? props.className + ' ' + styles.fullscreen
+      : '';
   return (
-    <div
-      className={
-        fullscreen && props.className
-          ? props.className + ' ' + styles.fullscreen
-          : ''
-      }
-    >
+    <div className={fullscreenContainer} ref={RangeSliderRef}>
       <div className={styles.container}>
         <input
           className={styles.slider}

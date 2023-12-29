@@ -5,11 +5,17 @@
 
   position: absolute;
   transform: rotate(-90deg) scale(2);
+
+  z-index: var(--z-index);
+}
+
+/*if fullscreen there will be FullPage button*/
+.container + div {
+  right: 0;
 }
 
 .tooltip {
-  position: absolute;
-  right: -3em;
+  margin-left: -0.5em;
   text-align: center;
 
   display: block;
@@ -18,8 +24,15 @@
   transform: rotate(90deg);
 }
 
-.fullscreen :is(.container, .tooltip) {
+.fullscreen {
+  display: flex;
+}
+.fullscreen > div,
+.fullscreen .tooltip {
   transform: none;
+  position: relative;
+
+  z-index: calc(var(--z-index) * 10 + 1);
 }
 
 .slider {

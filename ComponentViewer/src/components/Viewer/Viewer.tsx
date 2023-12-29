@@ -1,4 +1,4 @@
-import { useState, useMemo, createContext } from 'react';
+import { useState, useMemo, createContext, useRef } from 'react';
 import styles from './Viewer.module.css';
 import RangeSlider from './RangeSlider/RangeSlider';
 import Zoomer from './Zoomer/Zoomer';
@@ -44,6 +44,7 @@ export default function Viewer(props: IViewer) {
   const onClick = () => {
     toggleFullscreen(!fullscreen);
   };
+  const RangeSliderRef = useRef(null);
 
   const RangeSliderProps = {
     resolution,
@@ -52,27 +53,35 @@ export default function Viewer(props: IViewer) {
     max,
     className: styles.RangeSlider,
     fullscreen,
+    RangeSliderRef,
   };
   const ZoomerProps = {
     resolution,
     fullscreen,
     onClick,
+    RangeSliderRef,
   };
 
   const ZoomerOrEmbed = isEmbed ? EmbedComponent : Zoomer;
 
   return (
-    <div className={fullscreen ? styles.fullscreenViewer : styles.Viewer}>
+    <div className={styles.Viewer}>
       <ZoomerOrEmbed {...ZoomerProps}>{children}</ZoomerOrEmbed>
       {withRangeSlider && <RangeSlider {...RangeSliderProps} />}
 
-      <datalist id="markersOfRangeSlider">
-        {breakpointsOnMinMax.map((point) => {
-          return (
-            <option key={point} value={point} label={point.toString()}></option>
-          );
-        })}
-      </datalist>
+      {withRangeSlider && (
+        <datalist id="markersOfRangeSlider">
+          {breakpointsOnMinMax.map((point) => {
+            return (
+              <option
+                key={point}
+                value={point}
+                label={point.toString()}
+              ></option>
+            );
+          })}
+        </datalist>
+      )}
     </div>
   );
 }
