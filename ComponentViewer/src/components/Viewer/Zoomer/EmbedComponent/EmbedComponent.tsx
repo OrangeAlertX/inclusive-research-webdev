@@ -97,7 +97,7 @@ export default function EmbedComponent(props: IEmbedComponent) {
       )}
     </>
   );
-  const childrenDiv = <div style={{ margin: '0 auto' }}>{children}</div>;
+  const childrenDiv = <div>{children}</div>;
   const FullPageWithProps = (
     <FullPage className={styles.FullPage} onClick={onClick} />
   );
