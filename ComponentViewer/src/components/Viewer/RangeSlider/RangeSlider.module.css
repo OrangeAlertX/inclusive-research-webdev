@@ -1,0 +1,81 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  transform: rotate(-90deg) scale(2);
+
+  z-index: var(--z-index);
+}
+
+/*if fullscreen there will be FullPage button*/
+.container + div {
+  right: 0;
+}
+
+.tooltip {
+  margin-left: -0.5em;
+  text-align: center;
+
+  display: block;
+  width: 3.5em;
+  font-size: 0.5em;
+  transform: rotate(90deg);
+}
+
+.fullscreen {
+  display: flex;
+}
+.fullscreen > div,
+.fullscreen .tooltip {
+  transform: none;
+  position: relative;
+
+  z-index: calc(var(--z-index) * 10 + 1);
+}
+
+.slider {
+  font-size: 8px;
+
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 15em;
+
+  /* touch-action: none; */
+
+  --trackWidth: 0.1em;
+  --thumbSize: 1em;
+  --thumbTranslate: calc((var(--thumbSize) - var(--trackWidth)) / -2);
+}
+
+.slider:focus {
+  outline: none;
+}
+
+.slider::-webkit-slider-runnable-track {
+  background-color: #147053;
+  height: var(--trackWidth);
+}
+.slider::-moz-range-track {
+  background-color: #147053;
+  height: var(--trackWidth);
+}
+
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  background-color: orange;
+  width: calc(var(--thumbSize) / 2);
+  height: var(--thumbSize);
+  transform: translateY(var(--thumbTranslate));
+  border-radius: 50%;
+}
+.slider::-moz-range-thumb {
+  appearance: none;
+  background-color: orange;
+  width: calc(var(--thumbSize) / 2);
+  height: var(--thumbSize);
+  transform: translateY(var(--thumbTranslate));
+  border-radius: 50%;
+}
