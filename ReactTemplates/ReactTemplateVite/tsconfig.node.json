@@ -7,5 +7,9 @@
     "allowSyntheticDefaultImports": true,
     "jsx": "preserve"
   },
-  "include": ["vite.config.ts", "src"]
+  "include": [
+    "vite.config.ts",
+    "src",
+    "../../ComponentViewer/src/components/Viewer"
+  ]
 }
