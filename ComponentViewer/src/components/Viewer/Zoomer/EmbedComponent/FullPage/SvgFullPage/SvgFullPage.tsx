@@ -10,13 +10,7 @@ export default function SvgFullPage(props: ISvgFullPage) {
 
   return (
     <div className={className}>
-      <svg
-        className={styles.svg}
-        width="100%"
-        height="100%"
-        version="1.1"
-        viewBox="0 0 36 36"
-      >
+      <svg className={styles.svg} version="1.1" viewBox="0 0 36 36">
         <path
           fill="currentColor"
           d="m 10,16 2,0 0,-4 4,0 0,-2 L 10,10 l 0,6 0,0 z"

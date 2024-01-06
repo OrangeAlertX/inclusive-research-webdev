@@ -42,7 +42,7 @@ if (isDev) {
       templateHtml = await vite.transformIndexHtml(url, templateHtml);
 
       const ssrLoader = await vite.ssrLoadModule('./src/entry-server.tsx');
-      const rendered = await ssrLoader.render({ url });
+      const rendered = await ssrLoader.render({ url, req });
 
       const html = templateHtml.replace(`<!--app-html-->`, rendered.html);
 
@@ -73,8 +73,8 @@ if (isProduction) {
       ///////////////////
       const url = req.originalUrl.replace(base, '');
 
-      const render = (await import('../dist/server/entry-server.js')).render;
-      const rendered = await render(url, ssrManifest);
+      const ssrLoader = (await import('../dist/server/entry-server.js')).render;
+      const rendered = await ssrLoader({ url, req, ssrManifest });
 
       const html = templateHtml
         .replace(`<!--app-head-->`, rendered.head ?? '')
