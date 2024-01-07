@@ -9,6 +9,8 @@
   align-items: center;
 
   --z-index: 100;
+  /* --main-color: #ffa500;
+  --second-color: #147053; */
 }
 
 .RangeSlider {

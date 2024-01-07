@@ -33,7 +33,7 @@
 
   height: inherit;
   width: 100%;
-  outline: 2px solid gray;
+  outline: 2px solid var(--main-color);
   overflow: hidden;
 
   z-index: var(--z-index);

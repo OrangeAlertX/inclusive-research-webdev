@@ -1,4 +1,4 @@
-import { useState, useMemo, createContext, useRef } from 'react';
+import { useState, useMemo, useRef, CSSProperties } from 'react';
 import styles from './Viewer.module.css';
 import RangeSlider from './RangeSlider/RangeSlider';
 import Zoomer from './Zoomer/Zoomer';
@@ -10,6 +10,7 @@ interface IViewer {
   isEmbed: boolean;
   min: number;
   max: number;
+  colors?: string;
 }
 
 Viewer.defaultProps = {
@@ -17,6 +18,10 @@ Viewer.defaultProps = {
   isEmbed: true,
   min: 320,
   max: 3840,
+  externalStyles: {
+    '--main-color': 'white',
+    '--second-color': 'black',
+  },
 };
 
 const breakpoints = [
@@ -26,8 +31,7 @@ const breakpoints = [
 
 /////////////////////////
 export default function Viewer(props: IViewer) {
-  console.log('render Viewer');
-  const { withRangeSlider, children, isEmbed, min, max } = props;
+  const { withRangeSlider, children, isEmbed, min, max, colors } = props;
 
   const breakpointsOnMinMax = useMemo(() => {
     const newBreakpoints = breakpoints.filter((point) => {
@@ -65,7 +69,7 @@ export default function Viewer(props: IViewer) {
   const ZoomerOrEmbed = isEmbed ? EmbedComponent : Zoomer;
 
   return (
-    <div className={styles.Viewer}>
+    <div className={styles.Viewer + ` ${colors}`}>
       <ZoomerOrEmbed {...ZoomerProps}>{children}</ZoomerOrEmbed>
       {withRangeSlider && <RangeSlider {...RangeSliderProps} />}
 

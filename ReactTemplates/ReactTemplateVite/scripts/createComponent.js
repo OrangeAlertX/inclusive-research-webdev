@@ -37,7 +37,7 @@ export default function ${name}(props: I${name}) {
   const nameTSXfile = path.resolve(newFolder, name + '.tsx');
   const nameCSSfile = path.resolve(newFolder, name + '.module.css');
   fs.writeFileSync(nameTSXfile, nameTSXcontent, { flag: 'wx' }, cbError);
-  fs.writeFileSync(nameCSSfile, '', { flag: 'wx' }, cbError);
+  fs.writeFileSync(nameCSSfile, `.${name} {\n\n}`, { flag: 'wx' }, cbError);
 
   console.log('done!');
 };
