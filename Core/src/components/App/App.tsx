@@ -13,12 +13,12 @@ export default function App() {
         element={
           <RootContainer>
             <Viewer colors={variables.colors} min={320}>
-              <>
-                <h1 style={{ visibility: 'hidden' }}>
-                  Разработчик Богдан Севрук
-                </h1>
-                <AboutMe />
-              </>
+              <RootContainer>
+                <>
+                  <h1 style={{ display: 'none' }}>Веб-разработчик</h1>
+                  <AboutMe />
+                </>
+              </RootContainer>
             </Viewer>
           </RootContainer>
         }

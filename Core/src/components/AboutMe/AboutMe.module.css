@@ -1,5 +1,7 @@
 .AboutMe {
+  margin-left: 1em;
 }
 
 .title {
+  color: var(--main-color);
 }
