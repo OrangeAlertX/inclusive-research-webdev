@@ -18,7 +18,7 @@ Viewer.defaultProps = {
   isEmbed: true,
   min: 320,
   max: 3840,
-  externalStyles: {
+  colors: {
     '--main-color': 'white',
     '--second-color': 'black',
   },

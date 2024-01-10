@@ -4,23 +4,34 @@ import CounterButton from '../../simple/CounterButton/CounterButton';
 import RootContainer from '../../UI/RootContainer/RootContainer';
 import variables from './var.module.css';
 import AboutMe from '../AboutMe/AboutMe';
+import MyProjects from '../MyProjects/MyProjects';
+import { createContext } from 'react';
+
+export const GlobalVariables = createContext(variables);
 
 export default function App() {
+  const MyProjectsProps = {
+    Viewer,
+  };
+
   return (
     <Routes>
       <Route
         path="/"
         element={
-          <RootContainer>
-            <Viewer colors={variables.colors} min={320}>
-              <RootContainer>
-                <>
-                  <h1 style={{ display: 'none' }}>Веб-разработчик</h1>
-                  <AboutMe />
-                </>
-              </RootContainer>
-            </Viewer>
-          </RootContainer>
+          <GlobalVariables.Provider value={variables}>
+            <RootContainer>
+              <Viewer colors={variables.colors} min={320}>
+                <RootContainer>
+                  <>
+                    <h1 style={{ display: 'none' }}>Веб-разработчик</h1>
+                    <AboutMe />
+                    <MyProjects {...MyProjectsProps} />
+                  </>
+                </RootContainer>
+              </Viewer>
+            </RootContainer>
+          </GlobalVariables.Provider>
         }
       />
     </Routes>

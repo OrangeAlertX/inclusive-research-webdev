@@ -5,12 +5,15 @@ interface IProject {
   children: React.ReactElement | string | JSX.Element;
 }
 
-Project.defaultProps = {
-
-}
+Project.defaultProps = {};
 
 export default function Project(props: IProject) {
   const { children } = props;
 
-  return (<div className={styles.Project}></div>);
+  return (
+    <div className={styles.Project}>
+      <div className={styles.content}></div>
+      {children}
+    </div>
+  );
 }
