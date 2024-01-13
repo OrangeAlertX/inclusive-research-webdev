@@ -1,8 +1,9 @@
-import { useState, useMemo, useRef, CSSProperties } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import styles from './Viewer.module.css';
 import RangeSlider from './RangeSlider/RangeSlider';
 import Zoomer from './Zoomer/Zoomer';
 import EmbedComponent from './Zoomer/EmbedComponent/EmbedComponent';
+import variables from '../App/variables.module.css';
 
 interface IViewer {
   withRangeSlider?: boolean;
@@ -18,10 +19,7 @@ Viewer.defaultProps = {
   isEmbed: true,
   min: 320,
   max: 3840,
-  colors: {
-    '--main-color': 'white',
-    '--second-color': 'black',
-  },
+  colors: variables.colorsDefault,
 };
 
 const breakpoints = [
@@ -58,34 +56,33 @@ export default function Viewer(props: IViewer) {
     className: styles.RangeSlider,
     fullscreen,
     RangeSliderRef,
+    withRangeSlider,
   };
   const ZoomerProps = {
     resolution,
     fullscreen,
     onClick,
     RangeSliderRef,
+    withRangeSlider,
   };
 
   const ZoomerOrEmbed = isEmbed ? EmbedComponent : Zoomer;
 
   return (
-    <div className={styles.Viewer + ` ${colors}`}>
+    <div
+      style={!withRangeSlider ? { width: '100%' } : {}}
+      className={styles.Viewer + ` ${colors}`}
+    >
       <ZoomerOrEmbed {...ZoomerProps}>{children}</ZoomerOrEmbed>
-      {withRangeSlider && <RangeSlider {...RangeSliderProps} />}
+      <RangeSlider {...RangeSliderProps} />
 
-      {withRangeSlider && (
-        <datalist id="markersOfRangeSlider">
-          {breakpointsOnMinMax.map((point) => {
-            return (
-              <option
-                key={point}
-                value={point}
-                label={point.toString()}
-              ></option>
-            );
-          })}
-        </datalist>
-      )}
+      <datalist id="markersOfRangeSlider">
+        {breakpointsOnMinMax.map((point) => {
+          return (
+            <option key={point} value={point} label={point.toString()}></option>
+          );
+        })}
+      </datalist>
     </div>
   );
 }

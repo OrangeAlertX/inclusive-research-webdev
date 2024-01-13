@@ -18,6 +18,10 @@
   z-index: calc(var(--z-index) * 10 + 1);
 }
 
+.FullPageWithoutTransition {
+  transform: none;
+}
+
 /* own */
 .container {
   position: relative;

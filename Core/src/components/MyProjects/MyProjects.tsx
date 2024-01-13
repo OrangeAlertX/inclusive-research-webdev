@@ -20,7 +20,7 @@ export default function MyProjects(props: IMyProjects) {
     <div className={styles.MyProjects + ' ' + colors}>
       <h2 className={styles.title}>Проекты</h2>
       <Project>
-        <Viewer>
+        <Viewer colors={colors} withRangeSlider={false}>
           <CounterButton />
         </Viewer>
       </Project>

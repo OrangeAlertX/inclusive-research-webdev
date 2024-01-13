@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './AboutMe.module.css';
 import SkillSet from './SkillSet/SkillSet';
-import variables from '../App/var.module.css';
+import variables from '../App/variables.module.css';
 
 interface IAboutMe {
   children?: React.ReactElement | string | JSX.Element;

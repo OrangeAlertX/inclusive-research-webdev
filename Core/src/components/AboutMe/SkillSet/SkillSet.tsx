@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react';
 import styles from './SkillSet.module.css';
-import variables from '../../App/var.module.css';
+import variables from '../../App/variables.module.css';
 
 interface ISkillSet {
   // children: React.ReactElement | string | JSX.Element;

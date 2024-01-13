@@ -9,6 +9,7 @@ interface IEmbedComponent {
   fullscreen: boolean;
   onClick: () => void;
   RangeSliderRef: React.MutableRefObject<any>;
+  withRangeSlider: boolean;
 }
 
 const mountedObservers = [];
@@ -42,7 +43,14 @@ const cssOrLink = (cssLink, updateCssLink) => {
 };
 
 export default function EmbedComponent(props: IEmbedComponent) {
-  const { children, resolution, fullscreen, onClick, RangeSliderRef } = props;
+  const {
+    children,
+    resolution,
+    fullscreen,
+    onClick,
+    RangeSliderRef,
+    withRangeSlider,
+  } = props;
 
   const [ref, setRef] = useState(null);
   const [cssLink, updateCssLink] = useState('');
@@ -99,12 +107,18 @@ export default function EmbedComponent(props: IEmbedComponent) {
   );
   const childrenDiv = <div>{children}</div>;
   const FullPageWithProps = (
-    <FullPage className={styles.FullPage} onClick={onClick} />
+    <FullPage
+      className={
+        styles.FullPage +
+        (withRangeSlider ? '' : ` ${styles.FullPageWithoutTransition}`)
+      }
+      onClick={onClick}
+    />
   );
 
   return (
     <div
-      className={styles.container + (fullscreen ? ' ' + styles.fullscreen : '')}
+      className={styles.container + (fullscreen ? ` ${styles.fullscreen}` : '')}
     >
       <div
         className={
@@ -113,8 +127,8 @@ export default function EmbedComponent(props: IEmbedComponent) {
       >
         <div className={styles.outer}>
           <iframe className={styles.inner} ref={setRef}>
-            {mountBody && createPortal(childrenDiv, mountBody, 'embedZoomer')}
             {mountHead && createPortal(headStyle, mountHead, 'injectedStyles')}
+            {mountBody && createPortal(childrenDiv, mountBody, 'embedZoomer')}
           </iframe>
         </div>
       </div>
