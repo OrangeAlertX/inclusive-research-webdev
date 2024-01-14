@@ -10,6 +10,7 @@ interface IEmbedComponent {
   onClick: () => void;
   RangeSliderRef: React.MutableRefObject<any>;
   withRangeSlider: boolean;
+  src: string;
 }
 
 const mountedObservers = [];
@@ -50,7 +51,12 @@ export default function EmbedComponent(props: IEmbedComponent) {
     onClick,
     RangeSliderRef,
     withRangeSlider,
+    src,
   } = props;
+  const EmbedClassName =
+    styles.container + (fullscreen ? ` ${styles.fullscreen}` : '');
+  const mainClassName =
+    styles.main + (fullscreen ? ` ${styles.fullscreenMain}` : '');
 
   const [ref, setRef] = useState(null);
   const [cssLink, updateCssLink] = useState('');
@@ -117,14 +123,8 @@ export default function EmbedComponent(props: IEmbedComponent) {
   );
 
   return (
-    <div
-      className={styles.container + (fullscreen ? ` ${styles.fullscreen}` : '')}
-    >
-      <div
-        className={
-          styles.main + (fullscreen ? ' ' + styles.fullscreenMain : '')
-        }
-      >
+    <div className={EmbedClassName}>
+      <div className={mainClassName}>
         <div className={styles.outer}>
           <iframe className={styles.inner} ref={setRef}>
             {mountHead && createPortal(headStyle, mountHead, 'injectedStyles')}

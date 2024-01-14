@@ -1,3 +1,13 @@
 .Project {
   display: flex;
 }
+
+.content {
+  width: auto;
+  flex: 2;
+}
+
+.viewer {
+  width: auto;
+  flex: 1;
+}

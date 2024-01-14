@@ -13,7 +13,7 @@ export default function Project(props: IProject) {
   return (
     <div className={styles.Project}>
       <div className={styles.content}></div>
-      {children}
+      <div className={styles.viewer}>{children}</div>
     </div>
   );
 }
