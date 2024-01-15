@@ -126,9 +126,13 @@ export default function EmbedComponent(props: IEmbedComponent) {
     <div className={EmbedClassName}>
       <div className={mainClassName}>
         <div className={styles.outer}>
-          <iframe className={styles.inner} ref={setRef}>
-            {mountHead && createPortal(headStyle, mountHead, 'injectedStyles')}
-            {mountBody && createPortal(childrenDiv, mountBody, 'embedZoomer')}
+          <iframe src={src} className={styles.inner} ref={setRef}>
+            {!src &&
+              mountHead &&
+              createPortal(headStyle, mountHead, 'injectedStyles')}
+            {!src &&
+              mountBody &&
+              createPortal(childrenDiv, mountBody, 'EmbedZoomer')}
           </iframe>
         </div>
       </div>

@@ -26,17 +26,23 @@ app.use(createLog);
 // Add Vite or respective production middlewares
 if (isDev) {
   const { createServer } = await import('vite');
-  const vite = await createServer({
+  var vite = await createServer({
     server: { middlewareMode: true },
     appType: 'custom',
     base,
   });
   app.use(vite.middlewares);
 
-  app.use('*', async (req, res) => {
+  console.logger = (...args) => setTimeout(() => console.log(...args), 3000);
+
+  app.use('*', async (req, res, next) => {
     try {
       ///////////////////
       const url = req.originalUrl.replace(base, '');
+
+      if (url === 'projects') return next();
+
+      console.log('SSSSSSSSSSSSSSSSSSSSSSSSSSSSS');
 
       let templateHtml = await fs.readFile('./index.html', 'utf-8');
       templateHtml = await vite.transformIndexHtml(url, templateHtml);
@@ -68,13 +74,15 @@ if (isProduction) {
     'utf-8'
   );
 
-  app.use('*', async (req, res) => {
+  app.use('*', async (req, res, next) => {
     try {
       ///////////////////
       const url = req.originalUrl.replace(base, '');
 
-      const ssrLoader = (await import('../dist/server/entry-server.js')).render;
-      const rendered = await ssrLoader({ url, req, ssrManifest });
+      if (url === 'projects') return next();
+
+      const ssrLoader = await import('../dist/server/entry-server.js');
+      const rendered = await ssrLoader.render({ url, req, ssrManifest });
 
       const html = templateHtml
         .replace(`<!--app-head-->`, rendered.head ?? '')
@@ -88,6 +96,20 @@ if (isProduction) {
     }
   });
 }
+
+app.use('/projects/', async (req, res) => {
+  try {
+    const html = await fs.readFile(
+      '../Landing-Page-Static/index.html',
+      'utf-8'
+    );
+    res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
+  } catch (e) {
+    if (isDev) vite.ssrFixStacktrace(e);
+    console.log(e.stack);
+    res.status(500).end(e.stack);
+  }
+});
 
 // Start http server
 app.listen(port, () => {
