@@ -166,6 +166,11 @@ button:active {
   border-radius: 15px;
 }
 
+.logo-header > a:focus {
+  outline: 1px solid var(--link-normal-color);
+  outline-offset: 9px;
+}
+
 .lagoona-img {
   margin: 7px 23px 7.5px 20px;
 }
@@ -443,6 +448,9 @@ h3 {
 .advantage-cell > p {
   margin-top: 10px;
 }
+.advantage-cell:focus {
+  outline: none;
+}
 
 .advantage-img {
   display: block;
@@ -639,7 +647,8 @@ h3 {
   border: none;
 }
 .order-form-item > :is(input:focus, select:focus) {
-  outline: none;
+  outline-color: var(--link-normal-color);
+  outline-offset: 5px;
 }
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
@@ -762,6 +771,11 @@ footer a {
   flex-direction: column;
   gap: 37px;
   margin-right: 125px;
+}
+
+.footer-content > a:focus {
+  padding: 0;
+  outline-offset: 9px;
 }
 
 .footer-logo {

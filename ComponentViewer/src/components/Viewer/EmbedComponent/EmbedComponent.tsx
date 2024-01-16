@@ -1,16 +1,16 @@
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './EmbedComponent.module.css';
 import { createPortal } from 'react-dom';
 import FullPage from './FullPage/FullPage';
 
 interface IEmbedComponent {
-  children: React.ReactElement;
+  children?: React.ReactElement | undefined;
   resolution: number;
   fullscreen: boolean;
   onClick: () => void;
   RangeSliderRef: React.MutableRefObject<any>;
   withRangeSlider: boolean;
-  src: string;
+  src?: string | undefined;
 }
 
 const mountedObservers = [];
@@ -126,7 +126,22 @@ export default function EmbedComponent(props: IEmbedComponent) {
     <div className={EmbedClassName}>
       <div className={mainClassName}>
         <div className={styles.outer}>
-          <iframe src={src} className={styles.inner} ref={setRef}>
+          <iframe src={src ? src : null} className={styles.inner} ref={setRef}>
+            {src && (
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                Update your browser
+              </div>
+            )}
+            {!src &&
+              !children &&
+              mountBody &&
+              createPortal(<div>Not Found</div>, mountBody, 'NotFound')}
             {!src &&
               mountHead &&
               createPortal(headStyle, mountHead, 'injectedStyles')}

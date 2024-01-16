@@ -6,8 +6,8 @@ import variables from '../App/variables.module.css';
 
 interface IViewer {
   withRangeSlider?: boolean;
-  children: React.ReactElement;
-  src: string;
+  children?: React.ReactElement;
+  src?: string;
   min: number;
   max: number;
   colors?: string;
@@ -66,6 +66,17 @@ export default function Viewer(props: IViewer) {
     withRangeSlider,
   };
 
+  const RangeOptions =
+    min !== max ? (
+      <datalist id="markersOfRangeSlider">
+        {breakpointsOnMinMax.map((point) => {
+          return (
+            <option key={point} value={point} label={point.toString()}></option>
+          );
+        })}
+      </datalist>
+    ) : null;
+
   return (
     <div
       style={!withRangeSlider ? { width: '100%' } : {}}
@@ -74,13 +85,7 @@ export default function Viewer(props: IViewer) {
       <EmbedComponent {...EmbedProps}>{children}</EmbedComponent>
       <RangeSlider {...RangeSliderProps} />
 
-      <datalist id="markersOfRangeSlider">
-        {breakpointsOnMinMax.map((point) => {
-          return (
-            <option key={point} value={point} label={point.toString()}></option>
-          );
-        })}
-      </datalist>
+      {RangeOptions}
     </div>
   );
 }

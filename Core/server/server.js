@@ -9,12 +9,7 @@ const base = process.env.BASE || '/';
 
 const createLog = (req, res, next) => {
   res.on('finish', function () {
-    console.log(
-      req.method,
-      decodeURI(req.url),
-      res.statusCode,
-      res.statusMessage
-    );
+    console.log(req.method, req.originalUrl, res.statusCode, res.statusMessage);
   });
   next();
 };
@@ -24,6 +19,7 @@ const app = express();
 app.use(createLog);
 
 // Add Vite or respective production middlewares
+const serverURL = ['projects', 'static'];
 if (isDev) {
   const { createServer } = await import('vite');
   var vite = await createServer({
@@ -40,7 +36,7 @@ if (isDev) {
       ///////////////////
       const url = req.originalUrl.replace(base, '');
 
-      if (url === 'projects') return next();
+      if (serverURL.includes(url.split('/')[0])) return next();
 
       console.log('SSSSSSSSSSSSSSSSSSSSSSSSSSSSS');
 
@@ -79,7 +75,7 @@ if (isProduction) {
       ///////////////////
       const url = req.originalUrl.replace(base, '');
 
-      if (url === 'projects') return next();
+      if (serverURL.includes(url)) return next();
 
       const ssrLoader = await import('../dist/server/entry-server.js');
       const rendered = await ssrLoader.render({ url, req, ssrManifest });
@@ -96,6 +92,7 @@ if (isProduction) {
     }
   });
 }
+app.use('/static', express.static('../Landing-Page-Static/static'));
 
 app.use('/projects/', async (req, res) => {
   try {
