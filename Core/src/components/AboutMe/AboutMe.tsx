@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import classNames from 'classnames';
 import styles from './AboutMe.module.css';
 import SkillSet from './SkillSet/SkillSet';
 import variables from '../App/variables.module.css';
@@ -34,7 +34,7 @@ export default function AboutMe(props: IAboutMe) {
   const { children } = props;
 
   return (
-    <div className={styles.AboutMe + ' ' + variables.colors}>
+    <div className={classNames(styles.AboutMe, variables.colors)}>
       <h2 className={styles.title}>Богдан Севрук</h2>
       {skillSets.map((skillSetProp) => (
         <SkillSet key={skillSetProp.title} {...skillSetProp} />

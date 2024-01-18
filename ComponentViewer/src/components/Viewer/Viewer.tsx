@@ -1,4 +1,5 @@
 import { useState, useMemo, useRef } from 'react';
+import classNames from 'classnames';
 import styles from './Viewer.module.css';
 import RangeSlider from './RangeSlider/RangeSlider';
 import EmbedComponent from './EmbedComponent/EmbedComponent';
@@ -80,7 +81,7 @@ export default function Viewer(props: IViewer) {
   return (
     <div
       style={!withRangeSlider ? { width: '100%' } : {}}
-      className={styles.Viewer + ` ${colors}`}
+      className={classNames(styles.Viewer, colors)}
     >
       <EmbedComponent {...EmbedProps}>{children}</EmbedComponent>
       <RangeSlider {...RangeSliderProps} />

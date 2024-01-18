@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './RangeSlider.module.css';
 
 interface IRangeSlider {
@@ -72,10 +72,11 @@ export default function RangeSlider(props: IRangeSlider) {
     : '';
   if (!fullscreenContainer && !withRangeSlider)
     fullscreenContainer = styles.disable;
+  const disableRange = min === max ? ` ${styles.disable}` : '';
 
   return (
     <div className={fullscreenContainer} ref={RangeSliderRef}>
-      <div className={styles.container}>
+      <div className={styles.container + disableRange}>
         <input
           className={styles.slider}
           type="range"
