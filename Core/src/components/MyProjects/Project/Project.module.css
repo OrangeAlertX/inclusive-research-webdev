@@ -1,0 +1,59 @@
+.Project {
+  display: flex;
+}
+
+.content {
+  position: relative;
+  width: auto;
+  flex: 1.4;
+
+  color: var(--main-color);
+  padding: 1.5em;
+}
+
+.viewer {
+  width: auto;
+  flex: 1;
+}
+
+.newSkillTitle {
+  display: inline;
+  font-style: italic;
+
+  user-select: none;
+}
+
+.newSkill {
+  display: inline-block;
+  padding: 0.5em;
+  border: 1px solid var(--main-color);
+  border-radius: 20%;
+  margin-left: 0.5em;
+
+  background-color: var(--second-color);
+}
+.newSkill::selection {
+  background: var(--background-color);
+}
+
+.inner {
+  margin: 1em;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  margin-top: 0;
+}
+
+.links {
+  height: 2em;
+}
+
+.links > a {
+  color: var(--second-color);
+  margin-left: 1em;
+}

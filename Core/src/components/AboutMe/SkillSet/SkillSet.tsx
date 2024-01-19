@@ -1,4 +1,5 @@
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
+import classNames from 'classnames';
 import styles from './SkillSet.module.css';
 import variables from '../../App/variables.module.css';
 
@@ -14,7 +15,7 @@ export default function SkillSet(props: ISkillSet) {
   const { title, skills } = props;
 
   return (
-    <div className={styles.SkillSet + ' ' + variables.colors}>
+    <div className={classNames(styles.SkillSet, variables.colors)}>
       <h3 className={styles.title}>{title}</h3>
       <p className={styles.skills}>
         {skills.map((skill, i) => {

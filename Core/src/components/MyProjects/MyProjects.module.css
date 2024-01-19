@@ -3,4 +3,5 @@
 
 .title {
   color: var(--main-color);
+  margin-bottom: 0;
 }

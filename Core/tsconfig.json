@@ -6,7 +6,7 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
-    "rootDir": "./",
+    "rootDirs": ["./", "../ComponentViewer/src/components/Viewer"],
     "allowJs": true,
 
     /* Bundler mode */
