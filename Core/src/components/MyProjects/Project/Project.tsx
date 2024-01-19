@@ -23,17 +23,8 @@ export default function Project(props: IProject) {
   return (
     <div className={styles.Project}>
       <div className={styles.content}>
-        <div className={styles.header}>
-          <h3 className={styles.title}>{project.title}</h3>
-          <div className={styles.links}>
-            <a target="_blank" href={project.code} className={styles.git}>
-              <FaGithub size={'2em'} />
-            </a>
-            <a target="_blank" href={project.blank} className={styles.blank}>
-              <HiOutlineExternalLink size={'2em'} />
-            </a>
-          </div>
-        </div>
+        <h3 className={styles.title}>{project.title}</h3>
+
         <div className={styles.inner}>
           <h4 className={styles.newSkillTitle}>New:</h4>
           {project.newSkills.map((skill) => (
@@ -42,6 +33,15 @@ export default function Project(props: IProject) {
             </div>
           ))}
           <p>{project.about}</p>
+        </div>
+
+        <div className={styles.links}>
+          <a target="_blank" href={project.code} className={styles.git}>
+            <FaGithub size={'2em'} />
+          </a>
+          <a target="_blank" href={project.blank} className={styles.blank}>
+            <HiOutlineExternalLink size={'2em'} />
+          </a>
         </div>
       </div>
       <div className={styles.viewer}>{children}</div>
