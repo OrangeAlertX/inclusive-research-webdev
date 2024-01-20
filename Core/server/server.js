@@ -92,14 +92,23 @@ if (isProduction) {
     }
   });
 }
-app.use('/static', express.static('../Landing-Page-Static/static'));
 
+app.use('/projects/static', express.static('../Landing-Page-Static/static'));
+app.use(
+  '/projects/publicResp',
+  express.static('../Landing-Page-Responsive/publicResp')
+);
+
+const projects = {
+  'static-landing': '../Landing-Page-Static/index.html',
+  'adaptive-landing': '../Landing-Page-Responsive/index.html',
+};
 app.use('/projects/', async (req, res) => {
   try {
-    const html = await fs.readFile(
-      '../Landing-Page-Static/index.html',
-      'utf-8'
-    );
+    const page = req.originalUrl.replace('/projects/', '');
+    const pathToHTML = projects[page];
+
+    const html = await fs.readFile(pathToHTML, 'utf-8');
     res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
   } catch (e) {
     if (isDev) vite.ssrFixStacktrace(e);

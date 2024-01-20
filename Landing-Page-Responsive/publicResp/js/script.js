@@ -91,6 +91,9 @@
     } else {
       choice = '';
     }
-    image.setAttribute('src', `images/order/order-${i}${choice}.jpg`);
+    image.setAttribute(
+      'src',
+      `publicResp/images/order/order-${i}${choice}.jpg`
+    );
   }
 })();
