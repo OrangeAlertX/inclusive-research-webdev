@@ -1,15 +1,15 @@
 const path = require('path');
 
 module.exports = (env, args) => {
-  // const isDev = args.mode === 'development';
+  const isDev = args.mode === 'development';
 
   return {
-    entry: `./Paired-Colors/js/createGameSection.js`,
+    entry: `./publicCol/js/createGameSection.js`,
     output: {
-      path: path.resolve(__dirname, `Paired-Colors/dist`),
+      path: path.resolve(__dirname, `distCol`),
       filename: 'main.js',
     },
-    devtool: 'inline-source-map',
+    devtool: isDev ? 'inline-source-map' : false,
     module: {
       rules: [
         {

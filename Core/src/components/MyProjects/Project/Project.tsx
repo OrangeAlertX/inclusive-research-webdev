@@ -8,7 +8,7 @@ interface ProjectData {
   newSkills: string[];
   about: string;
   code: string;
-  src: string;
+  src?: string;
   viewerProps?: {
     min?: number;
     max?: number;
@@ -45,19 +45,23 @@ export default function Project(props: IProject) {
           <a target="_blank" href={project.code} className={styles.git}>
             <FaGithub size={'2em'} />
           </a>
-          <a target="_blank" href={project.src} className={styles.src}>
-            <HiOutlineExternalLink size={'2em'} />
-          </a>
+          {project.src && (
+            <a target="_blank" href={project.src} className={styles.src}>
+              <HiOutlineExternalLink size={'2em'} />
+            </a>
+          )}
         </div>
       </div>
       <div className={styles.viewer}>
-        <Viewer
-          src={project.src}
-          min={project.viewerProps?.min}
-          max={project.viewerProps?.max}
-          withRangeSlider={false}
-          colors={variables.colors}
-        ></Viewer>
+        {project.src && (
+          <Viewer
+            src={project.src}
+            min={project.viewerProps?.min}
+            max={project.viewerProps?.max}
+            withRangeSlider={false}
+            colors={variables.colors}
+          ></Viewer>
+        )}
       </div>
     </div>
   );

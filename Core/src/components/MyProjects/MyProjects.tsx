@@ -12,7 +12,7 @@ const projectStatic = {
   title: 'Cтатичный лэндинг',
   newSkills: ['CSS', 'HTML'],
   about:
-    'Мой первый проект, сделан по учебному макету Figma, который включает в себя все основы верстки и каскадных стилей.',
+    'Сделан по учебному макету Figma, который включает в себя все основы верстки и каскадных стилей. Единственный статичный проект.',
   code: 'https://github.com/OrangeAlertX/inclusive-research-webdev/tree/main/Landing-Page-Static',
   src: `/projects/static-landing`,
   viewerProps: {
@@ -26,11 +26,54 @@ const projectAdaptive = {
   newSkills: ['SCSS', 'JS', 'Адаптивность'],
   about:
     'Сделан по учебному макету Figma для продвинутого изучения верстки и каскадных стилей.',
-  code: 'https://github.com/OrangeAlertX/inclusive-research-webdev/tree/main/Landing-Page-Static',
+  code: 'https://github.com/OrangeAlertX/inclusive-research-webdev/tree/main/Landing-Page-Responsive',
   src: `/projects/adaptive-landing`,
 };
 
-const projects = [projectStatic, projectAdaptive];
+const projectColorGame = {
+  title: 'Игра найди пару',
+  newSkills: ['NodeJS', 'Организация кода'],
+  about:
+    'Есть несколько уровней сложности, рейтинг. Лучше выглядит на смартфоне.',
+  code: 'https://github.com/OrangeAlertX/inclusive-research-webdev/tree/main/Paired-Colors',
+  src: `/projects/colors-game`,
+  viewerProps: {
+    min: 480,
+  },
+};
+
+const projectTemplates = {
+  title: 'Шаблоны проектов',
+  newSkills: ['Webpack', 'Vite', 'NPM', 'SSR'],
+  about:
+    'Создание React-шаблонов на Webpack и Vite с Server-Side Rendering, с возможностью установки через NPM',
+  code: 'https://github.com/OrangeAlertX/inclusive-research-webdev/tree/main/ReactTemplates',
+};
+
+const projectViewer = {
+  title: 'Выставка компонентов',
+  newSkills: ['React', 'TypeScript'],
+  about:
+    'То самое embedded окно, в которых отображаются мои проекты. С возможностью масштабирования и полного экрана.',
+  code: 'https://github.com/OrangeAlertX/inclusive-research-webdev/tree/main/ComponentViewer',
+};
+
+const projectResume = {
+  title: 'Ядро',
+  newSkills: ['Express', 'Module CSS'],
+  about:
+    'Текущая страница. Объединяет все мои проекты в одно резюме. Есть версия для телефона.',
+  code: 'https://github.com/OrangeAlertX/inclusive-research-webdev/tree/main/Core',
+};
+
+const projects = [
+  projectStatic,
+  projectAdaptive,
+  projectColorGame,
+  projectTemplates,
+  projectViewer,
+  projectResume,
+];
 
 export default function MyProjects(props: IMyProjects) {
   const { Viewer } = props;
@@ -43,7 +86,7 @@ export default function MyProjects(props: IMyProjects) {
     <div className={styles.MyProjects}>
       <h2 className={styles.title}>Проекты</h2>
       {projects.map((project) => {
-        return <ProjectWithViewer key={project.src} project={project} />;
+        return <ProjectWithViewer key={project.title} project={project} />;
       })}
     </div>
   );

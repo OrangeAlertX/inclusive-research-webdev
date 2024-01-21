@@ -1,13 +1,12 @@
 {
   "scripts": {
     "dev": "webpack --mode development",
+    "build": "webpack --mode production",
     "watch": "webpack --watch --mode development",
     "test": "jest"
   },
-  "dependencies": {
-    "poly-fluid-sizing": "^1.2.1"
-  },
   "devDependencies": {
+    "poly-fluid-sizing": "^1.2.1",
     "@babel/preset-env": "^7.23.3",
     "babel-jest": "^29.7.0",
     "css-loader": "^6.8.1",

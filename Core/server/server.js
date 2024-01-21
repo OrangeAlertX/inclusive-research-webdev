@@ -98,10 +98,12 @@ app.use(
   '/projects/publicResp',
   express.static('../Landing-Page-Responsive/publicResp')
 );
+app.use('/projects/distCol', express.static('../Paired-Colors/distCol'));
 
 const projects = {
   'static-landing': '../Landing-Page-Static/index.html',
   'adaptive-landing': '../Landing-Page-Responsive/index.html',
+  'colors-game': '../Paired-Colors/index.html',
 };
 app.use('/projects/', async (req, res) => {
   try {
