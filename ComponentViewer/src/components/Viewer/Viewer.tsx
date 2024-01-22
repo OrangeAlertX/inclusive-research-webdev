@@ -7,6 +7,7 @@ import variables from '../App/variables.module.css';
 
 interface IViewer {
   withRangeSlider?: boolean;
+  withFullPage?: boolean;
   children?: React.ReactElement;
   src?: string;
   min: number;
@@ -16,6 +17,7 @@ interface IViewer {
 
 Viewer.defaultProps = {
   withRangeSlider: true,
+  withFullPage: true,
   src: '',
   min: 320,
   max: 3840,
@@ -29,7 +31,8 @@ const breakpoints = [
 
 /////////////////////////
 export default function Viewer(props: IViewer) {
-  const { withRangeSlider, children, src, min, max, colors } = props;
+  const { withRangeSlider, withFullPage, children, src, min, max, colors } =
+    props;
 
   const breakpointsOnMinMax = useMemo(() => {
     const newBreakpoints = breakpoints.filter((point) => {
@@ -65,6 +68,7 @@ export default function Viewer(props: IViewer) {
     src,
     RangeSliderRef,
     withRangeSlider,
+    withFullPage,
   };
 
   const RangeOptions =

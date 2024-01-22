@@ -10,6 +10,7 @@ interface IEmbedComponent {
   onClick: () => void;
   RangeSliderRef: React.MutableRefObject<any>;
   withRangeSlider: boolean;
+  withFullPage: boolean;
   src?: string | undefined;
 }
 
@@ -51,6 +52,7 @@ export default function EmbedComponent(props: IEmbedComponent) {
     onClick,
     RangeSliderRef,
     withRangeSlider,
+    withFullPage,
     src,
   } = props;
   const EmbedClassName =
@@ -99,8 +101,8 @@ export default function EmbedComponent(props: IEmbedComponent) {
     iframe.style.setProperty('height', height);
   }, [resolution, ref, fullscreen, containerWidth]);
 
-  const mountBody = ref?.contentDocument.body;
-  const mountHead = ref?.contentDocument.body;
+  const mountBody = ref?.contentDocument?.body;
+  const mountHead = ref?.contentDocument?.body;
   const headStyle = (
     <>
       {import.meta.env.DEV && (
@@ -120,6 +122,15 @@ export default function EmbedComponent(props: IEmbedComponent) {
       }
       onClick={onClick}
     />
+  );
+  const FullPageComponent = withFullPage ? (
+    <>
+      {fullscreen
+        ? createPortal(FullPageWithProps, RangeSliderRef.current)
+        : FullPageWithProps}
+    </>
+  ) : (
+    false
   );
 
   return (
@@ -149,11 +160,9 @@ export default function EmbedComponent(props: IEmbedComponent) {
               mountBody &&
               createPortal(childrenDiv, mountBody, 'EmbedZoomer')}
           </iframe>
+          {FullPageComponent}
         </div>
       </div>
-      {fullscreen
-        ? createPortal(FullPageWithProps, RangeSliderRef.current)
-        : FullPageWithProps}
     </div>
   );
 }

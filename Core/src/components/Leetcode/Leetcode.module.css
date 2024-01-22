@@ -1,0 +1,21 @@
+.Leetcode,
+.link {
+  color: var(--main-color);
+}
+
+.content {
+  margin: 1.5em;
+}
+
+.linkpopup {
+  font-size: 0.6em;
+  margin-left: 1em;
+  opacity: 0;
+
+  transition: opacity 0.3s;
+}
+
+.link:hover + .linkpopup {
+  opacity: 1;
+  color: var(--main-color);
+}

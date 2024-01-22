@@ -23,7 +23,7 @@ const projectStatic = {
 
 const projectAdaptive = {
   title: 'Адаптивный лэндинг',
-  newSkills: ['SCSS', 'JS', 'Адаптивность'],
+  newSkills: ['SCSS', 'Адаптивность'],
   about:
     'Сделан по учебному макету Figma для продвинутого изучения верстки и каскадных стилей.',
   code: 'https://github.com/OrangeAlertX/inclusive-research-webdev/tree/main/Landing-Page-Responsive',
@@ -32,7 +32,7 @@ const projectAdaptive = {
 
 const projectColorGame = {
   title: 'Игра найди пару',
-  newSkills: ['NodeJS', 'Организация кода'],
+  newSkills: ['JavaScript', 'Организация кода'],
   about:
     'Есть несколько уровней сложности, рейтинг. Лучше выглядит на смартфоне.',
   code: 'https://github.com/OrangeAlertX/inclusive-research-webdev/tree/main/Paired-Colors',
