@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import express from 'express';
+import leetcodeParser from './leetcodeParser.js';
 
 // Constants
 const isProduction = process.env.NODE_ENV === 'production';
@@ -105,6 +106,9 @@ const projects = {
   'adaptive-landing': '../Landing-Page-Responsive/index.html',
   'colors-game': '../Paired-Colors/index.html',
 };
+
+leetcodeParser(`https://leetcode.com/orangealertx/`);
+
 app.use('/projects/', async (req, res) => {
   try {
     const page = req.originalUrl.replace('/projects/', '');

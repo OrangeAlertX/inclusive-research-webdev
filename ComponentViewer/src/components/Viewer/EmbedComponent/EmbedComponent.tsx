@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import styles from './EmbedComponent.module.css';
 import { createPortal } from 'react-dom';
 import FullPage from './FullPage/FullPage';
+import classNames from 'classnames';
 
 interface IEmbedComponent {
   children?: React.ReactElement | undefined;
@@ -55,10 +56,15 @@ export default function EmbedComponent(props: IEmbedComponent) {
     withFullPage,
     src,
   } = props;
-  const EmbedClassName =
-    styles.container + (fullscreen ? ` ${styles.fullscreen}` : '');
-  const mainClassName =
-    styles.main + (fullscreen ? ` ${styles.fullscreenMain}` : '');
+  const EmbedClassName = classNames(
+    styles.container,
+    fullscreen ? styles.fullscreen : false
+  );
+
+  const mainClassName = classNames(
+    styles.main,
+    fullscreen ? styles.fullscreenMain : false
+  );
 
   const [ref, setRef] = useState(null);
   const [cssLink, updateCssLink] = useState('');
@@ -116,10 +122,10 @@ export default function EmbedComponent(props: IEmbedComponent) {
   const childrenDiv = <div>{children}</div>;
   const FullPageWithProps = (
     <FullPage
-      className={
-        styles.FullPage +
-        (withRangeSlider ? '' : ` ${styles.FullPageWithoutTransition}`)
-      }
+      className={classNames(
+        styles.FullPage,
+        withRangeSlider ? false : styles.FullPageWithoutTransition
+      )}
       onClick={onClick}
     />
   );
