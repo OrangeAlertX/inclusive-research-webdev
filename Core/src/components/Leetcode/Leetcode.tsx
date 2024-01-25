@@ -9,6 +9,12 @@ interface ILeetcode {
 
 Leetcode.defaultProps = {};
 
+await fetch('http://localhost:5173/projects/leetcode').then((res) => {
+  const [components, leetcodeStyles] = res;
+
+  leetcodeStyles[0].then((data) => console.log(data));
+});
+
 export default function Leetcode(props: ILeetcode) {
   const { Viewer } = props;
 

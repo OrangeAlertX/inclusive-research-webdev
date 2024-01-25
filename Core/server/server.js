@@ -94,6 +94,7 @@ if (isProduction) {
   });
 }
 
+//Public folders of pages
 app.use('/projects/static', express.static('../Landing-Page-Static/static'));
 app.use(
   '/projects/publicResp',
@@ -101,14 +102,20 @@ app.use(
 );
 app.use('/projects/distCol', express.static('../Paired-Colors/distCol'));
 
+// Projects
 const projects = {
   'static-landing': '../Landing-Page-Static/index.html',
   'adaptive-landing': '../Landing-Page-Responsive/index.html',
   'colors-game': '../Paired-Colors/index.html',
 };
 
-leetcodeParser(`https://leetcode.com/orangealertx/`);
+// ParsedLeetcode
+let leetcodeNodes = leetcodeParser();
+app.use('/projects/leetcode', async (req, res) => {
+  res.status(200).set({ 'Content-Type': 'text/html' }).end(leetcodeNodes);
+});
 
+// Non-React queries
 app.use('/projects/', async (req, res) => {
   try {
     const page = req.originalUrl.replace('/projects/', '');
