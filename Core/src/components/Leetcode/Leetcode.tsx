@@ -1,6 +1,7 @@
 import styles from './Leetcode.module.css';
 import variables from '../App/variables.module.css';
 import classNames from 'classnames';
+import { useEffect, useRef } from 'react';
 
 interface ILeetcode {
   // children: React.ReactElement | string | JSX.Element;
@@ -9,14 +10,28 @@ interface ILeetcode {
 
 Leetcode.defaultProps = {};
 
-await fetch('http://localhost:5173/projects/leetcode').then((res) => {
-  const [components, leetcodeStyles] = res;
-
-  leetcodeStyles[0].then((data) => console.log(data));
-});
+const leetcodeNodes = fetch('http://localhost:5173/projects/leetcode').then(
+  (res) => res.text()
+);
 
 export default function Leetcode(props: ILeetcode) {
   const { Viewer } = props;
+
+  const leetcodeRef = useRef(null);
+
+  useEffect(() => {
+    leetcodeNodes.then((json) => {
+      const data = JSON.parse(json);
+      const styles = data.styles;
+      const solvedProblems = data.solvedProblems;
+      const activites = data.activites;
+
+      const leetcode = leetcodeRef.current;
+
+      leetcode.firstChild.innerHTML = styles;
+      leetcode.innerHTML += solvedProblems + activites;
+    });
+  }, []);
 
   const ViewerProps = {
     src: 'https://leetcode.com/orangealertx/',
@@ -42,6 +57,9 @@ export default function Leetcode(props: ILeetcode) {
           </a>
           <span className={styles.linkpopup}>(ссылка на профиль)</span>
         </h3>
+        <div className={styles.leetcode} ref={leetcodeRef}>
+          <style></style>
+        </div>
         {/* <div className={styles.container}>
           <div className={styles.window}>
             <Viewer {...ViewerProps}></Viewer>

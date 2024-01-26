@@ -110,9 +110,14 @@ const projects = {
 };
 
 // ParsedLeetcode
-let leetcodeNodes = leetcodeParser();
+let leetcodeNodes;
+leetcodeParser().then((res) => (leetcodeNodes = res));
 app.use('/projects/leetcode', async (req, res) => {
-  res.status(200).set({ 'Content-Type': 'text/html' }).end(leetcodeNodes);
+  if (!leetcodeNodes) res.status(404);
+  res
+    .status(200)
+    .set({ 'Content-Type': 'application/json' })
+    .end(leetcodeNodes);
 });
 
 // Non-React queries
