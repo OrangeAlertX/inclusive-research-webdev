@@ -10,7 +10,7 @@ const base = process.env.BASE || '/';
 
 const createLog = (req, res, next) => {
   res.on('finish', function () {
-    console.log(req.method, req.originalUrl, res.statusCode, res.statusMessage);
+    console.log(req.method, req.originalUrl, res.statusCode);
   });
   next();
 };
