@@ -7,10 +7,23 @@ const isProduction = process.env.NODE_ENV === 'production';
 const isDev = !isProduction;
 const port = process.env.PORT || 5173;
 const base = process.env.BASE || '/';
+const projects = {
+  'static-landing': '../Landing-Page-Static/index.html',
+  'adaptive-landing': '../Landing-Page-Responsive/index.html',
+  'colors-game': '../Paired-Colors/index.html',
+};
 
 const createLog = (req, res, next) => {
   res.on('finish', function () {
-    console.log(req.method, req.originalUrl, res.statusCode);
+    let isValid;
+
+    if (req.originalUrl.includes('projects')) {
+      isValid = Object.keys(projects).some((project) =>
+        new RegExp(`^.*${project}.*`).exec(req.originalUrl)
+      );
+    } else isValid = true;
+
+    if (isValid) console.log(req.method, req.originalUrl, res.statusCode);
   });
   next();
 };
@@ -101,13 +114,6 @@ app.use(
   express.static('../Landing-Page-Responsive/publicResp')
 );
 app.use('/projects/distCol', express.static('../Paired-Colors/distCol'));
-
-// Projects
-const projects = {
-  'static-landing': '../Landing-Page-Static/index.html',
-  'adaptive-landing': '../Landing-Page-Responsive/index.html',
-  'colors-game': '../Paired-Colors/index.html',
-};
 
 // ParsedLeetcode
 let leetcodeNodes;
