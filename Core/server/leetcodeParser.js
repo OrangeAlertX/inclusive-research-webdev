@@ -1,14 +1,13 @@
 import { JSDOM, VirtualConsole } from 'jsdom';
-
-const unique = new Date().getTime();
+import http from 'http';
 
 async function parseLeetcode() {
   const leetcode = await fetch(`https://leetcode.com/orangealertx`)
     .then((res) => res.text())
     .then((text) => {
       return text.replace(
-        `<script>`,
-        `<script>window.matchMedia = window.matchMedia || (() => { return { matches: false, addListener: () => {}, removeListener: () => {}, }; });</script>
+        `</noscript>`,
+        `</noscript><script>window.matchMedia = window.matchMedia || (() => { return { matches: false, addListener: () => {}, removeListener: () => {}, }; });</script>
       <script>(function() {
         var lastTime = 0;
         var vendors = ['ms', 'moz', 'webkit', 'o'];
@@ -32,12 +31,7 @@ async function parseLeetcode() {
             window.cancelAnimationFrame = function(id) {
                 clearTimeout(id);
             };
-    }());</script>
-      <script>
-      <style>.testerrr{display:flex;}</style>
-      <script defer>const target = window.document.querySelector('.testerrr');
-      target.setAttribute('style', 'display: none;')
-      </script>`
+    }());</script>`
       );
     });
 
@@ -52,16 +46,17 @@ async function parseLeetcode() {
     pretendToBeVisual: true,
   });
 
+  // setTimeout(() => {
+  //   http
+  //     .createServer(function (req, res) {
+  //       res.write(DOM.serialize()); //write a response to the client
+  //       res.end(); //end the response
+  //     })
+  //     .listen(8080);
+  // }, 20000);
+
   const window = DOM.window;
   const document = window.document;
-
-  window.document.body.innerHTML += `<div class='testerrr'></div>`;
-  setInterval(() => {
-    const target = window.document.querySelector(`.testerrr`);
-    const targetStyles = window.getComputedStyle(target)['_values'];
-    console.log(target.className);
-    console.log(target.outerHTML);
-  }, 3000);
 
   const solvedProblems = new Promise((res) => {
     const interval = setInterval(() => {
@@ -88,16 +83,19 @@ async function parseLeetcode() {
           .parentNode.setAttribute('width', '800');
 
         clearInterval(interval);
-        applyStyles([cur], window);
-        // window.close();
-        res(cur);
+        setTimeout(() => {
+          // console.log(window.document.styleSheets[0].); //.medal_gradient-text__i7EDx
+          applyStyles([cur], window);
+          window.close();
+          res(cur);
+        }, 30000);
       }
     }, 3000);
   });
 
   // const stylesStylesheets = document.querySelectorAll("link[rel='stylesheet']");
   // const stylesLink = Array.from(stylesStylesheets).map(
-  //   (el) => 'https://leetcode.com/orangealertx' + el.getAttribute('href')
+  //   (el) => 'https://leetcode.com' + el.getAttribute('href')
   // );
   // const stylesPromises = [];
   // stylesLink.forEach(
