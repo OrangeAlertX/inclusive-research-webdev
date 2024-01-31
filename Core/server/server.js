@@ -119,11 +119,8 @@ app.use('/projects/distCol', express.static('../Paired-Colors/distCol'));
 let leetcodeNodes;
 leetcodeParser().then((res) => (leetcodeNodes = res));
 app.use('/projects/leetcode', async (req, res) => {
-  if (!leetcodeNodes) res.status(404);
-  res
-    .status(200)
-    .set({ 'Content-Type': 'application/json' })
-    .end(leetcodeNodes);
+  if (!leetcodeNodes) res.status(102);
+  res.status(200).set({ 'Content-Type': 'text/html' }).end(leetcodeNodes);
 });
 
 // Non-React queries

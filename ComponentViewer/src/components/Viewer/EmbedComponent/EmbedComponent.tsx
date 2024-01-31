@@ -12,6 +12,8 @@ interface IEmbedComponent {
   RangeSliderRef: React.MutableRefObject<any>;
   withRangeSlider: boolean;
   withFullPage: boolean;
+  heightAdjust: boolean;
+  setContainerHeight: React.Dispatch<React.SetStateAction<number>>;
   src?: string | undefined;
 }
 
@@ -54,13 +56,15 @@ export default function EmbedComponent(props: IEmbedComponent) {
     RangeSliderRef,
     withRangeSlider,
     withFullPage,
+    heightAdjust,
+    setContainerHeight,
     src,
   } = props;
+
   const EmbedClassName = classNames(
     styles.container,
     fullscreen ? styles.fullscreen : false
   );
-
   const mainClassName = classNames(
     styles.main,
     fullscreen ? styles.fullscreenMain : false
@@ -106,6 +110,11 @@ export default function EmbedComponent(props: IEmbedComponent) {
     outer.style.setProperty('transform', `scale(${multiplier})`);
     iframe.style.setProperty('height', height);
   }, [resolution, ref, fullscreen, containerWidth]);
+
+  useEffect(() => {
+    const iframe = ref;
+    if (!iframe) return;
+  });
 
   const mountBody = ref?.contentDocument?.body;
   const mountHead = ref?.contentDocument?.body;

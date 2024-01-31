@@ -1,13 +1,29 @@
 import { JSDOM, VirtualConsole } from 'jsdom';
-import http from 'http';
 
 async function parseLeetcode() {
-  const leetcode = await fetch(`https://leetcode.com/orangealertx`)
+  const [leetcode, externalStyles] = await fetch(
+    `https://leetcode.com/orangealertx`
+  )
     .then((res) => res.text())
-    .then((text) => {
-      return text.replace(
-        `</noscript>`,
-        `</noscript><script>window.matchMedia = window.matchMedia || (() => { return { matches: false, addListener: () => {}, removeListener: () => {}, }; });</script>
+    .then(async (text) => {
+      //Extract CSS
+      const pattern = /<link\s+rel="stylesheet"\s+href="([^"]*)"([^>]*)>/g;
+      let matches = [];
+      while ((matches = pattern.exec(text)) !== null) {
+        var linkCss = matches[0];
+        break;
+      }
+
+      let externalStyles = await fetch(
+        `https://leetcode.com/${linkCss.split('"')[3]}`
+      ).then((res) => res.text());
+      text = text.replace(linkCss, '');
+
+      //Fix JSDOM bugs
+      return [
+        text.replace(
+          `</noscript>`,
+          `</noscript><script>window.matchMedia = window.matchMedia || (() => { return { matches: false, addListener: () => {}, removeListener: () => {}, }; });</script>
       <script>(function() {
         var lastTime = 0;
         var vendors = ['ms', 'moz', 'webkit', 'o'];
@@ -32,7 +48,9 @@ async function parseLeetcode() {
                 clearTimeout(id);
             };
     }());</script>`
-      );
+        ),
+        externalStyles,
+      ];
     });
 
   const virtualConsole = new VirtualConsole();
@@ -46,91 +64,56 @@ async function parseLeetcode() {
     pretendToBeVisual: true,
   });
 
-  // setTimeout(() => {
-  //   http
-  //     .createServer(function (req, res) {
-  //       res.write(DOM.serialize()); //write a response to the client
-  //       res.end(); //end the response
-  //     })
-  //     .listen(8080);
-  // }, 20000);
-
   const window = DOM.window;
   const document = window.document;
 
   const solvedProblems = new Promise((res) => {
     const interval = setInterval(() => {
-      const cur = document.querySelector(
+      const curNode = document.querySelector(
         `.flex.w-full.flex-col.space-x-0.space-y-4`
       ).firstChild;
-      if (!cur) return; //waiting until the component was mounted
+      if (!curNode) return; //waiting until the component was mounted
 
       clearInterval(interval);
-      applyStyles([cur], DOM.window);
-      res(cur);
+      res(curNode);
     }, 3000);
   });
 
   const activites = new Promise((res) => {
     const interval = setInterval(() => {
-      const cur = document.querySelector(
+      const curNode = document.querySelector(
         `.flex.h-auto.flex-col.space-y-4.p-4.pb-0`
       );
-      if (!cur) return; //waiting until the component was mounted
+      if (!curNode) return; //waiting until the component was mounted
       if (document.querySelector(`.month`)) {
         document
           .querySelector(`.month`)
           .parentNode.setAttribute('width', '800');
 
         clearInterval(interval);
-        setTimeout(() => {
-          // console.log(window.document.styleSheets[0].); //.medal_gradient-text__i7EDx
-          applyStyles([cur], window);
-          window.close();
-          res(cur);
-        }, 30000);
+
+        res(curNode);
       }
     }, 3000);
   });
 
-  // const stylesStylesheets = document.querySelectorAll("link[rel='stylesheet']");
-  // const stylesLink = Array.from(stylesStylesheets).map(
-  //   (el) => 'https://leetcode.com' + el.getAttribute('href')
-  // );
-  // const stylesPromises = [];
-  // stylesLink.forEach(
-  //   (el, i) => (stylesPromises[i] = fetch(el).then((style) => style.text()))
-  // );
-  // const styles = await Promise.all(stylesPromises);
-
-  return [await solvedProblems, await activites, 'styles'];
-}
-
-function applyStyles(nodes, window) {
-  for (let i = 0; i < nodes.length; i++) {
-    const styles = window.getComputedStyle(nodes[i]);
-    nodes[i].setAttribute(
-      'style',
-      JSON.stringify(styles['_values'])
-        .split('","')
-        .join(';')
-        .replaceAll('"', '')
-        .slice(1, -1)
-    );
-    applyStyles(nodes[i].children, window);
-  }
+  return [await solvedProblems, await activites, DOM, externalStyles];
 }
 
 export default async function leetcodeParser() {
-  const [solvedProblems, activites, styles] = await parseLeetcode();
+  const [solvedProblems, activites, DOM, styles] = await parseLeetcode();
 
-  // const stylesText = styles.join('\n');
   const solvedProblemsText = solvedProblems.outerHTML;
   const activitesText = activites.outerHTML;
+  const lightDarkScript = DOM.window.document.querySelector('#__next>script');
 
-  return JSON.stringify({
-    styles: 'stylesText',
-    solvedProblems: solvedProblemsText,
-    activites: activitesText,
-  });
+  DOM.window.document.head.innerHTML = `<style>${styles}</style><script>${lightDarkScript.innerHTML}</script>`;
+  DOM.window.document.body.innerHTML = `<div style="display: flex; flex-direction: column;">${
+    solvedProblemsText + activitesText
+  }</div>`;
+
+  const leetcode = DOM.serialize();
+  DOM.window.close();
+
+  return leetcode;
 }

@@ -8,6 +8,8 @@ import variables from '../App/variables.module.css';
 interface IViewer {
   withRangeSlider?: boolean;
   withFullPage?: boolean;
+  heightAdjust?: boolean;
+  containerHeightDefault?: number;
   children?: React.ReactElement;
   src?: string;
   min: number;
@@ -18,6 +20,8 @@ interface IViewer {
 Viewer.defaultProps = {
   withRangeSlider: true,
   withFullPage: true,
+  heightAdjust: false,
+  containerHeightDefault: 400,
   src: '',
   min: 320,
   max: 3840,
@@ -31,8 +35,17 @@ const breakpoints = [
 
 /////////////////////////
 export default function Viewer(props: IViewer) {
-  const { withRangeSlider, withFullPage, children, src, min, max, colors } =
-    props;
+  const {
+    withRangeSlider,
+    withFullPage,
+    heightAdjust,
+    containerHeightDefault,
+    children,
+    src,
+    min,
+    max,
+    colors,
+  } = props;
 
   const breakpointsOnMinMax = useMemo(() => {
     const newBreakpoints = breakpoints.filter((point) => {
@@ -49,6 +62,9 @@ export default function Viewer(props: IViewer) {
   const onClick = () => {
     toggleFullscreen(!fullscreen);
   };
+  const [containerHeight, setContainerHeight] = useState(
+    containerHeightDefault
+  );
   const RangeSliderRef = useRef(null);
 
   const RangeSliderProps = {
@@ -69,6 +85,8 @@ export default function Viewer(props: IViewer) {
     RangeSliderRef,
     withRangeSlider,
     withFullPage,
+    heightAdjust,
+    setContainerHeight,
   };
 
   const RangeOptions =
@@ -84,8 +102,12 @@ export default function Viewer(props: IViewer) {
 
   return (
     <div
-      style={!withRangeSlider ? { width: '100%' } : {}}
-      className={classNames(styles.Viewer, colors)}
+      style={{ height: containerHeight + 'px' }}
+      className={classNames(
+        styles.Viewer,
+        colors,
+        !withRangeSlider ? styles.width100 : false
+      )}
     >
       <EmbedComponent {...EmbedProps}>{children}</EmbedComponent>
       <RangeSlider {...RangeSliderProps} />
