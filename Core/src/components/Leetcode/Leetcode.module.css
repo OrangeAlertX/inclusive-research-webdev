@@ -3,7 +3,7 @@
   color: var(--main-color);
 }
 
-.content {
+.profile {
   margin: 1.5em;
 }
 
@@ -22,5 +22,13 @@
 
 .container {
   position: relative;
-  width: clamp(50vw, 800px, 80vw);
+  width: clamp(50vw, 800px, 96vw);
+
+  border-radius: 1em;
+  overflow: hidden;
+}
+
+.colors {
+  --main-color: tranparent;
+  --second-color: tranparent;
 }

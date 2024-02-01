@@ -66,6 +66,14 @@ const projectResume = {
   code: 'https://github.com/OrangeAlertX/inclusive-research-webdev/tree/main/Core',
 };
 
+const projectLeetcode = {
+  title: 'Cкрейпинг Leetcode',
+  newSkills: ['Парсинг', 'Virtual DOM (JSDOM)'],
+  about:
+    'Этот небольшой компонент содержит множество скрытых сложностей, поэтому выделен в отдельных проект.',
+  code: 'https://github.com/OrangeAlertX/inclusive-research-webdev/tree/main/Core/server/leetcodeParser.js',
+};
+
 const projects = [
   projectStatic,
   projectAdaptive,
@@ -73,6 +81,7 @@ const projects = [
   projectTemplates,
   projectViewer,
   projectResume,
+  projectLeetcode,
 ];
 
 export default function MyProjects(props: IMyProjects) {

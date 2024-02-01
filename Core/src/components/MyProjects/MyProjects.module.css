@@ -1,4 +1,7 @@
 .MyProjects {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5em;
 }
 
 .title {

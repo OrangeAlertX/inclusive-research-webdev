@@ -2,6 +2,7 @@ import { FaGithub } from 'react-icons/fa';
 import { HiOutlineExternalLink } from 'react-icons/hi';
 import styles from './Project.module.css';
 import variables from '../../App/variables.module.css';
+import { useEffect } from 'react';
 
 interface ProjectData {
   title: string;

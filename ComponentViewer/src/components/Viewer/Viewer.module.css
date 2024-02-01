@@ -2,7 +2,7 @@
   width: clamp(50vw, 1024px, 75vw);
 
   height: 400px;
-  margin: 20px auto;
+  margin: auto;
 
   display: flex;
   justify-content: center;

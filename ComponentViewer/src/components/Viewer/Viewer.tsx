@@ -9,7 +9,7 @@ interface IViewer {
   withRangeSlider?: boolean;
   withFullPage?: boolean;
   heightAdjust?: boolean;
-  containerHeightDefault?: number;
+  ViewerHeightDefault?: number;
   children?: React.ReactElement;
   src?: string;
   min: number;
@@ -21,7 +21,7 @@ Viewer.defaultProps = {
   withRangeSlider: true,
   withFullPage: true,
   heightAdjust: false,
-  containerHeightDefault: 400,
+  ViewerHeightDefault: 400,
   src: '',
   min: 320,
   max: 3840,
@@ -39,7 +39,7 @@ export default function Viewer(props: IViewer) {
     withRangeSlider,
     withFullPage,
     heightAdjust,
-    containerHeightDefault,
+    ViewerHeightDefault,
     children,
     src,
     min,
@@ -62,9 +62,9 @@ export default function Viewer(props: IViewer) {
   const onClick = () => {
     toggleFullscreen(!fullscreen);
   };
-  const [containerHeight, setContainerHeight] = useState(
-    containerHeightDefault
-  );
+  const [ViewerHeight, setViewerHeight] = useState(ViewerHeightDefault);
+  const setViewerHeightHandler = (multiplier: number) =>
+    setViewerHeight(ViewerHeightDefault * multiplier);
   const RangeSliderRef = useRef(null);
 
   const RangeSliderProps = {
@@ -86,7 +86,7 @@ export default function Viewer(props: IViewer) {
     withRangeSlider,
     withFullPage,
     heightAdjust,
-    setContainerHeight,
+    setViewerHeightHandler,
   };
 
   const RangeOptions =
@@ -102,7 +102,7 @@ export default function Viewer(props: IViewer) {
 
   return (
     <div
-      style={{ height: containerHeight + 'px' }}
+      style={{ height: ViewerHeight + 'px' }}
       className={classNames(
         styles.Viewer,
         colors,

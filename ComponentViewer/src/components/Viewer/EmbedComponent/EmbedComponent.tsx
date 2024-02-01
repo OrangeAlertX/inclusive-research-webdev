@@ -13,7 +13,7 @@ interface IEmbedComponent {
   withRangeSlider: boolean;
   withFullPage: boolean;
   heightAdjust: boolean;
-  setContainerHeight: React.Dispatch<React.SetStateAction<number>>;
+  setViewerHeightHandler: (number) => void;
   src?: string | undefined;
 }
 
@@ -39,7 +39,9 @@ const cssOrLink = (cssLink, updateCssLink) => {
     });
     mountedObservers.push(observer);
     observer.observe(head, { childList: true });
+    //////////
   } else {
+    //////////
     const cssBundle = head.querySelector('link[rel="stylesheet"]');
     cssLink = cssBundle.getAttribute('href');
   }
@@ -57,7 +59,7 @@ export default function EmbedComponent(props: IEmbedComponent) {
     withRangeSlider,
     withFullPage,
     heightAdjust,
-    setContainerHeight,
+    setViewerHeightHandler: setViewerHeight,
     src,
   } = props;
 
@@ -72,19 +74,21 @@ export default function EmbedComponent(props: IEmbedComponent) {
 
   const [ref, setRef] = useState(null);
   const [cssLink, updateCssLink] = useState('');
-  const [containerWidth, setContainerWidth] = useState(0);
+  const [mainWidth, setMainWidth] = useState(0);
 
   useEffect(() => {
     const iframe = ref;
     if (!iframe) return;
+    if (!src) {
+      iframe.contentDocument.body.style = `display: flex; justify-content: center; align-items: center;`;
+    }
 
-    iframe.contentDocument.body.style = `display: flex; justify-content: center; align-items: center;`;
+    const main = iframe.parentElement.parentElement;
 
-    const container = iframe.parentElement.parentElement;
-
-    const cb = () => setContainerWidth(container.offsetWidth);
+    //state for next useEffect, rerender when size of main is changing
+    const cb = () => setMainWidth(main.offsetWidth);
     const resizeObserver = new ResizeObserver(cb);
-    resizeObserver.observe(container);
+    resizeObserver.observe(main);
 
     return () => {
       mountedObservers.forEach((observer) => observer.disconnect());
@@ -92,29 +96,30 @@ export default function EmbedComponent(props: IEmbedComponent) {
 
       resizeObserver.disconnect();
     };
-  }, [ref]);
+  }, [ref, src]);
 
   useEffect(() => {
     const iframe = ref;
     if (!iframe) return;
 
     const outer = iframe.parentElement;
-    const containerWidth = outer.parentElement.offsetWidth;
-    const containerHeight = outer.parentElement.offsetHeight;
+    const mainWidth = outer.parentElement.offsetWidth;
+    const multiplier = mainWidth / resolution;
 
-    const multiplier = containerWidth / resolution;
-    const height = (resolution / containerWidth) * containerHeight + 'px';
+    let mainHeight = outer.parentElement.offsetHeight;
+    if (heightAdjust && !fullscreen) {
+      setViewerHeight(multiplier);
+    }
+
+    const height = (resolution / mainWidth) * mainHeight;
 
     outer.style.setProperty('width', resolution + 'px');
-    outer.style.setProperty('height', height);
+    outer.style.setProperty('height', height + 'px');
     outer.style.setProperty('transform', `scale(${multiplier})`);
-    iframe.style.setProperty('height', height);
-  }, [resolution, ref, fullscreen, containerWidth]);
+    iframe.style.setProperty('height', height + 'px');
 
-  useEffect(() => {
-    const iframe = ref;
-    if (!iframe) return;
-  });
+    //
+  }, [resolution, ref, fullscreen, mainWidth, heightAdjust, setViewerHeight]);
 
   const mountBody = ref?.contentDocument?.body;
   const mountHead = ref?.contentDocument?.body;
