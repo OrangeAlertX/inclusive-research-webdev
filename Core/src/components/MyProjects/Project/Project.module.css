@@ -1,0 +1,74 @@
+.Project {
+  display: flex;
+}
+@media (max-width: 767px) {
+  .Project {
+    flex-direction: column;
+  }
+}
+
+.content {
+  position: relative;
+  flex: 1;
+
+  color: var(--main-color);
+  margin: 0 var(--first-margin);
+}
+
+.viewer {
+  flex: 1;
+}
+
+.newSkillTitle {
+  display: inline;
+  font-style: italic;
+
+  user-select: none;
+}
+
+.newSkill {
+  display: inline-block;
+  padding: 0.5em;
+  border: 1px solid var(--main-color);
+  border-radius: 8px;
+  margin-left: 0.5em;
+  margin-bottom: 0.5em;
+
+  background-color: var(--second-color);
+}
+.newSkill::selection {
+  background: var(--background-color);
+}
+
+.inner {
+  margin: 1em;
+}
+
+.title {
+  margin-top: 0;
+}
+
+.links {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  height: 2em;
+}
+
+/* @media (max-width: 767px) {
+  .links {
+    top: unset;
+    bottom: 0;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-around;
+  }
+} */
+
+.links > a {
+  color: var(--second-color);
+  margin-left: 1em;
+}

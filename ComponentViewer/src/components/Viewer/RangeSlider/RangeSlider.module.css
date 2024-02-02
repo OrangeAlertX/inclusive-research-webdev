@@ -2,6 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #1a1a1a;
+  border-radius: 8px;
 
   position: absolute;
   transform: rotate(-90deg) scale(2);
@@ -15,6 +17,9 @@
 }
 
 .tooltip {
+  color: var(--main-color);
+  background-color: #1a1a1a;
+
   margin-left: -0.5em;
   text-align: center;
 
@@ -55,17 +60,17 @@
 }
 
 .slider::-webkit-slider-runnable-track {
-  background-color: #147053;
+  background-color: var(--second-color);
   height: var(--trackWidth);
 }
 .slider::-moz-range-track {
-  background-color: #147053;
+  background-color: var(--second-color);
   height: var(--trackWidth);
 }
 
 .slider::-webkit-slider-thumb {
   appearance: none;
-  background-color: orange;
+  background-color: var(--main-color);
   width: calc(var(--thumbSize) / 2);
   height: var(--thumbSize);
   transform: translateY(var(--thumbTranslate));
@@ -73,9 +78,13 @@
 }
 .slider::-moz-range-thumb {
   appearance: none;
-  background-color: orange;
+  background-color: var(--main-color);
   width: calc(var(--thumbSize) / 2);
   height: var(--thumbSize);
   transform: translateY(var(--thumbTranslate));
   border-radius: 50%;
+}
+
+.disable {
+  display: none;
 }

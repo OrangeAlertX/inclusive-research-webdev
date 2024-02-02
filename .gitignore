@@ -3,7 +3,7 @@ node_modules
 *.css.map
 Paired-Colors/css/styles.css
 Landing-Page-Responsive/css/index/index.css
-dist
+dist*
 
 todo
 todos

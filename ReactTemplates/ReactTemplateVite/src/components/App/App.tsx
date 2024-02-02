@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import Viewer from '../../../../../ComponentViewer/src/components/Viewer/Viewer';
+import Viewer from '../../../ComponentViewer/src/components/Viewer/Viewer';
 import CounterButton from '../../simple/CounterButton/CounterButton';
 import RootContainer from '../../UI/RootContainer/RootContainer';
 

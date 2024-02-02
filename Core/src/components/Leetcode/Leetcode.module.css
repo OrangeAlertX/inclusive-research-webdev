@@ -1,0 +1,39 @@
+.Leetcode,
+.link {
+  color: var(--main-color);
+}
+
+.profile {
+  margin: var(--first-margin);
+}
+
+.linkpopup {
+  font-size: 0.6em;
+  margin-left: 1em;
+  opacity: 0;
+
+  transition: opacity 0.3s;
+}
+
+.link:hover + .linkpopup {
+  opacity: 1;
+  color: var(--main-color);
+}
+
+.container {
+  position: relative;
+  width: clamp(50%, 800px, 100%);
+
+  border-radius: 1em;
+  overflow: hidden;
+}
+
+.colors {
+  --main-color: tranparent;
+  --second-color: tranparent;
+}
+
+.iframeOutline {
+  outline: 10px solid #282828;
+  outline-offset: -10px;
+}

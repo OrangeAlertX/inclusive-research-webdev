@@ -1,0 +1,10 @@
+.MyProjects {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5em;
+}
+
+.title {
+  color: var(--main-color);
+  margin-bottom: 0;
+}

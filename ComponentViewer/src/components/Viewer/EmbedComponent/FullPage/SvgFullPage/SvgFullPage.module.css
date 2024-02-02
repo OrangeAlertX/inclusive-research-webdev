@@ -1,0 +1,7 @@
+/* container in the parent node */
+
+.svg {
+  height: 100%;
+
+  color: var(--main-color);
+}

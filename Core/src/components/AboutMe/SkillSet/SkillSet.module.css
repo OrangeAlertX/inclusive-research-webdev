@@ -1,0 +1,8 @@
+.SkillSet {
+  color: var(--main-color);
+  margin-left: var(--first-margin);
+}
+
+.skills {
+  margin-left: 1em;
+}

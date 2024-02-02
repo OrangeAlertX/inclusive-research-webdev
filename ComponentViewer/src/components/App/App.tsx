@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import Viewer from '../Viewer/Viewer';
 import CounterButton from '../../simple/CounterButton/CounterButton';
 import RootContainer from '../../UI/RootContainer/RootContainer';
-import FullPage from '../Viewer/Zoomer/EmbedComponent/FullPage/FullPage';
+import FullPage from '../Viewer/EmbedComponent/FullPage/FullPage';
 
 export default function App() {
   return (
@@ -11,7 +11,7 @@ export default function App() {
         path="/"
         element={
           <RootContainer>
-            <Viewer min={1024}>
+            <Viewer min={320}>
               <>
                 <Viewer min={350} max={1920}>
                   <CounterButton></CounterButton>

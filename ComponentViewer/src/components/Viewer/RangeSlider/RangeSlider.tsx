@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './RangeSlider.module.css';
 
 interface IRangeSlider {
@@ -8,7 +8,7 @@ interface IRangeSlider {
   max: number;
   fullscreen: boolean;
   RangeSliderRef: React.MutableRefObject<any>;
-
+  withRangeSlider: boolean;
   className?: string;
 }
 
@@ -44,8 +44,15 @@ const eventWheel = (e, setResolution, setCurrentResolution) => {
 };
 
 export default function RangeSlider(props: IRangeSlider) {
-  const { resolution, setResolution, min, max, fullscreen, RangeSliderRef } =
-    props;
+  const {
+    resolution,
+    setResolution,
+    min,
+    max,
+    fullscreen,
+    withRangeSlider,
+    RangeSliderRef,
+  } = props;
 
   const ref = useRef(null);
   useEffect(() => {
@@ -60,13 +67,16 @@ export default function RangeSlider(props: IRangeSlider) {
 
   const [currentResolution, setCurrentResolution] = useState(resolution);
 
-  const fullscreenContainer =
-    fullscreen && props.className
-      ? props.className + ' ' + styles.fullscreen
-      : '';
+  let fullscreenContainer = fullscreen
+    ? `${props.className} ${styles.fullscreen}`
+    : '';
+  if (!fullscreenContainer && !withRangeSlider)
+    fullscreenContainer = styles.disable;
+  const disableRange = min === max ? ` ${styles.disable}` : '';
+
   return (
     <div className={fullscreenContainer} ref={RangeSliderRef}>
-      <div className={styles.container}>
+      <div className={styles.container + disableRange}>
         <input
           className={styles.slider}
           type="range"

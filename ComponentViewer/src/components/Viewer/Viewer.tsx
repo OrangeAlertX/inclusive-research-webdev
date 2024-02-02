@@ -1,22 +1,31 @@
-import { useState, useMemo, createContext, useRef } from 'react';
+import { useState, useMemo, useRef } from 'react';
+import classNames from 'classnames';
 import styles from './Viewer.module.css';
 import RangeSlider from './RangeSlider/RangeSlider';
-import Zoomer from './Zoomer/Zoomer';
-import EmbedComponent from './Zoomer/EmbedComponent/EmbedComponent';
+import EmbedComponent from './EmbedComponent/EmbedComponent';
+import variables from '../App/variables.module.css';
 
 interface IViewer {
   withRangeSlider?: boolean;
-  children: React.ReactElement;
-  isEmbed: boolean;
+  withFullPage?: boolean;
+  heightAdjust?: boolean;
+  ViewerHeightDefault?: number;
+  children?: React.ReactElement;
+  src?: string;
   min: number;
   max: number;
+  colors?: string;
 }
 
 Viewer.defaultProps = {
   withRangeSlider: true,
-  isEmbed: true,
+  withFullPage: true,
+  heightAdjust: false,
+  ViewerHeightDefault: 400,
+  src: '',
   min: 320,
   max: 3840,
+  colors: variables.colorsDefault,
 };
 
 const breakpoints = [
@@ -26,8 +35,17 @@ const breakpoints = [
 
 /////////////////////////
 export default function Viewer(props: IViewer) {
-  console.log('render Viewer');
-  const { withRangeSlider, children, isEmbed, min, max } = props;
+  const {
+    withRangeSlider,
+    withFullPage,
+    heightAdjust,
+    ViewerHeightDefault,
+    children,
+    src,
+    min,
+    max,
+    colors,
+  } = props;
 
   const breakpointsOnMinMax = useMemo(() => {
     const newBreakpoints = breakpoints.filter((point) => {
@@ -44,6 +62,9 @@ export default function Viewer(props: IViewer) {
   const onClick = () => {
     toggleFullscreen(!fullscreen);
   };
+  const [ViewerHeight, setViewerHeight] = useState(ViewerHeightDefault);
+  const setViewerHeightHandler = (multiplier: number) =>
+    setViewerHeight(ViewerHeightDefault * multiplier);
   const RangeSliderRef = useRef(null);
 
   const RangeSliderProps = {
@@ -54,34 +75,44 @@ export default function Viewer(props: IViewer) {
     className: styles.RangeSlider,
     fullscreen,
     RangeSliderRef,
+    withRangeSlider,
   };
-  const ZoomerProps = {
+  const EmbedProps = {
     resolution,
     fullscreen,
     onClick,
+    src,
     RangeSliderRef,
+    withRangeSlider,
+    withFullPage,
+    heightAdjust,
+    setViewerHeightHandler,
   };
 
-  const ZoomerOrEmbed = isEmbed ? EmbedComponent : Zoomer;
+  const RangeOptions =
+    min !== max ? (
+      <datalist id="markersOfRangeSlider">
+        {breakpointsOnMinMax.map((point) => {
+          return (
+            <option key={point} value={point} label={point.toString()}></option>
+          );
+        })}
+      </datalist>
+    ) : null;
 
   return (
-    <div className={styles.Viewer}>
-      <ZoomerOrEmbed {...ZoomerProps}>{children}</ZoomerOrEmbed>
-      {withRangeSlider && <RangeSlider {...RangeSliderProps} />}
-
-      {withRangeSlider && (
-        <datalist id="markersOfRangeSlider">
-          {breakpointsOnMinMax.map((point) => {
-            return (
-              <option
-                key={point}
-                value={point}
-                label={point.toString()}
-              ></option>
-            );
-          })}
-        </datalist>
+    <div
+      style={{ height: ViewerHeight + 'px' }}
+      className={classNames(
+        styles.Viewer,
+        colors,
+        !withRangeSlider ? styles.width100 : false
       )}
+    >
+      <EmbedComponent {...EmbedProps}>{children}</EmbedComponent>
+      <RangeSlider {...RangeSliderProps} />
+
+      {RangeOptions}
     </div>
   );
 }
