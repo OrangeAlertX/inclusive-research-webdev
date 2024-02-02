@@ -38,7 +38,7 @@ const projectColorGame = {
   code: 'https://github.com/OrangeAlertX/inclusive-research-webdev/tree/main/Paired-Colors',
   src: `/projects/colors-game`,
   viewerProps: {
-    min: 480,
+    min: 820,
   },
 };
 
@@ -68,7 +68,7 @@ const projectResume = {
 
 const projectLeetcode = {
   title: 'Cкрейпинг Leetcode',
-  newSkills: ['Парсинг', 'Virtual DOM (JSDOM)'],
+  newSkills: ['Парсинг', 'Virtual DOM'],
   about:
     'Этот небольшой компонент содержит множество скрытых сложностей, поэтому выделен в отдельных проект.',
   code: 'https://github.com/OrangeAlertX/inclusive-research-webdev/tree/main/Core/server/leetcodeParser.js',

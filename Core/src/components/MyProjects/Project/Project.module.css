@@ -9,10 +9,10 @@
 
 .content {
   position: relative;
-  flex: 1.4;
+  flex: 1;
 
   color: var(--main-color);
-  margin: 0 1.5em;
+  margin: 0 var(--first-margin);
 }
 
 .viewer {

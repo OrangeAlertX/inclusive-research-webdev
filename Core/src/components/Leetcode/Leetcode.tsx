@@ -24,7 +24,7 @@ export default function Leetcode(props: ILeetcode) {
         outlineOffset: '-10px',
       };
 
-      iframe.style = style;
+      iframe.classList.add(styles.iframeOutline);
     };
 
     if (!iframe) {
