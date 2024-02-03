@@ -1,0 +1,18 @@
+{
+  "name": "@orangealertx/reacttemplates",
+  "version": "1.0.0",
+  "description": "template for React with SSR",
+  "main": "index.js",
+  "exports": {
+    "./webpackTemplate": "./webpack.js"
+  },
+  "type": "module",
+  "scripts": {
+    "template": "node ./index.js"
+  },
+  "author": "OrangeAlertX",
+  "license": "ISC",
+  "dependencies": {
+    "ncp": "^2.0.0"
+  }
+}
