@@ -73,8 +73,8 @@ if (isProduction) {
       ///////////////////
       const url = req.originalUrl.replace(base, '');
 
-      const ssrLoader = (await import('../dist/server/entry-server.js')).render;
-      const rendered = await ssrLoader({ url, req, ssrManifest });
+      const ssrLoader = await import('../dist/server/entry-server.js');
+      const rendered = await ssrLoader.render({ url, req, ssrManifest });
 
       const html = templateHtml
         .replace(`<!--app-head-->`, rendered.head ?? '')

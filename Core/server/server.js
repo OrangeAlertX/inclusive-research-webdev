@@ -43,16 +43,12 @@ if (isDev) {
   });
   app.use(vite.middlewares);
 
-  console.logger = (...args) => setTimeout(() => console.log(...args), 3000);
-
   app.use('*', async (req, res, next) => {
     try {
       ///////////////////
       const url = req.originalUrl.replace(base, '');
 
       if (serverURL.includes(url.split('/')[0])) return next();
-
-      console.log('SSSSSSSSSSSSSSSSSSSSSSSSSSSSS');
 
       let templateHtml = await fs.readFile('./index.html', 'utf-8');
       templateHtml = await vite.transformIndexHtml(url, templateHtml);

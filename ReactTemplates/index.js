@@ -7,8 +7,8 @@ const __dirname = path.dirname(__filename);
 
 const target = process.argv.slice(2)[0];
 
-if (!target) {
-  console.log(`cannot resolve to the "${target}"`);
+if (!target || target.slice(0, 2) !== './') {
+  console.log(`cannot resolve to the "${target}", use "./<path>"`);
   process.exit(9);
 }
 
