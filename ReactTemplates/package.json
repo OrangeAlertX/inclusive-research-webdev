@@ -1,5 +1,5 @@
 {
-  "name": "@orangealertx/reacttemplates",
+  "name": "@oax/reacttemplates",
   "version": "1.0.0",
   "description": "template for React with SSR",
   "main": "index.js",
@@ -11,6 +11,10 @@
     "template": "node ./index.js"
   },
   "author": "OrangeAlertX",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OrangeAlertX/inclusive-research-webdev.git"
+  },
   "license": "ISC",
   "dependencies": {
     "ncp": "^2.0.0"
