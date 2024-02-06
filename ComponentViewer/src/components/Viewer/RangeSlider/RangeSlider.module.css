@@ -2,7 +2,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #1a1a1a;
   border-radius: 8px;
 
   position: absolute;
@@ -11,14 +10,13 @@
   z-index: var(--z-index);
 }
 
-/*if fullscreen there will be FullPage button*/
+/*if fullscreen, there will be FullPage button*/
 .container + div {
   right: 0;
 }
 
 .tooltip {
   color: var(--main-color);
-  background-color: #1a1a1a;
 
   margin-left: -0.5em;
   text-align: center;
@@ -36,6 +34,7 @@
 .fullscreen .tooltip {
   transform: none;
   position: relative;
+  background-color: #1a1a1a;
 
   z-index: calc(var(--z-index) * 10 + 1);
 }
