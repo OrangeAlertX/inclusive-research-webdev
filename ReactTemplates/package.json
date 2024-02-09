@@ -1,0 +1,22 @@
+{
+  "name": "@orangealertx/reacttemplates",
+  "version": "1.3.0",
+  "description": "template for React with SSR",
+  "bin": "./index.js",
+  "exports": {
+    "./webpackTemplate": "./webpack.js"
+  },
+  "type": "module",
+  "scripts": {
+    "template": "node ./index.js"
+  },
+  "author": "OrangeAlertX",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OrangeAlertX/inclusive-research-webdev.git"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "ncp": "^2.0.0"
+  }
+}

@@ -1,0 +1,15 @@
+.card {
+  padding: 1.8em;
+}
+
+@media (max-width: 1600px) {
+  .card > button {
+    color: orange;
+  }
+}
+
+@media (max-width: 350px) {
+  .card > button {
+    color: red;
+  }
+}

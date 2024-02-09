@@ -1,4 +1,5 @@
-// npm run gen Name path/path
+#!/usr/bin/env node
+
 import path from 'path';
 import fs from 'fs';
 
@@ -43,7 +44,7 @@ export default function ${name}(props: I${name}) {
 };
 
 const error1 =
-  'Wrong args, expected ComponentName and ?componentFolder(components are default)';
+  'Wrong args, expected ComponentName and ?componentFolder("components" are default)';
 if (args.length > 2 || args.length < 1) throw error1;
 
 if (args[1]) componentFolder = './' + args[1];

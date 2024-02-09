@@ -180,9 +180,9 @@ export default function EmbedComponent(props: IEmbedComponent) {
               mountBody &&
               createPortal(childrenDiv, mountBody, 'EmbedZoomer')}
           </iframe>
-          {FullPageComponent}
         </div>
       </div>
+      {FullPageComponent}
     </div>
   );
 }

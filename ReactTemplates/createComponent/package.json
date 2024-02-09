@@ -1,0 +1,17 @@
+{
+  "name": "@orangealertx/gen",
+  "version": "1.3.0",
+  "description": "generate React-component",
+  "main": "createComponent.js",
+  "bin": "./createComponent.js",
+  "type": "module",
+  "scripts": {
+    "test": "node ./createComponent.js"
+  },
+  "author": "OrangeAlertX",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OrangeAlertX/inclusive-research-webdev.git"
+  },
+  "license": "ISC"
+}
