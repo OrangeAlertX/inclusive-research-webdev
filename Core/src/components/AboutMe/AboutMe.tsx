@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import styles from './AboutMe.module.css';
 import SkillSet from './SkillSet/SkillSet';
 import variables from '../App/variables.module.css';
+import Contacts from '../Contacts/Contacts';
 
 interface IAboutMe {
   children?: React.ReactElement | string | JSX.Element;
@@ -35,7 +36,11 @@ export default function AboutMe(props: IAboutMe) {
 
   return (
     <div className={classNames(styles.AboutMe, variables.colors)}>
-      <h2 className={styles.title}>Богдан Севрук</h2>
+      <div className={styles.titleblock}>
+        <h2 className={styles.title}>Богдан Севрук</h2>
+
+        <Contacts />
+      </div>
       {skillSets.map((skillSetProp) => (
         <SkillSet key={skillSetProp.title} {...skillSetProp} />
       ))}

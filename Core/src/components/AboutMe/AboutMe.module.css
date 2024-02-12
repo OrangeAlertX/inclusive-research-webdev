@@ -1,3 +1,9 @@
 .title {
   color: var(--main-color);
+  margin-right: 3em;
+}
+
+.titleblock {
+  display: flex;
+  align-items: center;
 }

@@ -1,8 +1,7 @@
-import { FaGithub } from 'react-icons/fa';
 import { HiOutlineExternalLink } from 'react-icons/hi';
 import styles from './Project.module.css';
 import variables from '../../App/variables.module.css';
-import { useEffect } from 'react';
+import GitHubLink from './GitHubLink';
 
 interface ProjectData {
   title: string;
@@ -43,11 +42,9 @@ export default function Project(props: IProject) {
         </div>
 
         <div className={styles.links}>
-          <a target="_blank" href={project.code} className={styles.git}>
-            <FaGithub size={'2em'} />
-          </a>
+          <GitHubLink href={project.code} />
           {project.src && (
-            <a target="_blank" href={project.src} className={styles.src}>
+            <a target="_blank" href={project.src}>
               <HiOutlineExternalLink size={'2em'} />
             </a>
           )}
