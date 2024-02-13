@@ -5,26 +5,33 @@ import AboutMe from '../AboutMe/AboutMe';
 import MyProjects from '../MyProjects/MyProjects';
 import Leetcode from '../Leetcode/Leetcode';
 import Contacts from '../Contacts/Contacts';
+import global from '../../global.module.css';
+import styles from './App.module.css';
+
+export { Viewer };
 
 export default function App() {
-  const MyProjectsProps = {
-    Viewer,
-  };
-
   return (
     <Routes>
       <Route
         path="/"
         element={
-          <RootContainer>
-            <>
-              <h1 style={{ display: 'none' }}>Веб-разработчик</h1>
-              <AboutMe />
-              <Leetcode Viewer={Viewer} />
-              <MyProjects {...MyProjectsProps} />
+          <>
+            <RootContainer className={styles.root100}>
               <Contacts />
-            </>
-          </RootContainer>
+            </RootContainer>
+            <RootContainer>
+              <>
+                <h1 className={global.disable}>Веб-разработчик</h1>
+                <AboutMe />
+                <Leetcode />
+                <MyProjects />
+              </>
+            </RootContainer>
+            <RootContainer className={styles.root100}>
+              <Contacts />
+            </RootContainer>
+          </>
         }
       />
     </Routes>

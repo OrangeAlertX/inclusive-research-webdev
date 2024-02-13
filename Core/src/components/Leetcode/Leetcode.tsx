@@ -1,17 +1,15 @@
 import styles from './Leetcode.module.css';
-import variables from '../App/variables.module.css';
-import classNames from 'classnames';
 import { useEffect, useRef } from 'react';
+import { Viewer } from '../App/App';
 
 interface ILeetcode {
   // children: React.ReactElement | string | JSX.Element;
-  Viewer: React.JSXElementConstructor<any>;
 }
 
 Leetcode.defaultProps = {};
 
 export default function Leetcode(props: ILeetcode) {
-  const { Viewer } = props;
+  const {} = props;
 
   const ref = useRef(null);
 

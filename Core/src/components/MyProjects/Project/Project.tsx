@@ -2,6 +2,7 @@ import { HiOutlineExternalLink } from 'react-icons/hi';
 import styles from './Project.module.css';
 import variables from '../../App/variables.module.css';
 import GitHubLink from './GitHubLink';
+import { Viewer } from '../../App/App';
 
 interface ProjectData {
   title: string;
@@ -18,13 +19,12 @@ interface ProjectData {
 interface IProject {
   // children: React.ReactElement | string | JSX.Element;
   project: ProjectData;
-  Viewer: React.JSXElementConstructor<any>;
 }
 
 Project.defaultProps = {};
 
 export default function Project(props: IProject) {
-  const { project, Viewer } = props;
+  const { project } = props;
 
   return (
     <div className={styles.Project}>

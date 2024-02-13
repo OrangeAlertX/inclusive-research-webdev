@@ -1,8 +1,17 @@
-.Contacts {
+.contacts {
   display: inline-flex;
   gap: 1em;
 }
 
-.Contacts a {
+.contacts a {
   color: var(--second-color);
+}
+
+.Contacts {
+  padding: 1em;
+
+  display: flex;
+  justify-content: center;
+
+  background-color: black;
 }

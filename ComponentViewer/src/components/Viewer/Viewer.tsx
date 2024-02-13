@@ -59,8 +59,12 @@ export default function Viewer(props: IViewer) {
 
   const [resolution, setResolution] = useState(Math.max(720, min));
   const [fullscreen, toggleFullscreen] = useState(false);
-  const onClick = () => {
-    toggleFullscreen(!fullscreen);
+  const onClick = (target) => {
+    toggleFullscreen((fullscreen) => {
+      if (fullscreen) document.exitFullscreen();
+      else target.requestFullscreen();
+      return !fullscreen;
+    });
   };
   const [ViewerHeight, setViewerHeight] = useState(ViewerHeightDefault);
   const setViewerHeightHandler = (multiplier: number) =>

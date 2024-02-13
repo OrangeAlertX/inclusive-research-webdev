@@ -1,5 +1,4 @@
 import styles from './RootContainer.module.css';
-import classNames from 'classnames';
 import variablesInlineDefault from '../../components/App/variables.module.css?inline';
 
 interface IRootContainer {
@@ -14,16 +13,15 @@ const extractCss = (cssInline) =>
     .filter((row) => row.includes('--'))
     .join(' ')}}`;
 
-const cssRootVariablesDefault = extractCss(variablesInlineDefault);
-
 export default function RootContainer(props: IRootContainer) {
   const { children, className, variablesInline } = props;
-  const rootClassName = classNames(styles.root, className);
-  if (variablesInline) var cssRootVariables = extractCss(variablesInline);
+  const rootClassName = className ? className : styles.root;
 
-  const globalVariables = (
-    <style>{cssRootVariables || cssRootVariablesDefault}</style>
-  );
+  const cssRootVariables = variablesInline
+    ? extractCss(variablesInline)
+    : extractCss(variablesInlineDefault);
+
+  const globalVariables = <style>{cssRootVariables}</style>;
 
   return (
     <>

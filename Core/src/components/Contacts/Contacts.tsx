@@ -15,16 +15,18 @@ export default function Contacts(props: IContacts) {
 
   return (
     <div className={styles.Contacts}>
-      <h3 className={global.disable}>Почта</h3>
-      <a href="mailto:orangealertx@gmail.com" title="orangealertx@gmail.com">
-        <CgMail size={'2em'} />
-      </a>
-      <h3 className={global.disable}>Leetcode</h3>
-      <a href="https://leetcode.com/orangealertx/">
-        <TbBrandLeetcode size={'2em'} />
-      </a>
-      <h3 className={global.disable}>GitHub</h3>
-      <GitHubLink href={'https://github.com/OrangeAlertX'} />
+      <div className={styles.contacts}>
+        <h3 className={global.disable}>Почта</h3>
+        <a href="mailto:orangealertx@gmail.com" title="orangealertx@gmail.com">
+          <CgMail size={'2em'} />
+        </a>
+        <h3 className={global.disable}>Leetcode</h3>
+        <a href="https://leetcode.com/orangealertx/">
+          <TbBrandLeetcode size={'2em'} />
+        </a>
+        <h3 className={global.disable}>GitHub</h3>
+        <GitHubLink href={'https://github.com/OrangeAlertX'} />
+      </div>
     </div>
   );
 }

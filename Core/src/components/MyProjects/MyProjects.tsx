@@ -1,9 +1,9 @@
 import styles from './MyProjects.module.css';
 import Project from './Project/Project';
+import { Viewer } from '../App/App';
 
 interface IMyProjects {
   // children: React.ReactElement | string | JSX.Element;
-  Viewer: React.JSXElementConstructor<any>;
 }
 
 MyProjects.defaultProps = {};
@@ -85,7 +85,7 @@ const projects = [
 ];
 
 export default function MyProjects(props: IMyProjects) {
-  const { Viewer } = props;
+  const {} = props;
 
   const ProjectWithViewer = (project) => {
     return <Project {...project} Viewer={Viewer} />;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { IframeHTMLAttributes, useEffect, useState } from 'react';
 import styles from './EmbedComponent.module.css';
 import { createPortal } from 'react-dom';
 import FullPage from './FullPage/FullPage';
@@ -8,7 +8,7 @@ interface IEmbedComponent {
   children?: React.ReactElement | undefined;
   resolution: number;
   fullscreen: boolean;
-  onClick: () => void;
+  onClick: (target: React.ReactNode) => void;
   RangeSliderRef: React.MutableRefObject<any>;
   withRangeSlider: boolean;
   withFullPage: boolean;
@@ -140,7 +140,7 @@ export default function EmbedComponent(props: IEmbedComponent) {
         styles.FullPage,
         withRangeSlider ? false : styles.FullPageWithoutTransition
       )}
-      onClick={onClick}
+      onClick={() => onClick(ref.parentElement.parentElement.parentElement)}
     />
   );
   const FullPageComponent = withFullPage ? (
