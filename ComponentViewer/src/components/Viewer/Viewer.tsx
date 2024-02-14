@@ -1,9 +1,10 @@
-import { useState, useMemo, useRef } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
 import classNames from 'classnames';
 import styles from './Viewer.module.css';
 import RangeSlider from './RangeSlider/RangeSlider';
 import EmbedComponent from './EmbedComponent/EmbedComponent';
 import variables from '../App/variables.module.css';
+import useFalseWhenExitFullscreenAPI from '../../utils/customHooks/useFalseWhenExitFullscreenAPI';
 
 interface IViewer {
   withRangeSlider?: boolean;
@@ -59,17 +60,22 @@ export default function Viewer(props: IViewer) {
 
   const [resolution, setResolution] = useState(Math.max(720, min));
   const [fullscreen, toggleFullscreen] = useState(false);
-  const onClick = (target) => {
-    toggleFullscreen((fullscreen) => {
-      if (fullscreen) document.exitFullscreen();
-      else target.requestFullscreen();
-      return !fullscreen;
-    });
+  const onClick = () => {
+    toggleFullscreen((fullscreen) => !fullscreen);
   };
   const [ViewerHeight, setViewerHeight] = useState(ViewerHeightDefault);
   const setViewerHeightHandler = (multiplier: number) =>
     setViewerHeight(ViewerHeightDefault * multiplier);
+
   const RangeSliderRef = useRef(null);
+  const ViewerRef = useRef(null);
+
+  useEffect(() => {
+    if (fullscreen) ViewerRef.current.requestFullscreen();
+    else if (document.fullscreenElement) document.exitFullscreen();
+  }, [fullscreen]);
+
+  useFalseWhenExitFullscreenAPI(ViewerRef, toggleFullscreen);
 
   const RangeSliderProps = {
     resolution,
@@ -106,6 +112,7 @@ export default function Viewer(props: IViewer) {
 
   return (
     <div
+      ref={ViewerRef}
       style={{ height: ViewerHeight + 'px' }}
       className={classNames(
         styles.Viewer,
