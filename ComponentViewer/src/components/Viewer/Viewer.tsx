@@ -96,6 +96,7 @@ export default function Viewer(props: IViewer) {
     withRangeSlider,
     withFullPage,
     heightAdjust,
+    ViewerHeight,
     setViewerHeightHandler,
   };
 
