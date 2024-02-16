@@ -24,7 +24,7 @@
 ) {
   $diffWidth: $maxWidth - $minWidth;
   $diffCSS: $maxCSS - $minCSS;
-  $cssPixelOnEveryWidthPixel: $diffCSS / $diffWidth;
+  $cssPixelOnEveryWidthPixel: calc($diffCSS / $diffWidth);
   #{$nameOfVar}: calc(
     $minCSS + (100% - $minWidth) * $cssPixelOnEveryWidthPixel
   );
@@ -39,7 +39,6 @@
   --btn-color-focus: #ffb84d;
   --border-color: #cacaca;
 
-  // --global-indentation: 0;
   @include poly-fluid-sizing(
     '--global-indentation',
     (
@@ -47,7 +46,7 @@
       768px: 50px,
       1024px: 50px,
       1920px: 75px,
-      10000px: 360px,
+      2560px: 395px,
     )
   );
   @include poly-fluid-sizing(
@@ -463,4 +462,40 @@
       '--resize-margin'
     );
   }
+}
+
+.details {
+  @include poly-fluid-sizing(
+    '--items__margin',
+    (
+      320px: 44px,
+      768px: 155px,
+      1024px: 85px,
+      1920px: 85px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--items__font',
+    (
+      320px: 14px,
+      768px: 18px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--title__bottom',
+    (
+      320px: 20px,
+      768px: 50px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--items__bottom',
+    (
+      320px: 16px,
+      768px: 50px,
+    )
+  );
 }

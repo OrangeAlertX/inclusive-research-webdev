@@ -1,5 +1,6 @@
 .about {
-  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: var(--about_bottom);
 
   &__title {
@@ -81,11 +82,11 @@
     }
 
     &__svg1 {
-      background-image: url(../../publicResp/images/about/cube--mini.svg);
+      background-image: url(../../images/about/cube--mini.svg);
     }
     &__svg2 {
       margin-top: 32px;
-      background-image: url(../../publicResp/images/about/gear--mini.svg);
+      background-image: url(../../images/about/gear--mini.svg);
     }
 
     &__h3 {
@@ -208,11 +209,11 @@
     }
 
     &__svg1 {
-      background-image: url(../../publicResp/images/about/cuber.svg);
+      background-image: url(../../images/about/cuber.svg);
     }
 
     &__svg2 {
-      background-image: url(../../publicResp/images/about/gearer.svg);
+      background-image: url(../../images/about/gearer.svg);
     }
 
     &__itemtext {

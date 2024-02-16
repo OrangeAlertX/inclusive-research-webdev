@@ -30,12 +30,12 @@
 }
 @media (min-width: 1920px) {
   :root {
-    --global-indentation: calc(3.5272277228vw + 7.2772277228px);
+    --global-indentation: calc(50vw - 885px);
   }
 }
-@media (min-width: 10000px) {
+@media (min-width: 2560px) {
   :root {
-    --global-indentation: 360px;
+    --global-indentation: 395px;
   }
 }
 @media (min-width: 320px) {
@@ -744,6 +744,63 @@
   --resize-margin: calc(40px + (100% - 668px) * 0.0390625);
 }
 
+.details {
+  --items__margin: 44px;
+  --items__font: 14px;
+  --title__bottom: 20px;
+  --items__bottom: 16px;
+}
+@media (min-width: 320px) {
+  .details {
+    --items__margin: calc(24.7767857143vw - 35.2857142857px);
+  }
+}
+@media (min-width: 768px) {
+  .details {
+    --items__margin: calc(-27.34375vw + 365px);
+  }
+}
+@media (min-width: 1024px) {
+  .details {
+    --items__margin: 85px;
+  }
+}
+@media (min-width: 1920px) {
+  .details {
+    --items__margin: 85px;
+  }
+}
+@media (min-width: 320px) {
+  .details {
+    --items__font: calc(0.8928571429vw + 11.1428571429px);
+  }
+}
+@media (min-width: 768px) {
+  .details {
+    --items__font: 18px;
+  }
+}
+@media (min-width: 320px) {
+  .details {
+    --title__bottom: calc(6.6964285714vw - 1.4285714286px);
+  }
+}
+@media (min-width: 768px) {
+  .details {
+    --title__bottom: 50px;
+  }
+}
+@media (min-width: 320px) {
+  .details {
+    --items__bottom: calc(7.5892857143vw - 8.2857142857px);
+  }
+}
+@media (min-width: 768px) {
+  .details {
+    --items__bottom: 50px;
+  }
+}
+
 html {
   font-family: "Montserrat", sans-serif;
   font-size: 16px;
@@ -1066,7 +1123,8 @@ p {
   }
 }
 .about {
-  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: var(--about_bottom);
 }
 .about__title {
@@ -1274,13 +1332,21 @@ p {
   font-size: var(--title__font);
   font-weight: 400;
   margin: 0;
-  margin-bottom: 50px;
+  margin-bottom: var(--title__bottom);
 }
 .details__list {
   display: flex;
+  margin-bottom: var(--items__bottom);
 }
 .details__item--active {
   color: var(--UI-color-active);
+}
+.details__item:not(:last-child) {
+  margin-right: var(--items__margin);
+}
+.details__item > button {
+  font-size: var(--items__font);
+  white-space: nowrap;
 }
 .details__content {
   display: flex;

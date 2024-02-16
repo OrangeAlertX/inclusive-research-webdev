@@ -74,6 +74,14 @@ const projectLeetcode = {
   code: 'https://github.com/OrangeAlertX/inclusive-research-webdev/tree/main/Core/server/leetcodeParser.js',
 };
 
+const projectCollection = {
+  title: 'Коллекция компонентов',
+  newSkills: ['UI/UX Паттерны'],
+  about:
+    'Коллекция React-компонентов для быстрого создания основных фронтенд-решений.',
+  code: 'https://github.com/OrangeAlertX/inclusive-research-webdev/tree/main/ComponentCollection',
+};
+
 const projects = [
   projectStatic,
   projectAdaptive,
@@ -82,6 +90,7 @@ const projects = [
   projectViewer,
   projectResume,
   projectLeetcode,
+  projectCollection,
 ];
 
 export default function MyProjects(props: IMyProjects) {
