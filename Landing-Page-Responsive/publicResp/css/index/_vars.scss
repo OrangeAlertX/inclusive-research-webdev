@@ -498,4 +498,36 @@
       768px: 50px,
     )
   );
+
+  @include poly-fluid-sizing(
+    '--left__width',
+    (
+      1024px: 437px,
+      1920px: 768px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--right__width',
+    (
+      1024px: 437px,
+      1920px: 870px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--title3__margin',
+    (
+      320px: 16px,
+      768px: 38px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--font-size',
+    (
+      320px: 14px,
+      768px: 16px,
+    )
+  );
 }

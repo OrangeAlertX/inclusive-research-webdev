@@ -24,15 +24,25 @@
       font-size: var(--items__font);
       white-space: nowrap;
     }
+
+    &--active > button {
+      color: var(--UI-color-active);
+    }
   }
 
   &__content {
     display: flex;
+    justify-content: space-between;
   }
 
   &__left {
-    display: flex;
-    flex-direction: column;
+    position: relative;
+    width: var(--left__width);
+  }
+
+  &__right {
+    position: relative;
+    width: var(--right__width);
   }
 
   &__mintitle {
@@ -46,11 +56,14 @@
 
   &__text {
     margin: 0;
-    font-size: var(--text__minfont);
+    font-size: var(--font-size);
     line-height: 2em;
+    margin-bottom: 25px;
   }
 
   &__btngroup {
+    position: relative;
+    bottom: 0;
   }
 
   &__btn1 {
@@ -59,6 +72,47 @@
   &__btn2 {
   }
 
-  &__right {
+  &__rightchange {
+    position: relative;
+    height: 100%;
+
+    border-radius: var(--border-radius);
+    overflow: hidden;
+
+    & > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+
+      border-radius: var(--border-radius);
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .details {
+    &__rightchange {
+      min-height: 460px;
+    }
+  }
+}
+@media (max-width: 1023px) {
+  .details {
+    &__mintitle {
+      margin-top: var(--title3__margin);
+    }
+
+    &__content {
+      flex-direction: column;
+    }
+
+    &__left {
+      width: 100%;
+      order: 1;
+    }
+    &__right {
+      width: 100%;
+      order: 0;
+    }
   }
 }

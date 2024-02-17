@@ -749,6 +749,10 @@
   --items__font: 14px;
   --title__bottom: 20px;
   --items__bottom: 16px;
+  --left__width: 437px;
+  --right__width: 437px;
+  --title3__margin: 16px;
+  --font-size: 14px;
 }
 @media (min-width: 320px) {
   .details {
@@ -798,6 +802,46 @@
 @media (min-width: 768px) {
   .details {
     --items__bottom: 50px;
+  }
+}
+@media (min-width: 1024px) {
+  .details {
+    --left__width: calc(36.9419642857vw + 58.7142857143px);
+  }
+}
+@media (min-width: 1920px) {
+  .details {
+    --left__width: 768px;
+  }
+}
+@media (min-width: 1024px) {
+  .details {
+    --right__width: calc(48.3258928571vw - 57.8571428571px);
+  }
+}
+@media (min-width: 1920px) {
+  .details {
+    --right__width: 870px;
+  }
+}
+@media (min-width: 320px) {
+  .details {
+    --title3__margin: calc(4.9107142857vw + 0.2857142857px);
+  }
+}
+@media (min-width: 768px) {
+  .details {
+    --title3__margin: 38px;
+  }
+}
+@media (min-width: 320px) {
+  .details {
+    --font-size: calc(0.4464285714vw + 12.5714285714px);
+  }
+}
+@media (min-width: 768px) {
+  .details {
+    --font-size: 16px;
   }
 }
 
@@ -1348,12 +1392,20 @@ p {
   font-size: var(--items__font);
   white-space: nowrap;
 }
+.details__item--active > button {
+  color: var(--UI-color-active);
+}
 .details__content {
   display: flex;
+  justify-content: space-between;
 }
 .details__left {
-  display: flex;
-  flex-direction: column;
+  position: relative;
+  width: var(--left__width);
+}
+.details__right {
+  position: relative;
+  width: var(--right__width);
 }
 .details__mintitle {
   margin: 0;
@@ -1364,9 +1416,53 @@ p {
 }
 .details__text {
   margin: 0;
-  font-size: var(--text__minfont);
+  font-size: var(--font-size);
   line-height: 2em;
+  margin-bottom: 25px;
+}
+.details__btngroup {
+  position: relative;
+  bottom: 0;
+}
+.details__rightchange {
+  position: relative;
+  height: 100%;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+.details__rightchange > img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: var(--border-radius);
+}
+
+@media (min-width: 1024px) {
+  .details__rightchange {
+    min-height: 460px;
+  }
+}
+@media (max-width: 1023px) {
+  .details__mintitle {
+    margin-top: var(--title3__margin);
+  }
+  .details__content {
+    flex-direction: column;
+  }
+  .details__left {
+    width: 100%;
+    order: 1;
+  }
+  .details__right {
+    width: 100%;
+    order: 0;
+  }
 }
 .main {
   margin: 0 var(--global-indentation);
+}
+
+.disable {
+  display: none;
 }/*# sourceMappingURL=index.css.map */
