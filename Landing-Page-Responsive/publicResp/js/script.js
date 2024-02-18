@@ -74,9 +74,10 @@
 (() => {
   'use strict';
 
-  const buttons = [...document.querySelectorAll('.details__item')];
-  const left = [...document.querySelectorAll('.details__leftchange')];
-  const right = [...document.querySelectorAll('.details__rightchange')];
+  const container = document.querySelector('.details');
+  const buttons = [...container.querySelectorAll('.details__item')];
+  const left = [...container.querySelectorAll('.details__leftchange')];
+  const right = [...container.querySelectorAll('.details__rightchange')];
 
   buttons.forEach((button, i) =>
     button.addEventListener('click', () => {
@@ -92,6 +93,7 @@
   function disableAll(elements) {
     elements.forEach((element) => element.classList.add('disable'));
   }
+
   //download images
   const images = document.querySelectorAll('.details__rightchange > img');
   addImgResizer(images, 'details');

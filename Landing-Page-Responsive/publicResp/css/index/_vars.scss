@@ -471,7 +471,6 @@
       320px: 44px,
       768px: 155px,
       1024px: 85px,
-      1920px: 85px,
     )
   );
 
@@ -516,6 +515,14 @@
   );
 
   @include poly-fluid-sizing(
+    '--content__height',
+    (
+      1024px: 689px,
+      1920px: 460px,
+    )
+  );
+
+  @include poly-fluid-sizing(
     '--title3__margin',
     (
       320px: 16px,
@@ -528,6 +535,102 @@
     (
       320px: 14px,
       768px: 16px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--btn__padding1',
+    (
+      320px: 12px 44px,
+      768px: 20px 38px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--btn__padding2',
+    (
+      320px: 12px 32px,
+      768px: 20px 38px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--btn__gap',
+    (
+      320px: 10px,
+      768px: 32px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--p__margin',
+    (
+      1024px: 25px,
+      1920px: 18px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--details__bottom',
+    (
+      320px: 60px,
+      768px: 49px,
+      1024px: 80px,
+      1920px: 100px,
+    )
+  );
+}
+
+.questions {
+  @include poly-fluid-sizing(
+    '--mintitle__font',
+    (
+      320px: 14px,
+      768px: 20px,
+      1024px: 20px,
+      1920px: 24px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--title__margin',
+    (
+      320px: 16px,
+      768px: 32px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--h3__padding',
+    (
+      320px: 30px 0,
+      768px: 40px 0,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--mintitle__margin',
+    (
+      320px: 20px,
+      768px: 50px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--questions__bottom',
+    (
+      320px: 60px,
+      768px: 110px,
+      1024px: 80px,
+      1920px: 100px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--svg__size',
+    (
+      320px: 30px,
+      768px: 50px,
     )
   );
 }

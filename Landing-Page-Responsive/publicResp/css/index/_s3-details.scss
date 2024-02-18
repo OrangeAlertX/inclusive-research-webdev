@@ -1,4 +1,6 @@
 .details {
+  margin-bottom: var(--details__bottom);
+
   &__title {
     font-size: var(--title__font);
     font-weight: 400;
@@ -37,6 +39,10 @@
 
   &__left {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
     width: var(--left__width);
   }
 
@@ -58,26 +64,35 @@
     margin: 0;
     font-size: var(--font-size);
     line-height: 2em;
-    margin-bottom: 25px;
   }
 
   &__btngroup {
-    position: relative;
-    bottom: 0;
   }
 
   &__btn1 {
+    padding: var(--btn__padding1);
+    margin-right: var(--btn__gap);
+
+    border-radius: var(--border-radius-btn);
+
+    color: white;
+    background-color: var(--UI-color);
   }
 
   &__btn2 {
+    padding: var(--btn__padding2);
+
+    border: 1px solid black;
+    border-radius: var(--border-radius-btn);
+  }
+
+  &__leftchange {
+    margin-bottom: var(--p__margin);
   }
 
   &__rightchange {
     position: relative;
     height: 100%;
-
-    border-radius: var(--border-radius);
-    overflow: hidden;
 
     & > img {
       width: 100%;
@@ -91,8 +106,8 @@
 
 @media (min-width: 1024px) {
   .details {
-    &__rightchange {
-      min-height: 460px;
+    &__content {
+      height: var(--content__height);
     }
   }
 }
