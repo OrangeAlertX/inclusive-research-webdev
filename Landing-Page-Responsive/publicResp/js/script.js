@@ -129,3 +129,38 @@ function addImgResizer(images, folderName) {
     );
   }
 }
+
+const MOD = 2;
+function accordionOnClick(e) {
+  const button = e.currentTarget;
+
+  const text = button.parentNode.querySelector('.questions__textcontainer');
+
+  if (text.offsetHeight === 0) {
+    const inlineTransition = text.style.getPropertyValue('transition');
+    if (inlineTransition) {
+      const inlineTransitionSpeed = parseInt(inlineTransition.slice(10));
+      console.log(
+        inlineTransition,
+        inlineTransition.slice(10),
+        inlineTransitionSpeed
+      );
+      text.style.setProperty(
+        'max-height',
+        Math.ceil(inlineTransitionSpeed / MOD) + 'px'
+      );
+      return;
+    }
+    text.style.setProperty('max-height', '1000px');
+    setTimeout(() => {
+      text.style.setProperty('max-height', text.offsetHeight + 'px');
+    }, 1000 * MOD);
+  } else {
+    const newSpeed = text.offsetHeight;
+    text.style.setProperty(
+      'transition',
+      `max-height ${newSpeed * MOD}ms linear`
+    );
+    text.style.setProperty('max-height', 0 + 'px');
+  }
+}

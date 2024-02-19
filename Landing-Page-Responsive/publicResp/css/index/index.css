@@ -1,6 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat:regular,500,600,700,800,italic,500italic,600italic,700italic,800italic&display=swap);
 :root {
-  --main-color: tan;
+  --main-color: white;
   --text-color: black;
   --element-background: white;
   --UI-color: #ff9900;
@@ -756,9 +756,11 @@
   --font-size: 14px;
   --btn__padding1: 12px 44px;
   --btn__padding2: 12px 32px;
-  --btn__gap: 10px;
+  --btn__gap: 7px;
   --p__margin: 25px;
   --details__bottom: 60px;
+  --mintitle__font: 18px;
+  --btn__font: 12px;
 }
 @media (min-width: 320px) {
   .details {
@@ -877,7 +879,7 @@
 }
 @media (min-width: 320px) {
   .details {
-    --btn__gap: calc(4.9107142857vw - 5.7142857143px);
+    --btn__gap: calc(5.5803571429vw - 10.8571428571px);
   }
 }
 @media (min-width: 768px) {
@@ -915,14 +917,35 @@
     --details__bottom: 100px;
   }
 }
+@media (min-width: 320px) {
+  .details {
+    --mintitle__font: calc(1.3392857143vw + 13.7142857143px);
+  }
+}
+@media (min-width: 768px) {
+  .details {
+    --mintitle__font: 24px;
+  }
+}
+@media (min-width: 320px) {
+  .details {
+    --btn__font: calc(0.8928571429vw + 9.1428571429px);
+  }
+}
+@media (min-width: 768px) {
+  .details {
+    --btn__font: 16px;
+  }
+}
 
 .questions {
   --mintitle__font: 14px;
   --title__margin: 16px;
-  --h3__padding: 30px 0;
+  --h3__margin: 30px 0;
   --mintitle__margin: 20px;
   --questions__bottom: 60px;
   --svg__size: 30px;
+  --p__font: 14px;
 }
 @media (min-width: 320px) {
   .questions {
@@ -956,12 +979,12 @@
 }
 @media (min-width: 320px) {
   .questions {
-    --h3__padding: calc(2.2321428571vw + 22.8571428571px) 0;
+    --h3__margin: calc(2.2321428571vw + 22.8571428571px) 0;
   }
 }
 @media (min-width: 768px) {
   .questions {
-    --h3__padding: 40px 0;
+    --h3__margin: 40px 0;
   }
 }
 @media (min-width: 320px) {
@@ -1002,6 +1025,16 @@
 @media (min-width: 768px) {
   .questions {
     --svg__size: 50px;
+  }
+}
+@media (min-width: 320px) {
+  .questions {
+    --p__font: calc(0.4464285714vw + 12.5714285714px);
+  }
+}
+@media (min-width: 768px) {
+  .questions {
+    --p__font: 16px;
   }
 }
 
@@ -1577,7 +1610,7 @@ p {
   margin: 0;
   margin-bottom: 8px;
   text-wrap: nowrap;
-  font-size: 24px;
+  font-size: var(--mintitle__font);
   font-weight: 700;
 }
 .details__text {
@@ -1585,12 +1618,16 @@ p {
   font-size: var(--font-size);
   line-height: 2em;
 }
+.details__btngroup {
+  font-size: var(--btn__font);
+}
 .details__btn1 {
   padding: var(--btn__padding1);
   margin-right: var(--btn__gap);
   border-radius: var(--border-radius-btn);
   color: white;
   background-color: var(--UI-color);
+  font-weight: 500;
 }
 .details__btn2 {
   padding: var(--btn__padding2);
@@ -1640,15 +1677,16 @@ p {
   font-size: var(--title__font);
   margin-bottom: var(--title__margin);
 }
-.questions__item {
-  padding: var(--h3__padding);
-  border-top: 1px solid var(--border-color);
-  border-bottom: 1px solid var(--border-color);
-}
 .questions__mintitlecontainer {
+  width: 100%;
+  position: relative;
+  z-index: 10;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: var(--h3__margin);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
 }
 .questions__mintitle {
   margin: 0;
@@ -1657,7 +1695,7 @@ p {
   font-weight: 800;
 }
 .questions__svg {
-  flex: 0;
+  flex-shrink: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1673,12 +1711,16 @@ p {
   height: 100%;
   border-radius: 50%;
   background-color: var(--border-color);
+  --square__size: calc(100% / 1.41421);
 }
 .questions__square {
   position: relative;
-  width: 70.7108562378%;
+  width: var(--square__size);
+  height: var(--square__size);
 }
 .questions__square::before {
+  top: 50%;
+  right: 0%;
   width: 100%;
   content: " ";
   position: absolute;
@@ -1686,6 +1728,8 @@ p {
   background-color: black;
 }
 .questions__square::after {
+  top: 50%;
+  right: 0%;
   width: 100%;
   content: " ";
   position: absolute;
@@ -1694,10 +1738,13 @@ p {
   transform: rotate(90deg);
 }
 .questions__textcontainer {
-  margin: var(--p__margin);
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 2s linear;
 }
 .questions__text {
-  margin: 30px 0 0 0;
+  margin: 30px 0;
+  font-size: var(--p__font);
 }
 
 @media (max-width: 767px) {
