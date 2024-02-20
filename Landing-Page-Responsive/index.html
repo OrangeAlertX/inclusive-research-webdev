@@ -25,18 +25,18 @@
           alt="Проектные системы Евклид"
         />
       </div>
-      <nav class="header__nav">
+      <nav class="header__nav" id="nav">
         <img
           src="publicResp/images/header/X.svg"
           alt="Close navigation"
           class="header__close"
         />
         <ul class="header__list">
-          <li class="header__item"><a href="##"> О нас </a></li>
-          <li class="header__item"><a href="##"> Проекты </a></li>
-          <li class="header__item"><a href="##"> Этапы </a></li>
-          <li class="header__item"><a href="##"> Отзывы </a></li>
-          <li class="header__item"><a href="##"> Контакты </a></li>
+          <li class="header__item"><a href="#nav1"> О нас </a></li>
+          <li class="header__item"><a href="#nav2"> Проекты </a></li>
+          <li class="header__item"><a href="#nav3"> Этапы </a></li>
+          <li class="header__item"><a href="#nav4"> Вопросы </a></li>
+          <li class="header__item"><a href="#nav5"> Контакты </a></li>
         </ul>
       </nav>
       <button class="header__burger">
@@ -146,12 +146,14 @@
       </div>
     </header>
     <main class="main">
-      <section class="order">
+      <section class="order" id="nav2">
         <div class="order__content">
-          <h1 class="order__title">
-            Проектные решения<br />
-            любой сложности
-          </h1>
+          <a href="#nav" tabindex="-1">
+            <h1 class="order__title">
+              Проектные решения<br />
+              любой сложности
+            </h1>
+          </a>
           <p class="order__text">
             Есть над чем задуматься: базовые сценарии поведения пользователей и
             по сей день остаются уделом проектантов
@@ -180,8 +182,10 @@
         </div>
       </section>
 
-      <section class="about">
-        <h2 class="about__title">О нас</h2>
+      <section class="about" id="nav1">
+        <a href="#nav" tabindex="-1">
+          <h2 class="about__title">О нас</h2>
+        </a>
         <p class="about__text">
           Также как перспективное планирование создаёт необходимость включения в
           производственный план целого ряда внеочередных мероприятий с учётом
@@ -239,16 +243,24 @@
           </div>
         </div>
       </section>
-      <section class="details">
-        <h2 class="details__title">Как мы работаем</h2>
+      <section class="details" id="nav3">
+        <a href="#nav" tabindex="-1">
+          <h2 class="details__title">Как мы работаем</h2>
+        </a>
 
         <ul class="details__list">
           <li class="details__item details__item--active">
-            <button>1 шаг</button>
+            <button class="details__pagination">1 шаг</button>
           </li>
-          <li class="details__item"><button>2 шаг</button></li>
-          <li class="details__item"><button>3 шаг</button></li>
-          <li class="details__item"><button>4 шаг</button></li>
+          <li class="details__item">
+            <button class="details__pagination">2 шаг</button>
+          </li>
+          <li class="details__item">
+            <button class="details__pagination">3 шаг</button>
+          </li>
+          <li class="details__item">
+            <button class="details__pagination">4 шаг</button>
+          </li>
         </ul>
         <div class="details__content">
           <div class="details__left">
@@ -336,14 +348,13 @@
           </div>
         </div>
       </section>
-      <section class="questions">
-        <h2 class="questions__title">Часто задаваемые вопросы</h2>
+      <section class="questions" id="nav4">
+        <a href="#nav" tabindex="-1">
+          <h2 class="questions__title">Часто задаваемые вопросы</h2>
+        </a>
         <div class="questions__content">
           <div class="questions__item">
-            <button
-              onclick="accordionOnClick(event)"
-              class="questions__mintitlecontainer"
-            >
+            <button onclick="accordionOnClick(event)" class="questions__btn">
               <h3 class="questions__mintitle">
                 Из чего формируется конечная стоимость проекта?
               </h3>
@@ -371,10 +382,7 @@
             </div>
           </div>
           <div class="questions__item">
-            <button
-              onclick="accordionOnClick(event)"
-              class="questions__mintitlecontainer"
-            >
+            <button onclick="accordionOnClick(event)" class="questions__btn">
               <h3 class="questions__mintitle">
                 У меня есть свой проект. Сможем ли мы его доработать /
                 реализовать?
@@ -395,10 +403,7 @@
             </div>
           </div>
           <div class="questions__item">
-            <button
-              onclick="accordionOnClick(event)"
-              class="questions__mintitlecontainer"
-            >
+            <button onclick="accordionOnClick(event)" class="questions__btn">
               <h3 class="questions__mintitle">
                 Я выбираю между разными компаниями. В чём ваше отличие?
               </h3>
@@ -422,10 +427,7 @@
             </div>
           </div>
           <div class="questions__item">
-            <button
-              onclick="accordionOnClick(event)"
-              class="questions__mintitlecontainer"
-            >
+            <button onclick="accordionOnClick(event)" class="questions__btn">
               <h3 class="questions__mintitle">
                 Могу ли я делегировать вам работу / согласование с подрядчиком /
                 организацией?
@@ -446,10 +448,7 @@
             </div>
           </div>
           <div class="questions__item">
-            <button
-              onclick="accordionOnClick(event)"
-              class="questions__mintitlecontainer"
-            >
+            <button onclick="accordionOnClick(event)" class="questions__btn">
               <h3 class="questions__mintitle">
                 Могу ли я вернуть деньги на каком-либо из этапов работ?
               </h3>
@@ -475,7 +474,8 @@
         </div>
       </section>
     </main>
-    <footer class="footer">
+    <footer class="footer" id="nav5">
+      <a href="#nav" tabindex="-1"></a>
       <footer class="footer__left">
         <div class="footer__logo">
           <div class="footer__svg1"></div>

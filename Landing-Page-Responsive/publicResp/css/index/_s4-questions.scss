@@ -7,13 +7,7 @@
     margin-bottom: var(--title__margin);
   }
 
-  &__content {
-  }
-
-  &__item {
-  }
-
-  &__mintitlecontainer {
+  &__btn {
     width: 100%;
     position: relative;
     z-index: 10;
@@ -26,6 +20,43 @@
 
     border-top: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
+
+    @media (hover: hover) {
+      &:hover,
+      &:focus {
+        color: var(--UI-color);
+
+        & .questions__circle {
+          background-color: var(--UI-color);
+
+          & .questions__square {
+            &::before {
+              color: white;
+            }
+            &::after {
+              color: white;
+            }
+          }
+        }
+      }
+    }
+
+    &:active {
+      color: inherit;
+
+      & .questions__circle {
+        background-color: var(--border-color);
+
+        & .questions__square {
+          &::before {
+            color: black;
+          }
+          &::after {
+            color: black;
+          }
+        }
+      }
+    }
   }
 
   &__mintitle {
@@ -44,6 +75,15 @@
 
     width: var(--svg__size);
     height: var(--svg__size);
+
+    &--active .questions__square {
+      &::before {
+        transform: rotate(45deg);
+      }
+      &::after {
+        transform: rotate(135deg);
+      }
+    }
   }
 
   &__circle {
@@ -66,23 +106,23 @@
     width: var(--square__size);
     height: var(--square__size);
 
-    &::before {
-      top: 50%;
-      right: 0%;
-      width: 100%;
-      content: ' ';
-      position: absolute;
-      height: 1px;
-      background-color: black;
-    }
+    &::before,
     &::after {
       top: 50%;
       right: 0%;
       width: 100%;
+      height: 1px;
+
       content: ' ';
       position: absolute;
-      height: 1px;
       background-color: black;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    &::before {
+      transform: rotate(0deg);
+    }
+    &::after {
       transform: rotate(90deg);
     }
   }
@@ -90,7 +130,6 @@
   &__textcontainer {
     overflow: hidden;
     max-height: 0;
-    transition: max-height 2s linear;
   }
 
   &__text {

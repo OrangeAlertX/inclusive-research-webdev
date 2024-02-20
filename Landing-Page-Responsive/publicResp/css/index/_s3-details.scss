@@ -22,11 +22,6 @@
       margin-right: var(--items__margin);
     }
 
-    & > button {
-      font-size: var(--items__font);
-      white-space: nowrap;
-    }
-
     &--active > button {
       color: var(--UI-color-active);
     }
@@ -66,6 +61,20 @@
     line-height: 2em;
   }
 
+  &__pagination {
+    font-size: var(--items__font);
+    white-space: nowrap;
+
+    &:hover {
+      color: var(--UI-color);
+    }
+
+    &:focus {
+      outline: 2px solid var(--UI-color);
+      outline-offset: 5px;
+    }
+  }
+
   &__btngroup {
     font-size: var(--btn__font);
   }
@@ -80,13 +89,32 @@
     background-color: var(--UI-color);
 
     font-weight: 500;
+
+    &:hover,
+    &:focus {
+      background-color: var(--btn-color-focus);
+    }
+    &:active {
+      background-color: var(--UI-color-active);
+    }
   }
 
   &__btn2 {
     padding: var(--btn__padding2);
 
-    border: 1px solid black;
+    outline: 1px solid black;
     border-radius: var(--border-radius-btn);
+
+    &:hover,
+    &:focus {
+      color: white;
+      outline: none;
+      background-color: #666666;
+    }
+    &:active {
+      color: white;
+      background-color: black;
+    }
   }
 
   &__leftchange {

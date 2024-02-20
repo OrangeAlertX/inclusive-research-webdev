@@ -41,6 +41,17 @@
     width: var(--text__width--content);
     margin-right: auto;
   }
+
+  &__btn {
+    &:hover,
+    &:focus {
+      background-color: var(--UI-color);
+    }
+    &:active {
+      background-color: var(--UI-color-active);
+      border-color: var(--UI-color-active);
+    }
+  }
 }
 
 @media (max-width: 767px) {
@@ -63,6 +74,12 @@
 
       margin-top: 12px;
       margin-bottom: 32px;
+
+      &:hover,
+      &:focus,
+      &:active {
+        color: white;
+      }
     }
 
     &__more {

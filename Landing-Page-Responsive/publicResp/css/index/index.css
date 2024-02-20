@@ -1242,7 +1242,7 @@ p {
     margin: var(--burger__padding);
     position: relative;
     flex-direction: column;
-    align-items: normal;
+    align-items: flex-start;
   }
   .header__item {
     margin-right: 0;
@@ -1400,6 +1400,13 @@ p {
   width: var(--text__width--content);
   margin-right: auto;
 }
+.about__btn:hover, .about__btn:focus {
+  background-color: var(--UI-color);
+}
+.about__btn:active {
+  background-color: var(--UI-color-active);
+  border-color: var(--UI-color-active);
+}
 
 @media (max-width: 767px) {
   .about__img {
@@ -1418,6 +1425,9 @@ p {
     background-color: var(--element-background);
     margin-top: 12px;
     margin-bottom: 32px;
+  }
+  .about__btn:hover, .about__btn:focus, .about__btn:active {
+    color: white;
   }
   .about__more--text {
     margin: 0;
@@ -1584,10 +1594,6 @@ p {
 .details__item:not(:last-child) {
   margin-right: var(--items__margin);
 }
-.details__item > button {
-  font-size: var(--items__font);
-  white-space: nowrap;
-}
 .details__item--active > button {
   color: var(--UI-color-active);
 }
@@ -1618,6 +1624,17 @@ p {
   font-size: var(--font-size);
   line-height: 2em;
 }
+.details__pagination {
+  font-size: var(--items__font);
+  white-space: nowrap;
+}
+.details__pagination:hover {
+  color: var(--UI-color);
+}
+.details__pagination:focus {
+  outline: 2px solid var(--UI-color);
+  outline-offset: 5px;
+}
 .details__btngroup {
   font-size: var(--btn__font);
 }
@@ -1629,10 +1646,25 @@ p {
   background-color: var(--UI-color);
   font-weight: 500;
 }
+.details__btn1:hover, .details__btn1:focus {
+  background-color: var(--btn-color-focus);
+}
+.details__btn1:active {
+  background-color: var(--UI-color-active);
+}
 .details__btn2 {
   padding: var(--btn__padding2);
-  border: 1px solid black;
+  outline: 1px solid black;
   border-radius: var(--border-radius-btn);
+}
+.details__btn2:hover, .details__btn2:focus {
+  color: white;
+  outline: none;
+  background-color: #666666;
+}
+.details__btn2:active {
+  color: white;
+  background-color: black;
 }
 .details__leftchange {
   margin-bottom: var(--p__margin);
@@ -1677,7 +1709,7 @@ p {
   font-size: var(--title__font);
   margin-bottom: var(--title__margin);
 }
-.questions__mintitlecontainer {
+.questions__btn {
   width: 100%;
   position: relative;
   z-index: 10;
@@ -1687,6 +1719,32 @@ p {
   padding: var(--h3__margin);
   border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
+}
+@media (hover: hover) {
+  .questions__btn:hover, .questions__btn:focus {
+    color: var(--UI-color);
+  }
+  .questions__btn:hover .questions__circle, .questions__btn:focus .questions__circle {
+    background-color: var(--UI-color);
+  }
+  .questions__btn:hover .questions__circle .questions__square::before, .questions__btn:focus .questions__circle .questions__square::before {
+    color: white;
+  }
+  .questions__btn:hover .questions__circle .questions__square::after, .questions__btn:focus .questions__circle .questions__square::after {
+    color: white;
+  }
+}
+.questions__btn:active {
+  color: inherit;
+}
+.questions__btn:active .questions__circle {
+  background-color: var(--border-color);
+}
+.questions__btn:active .questions__circle .questions__square::before {
+  color: black;
+}
+.questions__btn:active .questions__circle .questions__square::after {
+  color: black;
 }
 .questions__mintitle {
   margin: 0;
@@ -1701,6 +1759,12 @@ p {
   align-items: center;
   width: var(--svg__size);
   height: var(--svg__size);
+}
+.questions__svg--active .questions__square::before {
+  transform: rotate(45deg);
+}
+.questions__svg--active .questions__square::after {
+  transform: rotate(135deg);
 }
 .questions__circle {
   position: relative;
@@ -1718,29 +1782,25 @@ p {
   width: var(--square__size);
   height: var(--square__size);
 }
-.questions__square::before {
+.questions__square::before, .questions__square::after {
   top: 50%;
   right: 0%;
   width: 100%;
+  height: 1px;
   content: " ";
   position: absolute;
-  height: 1px;
   background-color: black;
+  transition: transform 0.3s ease-in-out;
+}
+.questions__square::before {
+  transform: rotate(0deg);
 }
 .questions__square::after {
-  top: 50%;
-  right: 0%;
-  width: 100%;
-  content: " ";
-  position: absolute;
-  height: 1px;
-  background-color: black;
   transform: rotate(90deg);
 }
 .questions__textcontainer {
   overflow: hidden;
   max-height: 0;
-  transition: max-height 2s linear;
 }
 .questions__text {
   margin: 30px 0;
@@ -1762,4 +1822,11 @@ p {
 
 h2 {
   font-weight: 400;
+}
+
+@media (max-width: 1024px) {
+  a:focus,
+  button:focus {
+    outline: none !important;
+  }
 }/*# sourceMappingURL=index.css.map */

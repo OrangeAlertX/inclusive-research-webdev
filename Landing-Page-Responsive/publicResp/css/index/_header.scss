@@ -230,7 +230,7 @@ p {
       margin: var(--burger__padding);
       position: relative;
       flex-direction: column;
-      align-items: normal;
+      align-items: flex-start;
     }
 
     &__item {
