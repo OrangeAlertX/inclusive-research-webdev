@@ -42,7 +42,7 @@ p {
     width: 30px;
     height: 23px;
 
-    &:focus {
+    &:focus-visible {
       outline: 2px solid var(--UI-color);
       outline-offset: 5px;
     }
@@ -53,9 +53,14 @@ p {
 
   &__close {
     display: none;
+    user-select: none;
   }
 
   &__nav {
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+
     margin-left: var(--nav__margin-left);
     margin-right: auto;
   }
@@ -87,14 +92,23 @@ p {
     & > a:hover::after {
       width: 100%;
     }
-    & > a:focus {
+    & > a:focus-visible {
       outline: 2px solid var(--UI-color);
       outline-offset: 5px;
     }
     & > a:active {
       color: var(--UI-color-active);
-      margin-bottom: -2px;
-      border-bottom: 2px solid var(--UI-color-active);
+    }
+    & > a:active::after {
+      background-color: var(--UI-color-active);
+    }
+
+    & > a::before {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      content: ' ';
+      width: calc(var(--nav__width) * 0.8);
     }
   }
 
@@ -102,7 +116,7 @@ p {
     width: 24px;
     height: 24px;
 
-    &:focus {
+    &:focus-visible {
       outline: 2px solid var(--UI-color);
       outline-offset: 4px;
     }
@@ -113,7 +127,6 @@ p {
 
   &__bar {
     visibility: hidden;
-    opacity: 0;
     right: 0;
     position: absolute;
     z-index: 6;
@@ -124,9 +137,7 @@ p {
     height: var(--bar__height);
     box-shadow: 0px 2px 8px 4px rgba(0, 0, 0, 0.25);
 
-    transition: opacity 0.25s ease-in-out;
     &--active {
-      opacity: 100%;
       visibility: visible;
     }
 
@@ -161,13 +172,13 @@ p {
     &:active {
       color: var(--UI-color);
     }
-    &:focus {
+    &:focus-visible {
       outline: 2px solid var(--UI-color);
       outline-offset: 4px;
     }
-  }
-  .active {
-    color: var(--UI-color);
+    &--active {
+      color: var(--UI-color);
+    }
   }
 
   &__return {
@@ -177,7 +188,7 @@ p {
     &:hover {
       color: var(--UI-color);
     }
-    &:focus {
+    &:focus-visible {
       outline: 2px solid var(--UI-color);
       outline-offset: 4px;
     }
@@ -237,7 +248,7 @@ p {
       margin-right: 0;
       margin-bottom: var(--item__margin-bottom);
 
-      > a {
+      & > a {
         font-size: var(--item__font-size);
         font-weight: 700;
         color: #333333;

@@ -1080,7 +1080,7 @@ p {
   width: 30px;
   height: 23px;
 }
-.header__burger:focus {
+.header__burger:focus-visible {
   outline: 2px solid var(--UI-color);
   outline-offset: 5px;
 }
@@ -1089,8 +1089,14 @@ p {
 }
 .header__close {
   display: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 .header__nav {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
   margin-left: var(--nav__margin-left);
   margin-right: auto;
 }
@@ -1119,20 +1125,28 @@ p {
 .header__item > a:hover::after {
   width: 100%;
 }
-.header__item > a:focus {
+.header__item > a:focus-visible {
   outline: 2px solid var(--UI-color);
   outline-offset: 5px;
 }
 .header__item > a:active {
   color: var(--UI-color-active);
-  margin-bottom: -2px;
-  border-bottom: 2px solid var(--UI-color-active);
+}
+.header__item > a:active::after {
+  background-color: var(--UI-color-active);
+}
+.header__item > a::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  content: " ";
+  width: calc(var(--nav__width) * 0.8);
 }
 .header__search {
   width: 24px;
   height: 24px;
 }
-.header__search:focus {
+.header__search:focus-visible {
   outline: 2px solid var(--UI-color);
   outline-offset: 4px;
 }
@@ -1141,7 +1155,6 @@ p {
 }
 .header__bar {
   visibility: hidden;
-  opacity: 0;
   right: 0;
   position: absolute;
   z-index: 6;
@@ -1150,11 +1163,9 @@ p {
   width: var(--bar__width);
   height: var(--bar__height);
   box-shadow: 0px 2px 8px 4px rgba(0, 0, 0, 0.25);
-  transition: opacity 0.25s ease-in-out;
   border-radius: 24px;
 }
 .header__bar--active {
-  opacity: 100%;
   visibility: visible;
 }
 @media (max-width: 320px) {
@@ -1182,11 +1193,11 @@ p {
 .header__btn:hover, .header__btn:active {
   color: var(--UI-color);
 }
-.header__btn:focus {
+.header__btn:focus-visible {
   outline: 2px solid var(--UI-color);
   outline-offset: 4px;
 }
-.header .active {
+.header__btn--active {
   color: var(--UI-color);
 }
 .header__return {
@@ -1196,7 +1207,7 @@ p {
 .header__return:hover {
   color: var(--UI-color);
 }
-.header__return:focus {
+.header__return:focus-visible {
   outline: 2px solid var(--UI-color);
   outline-offset: 4px;
 }
@@ -1307,7 +1318,7 @@ p {
   align-self: flex-start;
   pointer-events: all;
 }
-.order__btn:hover, .order__btn:focus {
+.order__btn:hover, .order__btn:focus-visible {
   background-color: var(--btn-color-focus);
 }
 .order__btn:active {
@@ -1400,7 +1411,7 @@ p {
   width: var(--text__width--content);
   margin-right: auto;
 }
-.about__btn:hover, .about__btn:focus {
+.about__btn:hover, .about__btn:focus-visible {
   background-color: var(--UI-color);
 }
 .about__btn:active {
@@ -1631,7 +1642,7 @@ p {
 .details__pagination:hover {
   color: var(--UI-color);
 }
-.details__pagination:focus {
+.details__pagination:focus-visible {
   outline: 2px solid var(--UI-color);
   outline-offset: 5px;
 }
@@ -1646,7 +1657,7 @@ p {
   background-color: var(--UI-color);
   font-weight: 500;
 }
-.details__btn1:hover, .details__btn1:focus {
+.details__btn1:hover, .details__btn1:focus-visible {
   background-color: var(--btn-color-focus);
 }
 .details__btn1:active {
@@ -1657,7 +1668,7 @@ p {
   outline: 1px solid black;
   border-radius: var(--border-radius-btn);
 }
-.details__btn2:hover, .details__btn2:focus {
+.details__btn2:hover, .details__btn2:focus-visible {
   color: white;
   outline: none;
   background-color: #666666;
@@ -1720,19 +1731,18 @@ p {
   border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
 }
-@media (hover: hover) {
-  .questions__btn:hover, .questions__btn:focus {
-    color: var(--UI-color);
-  }
-  .questions__btn:hover .questions__circle, .questions__btn:focus .questions__circle {
-    background-color: var(--UI-color);
-  }
-  .questions__btn:hover .questions__circle .questions__square::before, .questions__btn:focus .questions__circle .questions__square::before {
-    color: white;
-  }
-  .questions__btn:hover .questions__circle .questions__square::after, .questions__btn:focus .questions__circle .questions__square::after {
-    color: white;
-  }
+.questions__btn:hover, .questions__btn:focus-visible {
+  color: var(--UI-color);
+  border-color: var(--UI-color);
+}
+.questions__btn:hover .questions__circle, .questions__btn:focus-visible .questions__circle {
+  background-color: var(--UI-color);
+}
+.questions__btn:hover .questions__circle .questions__square::before, .questions__btn:focus-visible .questions__circle .questions__square::before {
+  background-color: white;
+}
+.questions__btn:hover .questions__circle .questions__square::after, .questions__btn:focus-visible .questions__circle .questions__square::after {
+  background-color: white;
 }
 .questions__btn:active {
   color: inherit;
@@ -1741,10 +1751,10 @@ p {
   background-color: var(--border-color);
 }
 .questions__btn:active .questions__circle .questions__square::before {
-  color: black;
+  background-color: black;
 }
 .questions__btn:active .questions__circle .questions__square::after {
-  color: black;
+  background-color: black;
 }
 .questions__mintitle {
   margin: 0;
@@ -1766,17 +1776,6 @@ p {
 .questions__svg--active .questions__square::after {
   transform: rotate(135deg);
 }
-.questions__circle {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background-color: var(--border-color);
-  --square__size: calc(100% / 1.41421);
-}
 .questions__square {
   position: relative;
   width: var(--square__size);
@@ -1797,6 +1796,17 @@ p {
 }
 .questions__square::after {
   transform: rotate(90deg);
+}
+.questions__circle {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: var(--border-color);
+  --square__size: calc(100% / 1.41421);
 }
 .questions__textcontainer {
   overflow: hidden;
@@ -1822,11 +1832,4 @@ p {
 
 h2 {
   font-weight: 400;
-}
-
-@media (max-width: 1024px) {
-  a:focus,
-  button:focus {
-    outline: none !important;
-  }
 }/*# sourceMappingURL=index.css.map */

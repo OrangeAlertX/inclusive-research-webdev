@@ -60,7 +60,7 @@
     pointer-events: all;
 
     &:hover,
-    &:focus {
+    &:focus-visible {
       background-color: var(--btn-color-focus);
     }
 

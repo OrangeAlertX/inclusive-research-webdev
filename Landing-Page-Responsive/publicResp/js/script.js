@@ -1,3 +1,14 @@
+//prevent focus on click
+window.addEventListener('mousedown', (e) => {
+  // console.log(e.target);
+  // let a = 0;
+  // e.target.addEventListener('focus', () => {
+  //   console.log(a++);
+  //   e.target.blur();
+  // });
+});
+// window.addEventListener('touchstart', (e) => e.preventDefault());
+
 // Viewport resize for big monitors //
 (() => {
   const viewport = document.querySelector('meta[name="viewport"]');
@@ -28,11 +39,11 @@
   const submit = document.querySelector('.header__btn');
 
   input.addEventListener('focus', () => {
-    submit.classList.add('active');
+    submit.classList.add('header__btn--active');
   });
 
   input.addEventListener('blur', () => {
-    submit.classList.remove('active');
+    submit.classList.remove('header__btn--active');
   });
 
   //open-close

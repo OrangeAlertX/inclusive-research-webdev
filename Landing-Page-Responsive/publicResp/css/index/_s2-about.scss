@@ -44,7 +44,7 @@
 
   &__btn {
     &:hover,
-    &:focus {
+    &:focus-visible {
       background-color: var(--UI-color);
     }
     &:active {

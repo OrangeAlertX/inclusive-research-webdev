@@ -21,21 +21,20 @@
     border-top: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
 
-    @media (hover: hover) {
-      &:hover,
-      &:focus {
-        color: var(--UI-color);
+    &:hover,
+    &:focus-visible {
+      color: var(--UI-color);
+      border-color: var(--UI-color);
 
-        & .questions__circle {
-          background-color: var(--UI-color);
+      & .questions__circle {
+        background-color: var(--UI-color);
 
-          & .questions__square {
-            &::before {
-              color: white;
-            }
-            &::after {
-              color: white;
-            }
+        & .questions__square {
+          &::before {
+            background-color: white;
+          }
+          &::after {
+            background-color: white;
           }
         }
       }
@@ -49,10 +48,10 @@
 
         & .questions__square {
           &::before {
-            color: black;
+            background-color: black;
           }
           &::after {
-            color: black;
+            background-color: black;
           }
         }
       }
@@ -86,21 +85,6 @@
     }
   }
 
-  &__circle {
-    position: relative;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background-color: var(--border-color);
-
-    --square__size: calc(100% / 1.41421);
-  }
-
   &__square {
     position: relative;
     width: var(--square__size);
@@ -125,6 +109,21 @@
     &::after {
       transform: rotate(90deg);
     }
+  }
+
+  &__circle {
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: var(--border-color);
+
+    --square__size: calc(100% / 1.41421);
   }
 
   &__textcontainer {
