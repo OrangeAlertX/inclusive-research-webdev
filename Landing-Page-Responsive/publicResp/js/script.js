@@ -1,14 +1,3 @@
-//prevent focus on click
-window.addEventListener('mousedown', (e) => {
-  // console.log(e.target);
-  // let a = 0;
-  // e.target.addEventListener('focus', () => {
-  //   console.log(a++);
-  //   e.target.blur();
-  // });
-});
-// window.addEventListener('touchstart', (e) => e.preventDefault());
-
 // Viewport resize for big monitors //
 (() => {
   const viewport = document.querySelector('meta[name="viewport"]');
@@ -34,6 +23,55 @@ window.addEventListener('mousedown', (e) => {
 // Header //
 (() => {
   'use strict';
+  //open-close
+  const nav = document.querySelector('.header__nav');
+  const bar = document.querySelector('.header__bar');
+
+  /// Navigation Burger
+  const button = document.querySelector('.header__burger');
+  button.addEventListener('click', () => toggle(nav));
+
+  const close = document.querySelector('.header__close');
+  close.addEventListener('click', () => toggle(nav));
+
+  nav.addEventListener('click', (e) => {
+    const link = e.target;
+    if (link.tagName === 'A') {
+      nav.classList.remove('header__nav--active');
+    }
+  });
+
+  /// Search Bar
+  const returner = document.querySelector('.header__return');
+  returner.addEventListener('click', (e) => {
+    e.preventDefault();
+    input.value = '';
+    input.focus();
+  });
+
+  const search = document.querySelector('.header__search');
+  search.addEventListener('click', () => {
+    toggle(bar);
+    input.focus();
+    setTimeout(() => {
+      window.addEventListener('click', closeBarCB);
+    }, 0);
+  });
+
+  const closeBarCB = (e) => {
+    console.log('check');
+    const isBarClicked = e.target.closest('.header__bar');
+
+    if (!isBarClicked) {
+      bar.classList.remove('header__bar--active');
+      window.removeEventListener('click', closeBarCB);
+    }
+  };
+
+  const toggle = (el) => {
+    el.classList.toggle(`${el.classList[0]}--active`);
+  };
+
   //Active button when input in focus //
   const input = document.querySelector('.header__input');
   const submit = document.querySelector('.header__btn');
@@ -45,32 +83,6 @@ window.addEventListener('mousedown', (e) => {
   input.addEventListener('blur', () => {
     submit.classList.remove('header__btn--active');
   });
-
-  //open-close
-  const nav = document.querySelector('.header__nav');
-  const bar = document.querySelector('.header__bar');
-
-  const button = document.querySelector('.header__burger');
-  button.addEventListener('click', () => toggle(nav));
-
-  const close = document.querySelector('.header__close');
-  close.addEventListener('click', () => toggle(nav));
-
-  const returner = document.querySelector('.header__return');
-  returner.addEventListener('click', (e) => {
-    e.preventDefault();
-    toggle(bar);
-  });
-
-  const search = document.querySelector('.header__search');
-  search.addEventListener('click', () => {
-    toggle(bar);
-    input.focus();
-  });
-
-  const toggle = (el) => {
-    el.classList.toggle(`${el.classList[0]}--active`);
-  };
 })();
 
 // Section-1-Order
@@ -141,7 +153,7 @@ function addImgResizer(images, folderName) {
   }
 }
 
-const MOD = 2;
+const MOD = 1.5;
 const MAX_TIME_TRANSITION = 1000;
 function accordionOnClick(e) {
   const button = e.currentTarget;

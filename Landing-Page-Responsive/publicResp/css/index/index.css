@@ -1072,7 +1072,7 @@ p {
   width: var(--logo__width);
   height: var(--logo__height);
 }
-.header__logo > img {
+.header__logo img {
   max-width: 100%;
 }
 .header__burger {
@@ -1134,13 +1134,6 @@ p {
 }
 .header__item > a:active::after {
   background-color: var(--UI-color-active);
-}
-.header__item > a::before {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  content: " ";
-  width: calc(var(--nav__width) * 0.8);
 }
 .header__search {
   width: 24px;
@@ -1263,6 +1256,13 @@ p {
     font-size: var(--item__font-size);
     font-weight: 700;
     color: #333333;
+  }
+  .header__item > a::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    content: " ";
+    width: calc(var(--nav__width) * 0.8);
   }
 }
 .order {
