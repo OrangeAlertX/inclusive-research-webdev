@@ -18,163 +18,164 @@
   </head>
   <body>
     <header class="header">
-      <div class="header__logo">
-        <a href="/">
-          <img
-            class="header__svg"
-            src="publicResp/images/header/Logo.svg"
-            alt="Проектные системы Евклид"
-          />
-        </a>
-      </div>
-      <nav class="header__nav" id="nav">
-        <svg
-          class="header__close"
-          width="23"
-          height="23"
-          viewBox="0 0 23 23"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect
-            x="2.09082"
-            width="29.5699"
-            height="2.95699"
-            transform="rotate(45 2.09082 0)"
-            fill="#333333"
-          />
-          <rect
-            y="20.9092"
-            width="29.5699"
-            height="2.95699"
-            transform="rotate(-45 0 20.9092)"
-            fill="#333333"
-          />
-        </svg>
+      <div class="header__fixed">
+        <div class="header__logo">
+          <a href="/">
+            <img
+              class="header__svg"
+              src="publicResp/images/header/Logo.svg"
+              alt="Проектные системы Евклид"
+            />
+          </a>
+        </div>
+        <nav class="header__nav" id="nav">
+          <svg
+            class="header__close"
+            width="23"
+            height="23"
+            viewBox="0 0 23 23"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              x="2.09082"
+              width="29.5699"
+              height="2.95699"
+              transform="rotate(45 2.09082 0)"
+              fill="#333333"
+            />
+            <rect
+              y="20.9092"
+              width="29.5699"
+              height="2.95699"
+              transform="rotate(-45 0 20.9092)"
+              fill="#333333"
+            />
+          </svg>
 
-        <ul class="header__list">
-          <li class="header__item"><a href="#nav1"> О нас </a></li>
-          <li class="header__item"><a href="#nav2"> Проекты </a></li>
-          <li class="header__item"><a href="#nav3"> Этапы </a></li>
-          <li class="header__item"><a href="#nav4"> Вопросы </a></li>
-          <li class="header__item"><a href="#nav5"> Контакты </a></li>
-        </ul>
-      </nav>
-      <button class="header__burger">
-        <svg
-          width="30"
-          height="23"
-          viewBox="0 0 30 23"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect width="30" height="3" fill="currentColor" />
-          <rect y="10" width="30" height="3" fill="currentColor" />
-          <rect y="20" width="30" height="3" fill="currentColor" />
-        </svg>
-      </button>
-      <button class="header__search">
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect
-            width="7.56126"
-            height="1.89031"
-            transform="matrix(0.713342 0.700816 -0.713342 0.700816 18.6064 17.3762)"
-            fill="currentColor"
-          />
-          <path
-            d="M20.9303 10.7726C20.9303 16.1533 16.4855 20.5452 10.9652 20.5452C5.44478 20.5452 1 16.1533 1 10.7726C1 5.39198 5.44478 1 10.9652 1C16.4855 1 20.9303 5.39198 20.9303 10.7726Z"
-            stroke="currentColor"
-            stroke-width="2"
-          />
-        </svg>
-      </button>
-      <div class="header__bar">
-        <form
-          target="_blank"
-          action="https://jsonplaceholder.typicode.com/posts"
-          autocomplite
-          method="POST"
-          class="header__form"
-        >
-          <input
-            type="text"
-            name="Header search"
-            placeholder="What are we looking for?"
-            required
-            class="header__input"
-          />
-          <button type="submit" class="header__btn">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect
-                width="7.56126"
-                height="1.89031"
-                transform="matrix(0.713342 0.700816 -0.713342 0.700816 18.6064 17.3762)"
-                fill="currentColor"
-              />
-              <path
-                d="M20.9303 10.7726C20.9303 16.1533 16.4855 20.5452 10.9652 20.5452C5.44478 20.5452 1 16.1533 1 10.7726C1 5.39198 5.44478 1 10.9652 1C16.4855 1 20.9303 5.39198 20.9303 10.7726Z"
-                stroke="currentColor"
-                stroke-width="2"
-              />
-            </svg>
-          </button>
-          <button class="header__return">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect
-                x="8.9541"
-                y="7.30444"
-                width="11.6645"
-                height="2.33291"
-                transform="rotate(45 8.9541 7.30444)"
-                fill="currentColor"
-              />
-              <rect
-                x="7.30469"
-                y="15.5525"
-                width="11.6645"
-                height="2.33291"
-                transform="rotate(-45 7.30469 15.5525)"
-                fill="currentColor"
-              />
-              <circle
-                cx="12"
-                cy="12"
-                r="11"
-                stroke="currentColor"
-                stroke-width="2"
-              />
-            </svg>
-          </button>
-        </form>
+          <ul class="header__list">
+            <li class="header__item"><a href="#nav1"> О нас </a></li>
+            <li class="header__item"><a href="#nav2"> Проекты </a></li>
+            <li class="header__item"><a href="#nav3"> Этапы </a></li>
+            <li class="header__item"><a href="#nav4"> Вопросы </a></li>
+            <li class="header__item"><a href="#nav5"> Контакты </a></li>
+          </ul>
+        </nav>
+        <button class="header__burger">
+          <svg
+            width="30"
+            height="23"
+            viewBox="0 0 30 23"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect width="30" height="3" fill="currentColor" />
+            <rect y="10" width="30" height="3" fill="currentColor" />
+            <rect y="20" width="30" height="3" fill="currentColor" />
+          </svg>
+        </button>
+        <button class="header__search">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              width="7.56126"
+              height="1.89031"
+              transform="matrix(0.713342 0.700816 -0.713342 0.700816 18.6064 17.3762)"
+              fill="currentColor"
+            />
+            <path
+              d="M20.9303 10.7726C20.9303 16.1533 16.4855 20.5452 10.9652 20.5452C5.44478 20.5452 1 16.1533 1 10.7726C1 5.39198 5.44478 1 10.9652 1C16.4855 1 20.9303 5.39198 20.9303 10.7726Z"
+              stroke="currentColor"
+              stroke-width="2"
+            />
+          </svg>
+        </button>
+        <div class="header__bar">
+          <form
+            target="_blank"
+            action="https://jsonplaceholder.typicode.com/posts"
+            autocomplite
+            method="POST"
+            class="header__form"
+          >
+            <input
+              type="text"
+              name="Header search"
+              placeholder="What are we looking for?"
+              required
+              class="header__input"
+            />
+            <button type="submit" class="header__btn">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  width="7.56126"
+                  height="1.89031"
+                  transform="matrix(0.713342 0.700816 -0.713342 0.700816 18.6064 17.3762)"
+                  fill="currentColor"
+                />
+                <path
+                  d="M20.9303 10.7726C20.9303 16.1533 16.4855 20.5452 10.9652 20.5452C5.44478 20.5452 1 16.1533 1 10.7726C1 5.39198 5.44478 1 10.9652 1C16.4855 1 20.9303 5.39198 20.9303 10.7726Z"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+              </svg>
+            </button>
+            <button class="header__return">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="8.9541"
+                  y="7.30444"
+                  width="11.6645"
+                  height="2.33291"
+                  transform="rotate(45 8.9541 7.30444)"
+                  fill="currentColor"
+                />
+                <rect
+                  x="7.30469"
+                  y="15.5525"
+                  width="11.6645"
+                  height="2.33291"
+                  transform="rotate(-45 7.30469 15.5525)"
+                  fill="currentColor"
+                />
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="11"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+              </svg>
+            </button>
+          </form>
+        </div>
       </div>
     </header>
     <main class="main">
       <section class="order" id="nav2">
         <div class="order__content">
-          <a href="#nav" tabindex="-1">
-            <h1 class="order__title">
-              Проектные решения<br />
-              любой сложности
-            </h1>
-          </a>
+          <h1 class="order__title">
+            Проектные решения<br />
+            любой сложности
+          </h1>
+
           <p class="order__text">
             Есть над чем задуматься: базовые сценарии поведения пользователей и
             по сей день остаются уделом проектантов
@@ -204,9 +205,8 @@
       </section>
 
       <section class="about" id="nav1">
-        <a href="#nav" tabindex="-1">
-          <h2 class="about__title">О нас</h2>
-        </a>
+        <h2 class="about__title">О нас</h2>
+
         <p class="about__text">
           Также как перспективное планирование создаёт необходимость включения в
           производственный план целого ряда внеочередных мероприятий с учётом
@@ -265,9 +265,7 @@
         </div>
       </section>
       <section class="details" id="nav3">
-        <a href="#nav" tabindex="-1">
-          <h2 class="details__title">Как мы работаем</h2>
-        </a>
+        <h2 class="details__title">Как мы работаем</h2>
 
         <ul class="details__list">
           <li class="details__item details__item--active">
@@ -370,9 +368,7 @@
         </div>
       </section>
       <section class="questions" id="nav4">
-        <a href="#nav" tabindex="-1">
-          <h2 class="questions__title">Часто задаваемые вопросы</h2>
-        </a>
+        <h2 class="questions__title">Часто задаваемые вопросы</h2>
         <div class="questions__content">
           <div class="questions__item">
             <button onclick="accordionOnClick(event)" class="questions__btn">
@@ -534,7 +530,6 @@
       </section>
     </main>
     <footer class="footer" id="nav5">
-      <a href="#nav" tabindex="-1"></a>
       <footer class="footer__left">
         <div class="footer__logo">
           <div class="footer__svg1"></div>

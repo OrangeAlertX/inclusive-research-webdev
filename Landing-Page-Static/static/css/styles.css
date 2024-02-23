@@ -119,7 +119,7 @@ button:not(:last-child) {
 }
 
 button:hover,
-button:focus {
+button:focus-visible {
   border: none;
   outline: none;
   background: var(--link-normal-color);
@@ -166,7 +166,7 @@ button:active {
   border-radius: 15px;
 }
 
-.logo-header > a:focus {
+.logo-header > a:focus-visible {
   outline: 1px solid var(--link-normal-color);
   outline-offset: 9px;
 }
@@ -192,7 +192,7 @@ button:active {
   color: var(--link-normal-color);
 }
 
-.telephone:focus {
+.telephone:focus-visible {
   color: var(--link-normal-color);
   outline: 1px solid var(--link-normal-color);
   outline-offset: 5px;
@@ -224,7 +224,7 @@ button:active {
   }
 }
 
-.private-office-link:focus {
+.private-office-link:focus-visible {
   outline: 1px solid var(--link-normal-color);
   padding-top: 4px;
   padding-bottom: 4px;
@@ -413,13 +413,13 @@ h3 {
   }
 }
 
-.services-div:focus-within,
-.special-offer:focus-within {
+.services-div:has(:focus-visible),
+.special-offer:has(:focus-visible) {
   outline: 1px solid var(--link-normal-color);
   outline-offset: 8px;
 }
 
-.services-link:focus {
+.services-link:focus-visible {
   outline: none;
 }
 
@@ -448,7 +448,7 @@ h3 {
 .advantage-cell > p {
   margin-top: 10px;
 }
-.advantage-cell:focus {
+.advantage-cell:focus-visible {
   outline: none;
 }
 
@@ -646,7 +646,7 @@ h3 {
   background-color: white;
   border: none;
 }
-.order-form-item > :is(input:focus, select:focus) {
+.order-form-item > :is(input:focus-visible, select:focus-visible) {
   outline-color: var(--link-normal-color);
   outline-offset: 5px;
 }
@@ -773,7 +773,7 @@ footer a {
   margin-right: 125px;
 }
 
-.footer-content > a:focus {
+.footer-content > a:focus-visible {
   padding: 0;
   outline-offset: 9px;
 }
@@ -822,13 +822,13 @@ footer a {
 }
 
 .footer-social:hover,
-.footer-social:focus {
+.footer-social:focus-visible {
   /* color: var(--link-normal-color); */
   filter: invert(87%) sepia(12%) saturate(6791%) hue-rotate(339deg)
     brightness(88%) contrast(78%);
 }
 
-.footer-social:focus {
+.footer-social:focus-visible {
   outline: none;
 }
 
