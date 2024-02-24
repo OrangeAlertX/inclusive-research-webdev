@@ -64,9 +64,10 @@
   &__pagination {
     font-size: var(--items__font);
     white-space: nowrap;
-
-    &:hover {
-      color: var(--UI-color);
+    @media (hover: hover) {
+      &:hover {
+        color: var(--UI-color);
+      }
     }
 
     &:focus-visible {
@@ -89,8 +90,11 @@
     background-color: var(--UI-color);
 
     font-weight: 500;
-
-    &:hover,
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--btn-color-focus);
+      }
+    }
     &:focus-visible {
       background-color: var(--btn-color-focus);
     }
@@ -104,8 +108,13 @@
 
     outline: 1px solid black;
     border-radius: var(--border-radius-btn);
-
-    &:hover,
+    @media (hover: hover) {
+      &:hover {
+        color: white;
+        outline: none;
+        background-color: #666666;
+      }
+    }
     &:focus-visible {
       color: white;
       outline: none;

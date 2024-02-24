@@ -1038,6 +1038,46 @@
   }
 }
 
+.footer {
+  --footer__height: 628px;
+  --footer__padding: 30px 15px;
+}
+@media (min-width: 320px) {
+  .footer {
+    --footer__height: calc(36.6071428571vw + 510.8571428571px);
+  }
+}
+@media (min-width: 768px) {
+  .footer {
+    --footer__height: calc(-77.34375vw + 1386px);
+  }
+}
+@media (min-width: 1024px) {
+  .footer {
+    --footer__height: 594px;
+  }
+}
+@media (min-width: 320px) {
+  .footer {
+    --footer__padding: calc(4.4642857143vw + 15.7142857143px) calc(7.8125vw - 10px);
+  }
+}
+@media (min-width: 768px) {
+  .footer {
+    --footer__padding: 50px 50px;
+  }
+}
+@media (min-width: 1024px) {
+  .footer {
+    --footer__padding: 50px calc(2.7901785714vw + 21.4285714286px);
+  }
+}
+@media (min-width: 1920px) {
+  .footer {
+    --footer__padding: 50px 75px;
+  }
+}
+
 html {
   font-family: "Montserrat", sans-serif;
   font-size: 16px;
@@ -1054,8 +1094,8 @@ p {
 
 .header {
   position: relative;
-  max-width: 1920px;
   height: var(--header__height);
+  max-width: 1920px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: var(--header__margin-bottom);
@@ -1064,16 +1104,25 @@ p {
   position: fixed;
   top: 0;
   left: 50%;
-  transform: translateX(-50%);
   z-index: 200;
   display: flex;
   align-items: center;
-  max-width: 1920px;
   height: var(--header__height);
+  max-width: 1920px;
   padding: 0 var(--global-indentation);
   background-color: var(--element-background);
   border-radius: 0 0 var(--border-radius) var(--border-radius);
   box-shadow: 0px 3px 10px 4px rgba(0, 0, 0, 0.15);
+  transform: translate(-50%, 0%);
+  transition: transform 0.2s ease-in;
+}
+@media (min-width: 1921px) {
+  .header__fixed {
+    padding: 75px;
+  }
+}
+.header__fixed--hidden {
+  transform: translate(-50%, -100%);
 }
 .header__logo {
   flex-shrink: 0;
@@ -1136,8 +1185,10 @@ p {
   background-color: var(--UI-color);
   transition: width 0.3s cubic-bezier(0, 1.25, 1, 1);
 }
-.header__item > a:hover::after {
-  width: 100%;
+@media (hover: hover) {
+  .header__item > a:hover::after {
+    width: 100%;
+  }
 }
 .header__item > a:focus-visible {
   outline: 2px solid var(--UI-color);
@@ -1157,8 +1208,10 @@ p {
   outline: 2px solid var(--UI-color);
   outline-offset: 4px;
 }
-.header__search:hover {
-  color: var(--UI-color);
+@media (hover: hover) {
+  .header__search:hover {
+    color: var(--UI-color);
+  }
 }
 .header__bar {
   visibility: hidden;
@@ -1197,7 +1250,12 @@ p {
 .header__btn {
   margin-right: 20px;
 }
-.header__btn:hover, .header__btn:active {
+@media (hover: hover) {
+  .header__btn:hover {
+    color: var(--UI-color);
+  }
+}
+.header__btn:active {
   color: var(--UI-color);
 }
 .header__btn:focus-visible {
@@ -1211,8 +1269,10 @@ p {
   color: #cacaca;
   margin-right: --return__right;
 }
-.header__return:hover {
-  color: var(--UI-color);
+@media (hover: hover) {
+  .header__return:hover {
+    color: var(--UI-color);
+  }
 }
 .header__return:focus-visible {
   outline: 2px solid var(--UI-color);
@@ -1221,10 +1281,14 @@ p {
 .header__return:active {
   color: black;
 }
+.header__return--disable {
+  opacity: 25%;
+}
 
 @media (max-width: 1024px) {
   .header__fixed {
     justify-content: space-between;
+    width: 100%;
   }
   .header__burger {
     display: block;
@@ -1332,7 +1396,12 @@ p {
   align-self: flex-start;
   pointer-events: all;
 }
-.order__btn:hover, .order__btn:focus-visible {
+@media (hover: hover) {
+  .order__btn:hover {
+    background-color: var(--btn-color-focus);
+  }
+}
+.order__btn:focus-visible {
   background-color: var(--btn-color-focus);
 }
 .order__btn:active {
@@ -1425,7 +1494,12 @@ p {
   width: var(--text__width--content);
   margin-right: auto;
 }
-.about__btn:hover, .about__btn:focus-visible {
+@media (hover: hover) {
+  .about__btn:hover {
+    background-color: var(--UI-color);
+  }
+}
+.about__btn:focus-visible {
   background-color: var(--UI-color);
 }
 .about__btn:active {
@@ -1451,7 +1525,14 @@ p {
     margin-top: 12px;
     margin-bottom: 32px;
   }
-  .about__btn:hover, .about__btn:focus, .about__btn:active {
+}
+@media (max-width: 767px) and (hover: hover) {
+  .about__btn:hover {
+    color: white;
+  }
+}
+@media (max-width: 767px) {
+  .about__btn:focus-visible, .about__btn:active {
     color: white;
   }
   .about__more--text {
@@ -1653,8 +1734,10 @@ p {
   font-size: var(--items__font);
   white-space: nowrap;
 }
-.details__pagination:hover {
-  color: var(--UI-color);
+@media (hover: hover) {
+  .details__pagination:hover {
+    color: var(--UI-color);
+  }
 }
 .details__pagination:focus-visible {
   outline: 2px solid var(--UI-color);
@@ -1671,7 +1754,12 @@ p {
   background-color: var(--UI-color);
   font-weight: 500;
 }
-.details__btn1:hover, .details__btn1:focus-visible {
+@media (hover: hover) {
+  .details__btn1:hover {
+    background-color: var(--btn-color-focus);
+  }
+}
+.details__btn1:focus-visible {
   background-color: var(--btn-color-focus);
 }
 .details__btn1:active {
@@ -1682,7 +1770,14 @@ p {
   outline: 1px solid black;
   border-radius: var(--border-radius-btn);
 }
-.details__btn2:hover, .details__btn2:focus-visible {
+@media (hover: hover) {
+  .details__btn2:hover {
+    color: white;
+    outline: none;
+    background-color: #666666;
+  }
+}
+.details__btn2:focus-visible {
   color: white;
   outline: none;
   background-color: #666666;
@@ -1745,17 +1840,32 @@ p {
   border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
 }
-.questions__btn:hover, .questions__btn:focus-visible {
+@media (hover: hover) {
+  .questions__btn:hover {
+    color: var(--UI-color);
+    border-color: var(--UI-color);
+  }
+  .questions__btn:hover .questions__circle {
+    background-color: var(--UI-color);
+  }
+  .questions__btn:hover .questions__circle .questions__square::before {
+    background-color: white;
+  }
+  .questions__btn:hover .questions__circle .questions__square::after {
+    background-color: white;
+  }
+}
+.questions__btn:focus-visible {
   color: var(--UI-color);
   border-color: var(--UI-color);
 }
-.questions__btn:hover .questions__circle, .questions__btn:focus-visible .questions__circle {
+.questions__btn:focus-visible .questions__circle {
   background-color: var(--UI-color);
 }
-.questions__btn:hover .questions__circle .questions__square::before, .questions__btn:focus-visible .questions__circle .questions__square::before {
+.questions__btn:focus-visible .questions__circle .questions__square::before {
   background-color: white;
 }
-.questions__btn:hover .questions__circle .questions__square::after, .questions__btn:focus-visible .questions__circle .questions__square::after {
+.questions__btn:focus-visible .questions__circle .questions__square::after {
   background-color: white;
 }
 .questions__btn:active {
@@ -1836,6 +1946,21 @@ p {
     font-weight: 500;
   }
 }
+.footer {
+  height: var(--footer__height);
+  width: 100vw;
+  background-color: black;
+  color: var(--border-color);
+  padding: var(--footer__padding);
+  display: flex;
+}
+.footer__nav a {
+  color: var(--border-color);
+}
+.footer__text {
+  line-height: 2em;
+}
+
 .main {
   margin: 0 var(--global-indentation);
 }

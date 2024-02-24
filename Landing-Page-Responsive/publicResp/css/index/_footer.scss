@@ -1,0 +1,19 @@
+.footer {
+  height: var(--footer__height);
+  width: 100vw;
+  background-color: black;
+  color: var(--border-color);
+  padding: var(--footer__padding);
+
+  display: flex;
+
+  &__nav {
+    & a {
+      color: var(--border-color);
+    }
+  }
+
+  &__text {
+    line-height: 2em;
+  }
+}

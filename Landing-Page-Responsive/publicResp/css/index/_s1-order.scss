@@ -59,7 +59,11 @@
     align-self: flex-start;
     pointer-events: all;
 
-    &:hover,
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--btn-color-focus);
+      }
+    }
     &:focus-visible {
       background-color: var(--btn-color-focus);
     }

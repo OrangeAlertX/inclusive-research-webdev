@@ -15,8 +15,8 @@ p {
 .header {
   position: relative;
 
-  max-width: 1920px;
   height: var(--header__height);
+  max-width: 1920px;
 
   margin-left: auto;
   margin-right: auto;
@@ -26,18 +26,28 @@ p {
     position: fixed;
     top: 0;
     left: 50%;
-    transform: translateX(-50%);
     z-index: 200;
     display: flex;
     align-items: center;
 
-    max-width: 1920px;
     height: var(--header__height);
 
+    max-width: 1920px;
     padding: 0 var(--global-indentation);
+    @media (min-width: 1921px) {
+      & {
+        padding: 75px;
+      }
+    }
     background-color: var(--element-background);
     border-radius: 0 0 var(--border-radius) var(--border-radius);
     box-shadow: 0px 3px 10px 4px rgba(0, 0, 0, 0.15);
+
+    transform: translate(-50%, 0%);
+    transition: transform 0.2s ease-in;
+    &--hidden {
+      transform: translate(-50%, -100%);
+    }
   }
 
   &__logo {
@@ -108,9 +118,10 @@ p {
       background-color: var(--UI-color);
       transition: width 0.3s cubic-bezier(0, 1.25, 1, 1);
     }
-
-    & > a:hover::after {
-      width: 100%;
+    @media (hover: hover) {
+      & > a:hover::after {
+        width: 100%;
+      }
     }
     & > a:focus-visible {
       outline: 2px solid var(--UI-color);
@@ -132,8 +143,10 @@ p {
       outline: 2px solid var(--UI-color);
       outline-offset: 4px;
     }
-    &:hover {
-      color: var(--UI-color);
+    @media (hover: hover) {
+      &:hover {
+        color: var(--UI-color);
+      }
     }
   }
 
@@ -179,8 +192,11 @@ p {
 
   &__btn {
     margin-right: 20px;
-
-    &:hover,
+    @media (hover: hover) {
+      &:hover {
+        color: var(--UI-color);
+      }
+    }
     &:active {
       color: var(--UI-color);
     }
@@ -196,9 +212,10 @@ p {
   &__return {
     color: #cacaca;
     margin-right: (--return__right);
-
-    &:hover {
-      color: var(--UI-color);
+    @media (hover: hover) {
+      &:hover {
+        color: var(--UI-color);
+      }
     }
     &:focus-visible {
       outline: 2px solid var(--UI-color);
@@ -207,6 +224,10 @@ p {
     &:active {
       color: black;
     }
+
+    &--disable {
+      opacity: 25%;
+    }
   }
 }
 
@@ -214,6 +235,7 @@ p {
   .header {
     &__fixed {
       justify-content: space-between;
+      width: 100%;
     }
 
     &__burger {

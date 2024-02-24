@@ -20,8 +20,25 @@
 
     border-top: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
+    @media (hover: hover) {
+      &:hover {
+        color: var(--UI-color);
+        border-color: var(--UI-color);
 
-    &:hover,
+        & .questions__circle {
+          background-color: var(--UI-color);
+
+          & .questions__square {
+            &::before {
+              background-color: white;
+            }
+            &::after {
+              background-color: white;
+            }
+          }
+        }
+      }
+    }
     &:focus-visible {
       color: var(--UI-color);
       border-color: var(--UI-color);

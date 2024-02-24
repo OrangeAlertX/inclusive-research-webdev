@@ -43,7 +43,11 @@
   }
 
   &__btn {
-    &:hover,
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--UI-color);
+      }
+    }
     &:focus-visible {
       background-color: var(--UI-color);
     }
@@ -74,9 +78,12 @@
 
       margin-top: 12px;
       margin-bottom: 32px;
-
-      &:hover,
-      &:focus,
+      @media (hover: hover) {
+        &:hover {
+          color: white;
+        }
+      }
+      &:focus-visible,
       &:active {
         color: white;
       }

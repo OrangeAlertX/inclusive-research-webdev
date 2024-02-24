@@ -658,3 +658,24 @@
     )
   );
 }
+
+.footer {
+  @include poly-fluid-sizing(
+    '--footer__height',
+    (
+      320px: 628px,
+      768px: 792px,
+      1024px: 594px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--footer__padding',
+    (
+      320px: 30px 15px,
+      768px: 50px 50px,
+      1024px: 50px 50px,
+      1920px: 50px 75px,
+    )
+  );
+}
