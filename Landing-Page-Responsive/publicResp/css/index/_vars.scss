@@ -661,21 +661,104 @@
 
 .footer {
   @include poly-fluid-sizing(
-    '--footer__height',
-    (
-      320px: 628px,
-      768px: 792px,
-      1024px: 594px,
-    )
-  );
-
-  @include poly-fluid-sizing(
     '--footer__padding',
     (
       320px: 30px 15px,
       768px: 50px 50px,
       1024px: 50px 50px,
       1920px: 50px 75px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--footer__center',
+    (
+      320px: 290px,
+      768px: 540px,
+      1024px: 540px,
+      1920px: 570px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--footer__logo',
+    (
+      320px: 131px,
+      768px: 224px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--footer__gap',
+    (
+      320px: 16px,
+      768px: 25px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--footer__social',
+    (
+      320px: 40px,
+      768px: 60px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--title__bottom',
+    (
+      320px: 20px,
+      768px: 25px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--title__font',
+    (
+      320px: 24px,
+      768px: 48px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--footer__btn',
+    (
+      320px: 12px 28px,
+      768px: 19px 38px,
+      1024px: 19px 38px,
+      1920px: 19px 52px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--btn__font',
+    (
+      320px: 12px,
+      768px: 16px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--btn__margin',
+    (
+      320px: 37px,
+      768px: 32px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--input__padding',
+    (
+      320px: 14px 20px,
+      768px: 14px 24px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--logo__mobile',
+    (
+      320px: 33px 0px 16px,
+      1023px: 46px 0px 20px,
     )
   );
 }

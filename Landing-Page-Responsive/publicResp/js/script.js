@@ -42,9 +42,11 @@
   });
 
   /// Search Bar
+  // Buttons
   const clearInput = document.querySelector('.header__return');
   clearInput.addEventListener('click', (e) => {
     e.preventDefault();
+    if (input.value == '') bar.classList.remove('header__bar--active');
     input.value = '';
     clearInput.classList.add('header__return--disable');
     input.focus();
@@ -84,6 +86,7 @@
     submit.classList.remove('header__btn--active');
   });
 
+  // Opacity deleter of the input text when no value
   clearInput.classList.add('header__return--disable');
   input.addEventListener('input', () => {
     const newValue = input.value;

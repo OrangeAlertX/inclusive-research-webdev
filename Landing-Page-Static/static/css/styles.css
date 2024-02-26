@@ -328,6 +328,9 @@ button:active {
 
 .nav-button {
   margin: 14px 45px;
+
+  display: flex;
+  white-space: nowrap;
 }
 
 .spec-wrapper .spec-link {
