@@ -46,7 +46,11 @@
   const clearInput = document.querySelector('.header__return');
   clearInput.addEventListener('click', (e) => {
     e.preventDefault();
-    if (input.value == '') bar.classList.remove('header__bar--active');
+    if (input.value == '') {
+      bar.classList.remove('header__bar--active');
+      window.removeEventListener('click', closeBarCB);
+      return;
+    }
     input.value = '';
     clearInput.classList.add('header__return--disable');
     input.focus();
@@ -186,17 +190,23 @@ function addImgResizer(images, folderName) {
   }
 }
 
+//onclick function for the section#4
 const MOD = 1.5;
 const MAX_TIME_TRANSITION = 1000;
+const getTopBottomMarginsOf = (el) => {
+  const styles = window.getComputedStyle(el);
+  return parseInt(styles.marginTop) + parseInt(styles.marginBottom);
+};
+
 function accordionOnClick(e) {
   const button = e.currentTarget;
   const textContainer = button.parentNode.querySelector(
     '.questions__textcontainer'
   );
   const svg = button.querySelector('.questions__svg');
+  const text = textContainer.querySelector('.questions__text');
 
-  const trueHeight =
-    textContainer.querySelector('.questions__text').offsetHeight;
+  const trueHeight = text.offsetHeight + getTopBottomMarginsOf(text);
 
   const isOpening = textContainer.offsetHeight === 0;
   const inlineTransition = textContainer.style.getPropertyValue('transition');

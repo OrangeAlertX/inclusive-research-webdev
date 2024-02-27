@@ -4,6 +4,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
+    <script>
+      (() => {
+        const TARGET_WIDTH = 1024;
+        const viewport = document.querySelector('meta[name="viewport"]');
+        const defaultViewport = viewport.getAttribute('content');
+        const defaultViewportWidth = defaultViewport.match(/width=([^,]+)/)[1];
+        const defaultViewportScale = defaultViewport.match(
+          /initial-scale=([^,]+)/
+        )[1];
+
+        resizer();
+
+        window.addEventListener('resize', resizer);
+
+        function resizer() {
+          const viewport = document.querySelector('meta[name="viewport"]');
+          const width = window.outerWidth;
+
+          if (width > TARGET_WIDTH) {
+            viewport.setAttribute(
+              'content',
+              defaultViewport
+                .replace(defaultViewportWidth, TARGET_WIDTH)
+                .replace(defaultViewportScale, width / TARGET_WIDTH)
+            );
+          } else viewport.setAttribute('content', defaultViewport);
+        }
+      })();
+    </script>
     <script defer src="distCol/main.js"></script>
     <title>Game of The Year</title>
   </head>
