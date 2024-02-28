@@ -1,25 +1,3 @@
-// Viewport resize for big monitors //
-(() => {
-  const viewport = document.querySelector('meta[name="viewport"]');
-  const defaultViewport = viewport.getAttribute('content');
-
-  resizer();
-
-  window.addEventListener('resize', resizer);
-
-  function resizer() {
-    const viewport = document.querySelector('meta[name="viewport"]');
-    const width = window.outerWidth;
-
-    if (width > 2560) {
-      viewport.setAttribute(
-        'content',
-        `width=2560, initial-scale=${width / 2560}`
-      );
-    } else viewport.setAttribute('content', defaultViewport);
-  }
-})();
-
 // Header //
 (() => {
   'use strict';
@@ -224,4 +202,10 @@ function accordionOnClick(e) {
     svg.classList.remove('questions__svg--active');
     textContainer.style.setProperty('max-height', 0 + 'px');
   }
+}
+
+//onclick function for link to anchor without changing browser navbar
+function gotoID(targetID) {
+  const target = document.getElementById(targetID);
+  target.scrollIntoView();
 }

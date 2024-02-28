@@ -128,6 +128,7 @@
   }
 
   &__formcontainer {
+    position: relative;
     min-width: var(--footer__center);
     flex: 0;
   }
@@ -228,6 +229,18 @@
     &__container,
     &__left {
       align-items: center;
+    }
+
+    &__formcontainer {
+      &::after {
+        content: '';
+
+        position: absolute;
+        height: 1px;
+        width: 100%;
+        bottom: -16px;
+        background-color: #414141;
+      }
     }
   }
 }
