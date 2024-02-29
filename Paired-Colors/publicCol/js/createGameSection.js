@@ -1,4 +1,4 @@
-import '../css/index.scss';
+import '../css/styles.scss';
 
 import Section from './structure/Section';
 import createDifficulties from './structure/createDifficulties';
