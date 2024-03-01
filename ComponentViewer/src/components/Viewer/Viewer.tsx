@@ -4,7 +4,7 @@ import styles from './Viewer.module.css';
 import RangeSlider from './RangeSlider/RangeSlider';
 import EmbedComponent from './EmbedComponent/EmbedComponent';
 import variables from '../App/variables.module.css';
-import useFalseWhenExitFullscreenAPI from '../../utils/customHooks/useFalseWhenExitFullscreenAPI';
+import useSetFalseWhenExitFullscreenAPI from '../../utils/customHooks/useSetFalseWhenExitFullscreenAPI';
 
 interface IViewer {
   withRangeSlider?: boolean;
@@ -75,7 +75,10 @@ export default function Viewer(props: IViewer) {
     else if (document.fullscreenElement) document.exitFullscreen();
   }, [fullscreen]);
 
-  useFalseWhenExitFullscreenAPI(ViewerRef, toggleFullscreen);
+  useSetFalseWhenExitFullscreenAPI({
+    target: ViewerRef,
+    setState: toggleFullscreen,
+  });
 
   const RangeSliderProps = {
     resolution,

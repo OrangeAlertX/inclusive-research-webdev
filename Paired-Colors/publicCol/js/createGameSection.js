@@ -4,6 +4,8 @@ import Section from './structure/Section';
 import createDifficulties from './structure/createDifficulties';
 import eventCreationGame from './structure/eventCreationGame';
 import Records from './structure/Records';
+import adjustFontSize from './adjustFontSize';
+import fullPage from './fullPage';
 
 const NUMBEROFMODES = 7;
 const OPTIONS = [
@@ -19,8 +21,9 @@ const OPTIONS = [
 //   if (op[0] % op[1] !== 0) throw `Wrong OPTION i`;
 // });
 
+const CONTAINER_NAME = 'fpc';
 // Create Game Elements
-const game = new Section('fpc');
+const game = new Section(CONTAINER_NAME);
 game.header = game.newElem('div', 'header');
 game.difficulty = game.newElem('div', 'difficulty');
 game.difficulties = createDifficulties(NUMBEROFMODES, game.newElem);
@@ -38,3 +41,8 @@ game.records = new Records(game.header, game.difficulty, game.newElem);
 
 // Add game generation
 eventCreationGame(game, OPTIONS);
+
+// Select size of cards
+adjustFontSize(game.container);
+// Full page on click
+fullPage(game.playground);
