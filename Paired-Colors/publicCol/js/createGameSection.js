@@ -3,9 +3,9 @@ import '../css/styles.scss';
 import Section from './structure/Section';
 import createDifficulties from './structure/createDifficulties';
 import eventCreationGame from './structure/eventCreationGame';
-import Records from './structure/Records';
 import adjustFontSize from './adjustFontSize';
 import fullPage from './fullPage';
+import openCloseDifficulties from './openCloseDifficulties';
 
 const NUMBEROFMODES = 7;
 const OPTIONS = [
@@ -36,13 +36,14 @@ game.container.append(game.playground);
 game.header.append(game.difficulty);
 game.difficulty.append(...game.difficulties);
 
-// Add Records
-game.records = new Records(game.header, game.difficulty, game.newElem);
-
 // Add game generation
 eventCreationGame(game, OPTIONS);
 
 // Select size of cards
 adjustFontSize(game.container);
+
 // Full page on click
 fullPage(game.playground);
+
+// LocalStorage for open difficulties
+openCloseDifficulties(game.difficulties);

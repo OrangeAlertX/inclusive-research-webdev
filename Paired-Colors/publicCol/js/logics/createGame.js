@@ -2,8 +2,6 @@ import createCards from './createCards';
 import createActions from './createActions';
 
 const createGame = (e, game, qtCards, bunchSize, withDigits) => {
-  game.records.deactivateRecords();
-
   const grid = game.newElem('div', 'grid');
   const cards = createCards(qtCards, bunchSize, withDigits, game.newElem);
 

@@ -1,5 +1,5 @@
 export default function fullPage(target) {
-  let event = null;
+  let event = false;
   const clickCB = (e) => {
     const path = e.composedPath();
 
@@ -12,9 +12,11 @@ export default function fullPage(target) {
   const resizeCB = () => {
     if (isMobile()) {
       if (event) return;
-      event = target.addEventListener('click', clickCB);
+      target.addEventListener('click', clickCB);
+      event = true;
     } else {
       if (event) target.removeEventListener('click', clickCB);
+      event = false;
     }
   };
   addEventListener('resize', resizeCB);
