@@ -101,7 +101,7 @@ const actionWinGame = (grid) => {
   });
 
   const curDiff = grid.getAttribute('currentDifficulty');
-  const lastDiff = +localStorage.getItem('curDiffAvailable') || 1;
+  const lastDiff = +localStorage.getItem('curDiffAvailable');
   if (curDiff == lastDiff) {
     localStorage.setItem('curDiffAvailable', parseInt(lastDiff) + 1);
     const difficulties =

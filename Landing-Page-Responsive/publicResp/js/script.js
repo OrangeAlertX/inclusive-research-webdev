@@ -176,10 +176,14 @@ const getTopBottomMarginsOf = (el) => {
   return parseInt(styles.marginTop) + parseInt(styles.marginBottom);
 };
 
+let textWidth = [];
 function accordionOnClick(e) {
   const button = e.currentTarget;
   const textContainer = button.parentNode.querySelector(
     '.questions__textcontainer'
+  );
+  const index = [...button.parentNode.parentNode.children].indexOf(
+    button.parentNode
   );
   const svg = button.querySelector('.questions__svg');
   const text = textContainer.querySelector('.questions__text');
@@ -187,12 +191,12 @@ function accordionOnClick(e) {
   const trueHeight = text.offsetHeight + getTopBottomMarginsOf(text);
 
   const isOpening = textContainer.offsetHeight === 0;
-  const inlineTransition = textContainer.style.getPropertyValue('transition');
-  if (!inlineTransition) {
+  if (textWidth[index] !== text.offsetWidth) {
     textContainer.style.setProperty(
       'transition',
       `max-height ${trueHeight * MOD}ms linear`
     );
+    textWidth[index] = text.offsetWidth;
   }
 
   if (isOpening) {
