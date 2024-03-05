@@ -1,3 +1,5 @@
+import openCloseDifficulties from '../openCloseDifficulties';
+
 function groupCards(cards, bS) {
   const cardBunches = new Map();
 
@@ -9,6 +11,7 @@ function groupCards(cards, bS) {
   return cardBunches;
 }
 
+//entry
 let counter;
 function createActions(cards, bS) {
   counter = cards.length;
@@ -96,6 +99,15 @@ const actionWinGame = (grid) => {
       forwardFlip(card);
     }, 100 * i);
   });
+
+  const curDiff = grid.getAttribute('currentDifficulty');
+  const lastDiff = +localStorage.getItem('curDiffAvailable');
+  if (curDiff == lastDiff) {
+    localStorage.setItem('curDiffAvailable', parseInt(lastDiff) + 1);
+    const difficulties =
+      grid.parentElement.parentElement.children[0].children[0].children;
+    openCloseDifficulties(difficulties);
+  }
 };
 
 const isAlreadyFlipped = (card) => {

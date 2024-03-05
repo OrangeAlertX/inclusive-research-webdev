@@ -11,22 +11,19 @@ let componentFolder = 'components';
 const createComponent = function (name, pathToSrc, componentFolder) {
   const resolvedPath = path.resolve(process.cwd(), pathToSrc, componentFolder);
 
-  const nameTSXcontent = `import { useState } from 'react';
+  const nameTSXcontent = `
 import styles from './${name}.module.css';
 
-interface I${name} {
-  children: React.ReactElement | string | JSX.Element;
-}
+interface I${name} {}
 
-${name}.defaultProps = {
-
-}
+${name}.defaultProps = {}
 
 export default function ${name}(props: I${name}) {
-  const { children } = props;
+  const {} = props;
 
   return (<div className={styles.${name}}></div>);
-}`;
+}
+`;
 
   const cbError = (e) => {
     if (e) console.log(e);

@@ -1,13 +1,17 @@
-.Contacts {
-  color: var(--main-color);
-  width: clamp(320px, 100%, 480px);
-  margin-left: auto;
-  margin-right: auto;
+.contacts {
+  display: inline-flex;
+  gap: 1em;
 }
 
-.contact {
+.contacts a {
+  color: var(--second-color);
+}
+
+.Contacts {
+  padding: 1em;
+
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: calc(var(--first-margin) / 2);
+  justify-content: center;
+
+  background-color: black;
 }

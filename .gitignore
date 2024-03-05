@@ -1,8 +1,8 @@
 trash
 node_modules
 *.css.map
-Paired-Colors/css/styles.css
-Landing-Page-Responsive/css/index/index.css
+Paired-Colors/publicCol/css/index.css
+Landing-Page-Responsive/publicResp/css/index/index.css
 dist*
 keys
 

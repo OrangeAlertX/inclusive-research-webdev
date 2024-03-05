@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styles from './FullPage.module.css';
 import Button from '../../../../UI/Button/Button';
 import SvgFullPage from './SvgFullPage/SvgFullPage';

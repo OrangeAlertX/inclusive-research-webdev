@@ -1,28 +1,49 @@
 .details {
+  margin-bottom: var(--details__bottom);
+
   &__title {
     font-size: var(--title__font);
     font-weight: 400;
     margin: 0;
-    margin-bottom: 50px;
+    margin-bottom: var(--title__bottom);
   }
 
   &__list {
     display: flex;
+    margin-bottom: var(--items__bottom);
   }
 
   &__item {
     &--active {
       color: var(--UI-color-active);
     }
+
+    &:not(:last-child) {
+      margin-right: var(--items__margin);
+    }
+
+    &--active > button {
+      color: var(--UI-color-active);
+    }
   }
 
   &__content {
     display: flex;
+    justify-content: space-between;
   }
 
   &__left {
+    position: relative;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+
+    width: var(--left__width);
+  }
+
+  &__right {
+    position: relative;
+    width: var(--right__width);
   }
 
   &__mintitle {
@@ -30,25 +51,123 @@
     margin-bottom: 8px;
     text-wrap: nowrap;
 
-    font-size: 24px;
+    font-size: var(--mintitle__font);
     font-weight: 700;
   }
 
   &__text {
     margin: 0;
-    font-size: var(--text__minfont);
+    font-size: var(--font-size);
     line-height: 2em;
   }
 
+  &__pagination {
+    font-size: var(--items__font);
+    white-space: nowrap;
+    @media (hover: hover) {
+      &:hover {
+        color: var(--UI-color);
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--UI-color);
+      outline-offset: 5px;
+    }
+  }
+
   &__btngroup {
+    font-size: var(--btn__font);
   }
 
   &__btn1 {
+    padding: var(--btn__padding1);
+    margin-right: var(--btn__gap);
+
+    border-radius: var(--border-radius-btn);
+
+    color: white;
+    background-color: var(--UI-color);
+
+    font-weight: 500;
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--btn-color-focus);
+      }
+    }
+    &:focus-visible {
+      background-color: var(--btn-color-focus);
+    }
+    &:active {
+      background-color: var(--UI-color-active);
+    }
   }
 
   &__btn2 {
+    padding: var(--btn__padding2);
+
+    outline: 1px solid black;
+    border-radius: var(--border-radius-btn);
+    @media (hover: hover) {
+      &:hover {
+        color: white;
+        outline: none;
+        background-color: #666666;
+      }
+    }
+    &:focus-visible {
+      color: white;
+      outline: none;
+      background-color: #666666;
+    }
+    &:active {
+      color: white;
+      background-color: black;
+    }
   }
 
-  &__right {
+  &__leftchange {
+    margin-bottom: var(--p__margin);
+  }
+
+  &__rightchange {
+    position: relative;
+    height: 100%;
+
+    & > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+
+      border-radius: var(--border-radius);
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .details {
+    &__content {
+      height: var(--content__height);
+    }
+  }
+}
+@media (max-width: 1023px) {
+  .details {
+    &__mintitle {
+      margin-top: var(--title3__margin);
+    }
+
+    &__content {
+      flex-direction: column;
+    }
+
+    &__left {
+      width: 100%;
+      order: 1;
+    }
+    &__right {
+      width: 100%;
+      order: 0;
+    }
   }
 }

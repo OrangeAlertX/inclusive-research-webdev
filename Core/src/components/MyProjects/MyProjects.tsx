@@ -1,9 +1,9 @@
 import styles from './MyProjects.module.css';
 import Project from './Project/Project';
+import { Viewer } from '../App/App';
 
 interface IMyProjects {
   // children: React.ReactElement | string | JSX.Element;
-  Viewer: React.JSXElementConstructor<any>;
 }
 
 MyProjects.defaultProps = {};
@@ -74,6 +74,14 @@ const projectLeetcode = {
   code: 'https://github.com/OrangeAlertX/inclusive-research-webdev/tree/main/Core/server/leetcodeParser.js',
 };
 
+const projectCollection = {
+  title: 'Коллекция компонентов',
+  newSkills: ['UI/UX Паттерны'],
+  about:
+    'Коллекция React-компонентов для быстрого создания основных фронтенд-решений.',
+  code: 'https://github.com/OrangeAlertX/inclusive-research-webdev/tree/main/ComponentCollection',
+};
+
 const projects = [
   projectStatic,
   projectAdaptive,
@@ -82,10 +90,11 @@ const projects = [
   projectViewer,
   projectResume,
   projectLeetcode,
+  projectCollection,
 ];
 
 export default function MyProjects(props: IMyProjects) {
-  const { Viewer } = props;
+  const {} = props;
 
   const ProjectWithViewer = (project) => {
     return <Project {...project} Viewer={Viewer} />;

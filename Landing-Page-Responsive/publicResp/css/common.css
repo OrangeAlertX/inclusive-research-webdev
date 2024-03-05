@@ -16,6 +16,7 @@ a {
   text-decoration: none;
   color: black;
   -webkit-tap-highlight-color: transparent;
+  -webkit-user-drag: none;
 }
 
 img {
@@ -47,4 +48,8 @@ button {
   padding: 0;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
 }

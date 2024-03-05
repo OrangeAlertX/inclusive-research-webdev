@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './EmbedComponent.module.css';
 import { createPortal } from 'react-dom';
 import FullPage from './FullPage/FullPage';
@@ -13,12 +13,12 @@ interface IEmbedComponent {
   withRangeSlider: boolean;
   withFullPage: boolean;
   heightAdjust: boolean;
-  setViewerHeightHandler: (number) => void;
+  ViewerHeight: number;
+  setViewerHeightHandler: (multiplier: number) => void;
   src?: string | undefined;
 }
 
-const mountedObservers = [];
-const cssOrLink = (cssLink, updateCssLink) => {
+const cssOrLink = (cssLink, updateCssLink, mountedObservers) => {
   if (cssLink || typeof window === 'undefined') return cssLink;
 
   const head = document.head;
@@ -59,6 +59,7 @@ export default function EmbedComponent(props: IEmbedComponent) {
     withRangeSlider,
     withFullPage,
     heightAdjust,
+    ViewerHeight,
     setViewerHeightHandler: setViewerHeight,
     src,
   } = props;
@@ -75,7 +76,9 @@ export default function EmbedComponent(props: IEmbedComponent) {
   const [ref, setRef] = useState(null);
   const [cssLink, updateCssLink] = useState('');
   const [mainWidth, setMainWidth] = useState(0);
+  const [mainHeight, setMainHeight] = useState(ViewerHeight);
 
+  const mountedObservers = useRef([]);
   useEffect(() => {
     const iframe = ref;
     if (!iframe) return;
@@ -86,13 +89,16 @@ export default function EmbedComponent(props: IEmbedComponent) {
     const main = iframe.parentElement.parentElement;
 
     //state for next useEffect, rerender when size of main is changing
-    const cb = () => setMainWidth(main.offsetWidth);
+    const cb = () => {
+      setMainHeight(main.offsetHeight);
+      setMainWidth(main.offsetWidth);
+    };
     const resizeObserver = new ResizeObserver(cb);
     resizeObserver.observe(main);
 
     return () => {
-      mountedObservers.forEach((observer) => observer.disconnect());
-      mountedObservers.length = 0;
+      mountedObservers.current.forEach((observer) => observer.disconnect());
+      mountedObservers.current.length = 0; // eslint-disable-line
 
       resizeObserver.disconnect();
     };
@@ -103,10 +109,9 @@ export default function EmbedComponent(props: IEmbedComponent) {
     if (!iframe) return;
 
     const outer = iframe.parentElement;
-    const mainWidth = outer.parentElement.offsetWidth;
+
     const multiplier = mainWidth / resolution;
 
-    let mainHeight = outer.parentElement.offsetHeight;
     if (heightAdjust && !fullscreen) {
       setViewerHeight(multiplier);
     }
@@ -119,17 +124,30 @@ export default function EmbedComponent(props: IEmbedComponent) {
     iframe.style.setProperty('height', height + 'px');
 
     //
-  }, [resolution, ref, fullscreen, mainWidth, heightAdjust, setViewerHeight]);
+  }, [
+    resolution,
+    ref,
+    fullscreen,
+    mainWidth,
+    mainHeight,
+    heightAdjust,
+    setViewerHeight,
+  ]);
 
   const mountBody = ref?.contentDocument?.body;
   const mountHead = ref?.contentDocument?.body;
   const headStyle = (
     <>
       {import.meta.env.DEV && (
-        <style>{cssOrLink(cssLink, updateCssLink)}</style>
+        <style>
+          {cssOrLink(cssLink, updateCssLink, mountedObservers.current)}
+        </style>
       )}
       {import.meta.env.PROD && (
-        <link rel="stylesheet" href={cssOrLink(cssLink, updateCssLink)}></link>
+        <link
+          rel="stylesheet"
+          href={cssOrLink(cssLink, updateCssLink, mountedObservers.current)}
+        ></link>
       )}
     </>
   );

@@ -29,12 +29,13 @@
 
 .fullscreen {
   display: flex;
+  background-color: #1a1a1a;
+  border-radius: 0 0 8px 8px;
 }
 .fullscreen > div,
 .fullscreen .tooltip {
   transform: none;
   position: relative;
-  background-color: #1a1a1a;
 
   z-index: calc(var(--z-index) * 10 + 1);
 }

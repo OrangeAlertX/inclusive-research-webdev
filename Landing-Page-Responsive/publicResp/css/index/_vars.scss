@@ -24,14 +24,14 @@
 ) {
   $diffWidth: $maxWidth - $minWidth;
   $diffCSS: $maxCSS - $minCSS;
-  $cssPixelOnEveryWidthPixel: $diffCSS / $diffWidth;
+  $cssPixelOnEveryWidthPixel: calc($diffCSS / $diffWidth);
   #{$nameOfVar}: calc(
     $minCSS + (100% - $minWidth) * $cssPixelOnEveryWidthPixel
   );
 }
 
 :root {
-  --main-color: tan;
+  --main-color: white;
   --text-color: black;
   --element-background: white;
   --UI-color: #ff9900;
@@ -39,7 +39,6 @@
   --btn-color-focus: #ffb84d;
   --border-color: #cacaca;
 
-  // --global-indentation: 0;
   @include poly-fluid-sizing(
     '--global-indentation',
     (
@@ -47,7 +46,6 @@
       768px: 50px,
       1024px: 50px,
       1920px: 75px,
-      10000px: 360px,
     )
   );
   @include poly-fluid-sizing(
@@ -463,4 +461,303 @@
       '--resize-margin'
     );
   }
+}
+
+.details {
+  @include poly-fluid-sizing(
+    '--items__margin',
+    (
+      320px: 44px,
+      768px: 155px,
+      1024px: 85px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--items__font',
+    (
+      320px: 14px,
+      768px: 18px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--title__bottom',
+    (
+      320px: 20px,
+      768px: 50px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--items__bottom',
+    (
+      320px: 16px,
+      768px: 50px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--left__width',
+    (
+      1024px: 437px,
+      1920px: 768px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--right__width',
+    (
+      1024px: 437px,
+      1920px: 870px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--content__height',
+    (
+      1024px: 689px,
+      1920px: 460px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--title3__margin',
+    (
+      320px: 16px,
+      768px: 38px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--font-size',
+    (
+      320px: 14px,
+      768px: 16px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--btn__padding1',
+    (
+      320px: 12px 44px,
+      768px: 20px 38px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--btn__padding2',
+    (
+      320px: 12px 32px,
+      768px: 20px 38px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--btn__gap',
+    (
+      320px: 7px,
+      768px: 32px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--p__margin',
+    (
+      1024px: 25px,
+      1920px: 18px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--details__bottom',
+    (
+      320px: 60px,
+      768px: 49px,
+      1024px: 80px,
+      1920px: 100px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--mintitle__font',
+    (
+      320px: 18px,
+      768px: 24px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--btn__font',
+    (
+      320px: 12px,
+      768px: 16px,
+    )
+  );
+}
+
+.questions {
+  @include poly-fluid-sizing(
+    '--mintitle__font',
+    (
+      320px: 14px,
+      768px: 20px,
+      1024px: 20px,
+      1920px: 24px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--title__margin',
+    (
+      320px: 16px,
+      768px: 32px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--h3__margin',
+    (
+      320px: 30px 0,
+      768px: 40px 0,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--mintitle__margin',
+    (
+      320px: 20px,
+      768px: 50px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--questions__bottom',
+    (
+      320px: 60px,
+      768px: 110px,
+      1024px: 80px,
+      1920px: 100px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--svg__size',
+    (
+      320px: 30px,
+      768px: 50px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--p__font',
+    (
+      320px: 14px,
+      768px: 16px,
+    )
+  );
+}
+
+.footer {
+  @include poly-fluid-sizing(
+    '--footer__padding',
+    (
+      320px: 30px 15px,
+      768px: 50px 50px,
+      1024px: 50px 50px,
+      1920px: 50px 75px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--footer__center',
+    (
+      320px: 290px,
+      768px: 540px,
+      1024px: 540px,
+      1920px: 570px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--footer__logo',
+    (
+      320px: 131px,
+      768px: 224px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--footer__gap',
+    (
+      320px: 16px,
+      768px: 25px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--footer__social',
+    (
+      320px: 40px,
+      768px: 60px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--title__bottom',
+    (
+      320px: 20px,
+      768px: 25px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--title__font',
+    (
+      320px: 24px,
+      768px: 48px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--footer__btn',
+    (
+      320px: 12px 28px,
+      768px: 19px 38px,
+      1024px: 19px 38px,
+      1920px: 19px 52px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--btn__font',
+    (
+      320px: 12px,
+      768px: 16px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--btn__margin',
+    (
+      320px: 37px,
+      768px: 32px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--input__padding',
+    (
+      320px: 14px 20px,
+      768px: 14px 24px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--logo__mobile',
+    (
+      320px: 33px 0px 16px,
+      1023px: 46px 0px 20px,
+    )
+  );
 }
