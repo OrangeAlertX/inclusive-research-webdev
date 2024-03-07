@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import {Dispatch, SetStateAction, useEffect, useRef, useState} from 'react';
 import styles from './RangeSlider.module.css';
 
 interface IRangeSlider {
   resolution?: number;
-  setResolution: React.Dispatch<React.SetStateAction<number>>;
+  setResolution: Dispatch<SetStateAction<number>>;
   min: number;
   max: number;
   fullscreen: boolean;

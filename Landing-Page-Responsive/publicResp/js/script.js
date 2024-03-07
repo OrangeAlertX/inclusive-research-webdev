@@ -24,7 +24,7 @@
   const clearInput = document.querySelector('.header__return');
   clearInput.addEventListener('click', (e) => {
     e.preventDefault();
-    if (input.value == '') {
+    if (input.value === '') {
       bar.classList.remove('header__bar--active');
       window.removeEventListener('click', closeBarCB);
       return;
@@ -73,7 +73,7 @@
   input.addEventListener('input', () => {
     const newValue = input.value;
 
-    if (newValue == '') {
+    if (newValue === '') {
       clearInput.classList.add('header__return--disable');
       return;
     }

@@ -1,15 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, ReactElement, MutableRefObject } from 'react';
 import styles from './EmbedComponent.module.css';
 import { createPortal } from 'react-dom';
 import FullPage from './FullPage/FullPage';
 import classNames from 'classnames';
 
 interface IEmbedComponent {
-  children?: React.ReactElement | undefined;
+  children?: ReactElement | undefined;
   resolution: number;
   fullscreen: boolean;
   onClick: () => void;
-  RangeSliderRef: React.MutableRefObject<any>;
+  RangeSliderRef: MutableRefObject<any>;
   withRangeSlider: boolean;
   withFullPage: boolean;
   heightAdjust: boolean;
@@ -30,7 +30,7 @@ const cssOrLink = (cssLink, updateCssLink, mountedObservers) => {
       cssLink += style.innerHTML + ' ';
     });
 
-    const observer = new MutationObserver((mutationsList) => {
+    const observer = new MutationObserver(() => {
       cssLink = '';
       styles.forEach((style) => {
         cssLink += style.innerHTML + ' ';
@@ -167,9 +167,7 @@ export default function EmbedComponent(props: IEmbedComponent) {
         ? createPortal(FullPageWithProps, RangeSliderRef.current)
         : FullPageWithProps}
     </>
-  ) : (
-    false
-  );
+  ) : false;
 
   return (
     <div className={EmbedClassName}>

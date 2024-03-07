@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useEffect } from 'react';
+import { useState, useMemo, useRef, useEffect, ReactElement } from 'react';
 import classNames from 'classnames';
 import styles from './Viewer.module.css';
 import RangeSlider from './RangeSlider/RangeSlider';
@@ -11,7 +11,7 @@ interface IViewer {
   withFullPage?: boolean;
   heightAdjust?: boolean;
   ViewerHeightDefault?: number;
-  children?: React.ReactElement;
+  children?: ReactElement;
   src?: string;
   min: number;
   max: number;
@@ -51,7 +51,7 @@ export default function Viewer(props: IViewer) {
   const breakpointsOnMinMax = useMemo(() => {
     const newBreakpoints = breakpoints.filter((point) => {
       if (point > min && point < max) return true;
-      return false;
+      return point > min && point < max
     });
     newBreakpoints.push(max);
     newBreakpoints.unshift(min);

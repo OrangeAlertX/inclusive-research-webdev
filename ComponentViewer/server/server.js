@@ -33,7 +33,7 @@ if (isDev) {
   });
   app.use(vite.middlewares);
 
-  app.use('*', async (req, res) => {
+  app.use(async (req, res) => {
     try {
       ///////////////////
       const url = req.originalUrl.replace(base, '');
@@ -68,13 +68,13 @@ if (isProduction) {
     'utf-8'
   );
 
-  app.use('*', async (req, res) => {
+  app.use(async (req, res) => {
     try {
       ///////////////////
       const url = req.originalUrl.replace(base, '');
 
       const ssrLoader = (await import('../dist/server/entry-server.js')).render;
-      const rendered = await ssrLoader({ url, req, ssrManifest });
+      const rendered = ssrLoader({ url, req, ssrManifest });
 
       const html = templateHtml
         .replace(`<!--app-head-->`, rendered.head ?? '')

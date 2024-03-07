@@ -17,11 +17,6 @@ export default function Leetcode(props: ILeetcode) {
     let iframe = ref.current?.querySelector('iframe');
 
     const setStyles = () => {
-      const style = {
-        outline: '10px solid #282828',
-        outlineOffset: '-10px',
-      };
-
       iframe.classList.add(styles.iframeOutline);
     };
 

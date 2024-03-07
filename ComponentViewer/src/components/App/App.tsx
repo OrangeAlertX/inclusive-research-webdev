@@ -2,7 +2,6 @@ import { Route, Routes } from 'react-router-dom';
 import Viewer from '../Viewer/Viewer';
 import CounterButton from '../../simple/CounterButton/CounterButton';
 import RootContainer from '../../UI/RootContainer/RootContainer';
-import FullPage from '../Viewer/EmbedComponent/FullPage/FullPage';
 
 export default function App() {
   return (

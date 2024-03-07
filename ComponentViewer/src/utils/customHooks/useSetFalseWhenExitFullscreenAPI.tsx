@@ -14,7 +14,7 @@ export default function useSetFalseWhenExitFullscreenAPI(
     const callback = () => {
       if (!document.fullscreenElement) setState(false);
     };
-    const eventListener = target.current.addEventListener(
+    target.current.addEventListener(
       'fullscreenchange',
       callback
     );

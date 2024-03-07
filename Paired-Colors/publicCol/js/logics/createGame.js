@@ -16,7 +16,7 @@ const createGame = (e, game, qtCards, bunchSize, withDigits) => {
 
 const changeOrder = (cards) => {
   for (const card of cards) {
-    card.style.setProperty('order', `${parseInt(Math.random() * 100)}`);
+    card.style.setProperty('order', `${Math.floor(Math.random() * 100)}`);
   }
 };
 

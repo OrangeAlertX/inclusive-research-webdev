@@ -8,11 +8,8 @@ async function parseLeetcode() {
     .then(async (text) => {
       //Extract CSS
       const pattern = /<link\s+rel="stylesheet"\s+href="([^"]*)"([^>]*)>/g;
-      let matches = [];
-      while ((matches = pattern.exec(text)) !== null) {
-        var linkCss = matches[0];
-        break;
-      }
+      let matches = matches = pattern.exec(text);
+      let linkCss = matches[0];
 
       let externalStyles = await fetch(
         `https://leetcode.com/${linkCss.split('"')[3]}`
@@ -34,7 +31,7 @@ async function parseLeetcode() {
         }
 
         if (!window.requestAnimationFrame)
-            window.requestAnimationFrame = function(callback, element) {
+            window.requestAnimationFrame = function(callback) {
                 var currTime = new Date().getTime();
                 var timeToCall = Math.max(0, 16 - (currTime - lastTime));
                 var id = window.setTimeout(function() { callback(currTime + timeToCall); },

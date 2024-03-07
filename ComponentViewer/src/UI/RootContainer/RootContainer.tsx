@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styles from './RootContainer.module.css';
 
 interface IRootContainer {

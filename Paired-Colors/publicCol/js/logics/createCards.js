@@ -2,7 +2,7 @@ const genColor = () => Math.floor(Math.random() * 256);
 
 export default function createCards(qt, bunchSize, withDigits, newElem) {
   const cards = [];
-  const bunches = parseInt(qt / bunchSize);
+  const bunches = Math.floor(qt / bunchSize);
 
   for (let i = 0; i < bunches; i++) {
     const card = newElem('div', 'card');
