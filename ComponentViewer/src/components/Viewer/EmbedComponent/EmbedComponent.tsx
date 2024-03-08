@@ -1,4 +1,10 @@
-import { useEffect, useRef, useState, ReactElement, MutableRefObject } from 'react';
+import {
+  useEffect,
+  useRef,
+  useState,
+  ReactElement,
+  MutableRefObject,
+} from 'react';
 import styles from './EmbedComponent.module.css';
 import { createPortal } from 'react-dom';
 import FullPage from './FullPage/FullPage';
@@ -64,6 +70,7 @@ export default function EmbedComponent(props: IEmbedComponent) {
     src,
   } = props;
 
+  // className
   const EmbedClassName = classNames(
     styles.container,
     fullscreen ? styles.fullscreen : false
@@ -73,10 +80,12 @@ export default function EmbedComponent(props: IEmbedComponent) {
     fullscreen ? styles.fullscreenMain : false
   );
 
+  ////////////////////////////////////////////////////////////////////
   const [ref, setRef] = useState(null);
   const [cssLink, updateCssLink] = useState('');
   const [mainWidth, setMainWidth] = useState(0);
   const [mainHeight, setMainHeight] = useState(ViewerHeight);
+  ////////////////////////////////////////////////////////////////////
 
   const mountedObservers = useRef([]);
   useEffect(() => {
@@ -88,7 +97,7 @@ export default function EmbedComponent(props: IEmbedComponent) {
 
     const main = iframe.parentElement.parentElement;
 
-    //state for next useEffect, rerender when size of main is changing
+    //states for rerender when size of Viewer is changing
     const cb = () => {
       setMainHeight(main.offsetHeight);
       setMainWidth(main.offsetWidth);
@@ -121,8 +130,27 @@ export default function EmbedComponent(props: IEmbedComponent) {
     outer.style.setProperty('width', resolution + 'px');
     outer.style.setProperty('height', height + 'px');
     outer.style.setProperty('transform', `scale(${multiplier})`);
-    iframe.style.setProperty('height', height + 'px');
 
+    let multiplierMobile = 1;
+    if (window.innerWidth > 1024 && resolution <= 1024) {
+      const targetAspectRatio = resolution > 768 ? 4 / 3 : 16 / 9;
+      const currentAspectRatio = height / resolution;
+
+      multiplierMobile = targetAspectRatio / currentAspectRatio;
+    }
+    iframe.style.setProperty('height', height * multiplierMobile + 'px');
+
+    if (multiplierMobile !== 1) {
+      const scale = (1 / multiplierMobile).toFixed(2);
+      const translate = 50 * (multiplierMobile - 1);
+
+      iframe.style.setProperty(
+        'transform',
+        `scale(${scale}) translateY(-${translate}%)`
+      );
+    } else if (iframe.style.getPropertyValue('transform')) {
+      iframe.style.setProperty('transform', '');
+    }
     //
   }, [
     resolution,
@@ -167,7 +195,9 @@ export default function EmbedComponent(props: IEmbedComponent) {
         ? createPortal(FullPageWithProps, RangeSliderRef.current)
         : FullPageWithProps}
     </>
-  ) : false;
+  ) : (
+    false
+  );
 
   return (
     <div className={EmbedClassName}>

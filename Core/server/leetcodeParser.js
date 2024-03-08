@@ -7,9 +7,16 @@ async function parseLeetcode() {
     .then((res) => res.text())
     .then(async (text) => {
       //Extract CSS
-      const pattern = /<link\s+rel="stylesheet"\s+href="([^"]*)"([^>]*)>/g;
-      let matches = matches = pattern.exec(text);
-      let linkCss = matches[0];
+      function getLinkCss() {
+        const pattern = /<link\s+rel="stylesheet"\s+href="([^"]*)"([^>]*)>/g;
+        let matches;
+        while ((matches = pattern.exec(text)) !== null) {
+          var linkCss = matches[0];
+          break;
+        }
+      }
+      if (!linkCss) {
+      }
 
       let externalStyles = await fetch(
         `https://leetcode.com/${linkCss.split('"')[3]}`
