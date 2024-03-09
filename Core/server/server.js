@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises';
 import express from 'express';
-import leetcodeParser from './leetcodeParser.js';
+import leetcodeParser from './scraper/leetcodeParser.js';
 
 // Constants
 const isProduction = process.env.NODE_ENV === 'production';
@@ -113,7 +113,9 @@ app.use('/projects/distCol', express.static('../Paired-Colors/distCol'));
 
 // ParsedLeetcode
 let leetcodeNodes;
-leetcodeParser().then((res) => (leetcodeNodes = res));
+leetcodeParser()
+  .then((res) => (leetcodeNodes = res))
+  .catch((e) => console.error(e));
 app.use('/projects/leetcode', async (req, res) => {
   if (!leetcodeNodes) res.status(102);
   res.status(200).set({ 'Content-Type': 'text/html' }).end(leetcodeNodes);
