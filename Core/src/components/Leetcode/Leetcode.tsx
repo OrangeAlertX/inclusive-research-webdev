@@ -50,6 +50,7 @@ export default function Leetcode(props: ILeetcode) {
           max={800}
           withRangeSlider={false}
           withFullPage={false}
+          withMobileView={false}
           heightAdjust={true}
           ViewerHeightDefault={368}
           colors={styles.colors}

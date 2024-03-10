@@ -9,6 +9,7 @@ import useSetFalseWhenExitFullscreenAPI from '../../utils/customHooks/useSetFals
 interface IViewer {
   withRangeSlider?: boolean;
   withFullPage?: boolean;
+  withMobileView?: boolean;
   heightAdjust?: boolean;
   ViewerHeightDefault?: number;
   children?: ReactElement;
@@ -21,6 +22,7 @@ interface IViewer {
 Viewer.defaultProps = {
   withRangeSlider: true,
   withFullPage: true,
+  withMobileView: true,
   heightAdjust: false,
   ViewerHeightDefault: 400,
   src: '',
@@ -39,6 +41,7 @@ export default function Viewer(props: IViewer) {
   const {
     withRangeSlider,
     withFullPage,
+    withMobileView,
     heightAdjust,
     ViewerHeightDefault,
     children,
@@ -51,7 +54,7 @@ export default function Viewer(props: IViewer) {
   const breakpointsOnMinMax = useMemo(() => {
     const newBreakpoints = breakpoints.filter((point) => {
       if (point > min && point < max) return true;
-      return point > min && point < max
+      return point > min && point < max;
     });
     newBreakpoints.push(max);
     newBreakpoints.unshift(min);
@@ -98,6 +101,7 @@ export default function Viewer(props: IViewer) {
     RangeSliderRef,
     withRangeSlider,
     withFullPage,
+    withMobileView,
     heightAdjust,
     ViewerHeight,
     setViewerHeightHandler,

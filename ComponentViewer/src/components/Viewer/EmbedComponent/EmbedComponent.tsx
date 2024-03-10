@@ -18,6 +18,7 @@ interface IEmbedComponent {
   RangeSliderRef: MutableRefObject<any>;
   withRangeSlider: boolean;
   withFullPage: boolean;
+  withMobileView: boolean;
   heightAdjust: boolean;
   ViewerHeight: number;
   setViewerHeightHandler: (multiplier: number) => void;
@@ -64,6 +65,7 @@ export default function EmbedComponent(props: IEmbedComponent) {
     RangeSliderRef,
     withRangeSlider,
     withFullPage,
+    withMobileView,
     heightAdjust,
     ViewerHeight,
     setViewerHeightHandler: setViewerHeight,
@@ -132,7 +134,7 @@ export default function EmbedComponent(props: IEmbedComponent) {
     outer.style.setProperty('transform', `scale(${multiplier})`);
 
     let multiplierMobile = 1;
-    if (window.innerWidth > 1024 && resolution <= 1024) {
+    if (withMobileView && window.innerWidth > 1024 && resolution <= 1024) {
       const targetAspectRatio = resolution > 768 ? 4 / 3 : 16 / 9;
       const currentAspectRatio = height / resolution;
 
@@ -141,7 +143,7 @@ export default function EmbedComponent(props: IEmbedComponent) {
     iframe.style.setProperty('height', height * multiplierMobile + 'px');
 
     if (multiplierMobile !== 1) {
-      const scale = (1 / multiplierMobile).toFixed(2);
+      const scale = 1 / multiplierMobile;
       const translate = 50 * (multiplierMobile - 1);
 
       iframe.style.setProperty(
