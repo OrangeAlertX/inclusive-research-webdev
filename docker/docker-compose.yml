@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+  server:
+    build: ./
+    ports:
+      - '5173:5173'
+    depends_on:
+      - mysql
+  api:
+    build: ../Core/server/api
+    ports:
+      - '5174:5174'
+    depends_on:
+      - mysql
+      - server
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PORT: '5175'
+      MYSQL_PASSWORD: aezakmi
+      MYSQL_DB: study_db
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_DATABASE: study_db
+      MYSQL_ROOT_PASSWORD: aezakmi
+  adminer:
+    image: adminer
+    depends_on:
+      - mysql
+    ports:
+      - '5200:5200'

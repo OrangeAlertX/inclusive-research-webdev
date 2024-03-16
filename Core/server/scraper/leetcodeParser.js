@@ -1,4 +1,5 @@
 import puppeteer from 'puppeteer';
+import fs from 'fs';
 
 async function parseLeetcodeByPuppeteer() {
   const browser = await puppeteer.launch({ headless: false });
@@ -25,12 +26,14 @@ async function parseLeetcodeByPuppeteer() {
       res.text()
     );
 
-    return [
-      `<style>${styles}</style>`,
-      lightDarkScript.outerHTML,
-      solvedProblems.outerHTML,
-      activites.outerHTML,
-    ];
+    return {
+      data: [
+        `<style>${styles}</style>`,
+        lightDarkScript.outerHTML,
+        solvedProblems.outerHTML,
+      ],
+      activites: activites.outerHTML,
+    };
   });
 
   browser.close();
@@ -39,7 +42,13 @@ async function parseLeetcodeByPuppeteer() {
 }
 
 export default async function leetcodeParser() {
-  let data = await parseLeetcodeByPuppeteer();
-  const html = '<head></head>\n' + `<body>${data.join('\n')}</body>`;
+  let { data, activites } = await parseLeetcodeByPuppeteer();
+  addToDB(block, fixedBlock);
+  const html =
+    '<head></head>\n' + `<body>${data.join('\n') + activites}</body>`;
   return html;
+}
+
+function addToDB(block, fixedBlock) {
+  console.log('NOT IMPLEMENTED!');
 }
