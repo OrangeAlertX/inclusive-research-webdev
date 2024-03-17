@@ -1,0 +1,13 @@
+  api:
+    build: ../Core/server/api
+    ports:
+      - '5174:5174'
+    depends_on:
+      - mysql
+      - server
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PORT: '5175'
+      MYSQL_PASSWORD: aezakmi
+      MYSQL_DB: study_db

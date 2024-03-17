@@ -1,33 +1,32 @@
-version: '2'
+version: '3'
 
 services:
   server:
-    build: ./
+    image: node:alpine
     ports:
       - '5173:5173'
     depends_on:
       - mysql
-  api:
-    build: ../Core/server/api
-    ports:
-      - '5174:5174'
-    depends_on:
-      - mysql
-      - server
     environment:
+      MYSQL_DATABASE: study_db
       MYSQL_HOST: mysql
-      MYSQL_USER: root
-      MYSQL_PORT: '5175'
-      MYSQL_PASSWORD: aezakmi
-      MYSQL_DB: study_db
+      MYSQL_PORT: '3306'
+    volumes:
+      - ../:/app
+    command: [sh, -c, 'cd ./app/Core && npm run update && npm run dev']
   mysql:
     image: mysql
     environment:
-      MYSQL_DATABASE: study_db
+      MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: aezakmi
+    volumes:
+      - mysql_data:/var/lib/mysql
   adminer:
     image: adminer
     depends_on:
       - mysql
     ports:
       - '5200:5200'
+
+volumes:
+  mysql_data:
