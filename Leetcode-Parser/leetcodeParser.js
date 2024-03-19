@@ -42,13 +42,95 @@ async function parseLeetcodeByPuppeteer() {
 }
 
 export default async function leetcodeParser() {
-  let { data, activites } = await parseLeetcodeByPuppeteer();
-  addToDB(block, fixedBlock);
-  const html =
-    '<head></head>\n' + `<body>${data.join('\n') + activites}</body>`;
-  return html;
+  let data = await parseLeetcodeByPuppeteer();
+
+  createTemplate(data);
 }
 
-function addToDB(block, fixedBlock) {
-  console.log('NOT IMPLEMENTED!');
+export async function leetcodeQuery() {
+  const {
+    totalSolved,
+    totalQuestions,
+    easySolved,
+    totalEasy,
+    mediumSolved,
+    totalMedium,
+    hardSolved,
+    totalHard,
+  } = await fetch('https://leetcodestats.cyclic.app/orangealertx')
+    .then((res) => res.text())
+    .then((json) => JSON.parse(json));
+
+  const totalPercentOf285 = ((totalSolved / totalQuestions) * 285).toFixed(1);
+  const easyPercent = ((easySolved / totalEasy) * 100).toFixed(4);
+  const mediumPercent = ((mediumSolved / totalMedium) * 100).toFixed(4);
+  const hardPercent = ((hardSolved / totalHard) * 100).toFixed(4);
+
+  return {
+    totalSolved,
+    easySolved,
+    totalEasy,
+    mediumSolved,
+    totalMedium,
+    hardSolved,
+    totalHard,
+    totalPercentOf285,
+    easyPercent,
+    mediumPercent,
+    hardPercent,
+  };
+}
+
+async function createTemplate(leetcode) {
+  const { data, activites } = leetcode;
+
+  const stats = await leetcodeQuery();
+
+  const valuesToChange = {
+    [`>${stats.totalSolved}<`]: '>${stats.totalSolved}<',
+    [`>${stats.easySolved}<`]: '>${stats.easySolved}<',
+    [`>${stats.mediumSolved}<`]: '>${stats.mediumSolved}<',
+    [`>${stats.hardSolved}<`]: '>${stats.hardSolved}<',
+    [`>/${stats.totalEasy}<`]: '>/${stats.totalEasy}<',
+    [`>/${stats.totalMedium}<`]: '>/${stats.totalMedium}<',
+    [`>/${stats.totalHard}<`]: '>/${stats.totalHard}<',
+  };
+
+  for (let [key, value] of Object.entries(valuesToChange)) {
+    data[2] = data[2].replace(key, value);
+  }
+
+  data[2] = data[2]
+    .replace(/style="width: *([\d.]+)%/g, (cur) => {
+      const curPercent = Math.round(Number(cur.replace(/[^\d\.]*/g, '')));
+
+      switch (curPercent) {
+        case Math.round(stats.easyPercent):
+          return 'style="width: ${stats.easyPercent}%';
+        case Math.round(stats.mediumPercent):
+          return 'style="width: ${stats.mediumPercent}%';
+        default:
+          return 'style="width: ${stats.hardPercent}%';
+      }
+    })
+    .replace(
+      /stroke-dasharray="*([\d.]+)/,
+      'stroke-dasharray="${stats.totalPercentOf285}'
+    );
+
+  const escape = (text) => text.replace(/[\\]/g, '\\$&');
+  const content = `
+    export default function leetcodeStats(stats) { 
+      const styleAndScript = \`${escape(data[0]) + escape(data[1])}\`;
+      const statistic = \`${escape(data[2])}\`;
+      const activites = \`${escape(activites)}\`;
+
+      const html = '<head></head>\\n' + \`<body>\${styleAndScript + statistic + activites}</body>\`;
+      
+      return html;
+    }`;
+
+  fs.writeFile('leetcodeStats.js', content, { flag: 'w+' }, (error) => {
+    console.log(error || 'Done.');
+  });
 }
