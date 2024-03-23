@@ -1,7 +1,8 @@
 {
   "type": "module",
   "scripts": {
-    "create": "node -e 'import(\"./leetcodeParser.js\").then(script => script.default())'"
+    "createTemplate": "node -e 'import(\"./leetcodeParser.js\").then(script => script.default())'",
+    "updateHTML": "node -e 'import(\"./leetcodeUpdateHTML.js\").then(script => script.default())'"
   },
   "dependencies": {
     "axios": "^1.6.8",

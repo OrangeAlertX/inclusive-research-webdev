@@ -8,26 +8,20 @@ services:
       - ./Landing-Page-Static:/usr/share/nginx/html/projects/static-landing
       - ./Landing-Page-Responsive:/usr/share/nginx/html/projects/adaptive-landing
       - ./Paired-Colors:/usr/share/nginx/html/projects/colors-game
+      - ./Leetcode-Parser:/usr/share/nginx/html/projects/leetcode
     depends_on:
-      - server
-  server:
+      - frontend
+  frontend:
     image: node:alpine
-    # depends_on:
-    #   - mysql
     expose:
-      - '5173'
-    environment:
-      MYSQL_DATABASE: study_db
-      MYSQL_HOST: mysql
-      MYSQL_PORT: '3306'
+      - ${FRONTEND_PORT}
     volumes:
       - .:/app
     command: [sh, -c, 'cd /app/Core && npm run dev']
+    # depends_on:
+    #   - mysql
   # mysql:
   #   image: mysql
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: aezakmi
-  #     MYSQL_DATABASE: study_db
   #   volumes:
   #     - mysql_data:/var/lib/mysql
   # adminer:
@@ -39,3 +33,6 @@ services:
 
 volumes:
   mysql_data:
+
+env_files:
+  - .env

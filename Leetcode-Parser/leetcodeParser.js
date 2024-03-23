@@ -125,7 +125,7 @@ async function createTemplate(leetcode) {
       const statistic = \`${escape(data[2])}\`;
       const activites = \`${escape(activites)}\`;
 
-      const html = '<head></head>\\n' + \`<body>\${styleAndScript + statistic + activites}</body>\`;
+      const html = \`<!doctype html>\\n<head>\${styleAndScript}</head>\\n' + <body>\${statistic + activites}</body>\`;
       
       return html;
     }`;
