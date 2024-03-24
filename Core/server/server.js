@@ -1,7 +1,5 @@
 import express from 'express';
 import { projectsRouter } from './routes/projects.js';
-import leetcodeStats from '../../Leetcode-Parser/leetcodeStats.js';
-import { leetcodeQuery } from '../../Leetcode-Parser/leetcodeParser.js';
 import { reactRouter } from './routes/react.js';
 
 // Constants

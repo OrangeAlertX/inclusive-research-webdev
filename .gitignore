@@ -2,7 +2,7 @@ trash
 node_modules
 *.css.map
 Paired-Colors/publicCol/css/index.css
-Landing-Page-Responsive/publicResp/css/index/index.css
+Landing-Page-Responsive/publicResp/css/index.css
 dist*
 keys
 
