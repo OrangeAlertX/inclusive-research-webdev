@@ -7,14 +7,14 @@ events {worker_connections 100;}
 http {
 
   include /etc/nginx/mime.types;
-
+  
   server {
-    # server_tokens off;
-
-    # root    /usr/share/nginx/html;
 
     location / {
-      proxy_pass http://frontend:5173;
+      proxy_pass http://frontend:${FRONTEND_PORT};
+    }
+    location /ws {
+      proxy_pass http://frontend:${FRONTEND_PORT}/ws;
     }
 
     location /projects/ {

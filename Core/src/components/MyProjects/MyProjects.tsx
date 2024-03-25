@@ -34,11 +34,11 @@ const projectColorGame = {
   title: 'Игра найди пару',
   newSkills: ['JavaScript', 'Организация кода'],
   about:
-    'Есть несколько уровней сложности, рейтинг. Лучше выглядит на смартфоне.',
+    'Адаптивная игра "найди пару" с несколькими уровнями сложности на чистом JS.',
   code: 'https://github.com/OrangeAlertX/inclusive-research-webdev/tree/main/Paired-Colors',
   src: `/projects/colors-game`,
   viewerProps: {
-    min: 820,
+    min: 320,
   },
 };
 
@@ -82,6 +82,13 @@ const projectCollection = {
   code: 'https://github.com/OrangeAlertX/inclusive-research-webdev/tree/main/ComponentCollection',
 };
 
+const projectDeploy = {
+  title: 'DevOps',
+  newSkills: ['Docker', 'nginx', 'Микросервисы'],
+  about: 'Знакомство с девопс технологиями. Девелопмент и продакшен кластер.',
+  code: 'https://github.com/OrangeAlertX/inclusive-research-webdev/tree/main/.nginx',
+};
+
 const projects = [
   projectStatic,
   projectAdaptive,
@@ -91,6 +98,7 @@ const projects = [
   projectResume,
   projectLeetcode,
   projectCollection,
+  projectDeploy,
 ];
 
 export default function MyProjects(props: IMyProjects) {
