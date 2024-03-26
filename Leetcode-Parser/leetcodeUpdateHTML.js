@@ -6,7 +6,7 @@ export default function leetcodeUpdateHTML() {
   leetcodeQuery()
     .then((stats) => leetcodeStats(stats))
     .then((html) => {
-      fs.writeFile('leetcode.html', html, { flag: 'w+' }, (error) => {
+      fs.writeFile('index.html', html, { flag: 'w+' }, (error) => {
         console.log(error || 'Done.');
       });
     });

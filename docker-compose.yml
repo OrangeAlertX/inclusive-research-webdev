@@ -4,7 +4,7 @@ services:
     ports:
       - '80:80'
     volumes:
-      - ./.nginx/nginx.conf.template:/nginx.conf.template
+      - ./.nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./Landing-Page-Static:/usr/share/nginx/html/projects/static-landing
       - ./Landing-Page-Responsive:/usr/share/nginx/html/projects/adaptive-landing
       - ./Paired-Colors:/usr/share/nginx/html/projects/colors-game
@@ -13,14 +13,10 @@ services:
       - frontend
     env_file:
       - '.env'
-    command:
-      [
-        sh,
-        -c,
-        "envsubst < /nginx.conf.template > /etc/nginx/nginx.conf && exec nginx -g 'daemon off;'",
-      ]
   frontend:
     image: node:alpine
+    ports:
+      - '24678:24678'
     expose:
       - ${FRONTEND_PORT}
     volumes:

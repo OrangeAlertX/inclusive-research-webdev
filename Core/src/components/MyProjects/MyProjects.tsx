@@ -54,7 +54,7 @@ const projectViewer = {
   title: 'Выставка компонентов',
   newSkills: ['React', 'TypeScript'],
   about:
-    'То самое embedded окно, в которых отображаются мои проекты. С возможностью масштабирования и полного экрана.',
+    'Embedded окно, в которых отображаются мои проекты. С возможностью масштабирования и полного экрана.',
   code: 'https://github.com/OrangeAlertX/inclusive-research-webdev/tree/main/ComponentViewer',
 };
 
@@ -84,8 +84,8 @@ const projectCollection = {
 
 const projectDeploy = {
   title: 'DevOps',
-  newSkills: ['Docker', 'nginx', 'Микросервисы'],
-  about: 'Знакомство с девопс технологиями. Девелопмент и продакшен кластер.',
+  newSkills: ['Docker', 'NGINX', 'Микросервисы'],
+  about: 'Знакомство с девопс технологиями. Девелопмент и продакшн кластер.',
   code: 'https://github.com/OrangeAlertX/inclusive-research-webdev/tree/main/.nginx',
 };
 
