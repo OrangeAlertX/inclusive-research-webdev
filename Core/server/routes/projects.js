@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 import leetcodeStats from '../../../Leetcode-Parser/leetcodeStats.js';
 import { leetcodeQuery } from '../../../Leetcode-Parser/leetcodeParser.js';
 
-export let projectsRouter = express.Router();
+export const projectsRouter = express.Router();
 
 const projects = {
   'static-landing': '../Landing-Page-Static/index.html',

@@ -1,7 +1,7 @@
 import express from 'express';
 import fs from 'node:fs/promises';
 
-export let reactRouter = express.Router();
+export const reactRouter = express.Router();
 
 const isProduction = process.env.NODE_ENV === 'production';
 const isDev = !isProduction;

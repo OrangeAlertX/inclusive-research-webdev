@@ -17,8 +17,7 @@ services:
     image: node:alpine
     ports:
       - '24678:24678'
-    expose:
-      - ${FRONTEND_PORT}
+      - '${FRONTEND_PORT}:${FRONTEND_PORT}'
     volumes:
       - .:/app
     command: [sh, -c, 'cd /app/Core && npm run dev']

@@ -1,6 +1,7 @@
 import express from 'express';
 import { projectsRouter } from './routes/projects.js';
 import { reactRouter } from './routes/react.js';
+import getPrivateIP from './utils/getPrivateIP.js';
 
 // Constants
 const isNginxHandleStaticPages = process.env.DOCKER_RUNNING == 'true';
@@ -18,10 +19,11 @@ if (!isNginxHandleStaticPages) {
 app.use(reactRouter);
 
 // Start http server
-app.listen(port, () => {
+app.listen(port, async () => {
+  const ip = await getPrivateIP(172);
   console.log(
     `Server started at ${
-      isNginxHandleStaticPages ? 'http://localhost' : `http://localhost:${port}`
+      isNginxHandleStaticPages ? `http://${ip}` : `http://${ip}:${port}`
     }`
   );
 });
