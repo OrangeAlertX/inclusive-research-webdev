@@ -3,6 +3,11 @@
   color: var(--main-color);
 }
 
+.link {
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 5px;
+}
+
 .profile {
   margin: var(--first-margin);
 }
