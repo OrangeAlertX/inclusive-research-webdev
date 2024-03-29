@@ -4,18 +4,47 @@ import styles from './Viewer.module.css';
 import RangeSlider from './RangeSlider/RangeSlider';
 import EmbedComponent from './EmbedComponent/EmbedComponent';
 import variables from '../App/variables.module.css';
-import useSetFalseWhenExitFullscreenAPI from '../../utils/customHooks/useSetFalseWhenExitFullscreenAPI';
+import useFullscreen from '../../utils/customHooks/useFullscreen';
 
 interface IViewer {
+  /**
+   @defaultValue true
+   */
   withRangeSlider?: boolean;
+  /**
+   @defaultValue true
+   */
   withFullPage?: boolean;
+  /**
+   @defaultValue true
+   */
   withMobileView?: boolean;
+  /**
+   @defaultValue false
+   */
   heightAdjust?: boolean;
+  /**
+   @defaultValue  400
+   */
   ViewerHeightDefault?: number;
+  /**
+   */
   children?: ReactElement;
+  /**
+   @defaultValue ''
+   */
   src?: string;
+  /**
+   @defaultValue 320
+   */
   min: number;
+  /**
+   @defaultValue 3840
+   */
   max: number;
+  /**
+   @defaultValue --main-color, --second-color
+   */
   colors?: string;
 }
 
@@ -53,7 +82,6 @@ export default function Viewer(props: IViewer) {
 
   const breakpointsOnMinMax = useMemo(() => {
     const newBreakpoints = breakpoints.filter((point) => {
-      if (point > min && point < max) return true;
       return point > min && point < max;
     });
     newBreakpoints.push(max);
@@ -69,18 +97,17 @@ export default function Viewer(props: IViewer) {
   const [ViewerHeight, setViewerHeight] = useState(ViewerHeightDefault);
   const setViewerHeightHandler = (multiplier: number) =>
     setViewerHeight(ViewerHeightDefault * multiplier);
+  useEffect(() => {
+    setViewerHeight(ViewerHeightDefault);
+  }, [ViewerHeightDefault]);
 
   const RangeSliderRef = useRef(null);
   const ViewerRef = useRef(null);
 
-  useEffect(() => {
-    if (fullscreen) ViewerRef.current.requestFullscreen();
-    else if (document.fullscreenElement) document.exitFullscreen();
-  }, [fullscreen]);
-
-  useSetFalseWhenExitFullscreenAPI({
-    target: ViewerRef,
-    setState: toggleFullscreen,
+  useFullscreen({
+    elementRef: ViewerRef,
+    fullscreenState: fullscreen,
+    setFullscreenState: toggleFullscreen,
   });
 
   const RangeSliderProps = {

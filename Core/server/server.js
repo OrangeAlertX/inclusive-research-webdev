@@ -20,7 +20,7 @@ app.use(reactRouter);
 
 // Start http server
 app.listen(port, async () => {
-  const ip = await getPrivateIP(172);
+  const ip = await getPrivateIP(192);
   console.log(
     `Server started at ${
       isNginxHandleStaticPages ? `http://${ip}` : `http://${ip}:${port}`
