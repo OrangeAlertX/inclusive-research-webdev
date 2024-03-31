@@ -4,6 +4,7 @@ import {
   useState,
   ReactElement,
   MutableRefObject,
+  ReactNode,
 } from 'react';
 import styles from './EmbedComponent.module.css';
 import { createPortal } from 'react-dom';
@@ -11,10 +12,10 @@ import FullPage from './FullPage/FullPage';
 import classNames from 'classnames';
 
 interface IEmbedComponent {
-  children?: ReactElement | undefined;
+  children: ReactNode | ReactNode[];
   resolution: number;
   fullscreen: boolean;
-  onClick: () => void;
+  toggleFullscreen: () => void;
   RangeSliderRef: MutableRefObject<any>;
   withRangeSlider: boolean;
   withFullPage: boolean;
@@ -22,7 +23,7 @@ interface IEmbedComponent {
   heightAdjust: boolean;
   ViewerHeight: number;
   setViewerHeightHandler: (multiplier: number) => void;
-  src?: string | undefined;
+  src: string;
 }
 
 const cssOrLink = (cssLink, updateCssLink, mountedObservers) => {
@@ -61,7 +62,7 @@ export default function EmbedComponent(props: IEmbedComponent) {
     children,
     resolution,
     fullscreen,
-    onClick,
+    toggleFullscreen,
     RangeSliderRef,
     withRangeSlider,
     withFullPage,
@@ -188,7 +189,7 @@ export default function EmbedComponent(props: IEmbedComponent) {
         styles.FullPage,
         withRangeSlider ? false : styles.FullPageWithoutTransition
       )}
-      onClick={onClick}
+      onClick={toggleFullscreen}
     />
   );
   const FullPageComponent = withFullPage ? (

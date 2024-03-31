@@ -1,17 +1,17 @@
-import { Dispatch, MutableRefObject, useEffect } from 'react';
+import { Dispatch, MutableRefObject, useEffect, useState } from 'react';
 import useSetFalseWhenExitFullscreenAPI from './useSetFalseWhenExitFullscreenAPI';
 
-interface IuseFullscreen {
-  elementRef: MutableRefObject<any>;
-  fullscreenState: boolean;
-  setFullscreenState: Dispatch<React.SetStateAction<boolean>>;
-}
+type IuseFullscreen = MutableRefObject<any>;
 
-export default function useFullscreen(props: IuseFullscreen) {
-  const { elementRef, fullscreenState, setFullscreenState } = props;
+/**
+ * Band fullscreen state and API together
+ * @returns [fullscreen, setFullscreen]
+ */
+export default function useFullscreen(elementRef: IuseFullscreen) {
+  const [fullscreen, setFullscreen] = useState(false);
 
   useEffect(() => {
-    const mustBeFullscreen = fullscreenState;
+    const mustBeFullscreen = fullscreen;
     const isFullscreenNow = document.fullscreenElement;
 
     if (mustBeFullscreen && !isFullscreenNow) {
@@ -19,10 +19,15 @@ export default function useFullscreen(props: IuseFullscreen) {
     } else if (isFullscreenNow) {
       document.exitFullscreen();
     }
-  }, [fullscreenState]);
+  }, [fullscreen]);
 
   useSetFalseWhenExitFullscreenAPI({
     target: elementRef,
-    setState: setFullscreenState,
+    setState: setFullscreen,
   });
+
+  return [fullscreen, setFullscreen] as [
+    boolean,
+    Dispatch<React.SetStateAction<boolean>>
+  ];
 }

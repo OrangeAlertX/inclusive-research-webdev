@@ -1,49 +1,56 @@
-import { useState, useMemo, useRef, useEffect, ReactElement } from 'react';
+import { useState, useMemo, useRef, ReactNode } from 'react';
 import classNames from 'classnames';
 import styles from './Viewer.module.css';
 import RangeSlider from './RangeSlider/RangeSlider';
 import EmbedComponent from './EmbedComponent/EmbedComponent';
 import variables from '../App/variables.module.css';
 import useFullscreen from '../../utils/customHooks/useFullscreen';
+import useStateWithUpdate from '../../utils/customHooks/useStateWithUpdate';
 
 interface IViewer {
   /**
-   @defaultValue true
+   * @defaultValue true
    */
   withRangeSlider?: boolean;
   /**
-   @defaultValue true
+   * @defaultValue true
    */
   withFullPage?: boolean;
   /**
-   @defaultValue true
+   * When viewport > 1024px, changing width/height proportion for Viewer < 1024
+   * @defaultValue true
    */
   withMobileView?: boolean;
   /**
-   @defaultValue false
+   * Changing height when width was changed, to save width/height proportion
+   * @defaultValue false
    */
   heightAdjust?: boolean;
   /**
-   @defaultValue  400
+   * @defaultValue  400(px)
    */
   ViewerHeightDefault?: number;
   /**
+   * Alternative: src.
    */
-  children?: ReactElement;
+  children?: ReactNode | ReactNode[];
   /**
-   @defaultValue ''
+   * Link to the page, can be omitted.
+   * Alternative: children.
    */
   src?: string;
   /**
-   @defaultValue 320
+   * @defaultValue 320
    */
   min: number;
   /**
-   @defaultValue 3840
+   * @defaultValue 3840
    */
   max: number;
   /**
-   @defaultValue --main-color, --second-color
+   * @defaultValue pass className with defined
+   --main-color, 
+   --second-color
    */
   colors?: string;
 }
@@ -80,35 +87,21 @@ export default function Viewer(props: IViewer) {
     colors,
   } = props;
 
-  const breakpointsOnMinMax = useMemo(() => {
-    const newBreakpoints = breakpoints.filter((point) => {
-      return point > min && point < max;
-    });
-    newBreakpoints.push(max);
-    newBreakpoints.unshift(min);
-    return newBreakpoints;
-  }, [min, max]);
-
   const [resolution, setResolution] = useState(Math.max(720, min));
-  const [fullscreen, toggleFullscreen] = useState(false);
-  const onClick = () => {
-    toggleFullscreen((fullscreen) => !fullscreen);
-  };
-  const [ViewerHeight, setViewerHeight] = useState(ViewerHeightDefault);
+
+  const [ViewerHeight, setViewerHeight] =
+    useStateWithUpdate(ViewerHeightDefault);
+
   const setViewerHeightHandler = (multiplier: number) =>
     setViewerHeight(ViewerHeightDefault * multiplier);
-  useEffect(() => {
-    setViewerHeight(ViewerHeightDefault);
-  }, [ViewerHeightDefault]);
 
   const RangeSliderRef = useRef(null);
   const ViewerRef = useRef(null);
 
-  useFullscreen({
-    elementRef: ViewerRef,
-    fullscreenState: fullscreen,
-    setFullscreenState: toggleFullscreen,
-  });
+  const [fullscreen, setFullscreen] = useFullscreen(ViewerRef);
+  const toggleFullscreen = () => {
+    setFullscreen((fullscreen) => !fullscreen);
+  };
 
   const RangeSliderProps = {
     resolution,
@@ -123,7 +116,7 @@ export default function Viewer(props: IViewer) {
   const EmbedProps = {
     resolution,
     fullscreen,
-    onClick,
+    toggleFullscreen,
     src,
     RangeSliderRef,
     withRangeSlider,
@@ -134,6 +127,14 @@ export default function Viewer(props: IViewer) {
     setViewerHeightHandler,
   };
 
+  const breakpointsOnMinMax = useMemo(() => {
+    const newBreakpoints = breakpoints.filter((point) => {
+      return point > min && point < max;
+    });
+    newBreakpoints.push(max);
+    newBreakpoints.unshift(min);
+    return newBreakpoints;
+  }, [min, max]);
   const RangeOptions =
     min !== max ? (
       <datalist id="markersOfRangeSlider">

@@ -1,8 +1,11 @@
-import {Dispatch, SetStateAction, useEffect, useRef, useState} from 'react';
+import { Dispatch, SetStateAction, useCallback, useRef, useState } from 'react';
 import styles from './RangeSlider.module.css';
+import classNames from 'classnames';
+import debounce from '../../../utils/asyncTools/debounce';
+import useCallbackOnWheel from '../../../utils/customHooks/useCallbackOnWheel';
 
 interface IRangeSlider {
-  resolution?: number;
+  resolution: number;
   setResolution: Dispatch<SetStateAction<number>>;
   min: number;
   max: number;
@@ -12,25 +15,9 @@ interface IRangeSlider {
   className?: string;
 }
 
-RangeSlider.defaultProps = {
-  resolution: 720,
-};
+RangeSlider.defaultProps = {};
 
-let timeoutForParentRerender;
-let timeoutForCurrentRerender;
-const setResolutionHandler = (e, setResolution, setCurrentResolution) => {
-  if (timeoutForParentRerender) clearTimeout(timeoutForParentRerender);
-  timeoutForParentRerender = setTimeout(() => {
-    setResolution(e.target.value);
-  }, 1000);
-
-  if (timeoutForCurrentRerender) clearTimeout(timeoutForCurrentRerender);
-  timeoutForCurrentRerender = setTimeout(() => {
-    setCurrentResolution(e.target.value);
-  }, 50);
-};
-
-const eventWheel = (e, setResolution, setCurrentResolution) => {
+const eventWheel = (e, resolutionHandler) => {
   const cur = e.target.value;
   const step = 10;
   if (e.deltaY < 0) {
@@ -40,7 +27,7 @@ const eventWheel = (e, setResolution, setCurrentResolution) => {
   }
   e.preventDefault();
   e.stopPropagation();
-  setResolutionHandler(e, setResolution, setCurrentResolution);
+  resolutionHandler(e);
 };
 
 export default function RangeSlider(props: IRangeSlider) {
@@ -54,38 +41,55 @@ export default function RangeSlider(props: IRangeSlider) {
     RangeSliderRef,
   } = props;
 
-  const ref = useRef(null);
-  useEffect(() => {
-    const cb = (e) => eventWheel(e, setResolution, setCurrentResolution);
-    ref.current.addEventListener('wheel', cb, { passive: false });
-
-    const curRef = ref.current;
-    return () => {
-      curRef.removeEventListener('wheel', cb);
-    };
-  }, [setResolution, ref]);
-
   const [currentResolution, setCurrentResolution] = useState(resolution);
+  const parentRerender = useCallback(
+    debounce((value) => setResolution(value), 1000),
+    []
+  );
+  const selectedResNow = useCallback(
+    debounce((value) => setCurrentResolution(value), 50),
+    []
+  );
+  const resolutionHandler = useCallback(
+    (e) => {
+      const curValue = e.target.value;
+      parentRerender(curValue);
+      selectedResNow(curValue);
+    },
+    [parentRerender, selectedResNow]
+  );
 
-  let fullscreenContainer = fullscreen
-    ? `${props.className} ${styles.fullscreen}`
-    : '';
-  if (!fullscreenContainer && !withRangeSlider)
-    fullscreenContainer = styles.disable;
-  const disableRange = min === max ? ` ${styles.disable}` : '';
+  const cb = useCallback(
+    (e) => eventWheel(e, resolutionHandler),
+    [resolutionHandler]
+  );
+  const ref = useRef(null);
+  useCallbackOnWheel(cb, ref);
+
+  //
+  let fullscreenMod = '';
+  if (!withRangeSlider) {
+    fullscreenMod = styles.disable;
+  } else if (fullscreen) {
+    fullscreenMod = classNames(props.className, styles.fullscreen);
+  }
 
   return (
-    <div className={fullscreenContainer} ref={RangeSliderRef}>
-      <div className={styles.container + disableRange}>
+    <div className={fullscreenMod} ref={RangeSliderRef}>
+      <div
+        className={classNames(styles.container, {
+          [styles.disable]: min === max,
+        })}
+      >
         <input
           className={styles.slider}
           type="range"
           min={min.toString()}
           max={max.toString()}
           step="2"
-          onChange={(e) =>
-            setResolutionHandler(e, setResolution, setCurrentResolution)
-          }
+          onChange={(e) => {
+            resolutionHandler(e);
+          }}
           defaultValue={resolution}
           list="markersOfRangeSlider"
           ref={ref}
