@@ -14,12 +14,7 @@ export default function App() {
               <Viewer withMobileView={false} min={350} max={350}>
                 <CounterButton></CounterButton>
               </Viewer>
-              <Viewer
-                withMobileView={false}
-                withRangeSlider={false}
-                min={350}
-                max={1920}
-              >
+              <Viewer withMobileView={false} min={350} max={1920}>
                 <CounterButton></CounterButton>
               </Viewer>
               <Viewer withMobileView={false} min={350} max={1920}>

@@ -2,7 +2,6 @@ import {
   useEffect,
   useRef,
   useState,
-  ReactElement,
   MutableRefObject,
   ReactNode,
 } from 'react';
@@ -10,52 +9,24 @@ import styles from './EmbedComponent.module.css';
 import { createPortal } from 'react-dom';
 import FullPage from './FullPage/FullPage';
 import classNames from 'classnames';
+import StylesForIframe_DEV from './StylesForIframeDev';
+import StylesForIframe_PROD from './StylesForIframeProd';
+import useSize from '../../../utils/customHooks/useSize';
 
 interface IEmbedComponent {
   children: ReactNode | ReactNode[];
   resolution: number;
   fullscreen: boolean;
   toggleFullscreen: () => void;
-  RangeSliderRef: MutableRefObject<any>;
+  RangeSliderRef: Element;
   withRangeSlider: boolean;
   withFullPage: boolean;
   withMobileView: boolean;
   heightAdjust: boolean;
   ViewerHeight: number;
   setViewerHeightHandler: (multiplier: number) => void;
-  src: string;
+  src: string | null;
 }
-
-const cssOrLink = (cssLink, updateCssLink, mountedObservers) => {
-  if (cssLink || typeof window === 'undefined') return cssLink;
-
-  const head = document.head;
-
-  if (import.meta.env.DEV) {
-    const styles = head.querySelectorAll('style[type="text/css"]');
-
-    styles.forEach((style) => {
-      cssLink += style.innerHTML + ' ';
-    });
-
-    const observer = new MutationObserver(() => {
-      cssLink = '';
-      styles.forEach((style) => {
-        cssLink += style.innerHTML + ' ';
-      });
-      updateCssLink(cssLink);
-    });
-    mountedObservers.push(observer);
-    observer.observe(head, { childList: true });
-    //////////
-  } else {
-    //////////
-    const cssBundle = head.querySelector('link[rel="stylesheet"]');
-    cssLink = cssBundle.getAttribute('href');
-  }
-
-  return cssLink;
-};
 
 export default function EmbedComponent(props: IEmbedComponent) {
   const {
@@ -68,54 +39,33 @@ export default function EmbedComponent(props: IEmbedComponent) {
     withFullPage,
     withMobileView,
     heightAdjust,
-    ViewerHeight,
     setViewerHeightHandler: setViewerHeight,
     src,
   } = props;
 
   // className
-  const EmbedClassName = classNames(
-    styles.container,
-    fullscreen ? styles.fullscreen : false
-  );
-  const mainClassName = classNames(
-    styles.main,
-    fullscreen ? styles.fullscreenMain : false
-  );
+  const EmbedClassName = classNames(styles.container, {
+    [styles.fullscreen]: fullscreen,
+  });
+  const mainClassName = classNames(styles.main, {
+    [styles.fullscreenMain]: fullscreen,
+  });
 
   ////////////////////////////////////////////////////////////////////
   const [ref, setRef] = useState(null);
-  const [cssLink, updateCssLink] = useState('');
-  const [mainWidth, setMainWidth] = useState(0);
-  const [mainHeight, setMainHeight] = useState(ViewerHeight);
+  const [mainRef, setMainRef] = useState(null);
+  const [mainWidth, mainHeight] = useSize(mainRef);
   ////////////////////////////////////////////////////////////////////
 
-  const mountedObservers = useRef([]);
   useEffect(() => {
     const iframe = ref;
     if (!iframe) return;
     if (!src) {
       iframe.contentDocument.body.style = `display: flex; justify-content: center; align-items: center;`;
     }
+  }, [src, ref, children]);
 
-    const main = iframe.parentElement.parentElement;
-
-    //states for rerender when size of Viewer is changing
-    const cb = () => {
-      setMainHeight(main.offsetHeight);
-      setMainWidth(main.offsetWidth);
-    };
-    const resizeObserver = new ResizeObserver(cb);
-    resizeObserver.observe(main);
-
-    return () => {
-      mountedObservers.current.forEach((observer) => observer.disconnect());
-      mountedObservers.current.length = 0; // eslint-disable-line
-
-      resizeObserver.disconnect();
-    };
-  }, [ref, src]);
-
+  // resolution logic
   useEffect(() => {
     const iframe = ref;
     if (!iframe) return;
@@ -165,37 +115,25 @@ export default function EmbedComponent(props: IEmbedComponent) {
     setViewerHeight,
   ]);
 
-  const mountBody = ref?.contentDocument?.body;
-  const mountHead = ref?.contentDocument?.body;
-  const headStyle = (
-    <>
-      {import.meta.env.DEV && (
-        <style>
-          {cssOrLink(cssLink, updateCssLink, mountedObservers.current)}
-        </style>
-      )}
-      {import.meta.env.PROD && (
-        <link
-          rel="stylesheet"
-          href={cssOrLink(cssLink, updateCssLink, mountedObservers.current)}
-        ></link>
-      )}
-    </>
+  const iframeBody = ref?.contentDocument?.body;
+  const stylesIframe = import.meta.env.DEV ? (
+    <StylesForIframe_DEV />
+  ) : (
+    <StylesForIframe_PROD />
   );
-  const childrenDiv = <div>{children}</div>;
+
   const FullPageWithProps = (
     <FullPage
-      className={classNames(
-        styles.FullPage,
-        withRangeSlider ? false : styles.FullPageWithoutTransition
-      )}
+      className={classNames(styles.FullPage, {
+        [styles.FullPageWithoutTransition]: !withRangeSlider,
+      })}
       onClick={toggleFullscreen}
     />
   );
   const FullPageComponent = withFullPage ? (
     <>
       {fullscreen
-        ? createPortal(FullPageWithProps, RangeSliderRef.current)
+        ? createPortal(FullPageWithProps, RangeSliderRef)
         : FullPageWithProps}
     </>
   ) : (
@@ -204,9 +142,9 @@ export default function EmbedComponent(props: IEmbedComponent) {
 
   return (
     <div className={EmbedClassName}>
-      <div className={mainClassName}>
+      <div className={mainClassName} ref={setMainRef}>
         <div className={styles.outer}>
-          <iframe src={src ? src : null} className={styles.inner} ref={setRef}>
+          <iframe src={src} className={styles.inner} ref={setRef}>
             {src && (
               <div
                 style={{
@@ -220,14 +158,14 @@ export default function EmbedComponent(props: IEmbedComponent) {
             )}
             {!src &&
               !children &&
-              mountBody &&
-              createPortal(<div>Not Found</div>, mountBody, 'NotFound')}
+              iframeBody &&
+              createPortal(<div>No content</div>, iframeBody, 'NoContent')}
             {!src &&
-              mountHead &&
-              createPortal(headStyle, mountHead, 'injectedStyles')}
+              iframeBody &&
+              createPortal(stylesIframe, iframeBody, 'injectedStyles')}
             {!src &&
-              mountBody &&
-              createPortal(childrenDiv, mountBody, 'EmbedZoomer')}
+              iframeBody &&
+              createPortal(<div>{children}</div>, iframeBody, 'EmbedZoomer')}
           </iframe>
         </div>
       </div>

@@ -10,9 +10,8 @@ interface IRangeSlider {
   min: number;
   max: number;
   fullscreen: boolean;
-  RangeSliderRef: React.MutableRefObject<any>;
-  withRangeSlider: boolean;
-  className?: string;
+  setRangeSliderRef: React.Dispatch<Element>;
+  className: string;
 }
 
 RangeSlider.defaultProps = {};
@@ -31,15 +30,8 @@ const eventWheel = (e, resolutionHandler) => {
 };
 
 export default function RangeSlider(props: IRangeSlider) {
-  const {
-    resolution,
-    setResolution,
-    min,
-    max,
-    fullscreen,
-    withRangeSlider,
-    RangeSliderRef,
-  } = props;
+  const { resolution, setResolution, min, max, fullscreen, setRangeSliderRef } =
+    props;
 
   const [currentResolution, setCurrentResolution] = useState(resolution);
   const parentRerender = useCallback(
@@ -63,19 +55,19 @@ export default function RangeSlider(props: IRangeSlider) {
     (e) => eventWheel(e, resolutionHandler),
     [resolutionHandler]
   );
-  const ref = useRef(null);
-  useCallbackOnWheel(cb, ref);
+  const [inputRef, setInputRef] = useState(null);
+  useCallbackOnWheel(cb, inputRef);
 
-  //
-  let fullscreenMod = '';
-  if (!withRangeSlider) {
-    fullscreenMod = styles.disable;
-  } else if (fullscreen) {
-    fullscreenMod = classNames(props.className, styles.fullscreen);
-  }
+  const fullscreenMod = classNames(props.className, styles.fullscreen);
 
   return (
-    <div className={fullscreenMod} ref={RangeSliderRef}>
+    <div
+      className={classNames(
+        { [fullscreenMod]: min !== max && fullscreen },
+        { [styles.disable]: min === max }
+      )}
+      ref={setRangeSliderRef}
+    >
       <div
         className={classNames(styles.container, {
           [styles.disable]: min === max,
@@ -92,7 +84,7 @@ export default function RangeSlider(props: IRangeSlider) {
           }}
           defaultValue={resolution}
           list="markersOfRangeSlider"
-          ref={ref}
+          ref={setInputRef}
         ></input>
         <span className={styles.tooltip}>{currentResolution}</span>
       </div>

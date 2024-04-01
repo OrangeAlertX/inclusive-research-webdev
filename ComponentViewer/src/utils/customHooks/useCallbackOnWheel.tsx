@@ -7,9 +7,11 @@ import { useEffect } from 'react';
  */
 export default function useCallbackOnWheel(cb, ref) {
   useEffect(() => {
-    ref.current.addEventListener('wheel', cb, { passive: false });
+    if (!ref) return;
 
-    const curRef = ref.current;
+    ref.addEventListener('wheel', cb, { passive: false });
+
+    const curRef = ref;
     return () => {
       curRef.removeEventListener('wheel', cb);
     };
