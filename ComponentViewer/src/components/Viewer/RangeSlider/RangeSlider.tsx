@@ -3,15 +3,16 @@ import styles from './RangeSlider.module.css';
 import classNames from 'classnames';
 import debounce from '../../../utils/asyncTools/debounce';
 import useCallbackOnWheel from '../../../utils/customHooks/useCallbackOnWheel';
+import RangeOptions from './RangeOptions';
 
 interface IRangeSlider {
-  resolution: number;
-  setResolution: Dispatch<SetStateAction<number>>;
+  resolution?: number;
+  setResolution?: Dispatch<SetStateAction<number>>;
   min: number;
   max: number;
-  fullscreen: boolean;
-  setRangeSliderRef: React.Dispatch<Element>;
-  className: string;
+  fullscreen?: boolean;
+  setRangeSliderRef?: React.Dispatch<Element>;
+  className?: string;
 }
 
 RangeSlider.defaultProps = {};
@@ -88,6 +89,7 @@ export default function RangeSlider(props: IRangeSlider) {
         ></input>
         <span className={styles.tooltip}>{currentResolution}</span>
       </div>
+      <RangeOptions min={min} max={max} />
     </div>
   );
 }

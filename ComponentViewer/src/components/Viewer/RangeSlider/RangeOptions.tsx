@@ -1,8 +1,9 @@
 import { useMemo } from 'react';
 
-interface IViewerRangeOptions {
-  min: number;
-  max: number;
+interface IRangeOptions {
+  min?: number;
+  max?: number;
+  breakpoints?: number[];
 }
 
 const breakpoints = [
@@ -10,7 +11,13 @@ const breakpoints = [
   1900, 2100, 2400, 2560, 2800, 3300,
 ];
 
-export default function ViewerRangeOptions(props: IViewerRangeOptions) {
+RangeOptions.defaultProps = {
+  min: breakpoints[0],
+  max: breakpoints.at(-1),
+  breakpoints: breakpoints,
+};
+
+export default function RangeOptions(props: IRangeOptions) {
   const { min, max } = props;
 
   const breakpointsOnMinMax = useMemo(() => {

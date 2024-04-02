@@ -122,19 +122,20 @@ export default function EmbedComponent(props: IEmbedComponent) {
     <StylesForIframe_PROD />
   );
 
-  const FullPageWithProps = (
-    <FullPage
-      className={classNames(styles.FullPage, {
-        [styles.FullPageWithoutTransition]: !withRangeSlider,
-      })}
-      onClick={toggleFullscreen}
-    />
-  );
+  const FullPageProps = {
+    className: classNames(styles.FullPage, {
+      [styles.FullPageWithoutTransition]: !withRangeSlider,
+    }),
+    onClick: toggleFullscreen,
+  };
+
   const FullPageComponent = withFullPage ? (
     <>
-      {fullscreen
-        ? createPortal(FullPageWithProps, RangeSliderRef)
-        : FullPageWithProps}
+      {fullscreen && RangeSliderRef ? (
+        createPortal(<FullPage {...FullPageProps} />, RangeSliderRef)
+      ) : (
+        <FullPage {...FullPageProps} />
+      )}
     </>
   ) : (
     false

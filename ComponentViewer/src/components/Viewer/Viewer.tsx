@@ -6,7 +6,6 @@ import EmbedComponent from './EmbedComponent/EmbedComponent';
 import variables from '../App/variables.module.css';
 import useFullscreen from '../../utils/customHooks/useFullscreen';
 import useStateWithUpdate from '../../utils/customHooks/useStateWithUpdate';
-import ViewerRangeOptions from './ViewerRangeOptions';
 
 interface IViewer {
   /**
@@ -129,8 +128,6 @@ export default function Viewer(props: IViewer) {
     >
       <EmbedComponent {...EmbedProps}>{children}</EmbedComponent>
       {min !== max && <RangeSlider {...RangeSliderProps} />}
-
-      <ViewerRangeOptions min={min} max={max} />
     </div>
   );
 }

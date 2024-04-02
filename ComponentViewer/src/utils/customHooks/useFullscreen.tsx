@@ -14,7 +14,7 @@ export default function useFullscreen(elementRef: IuseFullscreen) {
     const mustBeFullscreen = fullscreen;
     const isFullscreenNow = document.fullscreenElement;
 
-    if (mustBeFullscreen && !isFullscreenNow) {
+    if (mustBeFullscreen) {
       elementRef.current.requestFullscreen();
     } else if (isFullscreenNow) {
       document.exitFullscreen();
