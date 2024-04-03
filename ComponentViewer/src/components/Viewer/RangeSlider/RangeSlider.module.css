@@ -10,7 +10,7 @@
   z-index: var(--z-index);
 }
 
-/*if fullscreen, there will be FullPage button*/
+/*if horizontal, there will be FullPage button*/
 .container + div {
   right: 0;
 }
@@ -27,13 +27,13 @@
   transform: rotate(90deg);
 }
 
-.fullscreen {
-  display: flex;
+.horizontal {
+  display: inline-flex;
   background-color: #1a1a1a;
   border-radius: 0 0 8px 8px;
 }
-.fullscreen > div,
-.fullscreen .tooltip {
+.horizontal > div,
+.horizontal .tooltip {
   transform: none;
   position: relative;
 
@@ -87,4 +87,10 @@
 
 .disable {
   display: none;
+}
+
+.colorsDefault {
+  --main-color: white;
+  --second-color: black;
+  --z-index: 100;
 }

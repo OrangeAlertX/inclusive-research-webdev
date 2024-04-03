@@ -3,35 +3,55 @@ import { useMemo } from 'react';
 interface IRangeOptions {
   min?: number;
   max?: number;
-  breakpoints?: number[];
+  step: number;
+  breakpoints?: readonly number[];
+  id: string;
 }
 
-const breakpoints = [
-  320, 374, 480, 600, 720, 880, 1024, 1120, 1240, 1360, 1440, 1520, 1600, 1750,
-  1900, 2100, 2400, 2560, 2800, 3300,
-];
-
 RangeOptions.defaultProps = {
-  min: breakpoints[0],
-  max: breakpoints.at(-1),
-  breakpoints: breakpoints,
+  min: 0,
+  max: 100,
+  step: 1,
+};
+
+const generateBreakpoints = (min, max, step) => {
+  const breakpoints = [];
+  for (let i = min; i <= max; i += step) {
+    breakpoints.push(i);
+  }
+  return [breakpoints, min, max] as [number[], number, number];
+};
+const filterBreakpoints = (
+  breakpoints: number[] | readonly number[],
+  min: number,
+  max: number
+) => {
+  const newBreakpoints = breakpoints.filter((point) => {
+    return point > min && point < max;
+  });
+  newBreakpoints.push(max);
+  newBreakpoints.unshift(min);
+  return [newBreakpoints, min, max] as [number[], number, number];
 };
 
 export default function RangeOptions(props: IRangeOptions) {
-  const { min, max } = props;
+  const { min, max, breakpoints, id, step } = props;
 
-  const breakpointsOnMinMax = useMemo(() => {
-    const newBreakpoints = breakpoints.filter((point) => {
-      return point > min && point < max;
-    });
-    newBreakpoints.push(max);
-    newBreakpoints.unshift(min);
-    return newBreakpoints;
-  }, [min, max]);
+  const [breakpointsOnMinMax, culcMin, culcMax] = useMemo(() => {
+    const [culcMin, culcMax] = min > max ? [max, min] : [min, max];
+    if (breakpoints) {
+      return filterBreakpoints(breakpoints, culcMin, culcMax);
+    }
 
-  if (min !== max)
+    if (step === 0) throw new Error('step === 0');
+
+    const newBreakpoints = generateBreakpoints(culcMin, culcMax, step);
+    return [newBreakpoints, culcMin, culcMax];
+  }, [min, max, breakpoints]);
+
+  if (culcMin !== culcMax)
     return (
-      <datalist id="markersOfRangeSlider">
+      <datalist id={id}>
         {breakpointsOnMinMax.map((point) => {
           return (
             <option key={point} value={point} label={point.toString()}></option>

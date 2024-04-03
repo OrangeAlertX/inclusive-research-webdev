@@ -69,3 +69,8 @@
 
   border: none;
 }
+
+.overlayMessage {
+  width: 50%;
+  color: black;
+}

@@ -12,6 +12,7 @@ import classNames from 'classnames';
 import StylesForIframe_DEV from './StylesForIframeDev';
 import StylesForIframe_PROD from './StylesForIframeProd';
 import useSize from '../../../utils/customHooks/useSize';
+import Overlay from '../../../UI/Overlay/Overlay';
 
 interface IEmbedComponent {
   children: ReactNode | ReactNode[];
@@ -171,6 +172,7 @@ export default function EmbedComponent(props: IEmbedComponent) {
         </div>
       </div>
       {FullPageComponent}
+      <Overlay></Overlay>
     </div>
   );
 }

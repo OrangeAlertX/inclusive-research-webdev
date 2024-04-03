@@ -1,0 +1,38 @@
+@media (max-width: 1024px) {
+  .Overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    z-index: var(--z-index);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .Overlay:hover {
+    opacity: 1;
+
+    /* background: linear-gradient(
+      44deg,
+      var(--main-color) 85%,
+      var(--second-color) 90%
+    ); */
+
+    background: conic-gradient(
+      from 261deg at 95% 7%,
+      rgba(21, 160, 19, 0.75) 0%,
+      rgba(168, 212, 0, 1) 50%,
+      rgba(210, 155, 29, 0.75) 100%
+    );
+  }
+
+  .disable {
+    display: none;
+  }
+}

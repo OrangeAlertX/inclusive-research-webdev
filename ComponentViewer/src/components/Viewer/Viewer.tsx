@@ -61,8 +61,12 @@ Viewer.defaultProps = {
   src: null,
   min: 320,
   max: 3840,
-  colors: variables.colorsDefault,
 };
+
+const breakpoints = [
+  320, 374, 480, 600, 720, 880, 1024, 1120, 1240, 1360, 1440, 1520, 1600, 1750,
+  1900, 2100, 2400, 2560, 2800, 3300,
+];
 
 /////////////////////////
 export default function Viewer(props: IViewer) {
@@ -94,13 +98,15 @@ export default function Viewer(props: IViewer) {
   };
 
   const RangeSliderProps = {
-    resolution,
-    setResolution,
+    className: classNames({ [styles.RangeSlider]: fullscreen }),
+    colors: colors ?? variables.colorsDefault,
+    parentValue: resolution,
+    setParentValue: setResolution,
     min,
     max,
-    className: styles.RangeSlider,
-    fullscreen,
     setRangeSliderRef,
+    breakpoints,
+    isHorizontal: fullscreen,
   };
   const EmbedProps = {
     resolution,
@@ -122,7 +128,7 @@ export default function Viewer(props: IViewer) {
       style={{ height: ViewerHeight + 'px' }}
       className={classNames(
         styles.Viewer,
-        colors,
+        colors ?? variables.colorsDefault,
         min === max ? styles.width100 : false
       )}
     >

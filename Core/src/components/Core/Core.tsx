@@ -47,24 +47,24 @@ export default function Core(props: ICore) {
 
   return (
     <div className={classNames(styles.Core, variables.w)}>
-      <Viewer {...viewerProps}>
-        <>
-          <RootContainer className={styles.root100}>
-            <Contacts />
-          </RootContainer>
-          <RootContainer>
-            <>
-              <h1 className={global.disable}>Веб-разработчик</h1>
-              <AboutMe />
-              <Leetcode />
-              <MyProjects />
-            </>
-          </RootContainer>
-          <RootContainer className={styles.root100}>
-            <Contacts />
-          </RootContainer>
-        </>
-      </Viewer>
+      {/* <Viewer {...viewerProps}> */}
+      <>
+        <RootContainer className={styles.root100}>
+          <Contacts />
+        </RootContainer>
+        <RootContainer>
+          <>
+            <h1 className={global.disable}>Веб-разработчик</h1>
+            <AboutMe />
+            <Leetcode />
+            <MyProjects />
+          </>
+        </RootContainer>
+        <RootContainer className={styles.root100}>
+          <Contacts />
+        </RootContainer>
+      </>
+      {/* </Viewer> */}
     </div>
   );
 }
