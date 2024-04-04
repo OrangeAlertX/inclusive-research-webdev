@@ -23,6 +23,7 @@ interface IEmbedComponent {
   withRangeSlider: boolean;
   withFullPage: boolean;
   withMobileView: boolean;
+  fitContent: boolean;
   heightAdjust: boolean;
   ViewerHeight: number;
   setViewerHeightHandler: (multiplier: number) => void;
@@ -39,6 +40,7 @@ export default function EmbedComponent(props: IEmbedComponent) {
     withRangeSlider,
     withFullPage,
     withMobileView,
+    fitContent,
     heightAdjust,
     setViewerHeightHandler: setViewerHeight,
     src,
@@ -125,7 +127,7 @@ export default function EmbedComponent(props: IEmbedComponent) {
 
   const FullPageProps = {
     className: classNames(styles.FullPage, {
-      [styles.FullPageWithoutTransition]: !withRangeSlider,
+      [styles.FullPageWithoutTransition]: !withRangeSlider || fitContent,
     }),
     onClick: toggleFullscreen,
   };
@@ -172,7 +174,7 @@ export default function EmbedComponent(props: IEmbedComponent) {
         </div>
       </div>
       {FullPageComponent}
-      <Overlay></Overlay>
+      {withFullPage && <Overlay></Overlay>}
     </div>
   );
 }

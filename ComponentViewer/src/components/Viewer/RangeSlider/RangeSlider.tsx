@@ -27,12 +27,14 @@ interface IRangeSlider {
   scrollStep: number;
   breakpoints?: number[];
   isHorizontal?: boolean;
+  visible?: boolean;
 }
 
 RangeSlider.defaultProps = {
   keyStep: 2,
   scrollStep: 10,
   isHorizontal: false,
+  visible: true,
 };
 
 const eventWheel = (e, valueHandler, step) => {
@@ -57,6 +59,7 @@ export default function RangeSlider(props: IRangeSlider) {
     scrollStep,
     keyStep,
     isHorizontal,
+    visible,
     breakpoints,
   } = props;
 
@@ -90,7 +93,7 @@ export default function RangeSlider(props: IRangeSlider) {
     <div
       className={classNames(
         { [styles.horizontal]: min !== max && isHorizontal },
-        { [styles.disable]: min === max },
+        { [styles.disable]: min === max || !visible },
         props.className
       )}
       ref={setRangeSliderRef ?? null}

@@ -37,9 +37,6 @@ const projectColorGame = {
     'Адаптивная игра "найди пару" с несколькими уровнями сложности на чистом JS.',
   code: 'https://github.com/OrangeAlertX/inclusive-research-webdev/tree/main/Paired-Colors',
   src: `/projects/colors-game`,
-  viewerProps: {
-    min: 320,
-  },
 };
 
 const projectTemplates = {

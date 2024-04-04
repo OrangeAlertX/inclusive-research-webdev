@@ -23,6 +23,10 @@ interface IViewer {
    */
   heightAdjust?: boolean;
   /**
+   * @defaultValue  true
+   */
+  fitContent: boolean;
+  /**
    * @defaultValue  400(px)
    */
   ViewerHeightDefault?: number;
@@ -56,6 +60,7 @@ interface IViewer {
 Viewer.defaultProps = {
   withFullPage: true,
   withMobileView: true,
+  fitContent: true,
   heightAdjust: false,
   ViewerHeightDefault: 400,
   src: null,
@@ -70,9 +75,11 @@ const breakpoints = [
 
 /////////////////////////
 export default function Viewer(props: IViewer) {
+  console.log('Viewer');
   const {
     withFullPage,
     withMobileView,
+    fitContent,
     heightAdjust,
     ViewerHeightDefault,
     children,
@@ -107,6 +114,7 @@ export default function Viewer(props: IViewer) {
     setRangeSliderRef,
     breakpoints,
     isHorizontal: fullscreen,
+    visible: !fitContent,
   };
   const EmbedProps = {
     resolution,
@@ -117,6 +125,7 @@ export default function Viewer(props: IViewer) {
     withRangeSlider: min !== max,
     withFullPage,
     withMobileView,
+    fitContent,
     heightAdjust,
     ViewerHeight,
     setViewerHeightHandler,
@@ -129,7 +138,7 @@ export default function Viewer(props: IViewer) {
       className={classNames(
         styles.Viewer,
         colors ?? variables.colorsDefault,
-        min === max ? styles.width100 : false
+        min === max || fitContent ? styles.width100 : false
       )}
     >
       <EmbedComponent {...EmbedProps}>{children}</EmbedComponent>

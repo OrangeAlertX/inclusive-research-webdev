@@ -8,7 +8,7 @@ import global from '../../global.module.css';
 import variables from '../App/variables.module.css';
 import classNames from 'classnames';
 import { Viewer } from '../App/App';
-import { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useMemo, useState } from 'react';
 
 interface ICore {}
 
@@ -21,6 +21,7 @@ export default function Core(props: ICore) {
   const [isMobile, setIsMobile] = useState(false);
   // const width = useWidth(1920);
   const width = 1920;
+  console.log(viewerHeight);
 
   useLayoutEffect(() => {
     setViewerHeight(window.innerHeight);
@@ -46,8 +47,7 @@ export default function Core(props: ICore) {
   };
 
   return (
-    <div className={classNames(styles.Core, variables.w)}>
-      {/* <Viewer {...viewerProps}> */}
+    <div className={classNames(styles.Core, variables.w, variables.colors)}>
       <>
         <RootContainer className={styles.root100}>
           <Contacts />
@@ -64,7 +64,6 @@ export default function Core(props: ICore) {
           <Contacts />
         </RootContainer>
       </>
-      {/* </Viewer> */}
     </div>
   );
 }
