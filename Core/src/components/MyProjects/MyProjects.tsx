@@ -1,6 +1,7 @@
 import styles from './MyProjects.module.css';
 import Project from './Project/Project';
 import { Viewer } from '../App/App';
+import { useLayoutEffect, useState } from 'react';
 
 interface IMyProjects {
   // children: React.ReactElement | string | JSX.Element;

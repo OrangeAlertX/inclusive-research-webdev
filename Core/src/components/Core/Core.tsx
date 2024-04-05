@@ -17,34 +17,34 @@ Core.defaultProps = {};
 export default function Core(props: ICore) {
   const {} = props;
 
-  const [viewerHeight, setViewerHeight] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
-  // const width = useWidth(1920);
-  const width = 1920;
-  console.log(viewerHeight);
+  // const [viewerHeight, setViewerHeight] = useState(0);
+  // const [isMobile, setIsMobile] = useState(false);
+  // // const width = useWidth(1920);
+  // const width = 1920;
+  // console.log(viewerHeight);
 
-  useLayoutEffect(() => {
-    setViewerHeight(window.innerHeight);
+  // useLayoutEffect(() => {
+  //   setViewerHeight(window.innerHeight);
 
-    const cb = () => {
-      setViewerHeight(window.innerHeight);
-    };
+  //   const cb = () => {
+  //     setViewerHeight(window.innerHeight);
+  //   };
 
-    const resizeObserver = new ResizeObserver(cb);
-    resizeObserver.observe(document.body);
+  //   const resizeObserver = new ResizeObserver(cb);
+  //   resizeObserver.observe(document.body);
 
-    return () => resizeObserver.disconnect();
-  }, []);
+  //   return () => resizeObserver.disconnect();
+  // }, []);
 
-  const viewerProps = {
-    colors: variables.colors,
-    min: isMobile ? 767 : width,
-    max: isMobile ? 767 : width,
-    withFullPage: false,
-    withMobileView: true,
-    withRangeSlider: false,
-    ViewerHeightDefault: viewerHeight,
-  };
+  // const viewerProps = {
+  //   colors: variables.colors,
+  //   min: isMobile ? 767 : width,
+  //   max: isMobile ? 767 : width,
+  //   withFullPage: false,
+  //   withMobileView: true,
+  //   withRangeSlider: false,
+  //   ViewerHeightDefault: viewerHeight,
+  // };
 
   return (
     <div className={classNames(styles.Core, variables.w, variables.colors)}>

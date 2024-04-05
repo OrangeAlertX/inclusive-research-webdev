@@ -75,7 +75,6 @@ const breakpoints = [
 
 /////////////////////////
 export default function Viewer(props: IViewer) {
-  console.log('Viewer');
   const {
     withFullPage,
     withMobileView,
@@ -114,7 +113,7 @@ export default function Viewer(props: IViewer) {
     setRangeSliderRef,
     breakpoints,
     isHorizontal: fullscreen,
-    visible: !fitContent,
+    visible: !fitContent || fullscreen,
   };
   const EmbedProps = {
     resolution,
