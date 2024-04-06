@@ -64,7 +64,9 @@ export default function EmbedComponent(props: IEmbedComponent) {
     const iframe = ref;
     if (!iframe) return;
     if (!src) {
-      iframe.contentDocument.body.style = `display: flex; justify-content: center; align-items: center;`;
+      iframe.contentDocument.body.style = `
+        display: flex; justify-content: center; align-items: center; position:relative;
+      `;
     }
   }, [src, ref, children]);
 

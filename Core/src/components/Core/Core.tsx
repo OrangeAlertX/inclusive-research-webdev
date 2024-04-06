@@ -8,7 +8,8 @@ import global from '../../global.module.css';
 import variables from '../App/variables.module.css';
 import classNames from 'classnames';
 import { Viewer } from '../App/App';
-import { useLayoutEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import useViewportSize from '../../../../ComponentViewer/src/utils/customHooks/useViewportSize';
 
 interface ICore {}
 
@@ -17,53 +18,58 @@ Core.defaultProps = {};
 export default function Core(props: ICore) {
   const {} = props;
 
-  // const [viewerHeight, setViewerHeight] = useState(0);
-  // const [isMobile, setIsMobile] = useState(false);
-  // // const width = useWidth(1920);
-  // const width = 1920;
-  // console.log(viewerHeight);
+  const [viewportWidth, viewportHeight] = useViewportSize();
+  const [virtualWidth, setVirtualWidth] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // useLayoutEffect(() => {
-  //   setViewerHeight(window.innerHeight);
+  useEffect(() => {
+    if (!viewportWidth) return;
 
-  //   const cb = () => {
-  //     setViewerHeight(window.innerHeight);
-  //   };
+    if (viewportWidth <= 1024) {
+      setIsMobile(true);
+    } else setIsMobile(false);
 
-  //   const resizeObserver = new ResizeObserver(cb);
-  //   resizeObserver.observe(document.body);
+    const simpleMobile = viewportWidth <= 1024 && isMobile;
+    const simpleDesktop = viewportWidth > 1024 && !isMobile;
+    const specMobile = viewportWidth > 1024 && isMobile;
+    const specDesktop = viewportWidth <= 1024 && !isMobile;
 
-  //   return () => resizeObserver.disconnect();
-  // }, []);
+    if (simpleMobile || simpleDesktop) setVirtualWidth(viewportWidth);
+    else if (specMobile) setVirtualWidth(767);
+    else if (specDesktop) setVirtualWidth(1920);
+  }, [viewportWidth]);
 
-  // const viewerProps = {
-  //   colors: variables.colors,
-  //   min: isMobile ? 767 : width,
-  //   max: isMobile ? 767 : width,
-  //   withFullPage: false,
-  //   withMobileView: true,
-  //   withRangeSlider: false,
-  //   ViewerHeightDefault: viewerHeight,
-  // };
+  const viewerProps = {
+    externalStyles: classNames(variables.colors, styles.fromCore, variables.w),
+    min: virtualWidth,
+    max: virtualWidth,
+    withFullPage: false,
+    withMobileView: false,
+    ViewerHeightDefault: viewportHeight,
+  };
 
-  return (
-    <div className={classNames(styles.Core, variables.w, variables.colors)}>
-      <>
+  const ViewerChildrenMemo = useMemo(() => {
+    return (
+      <div className={styles.container}>
         <RootContainer className={styles.root100}>
           <Contacts />
         </RootContainer>
         <RootContainer>
-          <>
-            <h1 className={global.disable}>Веб-разработчик</h1>
-            <AboutMe />
-            <Leetcode />
-            <MyProjects />
-          </>
+          <h1 className={global.disable}>Веб-разработчик</h1>
+          <AboutMe />
+          <Leetcode />
+          <MyProjects />
         </RootContainer>
         <RootContainer className={styles.root100}>
           <Contacts />
         </RootContainer>
-      </>
+      </div>
+    );
+  }, []);
+
+  return (
+    <div className={classNames(styles.Core)}>
+      <Viewer {...viewerProps}>{ViewerChildrenMemo}</Viewer>
     </div>
   );
 }

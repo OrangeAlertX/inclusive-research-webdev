@@ -53,8 +53,19 @@ interface IViewer {
    * @defaultValue pass className with defined
    --main-color, 
    --second-color
+   - Viewer
+    - - container
+        - - - main
+          - - - - outer
+            - - - - - inner
+        - - - Overlay
+    - - RangeSlider
+      - - - container
+        - - - - slider
+        - - - - tooltip
+    - ~FullPage
    */
-  colors?: string;
+  externalStyles?: string;
 }
 
 Viewer.defaultProps = {
@@ -85,10 +96,10 @@ export default function Viewer(props: IViewer) {
     src,
     min,
     max,
-    colors,
+    externalStyles,
   } = props;
 
-  const [resolution, setResolution] = useState(Math.max(720, min));
+  const [resolution, setResolution] = useStateWithUpdate(Math.max(720, min));
 
   const [ViewerHeight, setViewerHeight] =
     useStateWithUpdate(ViewerHeightDefault);
@@ -105,7 +116,7 @@ export default function Viewer(props: IViewer) {
 
   const RangeSliderProps = {
     className: classNames({ [styles.RangeSlider]: fullscreen }),
-    colors: colors ?? variables.colorsDefault,
+    colors: externalStyles ?? variables.colorsDefault,
     parentValue: resolution,
     setParentValue: setResolution,
     min,
@@ -136,7 +147,7 @@ export default function Viewer(props: IViewer) {
       style={{ height: ViewerHeight + 'px' }}
       className={classNames(
         styles.Viewer,
-        colors ?? variables.colorsDefault,
+        externalStyles ?? variables.colorsDefault,
         min === max || fitContent ? styles.width100 : false
       )}
     >

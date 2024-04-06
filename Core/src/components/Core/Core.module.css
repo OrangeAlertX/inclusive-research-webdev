@@ -1,7 +1,17 @@
 .Core {
   background-color: var(--background-color);
+  width: 100vw;
+  height: 100vh;
+}
+
+.container {
+  display: inline-block;
 }
 
 .root100 {
   width: 100%;
+}
+
+.fromCore _main* {
+  outline: none;
 }

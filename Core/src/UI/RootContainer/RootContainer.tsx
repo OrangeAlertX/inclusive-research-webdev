@@ -1,8 +1,9 @@
 import styles from './RootContainer.module.css';
 import variablesInlineDefault from '../../components/App/variables.module.css?inline';
+import { ReactNode } from 'react';
 
 interface IRootContainer {
-  children: React.ReactElement;
+  children: ReactNode | ReactNode[];
   className?: string;
   variablesInline?: string;
 }

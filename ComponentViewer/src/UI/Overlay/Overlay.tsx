@@ -47,7 +47,7 @@ export default function Overlay(props: IOverlay) {
   return (
     mobile && (
       <div
-        className={classNames(styles.Overlay, colorEffectClass, {
+        className={classNames(colorEffectClass ?? styles.Overlay, {
           [styles.disable]: !mobile,
         })}
         ref={setOverlayRef}

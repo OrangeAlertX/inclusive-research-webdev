@@ -56,8 +56,7 @@ export default function Project(props: IProject) {
             src={project.src}
             min={project.viewerProps?.min}
             max={project.viewerProps?.max}
-            withRangeSlider={false}
-            colors={variables.colors}
+            externalStyles={variables.colors}
           ></Viewer>
         )}
       </div>

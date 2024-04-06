@@ -1,33 +1,14 @@
 import styles from './Leetcode.module.css';
 import { useEffect, useRef } from 'react';
 import { Viewer } from '../App/App';
+import classNames from 'classnames';
 
-interface ILeetcode {
-  // children: React.ReactElement | string | JSX.Element;
-}
+interface ILeetcode {}
 
 Leetcode.defaultProps = {};
 
 export default function Leetcode(props: ILeetcode) {
   const {} = props;
-
-  const ref = useRef(null);
-
-  useEffect(() => {
-    let iframe = ref.current?.querySelector('iframe');
-
-    const setStyles = () => {
-      iframe.classList.add(styles.iframeOutline);
-    };
-
-    if (!iframe) {
-      const interval = setInterval(() => {
-        iframe = ref.current.querySelector('iframe');
-        if (iframe) clearInterval(interval);
-        setStyles();
-      }, 2000);
-    } else setStyles();
-  }, []);
 
   return (
     <div className={styles.Leetcode}>
@@ -43,17 +24,16 @@ export default function Leetcode(props: ILeetcode) {
         </a>
         <span className={styles.linkpopup}>(ссылка на профиль)</span>
       </h3>
-      <div ref={ref} className={styles.container}>
+      <div className={styles.container}>
         <Viewer
           src={`/projects/leetcode`}
           min={800}
           max={800}
-          withRangeSlider={false}
           withFullPage={false}
           withMobileView={false}
           heightAdjust={true}
           ViewerHeightDefault={368}
-          colors={styles.colors}
+          externalStyles={classNames(styles.colors, styles.fromLeetcode)}
         ></Viewer>
       </div>
     </div>

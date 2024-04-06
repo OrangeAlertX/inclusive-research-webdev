@@ -18,12 +18,6 @@
   .Overlay:hover {
     opacity: 1;
 
-    /* background: linear-gradient(
-      44deg,
-      var(--main-color) 85%,
-      var(--second-color) 90%
-    ); */
-
     background: conic-gradient(
       from 261deg at 95% 7%,
       rgba(21, 160, 19, 0.75) 0%,
