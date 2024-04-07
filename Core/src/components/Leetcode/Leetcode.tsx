@@ -1,5 +1,4 @@
 import styles from './Leetcode.module.css';
-import { useEffect, useRef } from 'react';
 import { Viewer } from '../App/App';
 import classNames from 'classnames';
 

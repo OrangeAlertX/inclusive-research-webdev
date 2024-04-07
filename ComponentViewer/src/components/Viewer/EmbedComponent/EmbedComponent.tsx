@@ -55,27 +55,28 @@ export default function EmbedComponent(props: IEmbedComponent) {
   });
 
   ////////////////////////////////////////////////////////////////////
-  const [ref, setRef] = useState(null);
+  const [iframeRef, setIframeRef] = useState(null);
+  const [iframeClass, setIframeClass] = useState(styles.inner);
   const [mainRef, setMainRef] = useState(null);
   const [mainWidth, mainHeight] = useSize(mainRef);
   ////////////////////////////////////////////////////////////////////
 
   useEffect(() => {
-    const iframe = ref;
-    if (!iframe) return;
+    if (!iframeRef) return;
     if (!src) {
-      iframe.contentDocument.body.style = `
-        display: flex; justify-content: center; align-items: center; position:relative;
-      `;
+      const body = iframeRef.contentDocument.body;
+      const centered = `
+        display: flex; justify-content: center; align-items: center; position: relative; flex: 1`;
+      body.style = `display: flex; align-items: center; `;
+      body.querySelector('div').style = centered;
     }
-  }, [src, ref, children]);
+  }, [src, iframeRef, children]);
 
   // resolution logic
   useEffect(() => {
-    const iframe = ref;
-    if (!iframe) return;
+    if (!iframeRef) return;
 
-    const outer = iframe.parentElement;
+    const outer = iframeRef.parentElement;
 
     const multiplier = mainWidth / resolution;
 
@@ -96,23 +97,28 @@ export default function EmbedComponent(props: IEmbedComponent) {
 
       multiplierMobile = targetAspectRatio / currentAspectRatio;
     }
-    iframe.style.setProperty('height', height * multiplierMobile + 'px');
+    iframeRef.style.setProperty('height', height * multiplierMobile + 'px');
 
     if (multiplierMobile !== 1) {
       const scale = 1 / multiplierMobile;
       const translate = 50 * (multiplierMobile - 1);
 
-      iframe.style.setProperty(
+      iframeRef.style.setProperty(
         'transform',
         `scale(${scale}) translateY(-${translate}%)`
       );
-    } else if (iframe.style.getPropertyValue('transform')) {
-      iframe.style.setProperty('transform', '');
+    } else if (iframeRef.style.getPropertyValue('transform')) {
+      iframeRef.style.setProperty('transform', '');
     }
+    setIframeClass(
+      classNames(styles.inner, {
+        [styles.mobileOutline]: iframeRef?.style.getPropertyValue('transform'),
+      })
+    );
     //
   }, [
     resolution,
-    ref,
+    iframeRef,
     fullscreen,
     mainWidth,
     mainHeight,
@@ -120,7 +126,7 @@ export default function EmbedComponent(props: IEmbedComponent) {
     setViewerHeight,
   ]);
 
-  const iframeBody = ref?.contentDocument?.body;
+  const iframeBody = iframeRef?.contentDocument?.body;
   const stylesIframe = import.meta.env.DEV ? (
     <StylesForIframe_DEV />
   ) : (
@@ -150,7 +156,7 @@ export default function EmbedComponent(props: IEmbedComponent) {
     <div className={EmbedClassName}>
       <div className={mainClassName} ref={setMainRef}>
         <div className={styles.outer}>
-          <iframe src={src} className={styles.inner} ref={setRef}>
+          <iframe src={src} className={iframeClass} ref={setIframeRef}>
             {src && (
               <div
                 style={{

@@ -14,7 +14,9 @@ const createComponent = function (name, pathToSrc, componentFolder) {
   const nameTSXcontent = `
 import styles from './${name}.module.css';
 
-interface I${name} {}
+interface I${name} {
+  // children: ReactNode | ReactNode[]
+}
 
 ${name}.defaultProps = {}
 

@@ -74,3 +74,8 @@
   width: 50%;
   color: black;
 }
+
+.mobileOutline {
+  outline: 2px solid var(--second-color);
+  outline-offset: -2px;
+}

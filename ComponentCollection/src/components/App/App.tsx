@@ -5,7 +5,7 @@ import RootContainer from '../../UI/RootContainer/RootContainer';
 export default function App() {
   return (
     <RootContainer>
-      <Viewer min={350}>
+      <Viewer fitContent={false} withMobileView={false}>
         <CounterButton></CounterButton>
       </Viewer>
     </RootContainer>
