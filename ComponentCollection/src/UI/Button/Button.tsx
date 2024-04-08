@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 interface IButton {
   children: ReactNode | ReactNode[] | (() => string);
-  externalStyles?: string;
+  className?: string;
   // children: React.ReactElement | string | number | JSX.Element | (() => string);
   onClick: () => void;
 }
@@ -12,13 +12,10 @@ interface IButton {
 Button.defaultProps = {};
 
 export default function Button(props: IButton) {
-  const { children, onClick, externalStyles } = props;
+  const { children, onClick, className } = props;
 
   return (
-    <button
-      className={classNames(styles.button, externalStyles)}
-      onClick={onClick}
-    >
+    <button className={classNames(styles.button, className)} onClick={onClick}>
       {typeof children === 'function' ? children() : children}
     </button>
   );

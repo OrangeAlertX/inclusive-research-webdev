@@ -51,7 +51,9 @@ export default function Core(props: ICore) {
   const ViewerChildrenMemo = useMemo(() => {
     return (
       <div className={styles.container}>
-        <RootContainer className={styles.root100}>
+        <RootContainer
+          className={classNames(styles.root100, Object.values(variables))}
+        >
           <Contacts />
         </RootContainer>
         <RootContainer>
@@ -60,7 +62,9 @@ export default function Core(props: ICore) {
           <Leetcode />
           <MyProjects />
         </RootContainer>
-        <RootContainer className={styles.root100}>
+        <RootContainer
+          className={classNames(styles.root100, Object.values(variables))}
+        >
           <Contacts />
         </RootContainer>
       </div>

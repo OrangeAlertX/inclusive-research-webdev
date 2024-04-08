@@ -1,12 +1,18 @@
 import Viewer from '../../../../ComponentViewer/src/components/Viewer/Viewer';
-import CounterButton from '../../simple/CounterButton/CounterButton';
 import RootContainer from '../../UI/RootContainer/RootContainer';
+import LightDarkToggle from '../DayNightToggle/LightDarkToggle';
+import variables from '../App/variables.module.css';
+import classNames from 'classnames';
 
 export default function App() {
   return (
     <RootContainer>
-      <Viewer fitContent={false} withMobileView={false}>
-        <CounterButton></CounterButton>
+      <Viewer
+        externalStyles={classNames(Object.values(variables))}
+        fitContent={false}
+        withMobileView={false}
+      >
+        <LightDarkToggle />
       </Viewer>
     </RootContainer>
   );

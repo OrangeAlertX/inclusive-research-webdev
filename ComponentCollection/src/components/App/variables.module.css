@@ -1,9 +1,15 @@
 .colors {
   --main-color: #ffa500;
   --second-color: #147053;
+  --background-color: #242424;
 }
 
 .w {
-  --background-color: #242424;
   --first-margin: 1.5em;
+}
+
+[data-theme='light'] .colors {
+  --background-color: white;
+  --main-color: black;
+  --second-color: green;
 }

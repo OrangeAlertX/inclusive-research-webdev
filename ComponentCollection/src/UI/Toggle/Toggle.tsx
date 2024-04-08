@@ -1,16 +1,27 @@
-import { useState } from 'react';
+import { ReactNode } from 'react';
+
 import styles from './Toggle.module.css';
+import Button from '../Button/Button';
+import classNames from 'classnames';
 
 interface IToggle {
-  children: React.ReactElement | string | JSX.Element;
+  children: ReactNode | ReactNode[];
+  className?: string;
+  toggleState: () => void;
+  state: boolean;
 }
 
-Toggle.defaultProps = {
-
-}
+Toggle.defaultProps = {};
 
 export default function Toggle(props: IToggle) {
-  const { children } = props;
+  const { children, className, toggleState, state } = props;
 
-  return (<div className={styles.Toggle}></div>);
+  return (
+    <Button
+      className={classNames(styles.Toggle, className)}
+      onClick={toggleState}
+    >
+      {children}
+    </Button>
+  );
 }

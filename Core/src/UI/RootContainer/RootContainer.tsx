@@ -1,33 +1,27 @@
 import styles from './RootContainer.module.css';
-import variablesInlineDefault from '../../components/App/variables.module.css?inline';
-import { ReactNode } from 'react';
+import classNames from 'classnames';
+import variablesDefault from '../../components/App/variables.module.css';
+import { ReactNode, useState } from 'react';
 
 interface IRootContainer {
   children: ReactNode | ReactNode[];
   className?: string;
-  variablesInline?: string;
+  rootStyles?: string;
 }
 
-const extractCss = (cssInline) =>
-  `:root {${cssInline
-    .split('\n')
-    .filter((row) => row.includes('--'))
-    .join(' ')}}`;
-
 export default function RootContainer(props: IRootContainer) {
-  const { children, className, variablesInline } = props;
-  const rootClassName = className ? className : styles.root;
+  const { children, className, rootStyles } = props;
 
-  const cssRootVariables = variablesInline
-    ? extractCss(variablesInline)
-    : extractCss(variablesInlineDefault);
-
-  const globalVariables = <style>{cssRootVariables}</style>;
+  const [light, setLight] = useState(false);
 
   return (
-    <>
-      {globalVariables}
-      <div className={rootClassName}>{children}</div>
-    </>
+    <div
+      className={classNames(
+        className ?? Object.values(variablesDefault),
+        styles.container
+      )}
+    >
+      <div className={rootStyles ?? styles.root}>{children}</div>
+    </div>
   );
 }
