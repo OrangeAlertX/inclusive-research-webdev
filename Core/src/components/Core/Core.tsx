@@ -53,6 +53,7 @@ export default function Core(props: ICore) {
       <div className={styles.container}>
         <RootContainer
           className={classNames(styles.root100, Object.values(variables))}
+          rootStyles={styles.root}
         >
           <Contacts />
         </RootContainer>
@@ -64,6 +65,7 @@ export default function Core(props: ICore) {
         </RootContainer>
         <RootContainer
           className={classNames(styles.root100, Object.values(variables))}
+          rootStyles={styles.root}
         >
           <Contacts />
         </RootContainer>

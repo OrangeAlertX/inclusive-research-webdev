@@ -1,6 +1,6 @@
 import Viewer from '../../../../ComponentViewer/src/components/Viewer/Viewer';
 import RootContainer from '../../UI/RootContainer/RootContainer';
-import LightDarkToggle from '../DayNightToggle/LightDarkToggle';
+import LightDarkToggle from '../LightDarkToggle/LightDarkToggle';
 import variables from '../App/variables.module.css';
 import classNames from 'classnames';
 

@@ -20,7 +20,8 @@
   "include": [
     "src",
     "../ComponentViewer/src/components/Viewer",
-    "../ComponentViewer/src/utils"
+    "../ComponentViewer/src/utils",
+    "../ComponentCollection/src"
   ],
   "exclude": ["node_modules", "dist/**/*"],
   "references": [{ "path": "./tsconfig.vite.json" }]

@@ -4,13 +4,13 @@ import { HiSun } from 'react-icons/hi';
 import { ReactNode, useEffect, useState } from 'react';
 import Toggle from '../../UI/Toggle/Toggle';
 
-interface IDayNightToggle {
+interface ILightDarkToggle {
   children?: ReactNode | ReactNode[];
 }
 
-DayNightToggle.defaultProps = {};
+LightDarkToggle.defaultProps = {};
 
-export default function DayNightToggle(props: IDayNightToggle) {
+export default function LightDarkToggle(props: ILightDarkToggle) {
   const {} = props;
 
   const [isDay, setIsDay] = useState(false);
@@ -38,7 +38,7 @@ export default function DayNightToggle(props: IDayNightToggle) {
   const ToggleProps = {
     toggleState: () => setIsDay((isDay) => !isDay),
     state: isDay,
-    className: styles.DayNightToggle,
+    className: styles.LightDarkToggle,
   };
 
   return (

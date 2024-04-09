@@ -8,6 +8,9 @@
   width: 100%;
 }
 
+.root {
+}
+
 .fromCore iframe {
   outline: 2px solid var(--main-color);
 }

@@ -1,7 +1,8 @@
+import { ReactNode } from 'react';
 import styles from './Button.module.css';
 
 interface IButton {
-  children: React.ReactElement | string | number | JSX.Element | (() => string);
+  children: ReactNode | ReactNode[];
   onClick: () => void;
 }
 
@@ -12,7 +13,7 @@ export default function Button(props: IButton) {
 
   return (
     <button className={styles.button} onClick={onClick}>
-      {typeof children === 'function' ? children() : children}
+      {children}
     </button>
   );
 }
