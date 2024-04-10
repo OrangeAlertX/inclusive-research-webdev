@@ -10,6 +10,7 @@ import classNames from 'classnames';
 import { Viewer } from '../App/App';
 import { useEffect, useMemo, useState } from 'react';
 import useViewportSize from '../../../../ComponentViewer/src/utils/customHooks/useViewportSize';
+import { ThemeContextProvider } from '../../utils/Context';
 
 interface ICore {}
 
@@ -74,8 +75,10 @@ export default function Core(props: ICore) {
   }, []);
 
   return (
-    <div className={classNames(styles.Core)}>
-      <Viewer {...viewerProps}>{ViewerChildrenMemo}</Viewer>
-    </div>
+    <ThemeContextProvider>
+      <div className={classNames(styles.Core)}>
+        <Viewer {...viewerProps}>{ViewerChildrenMemo}</Viewer>
+      </div>
+    </ThemeContextProvider>
   );
 }

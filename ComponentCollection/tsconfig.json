@@ -17,7 +17,11 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "../ComponentViewer/src/components/Viewer"],
+  "include": [
+    "src",
+    "../ComponentViewer/src/components/Viewer",
+    "../Core/src/utils"
+  ],
   "exclude": ["node_modules", "dist/**/*"],
   "references": [{ "path": "./tsconfig.vite.json" }]
 }

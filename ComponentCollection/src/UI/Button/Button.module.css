@@ -1,5 +1,5 @@
 .button {
-  color: orange;
+  color: var(--second-color);
 
   border-radius: 8px;
   border: 1px solid transparent;

@@ -3,7 +3,7 @@ import global from '../../global.module.css';
 import GitHubLink from '../MyProjects/Project/GitHubLink';
 import { TbBrandLeetcode } from 'react-icons/tb';
 import { CgMail } from 'react-icons/cg';
-import LightDarkToggle from '../../../../ComponentCollection/src/components/LightDarkToggle/LightDarkToggle';
+import LightDarkToggle from '../../../../ComponentCollection/src/components/ThemeToggle/ThemeToggle';
 
 interface IContacts {
   // children: React.ReactElement | string | JSX.Element;

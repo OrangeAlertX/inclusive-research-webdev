@@ -12,8 +12,6 @@ interface IRootContainer {
 export default function RootContainer(props: IRootContainer) {
   const { children, className, rootStyles } = props;
 
-  const [light, setLight] = useState(false);
-
   return (
     <div
       className={classNames(

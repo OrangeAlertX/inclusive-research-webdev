@@ -1,6 +1,9 @@
 import styles from './Leetcode.module.css';
 import { Viewer } from '../App/App';
 import classNames from 'classnames';
+import { useContext, useEffect, useState } from 'react';
+import { ThemeContext } from '../../utils/Context';
+import waitBySetInterval from '../../../../ComponentViewer/src/utils/asyncTools/waitBySetInterval';
 
 interface ILeetcode {}
 
@@ -8,6 +11,27 @@ Leetcode.defaultProps = {};
 
 export default function Leetcode(props: ILeetcode) {
   const {} = props;
+
+  const [ref, setRef] = useState(null);
+  const { theme } = useContext(ThemeContext);
+
+  useEffect(() => {
+    if (!ref) return;
+
+    const iframe = ref.querySelector('iframe');
+
+    let isActual = true;
+    waitBySetInterval(() => iframe.contentDocument.documentElement, 1000).then(
+      (leetcodeTagHTML: HTMLElement) => {
+        if (!isActual) return;
+        leetcodeTagHTML.setAttribute('class', theme);
+      }
+    );
+
+    return () => {
+      isActual = false;
+    };
+  }, [theme]);
 
   return (
     <div className={styles.Leetcode}>
@@ -23,7 +47,7 @@ export default function Leetcode(props: ILeetcode) {
         </a>
         <span className={styles.linkpopup}>(ссылка на профиль)</span>
       </h3>
-      <div className={styles.container}>
+      <div className={styles.container} ref={setRef}>
         <Viewer
           src={`/projects/leetcode`}
           min={800}

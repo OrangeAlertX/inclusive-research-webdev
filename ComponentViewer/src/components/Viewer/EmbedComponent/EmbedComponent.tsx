@@ -60,7 +60,6 @@ export default function EmbedComponent(props: IEmbedComponent) {
     'html',
     () => {
       const newTheme = document.documentElement.getAttribute('data-theme');
-      console.log(newTheme);
       setDataTheme(newTheme ?? 'dark');
     },
     {

@@ -51,10 +51,10 @@ async function parseLeetcode() {
   return { solvedProblems, activites, DOM, externalStyles };
 }
 
-async function waitBySetInterval(process) {
+async function waitBySetInterval(cb, time) {
   return new Promise((res) => {
     const interval = setInterval(() => {
-      const isFinished = process();
+      const isFinished = cb();
       if (!isFinished) return;
 
       clearInterval(interval);
