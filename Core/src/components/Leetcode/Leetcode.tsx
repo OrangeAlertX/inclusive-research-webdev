@@ -21,7 +21,7 @@ export default function Leetcode(props: ILeetcode) {
     const iframe = ref.querySelector('iframe');
 
     let isActual = true;
-    waitBySetInterval(() => iframe.contentDocument.documentElement, 1000).then(
+    waitBySetInterval(() => iframe.contentDocument.documentElement, 50).then(
       (leetcodeTagHTML: HTMLElement) => {
         if (!isActual) return;
         leetcodeTagHTML.setAttribute('class', theme);

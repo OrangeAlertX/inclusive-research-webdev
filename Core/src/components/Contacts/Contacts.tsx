@@ -3,7 +3,7 @@ import global from '../../global.module.css';
 import GitHubLink from '../MyProjects/Project/GitHubLink';
 import { TbBrandLeetcode } from 'react-icons/tb';
 import { CgMail } from 'react-icons/cg';
-import LightDarkToggle from '../../../../ComponentCollection/src/components/ThemeToggle/ThemeToggle';
+import ThemeToggle from '../../../../ComponentCollection/src/components/ThemeToggle/ThemeToggle';
 
 interface IContacts {
   // children: React.ReactElement | string | JSX.Element;
@@ -16,7 +16,7 @@ export default function Contacts(props: IContacts) {
 
   return (
     <div className={styles.Contacts}>
-      <LightDarkToggle />
+      <ThemeToggle />
       <div className={styles.contacts}>
         <h3 className={global.disable}>Почта</h3>
         <a href="mailto:orangealertx@gmail.com" title="orangealertx@gmail.com">

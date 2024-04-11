@@ -1,8 +1,9 @@
 import Viewer from '../../../../ComponentViewer/src/components/Viewer/Viewer';
-import RootContainer from '../../UI/RootContainer/RootContainer';
-import LightDarkToggle from '../ThemeToggle/ThemeToggle';
+import ThemeToggle from '../ThemeToggle/ThemeToggle';
 import variables from '../App/variables.module.css';
 import classNames from 'classnames';
+import RootContainer from '../../../../Core/src/UI/RootContainer/RootContainer';
+import { ThemeContextProvider } from '../../../../Core/src/utils/Context';
 
 export default function App() {
   return (
@@ -12,7 +13,9 @@ export default function App() {
         fitContent={false}
         withMobileView={false}
       >
-        <LightDarkToggle />
+        <ThemeContextProvider>
+          <ThemeToggle />
+        </ThemeContextProvider>
       </Viewer>
     </RootContainer>
   );
