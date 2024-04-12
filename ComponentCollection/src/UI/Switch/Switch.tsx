@@ -24,10 +24,9 @@ export default function Switch(props: ISwitch) {
       toggleOnClick={toggleOnClick}
       state={state}
     >
-      <div className={styles.slider}>
-        <div className={styles.toggle}></div>
-        <div className={styles.text}></div>
-        <div className={styles.text}></div>
+      <div className={styles.sliderContainer}>
+        <div className={styles.axis}></div>
+        <div className={styles.slider}></div>
       </div>
       {children}
     </ToggleButton>

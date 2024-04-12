@@ -4,10 +4,9 @@ import GitHubLink from '../MyProjects/Project/GitHubLink';
 import { TbBrandLeetcode } from 'react-icons/tb';
 import { CgMail } from 'react-icons/cg';
 import ThemeToggle from '../../../../ComponentCollection/src/components/ThemeToggle/ThemeToggle';
+import classNames from 'classnames';
 
-interface IContacts {
-  // children: React.ReactElement | string | JSX.Element;
-}
+interface IContacts {}
 
 Contacts.defaultProps = {};
 
@@ -16,14 +15,14 @@ export default function Contacts(props: IContacts) {
 
   return (
     <div className={styles.Contacts}>
-      <ThemeToggle />
+      <ThemeToggle className={classNames(styles.theme, global.extendButton)} />
       <div className={styles.contacts}>
         <h3 className={global.disable}>Почта</h3>
         <a href="mailto:orangealertx@gmail.com" title="orangealertx@gmail.com">
           <CgMail size={'2em'} />
         </a>
         <h3 className={global.disable}>Leetcode</h3>
-        <a href="https://leetcode.com/orangealertx/">
+        <a href="https://leetcode.com/orangealertx/" title="leetcode">
           <TbBrandLeetcode size={'2em'} />
         </a>
         <h3 className={global.disable}>GitHub</h3>

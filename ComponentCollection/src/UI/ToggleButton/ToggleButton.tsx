@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import styles from './ToggleButton.module.css';
 import classNames from 'classnames';
-import Button from '../Button/Button';
+import EmptyButton from '../EmptyButton/EmptyButton';
 
 interface IToggleButton {
   children: ReactNode | ReactNode[];
@@ -16,13 +16,13 @@ export default function ToggleButton(props: IToggleButton) {
   const { state, toggleOnClick, children, className } = props;
 
   return (
-    <Button
+    <EmptyButton
       onClick={toggleOnClick}
-      className={classNames(styles.ToggleButton, className, {
+      className={classNames(className ?? styles.ToggleButton, {
         [styles.active]: state,
       })}
     >
       {children}
-    </Button>
+    </EmptyButton>
   );
 }

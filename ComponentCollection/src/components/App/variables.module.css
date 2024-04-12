@@ -14,5 +14,5 @@
 [data-theme='light'] .colors {
   --background-color: white;
   --main-color: black;
-  --second-color: green;
+  --second-color: #ffa500;
 }

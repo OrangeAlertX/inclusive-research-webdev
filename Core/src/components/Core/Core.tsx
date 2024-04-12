@@ -38,7 +38,7 @@ export default function Core(props: ICore) {
     if (simpleMobile || simpleDesktop) setVirtualWidth(viewportWidth);
     else if (specMobile) setVirtualWidth(767);
     else if (specDesktop) setVirtualWidth(1920);
-  }, [viewportWidth]);
+  }, [viewportWidth, isMobile]);
 
   const viewerProps = {
     externalStyles: classNames(variables.colors, styles.fromCore, variables.w),

@@ -7,19 +7,20 @@ import { ThemeContext } from '../../../../Core/src/utils/Context';
 
 interface IThemeToggle {
   children?: ReactNode | ReactNode[];
+  className?: string;
 }
 
 ThemeToggle.defaultProps = {};
 
 export default function ThemeToggle(props: IThemeToggle) {
-  const {} = props;
+  const { className } = props;
 
   const { theme, toggleTheme } = useContext(ThemeContext);
 
   const ToggleProps = {
     toggleOnClick: toggleTheme,
     state: theme === 'light',
-    className: styles.ThemeToggle,
+    className: className ?? styles.ThemeToggle,
   };
 
   return (
