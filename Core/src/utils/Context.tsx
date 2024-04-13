@@ -1,11 +1,11 @@
 import { ReactNode, createContext, useEffect, useState } from 'react';
 
-export const ThemeContext = createContext({
-  theme: 'dark',
-  toggleTheme: () => {
+export const ThemeContext = createContext([
+  'dark',
+  () => {
     console.log('Provider not found');
   },
-});
+] as [string, () => void]);
 
 interface IThemeContext {
   children: ReactNode | ReactNode[];
@@ -38,7 +38,7 @@ export function ThemeContextProvider(props: IThemeContext) {
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={[theme, toggleTheme]}>
       {children}
     </ThemeContext.Provider>
   );

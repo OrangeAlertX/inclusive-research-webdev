@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 import styles from './Button.module.css';
-import classNames from 'classnames';
 
 interface IButton {
   children: ReactNode | ReactNode[];
@@ -14,7 +13,7 @@ export default function Button(props: IButton) {
   const { children, onClick, className } = props;
 
   return (
-    <button className={classNames(styles.button, className)} onClick={onClick}>
+    <button className={className ?? styles.button} onClick={onClick}>
       {children}
     </button>
   );

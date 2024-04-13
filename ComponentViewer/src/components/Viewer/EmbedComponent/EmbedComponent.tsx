@@ -72,7 +72,7 @@ export default function EmbedComponent(props: IEmbedComponent) {
   useEffect(() => {
     if (!iframeRef) return;
 
-    iframeRef.contentDocument.documentElement.setAttribute(
+    iframeRef.contentDocument.documentElement?.setAttribute(
       'data-theme',
       dataTheme
     );

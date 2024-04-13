@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import ToggleButton from '../ToggleButton/ToggleButton';
 
 interface ISwitch {
-  children: ReactNode | ReactNode[];
+  children?: ReactNode | ReactNode[];
   className?: string;
   toggleOnClick: () => void;
   state: boolean;

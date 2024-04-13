@@ -20,7 +20,6 @@ export default function Core(props: ICore) {
   const {} = props;
 
   const [viewportWidth, viewportHeight] = useViewportSize();
-  const [virtualWidth, setVirtualWidth] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -29,23 +28,24 @@ export default function Core(props: ICore) {
     if (viewportWidth <= 1024) {
       setIsMobile(true);
     } else setIsMobile(false);
+  }, [viewportWidth]);
 
-    const simpleMobile = viewportWidth <= 1024 && isMobile;
-    const simpleDesktop = viewportWidth > 1024 && !isMobile;
-    const specMobile = viewportWidth > 1024 && isMobile;
-    const specDesktop = viewportWidth <= 1024 && !isMobile;
+  const simpleMobile = viewportWidth <= 1024 && isMobile;
+  const simpleDesktop = viewportWidth > 1024 && !isMobile;
+  const specMobile = viewportWidth > 1024 && isMobile;
+  const specDesktop = viewportWidth <= 1024 && !isMobile;
 
-    if (simpleMobile || simpleDesktop) setVirtualWidth(viewportWidth);
-    else if (specMobile) setVirtualWidth(767);
-    else if (specDesktop) setVirtualWidth(1920);
-  }, [viewportWidth, isMobile]);
+  let virtualWidth = 0;
+  if (simpleMobile || simpleDesktop) virtualWidth = viewportWidth;
+  else if (specMobile) virtualWidth = 767;
+  else if (specDesktop) virtualWidth = 1920;
 
   const viewerProps = {
     externalStyles: classNames(variables.colors, styles.fromCore, variables.w),
     min: virtualWidth,
     max: virtualWidth,
     withFullPage: false,
-    withMobileView: false,
+    // withMobileView: false,
     ViewerHeightDefault: viewportHeight,
   };
 
