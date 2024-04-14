@@ -12,11 +12,13 @@ export default function useFullscreen(elementRef: elementRefType) {
 
   useEffect(() => {
     const mustBeFullscreen = fullscreen;
-    const isFullscreenNow = document.fullscreenElement === elementRef.current;
+    // const isFullscreenNow = elementRef.current.contains(
+    //   document.fullscreenElement
+    // );
 
-    if (mustBeFullscreen && !isFullscreenNow) {
+    if (mustBeFullscreen) {
       elementRef.current.requestFullscreen();
-    } else if (isFullscreenNow) {
+    } else if (document.fullscreenElement) {
       document.exitFullscreen();
     }
   }, [fullscreen]);

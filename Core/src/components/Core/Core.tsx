@@ -8,46 +8,41 @@ import global from '../../global.module.css';
 import variables from '../App/variables.module.css';
 import classNames from 'classnames';
 import { Viewer } from '../App/App';
-import { useEffect, useMemo, useState } from 'react';
+import { useContext, useMemo } from 'react';
 import useViewportSize from '../../../../ComponentViewer/src/utils/customHooks/useViewportSize';
-import { ThemeContextProvider } from '../../utils/Context';
+import {
+  MobileContext,
+  MobileContextProvider,
+  ThemeContextProvider,
+} from '../../utils/Context';
 
 interface ICore {}
 
 Core.defaultProps = {};
 
-export default function Core(props: ICore) {
-  const {} = props;
-
-  const [viewportWidth, viewportHeight] = useViewportSize();
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    if (!viewportWidth) return;
-
-    if (viewportWidth <= 1024) {
-      setIsMobile(true);
-    } else setIsMobile(false);
-  }, [viewportWidth]);
-
+function findVirtualWidth(viewportWidth, isMobile): number {
   const simpleMobile = viewportWidth <= 1024 && isMobile;
   const simpleDesktop = viewportWidth > 1024 && !isMobile;
   const specMobile = viewportWidth > 1024 && isMobile;
   const specDesktop = viewportWidth <= 1024 && !isMobile;
 
-  let virtualWidth = 0;
-  if (simpleMobile || simpleDesktop) virtualWidth = viewportWidth;
-  else if (specMobile) virtualWidth = 767;
-  else if (specDesktop) virtualWidth = 1920;
+  if (simpleMobile || simpleDesktop) return viewportWidth;
+  else if (specMobile) return 767;
+  else if (specDesktop) return 1920;
+}
 
-  const viewerProps = {
-    externalStyles: classNames(variables.colors, styles.fromCore, variables.w),
-    min: virtualWidth,
-    max: virtualWidth,
-    withFullPage: false,
-    // withMobileView: false,
-    ViewerHeightDefault: viewportHeight,
-  };
+export default function Core(props: ICore) {
+  const {} = props;
+
+  const [viewportWidth, viewportHeight] = useViewportSize();
+
+  // useEffect(() => {
+  //   if (!viewportWidth) return;
+
+  //   if (viewportWidth <= 1024) {
+  //     setIsMobile('mobile');
+  //   } else {setIsMobile('desktop')};
+  // }, [viewportWidth]);
 
   const ViewerChildrenMemo = useMemo(() => {
     return (
@@ -74,11 +69,32 @@ export default function Core(props: ICore) {
     );
   }, []);
 
+  const viewerProps = {
+    externalStyles: classNames(variables.colors, styles.fromCore, variables.w),
+    withFullPage: false,
+    ViewerHeightDefault: viewportHeight,
+  };
+
   return (
     <ThemeContextProvider>
-      <div className={classNames(styles.Core)}>
-        <Viewer {...viewerProps}>{ViewerChildrenMemo}</Viewer>
-      </div>
+      <MobileContextProvider>
+        <MobileContext.Consumer>
+          {([isMobile, setIsMobile]) => {
+            const virtualWidth = findVirtualWidth(
+              viewportWidth,
+              isMobile === 'mobile'
+            );
+
+            return (
+              <div className={classNames(styles.Core)}>
+                <Viewer {...viewerProps} min={virtualWidth} max={virtualWidth}>
+                  {ViewerChildrenMemo}
+                </Viewer>
+              </div>
+            );
+          }}
+        </MobileContext.Consumer>
+      </MobileContextProvider>
     </ThemeContextProvider>
   );
 }

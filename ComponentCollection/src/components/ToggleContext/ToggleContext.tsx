@@ -9,9 +9,12 @@ interface IToggleContext {
   className?: string;
   Context: React.Context<[string, () => void]>;
   activeState: string;
+  iconPosition?: 'left' | 'right';
 }
 
-ToggleContext.defaultProps = {};
+ToggleContext.defaultProps = {
+  iconPosition: 'right',
+};
 
 export default function ToggleContext(props: IToggleContext) {
   const { children, className, Context, activeState } = props;
@@ -31,10 +34,5 @@ export default function ToggleContext(props: IToggleContext) {
     label = children;
   }
 
-  return (
-    <Switch {...ToggleProps}>
-      {Array.isArray(children)}
-      {label}
-    </Switch>
-  );
+  return <Switch {...ToggleProps}>{label}</Switch>;
 }

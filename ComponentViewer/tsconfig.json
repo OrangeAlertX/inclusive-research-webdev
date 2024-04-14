@@ -25,7 +25,8 @@
     "src",
     "../ComponentViewer/src/components/Viewer",
     "../ComponentViewer/src/utils",
-    "../ComponentCollection/src"
+    "../ComponentCollection/src",
+    "../Core/src"
   ],
   "exclude": ["node_modules", "dist/**/*"],
   "references": [{ "path": "./tsconfig.vite.json" }]

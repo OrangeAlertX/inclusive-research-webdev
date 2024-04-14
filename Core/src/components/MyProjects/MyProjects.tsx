@@ -78,6 +78,7 @@ const projectCollection = {
   about:
     'Коллекция React-компонентов для быстрого создания основных фронтенд-решений.',
   code: 'https://github.com/OrangeAlertX/inclusive-research-webdev/tree/main/ComponentCollection',
+  src: '/collection',
 };
 
 const projectDeploy = {

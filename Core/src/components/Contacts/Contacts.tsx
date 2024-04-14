@@ -4,11 +4,10 @@ import GitHubLink from '../MyProjects/Project/GitHubLink';
 import { TbBrandLeetcode } from 'react-icons/tb';
 import { CgMail } from 'react-icons/cg';
 import classNames from 'classnames';
-import Switch from '../../../../ComponentCollection/src/UI/Switch/Switch';
 import { GiNightSleep } from 'react-icons/gi';
 import { HiSun } from 'react-icons/hi';
-import ToggleContext from '../../../components/ToggleContext/ToggleContext';
-import { ThemeContext } from '../../utils/Context';
+import { MobileContext, ThemeContext } from '../../utils/Context';
+import ToggleContext from '../../../../ComponentCollection/src/components/ToggleContext/ToggleContext';
 
 interface IContacts {}
 
@@ -21,6 +20,13 @@ export default function Contacts(props: IContacts) {
     className: classNames(styles.theme, global.extendButton),
     Context: ThemeContext,
     activeState: 'light',
+  };
+
+  const ToggleContextPropsForMobileDesktop = {
+    className: classNames(styles.theme, global.extendButton),
+    Context: MobileContext,
+    activeState: 'mobile',
+    iconPosition: 'left' as 'left' | 'right',
   };
 
   return (
@@ -41,11 +47,7 @@ export default function Contacts(props: IContacts) {
         <h3 className={global.disable}>GitHub</h3>
         <GitHubLink href={'https://github.com/OrangeAlertX'} />
       </div>
-      <Switch
-        className={classNames(styles.mobileTheme, global.extendButton)}
-        state={false}
-        toggleOnClick={() => {}}
-      ></Switch>
+      <ToggleContext {...ToggleContextPropsForMobileDesktop}></ToggleContext>
     </div>
   );
 }

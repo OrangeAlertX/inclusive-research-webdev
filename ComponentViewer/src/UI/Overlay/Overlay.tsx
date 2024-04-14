@@ -1,6 +1,7 @@
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useContext, useEffect, useState } from 'react';
 import styles from './Overlay.module.css';
 import classNames from 'classnames';
+import { ThemeContext } from '../../../../Core/src/utils/Context';
 
 interface IOverlay {
   children?: ReactElement | null;
@@ -13,23 +14,7 @@ export default function Overlay(props: IOverlay) {
   const { children, colorEffectClass } = props;
 
   const [OverlayRef, setOverlayRef] = useState(null);
-  const [mobile, setMobile] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth <= 1024) {
-        !mobile && setMobile(true);
-      } else {
-        mobile && setMobile(false);
-      }
-    };
-    window.addEventListener('resize', handleResize);
-    handleResize();
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  const [isMobile, setIsMobile] = useContext(ThemeContext);
 
   useEffect(() => {
     if (!OverlayRef) return;
@@ -45,10 +30,10 @@ export default function Overlay(props: IOverlay) {
   }, [OverlayRef]);
 
   return (
-    mobile && (
+    isMobile && (
       <div
         className={classNames(colorEffectClass ?? styles.Overlay, {
-          [styles.disable]: !mobile,
+          [styles.disable]: !isMobile,
         })}
         ref={setOverlayRef}
       >

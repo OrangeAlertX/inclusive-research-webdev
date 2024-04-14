@@ -9,12 +9,18 @@ interface ISwitch {
   className?: string;
   toggleOnClick: () => void;
   state: boolean;
+  /**
+   * "right" is default
+   */
+  iconPosition?: 'left' | 'right';
 }
 
-Switch.defaultProps = {};
+Switch.defaultProps = {
+  iconPosition: 'right',
+};
 
 export default function Switch(props: ISwitch) {
-  const { children, className, toggleOnClick, state } = props;
+  const { children, className, toggleOnClick, state, iconPosition } = props;
 
   return (
     <ToggleButton
@@ -24,11 +30,12 @@ export default function Switch(props: ISwitch) {
       toggleOnClick={toggleOnClick}
       state={state}
     >
+      {iconPosition === 'left' && children}
       <div className={styles.sliderContainer}>
         <div className={styles.axis}></div>
         <div className={styles.slider}></div>
       </div>
-      {children}
+      {iconPosition === 'right' && children}
     </ToggleButton>
   );
 }

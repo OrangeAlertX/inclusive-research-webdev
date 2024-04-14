@@ -13,7 +13,7 @@ export default function Leetcode(props: ILeetcode) {
   const {} = props;
 
   const [ref, setRef] = useState(null);
-  const { theme } = useContext(ThemeContext);
+  const [theme] = useContext(ThemeContext);
 
   useEffect(() => {
     if (!ref) return;
@@ -21,17 +21,20 @@ export default function Leetcode(props: ILeetcode) {
     const iframe = ref.querySelector('iframe');
 
     let isActual = true;
-    waitBySetInterval(() => iframe.contentDocument.documentElement, 50).then(
-      (leetcodeTagHTML: HTMLElement) => {
-        if (!isActual) return;
-        leetcodeTagHTML.setAttribute('class', theme);
+    waitBySetInterval(() => {
+      if (!isActual) return true;
+      const leetcode = iframe.contentDocument.documentElement;
+      if (iframe.contentDocument.location.origin !== 'null') {
+        return leetcode;
       }
-    );
-
+    }, 200).then((leetcodeTagHTML: HTMLElement) => {
+      if (!isActual) return;
+      leetcodeTagHTML.setAttribute('class', theme);
+    });
     return () => {
       isActual = false;
     };
-  }, [theme]);
+  }, [theme, ref]);
 
   return (
     <div className={styles.Leetcode}>

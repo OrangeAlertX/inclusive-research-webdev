@@ -1,9 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
 import Viewer from '../Viewer/Viewer';
-import CounterButton from '../../simple/CounterButton/CounterButton';
-import RootContainer from '../../UI/RootContainer/RootContainer';
 import RangeSlider from '../Viewer/RangeSlider/RangeSlider';
 import { useState } from 'react';
+import RootContainer from '../../../../Core/src/UI/RootContainer/RootContainer';
+import Button from '../../../UI/Button/Button';
 
 export default function App() {
   const [value, setValue] = useState(0);
@@ -15,13 +15,13 @@ export default function App() {
           <RootContainer>
             <Viewer min={320}>
               <Viewer withMobileView={false} min={350} max={350}>
-                <CounterButton></CounterButton>
+                <Button></Button>
               </Viewer>
               <Viewer withMobileView={false} min={350} max={1920}>
-                <CounterButton></CounterButton>
+                <Button></Button>
               </Viewer>
               <Viewer withMobileView={false} min={350} max={350}>
-                <CounterButton></CounterButton>
+                <Button></Button>
               </Viewer>
               <RangeSlider
                 min={150}

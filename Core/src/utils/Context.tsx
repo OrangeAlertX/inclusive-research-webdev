@@ -7,6 +7,13 @@ export const ThemeContext = createContext([
   },
 ] as [string, () => void]);
 
+export const MobileContext = createContext([
+  'desktop',
+  () => {
+    console.log('Provider not found');
+  },
+] as [string, () => void]);
+
 interface IThemeContext {
   children: ReactNode | ReactNode[];
 }
@@ -41,5 +48,21 @@ export function ThemeContextProvider(props: IThemeContext) {
     <ThemeContext.Provider value={[theme, toggleTheme]}>
       {children}
     </ThemeContext.Provider>
+  );
+}
+
+export function MobileContextProvider(props: IThemeContext) {
+  const { children } = props;
+
+  const [mobile, setMobile] = useState('desktop');
+
+  const toggleMobile = () => {
+    setMobile((prev) => (prev === 'mobile' ? 'desktop' : 'mobile'));
+  };
+
+  return (
+    <MobileContext.Provider value={[mobile, toggleMobile]}>
+      {children}
+    </MobileContext.Provider>
   );
 }
