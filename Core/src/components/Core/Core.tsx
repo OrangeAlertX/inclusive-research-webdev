@@ -26,9 +26,10 @@ function findVirtualWidth(viewportWidth, isMobile): number {
   const specMobile = viewportWidth > 1024 && isMobile;
   const specDesktop = viewportWidth <= 1024 && !isMobile;
 
-  if (simpleMobile || simpleDesktop) return viewportWidth;
+  if (simpleMobile) return viewportWidth;
+  else if (simpleDesktop) return Math.min(viewportWidth, 1360);
   else if (specMobile) return 767;
-  else if (specDesktop) return 1920;
+  else if (specDesktop) return 1360;
 }
 
 export default function Core(props: ICore) {

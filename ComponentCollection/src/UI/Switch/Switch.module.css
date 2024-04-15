@@ -58,6 +58,12 @@
   right: 0;
   width: 100%;
 
+  opacity: 0.5;
+
   background-color: var(--second-color);
   border-radius: 1em;
+}
+
+.active .axis {
+  opacity: 1;
 }

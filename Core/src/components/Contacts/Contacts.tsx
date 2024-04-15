@@ -6,6 +6,8 @@ import { CgMail } from 'react-icons/cg';
 import classNames from 'classnames';
 import { GiNightSleep } from 'react-icons/gi';
 import { HiSun } from 'react-icons/hi';
+import { CiMobile3 } from 'react-icons/ci';
+import { IoIosDesktop } from 'react-icons/io';
 import { MobileContext, ThemeContext } from '../../utils/Context';
 import ToggleContext from '../../../../ComponentCollection/src/components/ToggleContext/ToggleContext';
 
@@ -47,7 +49,10 @@ export default function Contacts(props: IContacts) {
         <h3 className={global.disable}>GitHub</h3>
         <GitHubLink href={'https://github.com/OrangeAlertX'} />
       </div>
-      <ToggleContext {...ToggleContextPropsForMobileDesktop}></ToggleContext>
+      <ToggleContext {...ToggleContextPropsForMobileDesktop}>
+        <CiMobile3 />
+        <IoIosDesktop />
+      </ToggleContext>
     </div>
   );
 }

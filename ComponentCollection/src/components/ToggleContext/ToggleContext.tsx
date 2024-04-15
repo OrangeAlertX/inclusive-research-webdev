@@ -17,7 +17,7 @@ ToggleContext.defaultProps = {
 };
 
 export default function ToggleContext(props: IToggleContext) {
-  const { children, className, Context, activeState } = props;
+  const { children, className, Context, activeState, iconPosition } = props;
 
   const [theme, toggleTheme] = useContext(Context);
 
@@ -25,6 +25,7 @@ export default function ToggleContext(props: IToggleContext) {
     toggleOnClick: toggleTheme,
     state: theme === activeState,
     className: className,
+    iconPosition,
   };
 
   let label = null;
