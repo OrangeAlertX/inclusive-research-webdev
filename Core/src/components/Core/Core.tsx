@@ -7,35 +7,19 @@ import Contacts from '../Contacts/Contacts';
 import global from '../../global.module.css';
 import variables from '../App/variables.module.css';
 import classNames from 'classnames';
-import { Viewer } from '../App/App';
-import { useContext, useMemo } from 'react';
-import useViewportSize from '../../../../ComponentViewer/src/utils/customHooks/useViewportSize';
+import { useMemo } from 'react';
 import {
-  MobileContext,
   MobileContextProvider,
   ThemeContextProvider,
 } from '../../utils/Context';
+import CoreViewer from './CoreViewer';
 
 interface ICore {}
 
 Core.defaultProps = {};
 
-function findVirtualWidth(viewportWidth, isMobile): number {
-  const simpleMobile = viewportWidth <= 1024 && isMobile;
-  const simpleDesktop = viewportWidth > 1024 && !isMobile;
-  const specMobile = viewportWidth > 1024 && isMobile;
-  const specDesktop = viewportWidth <= 1024 && !isMobile;
-
-  if (simpleMobile) return viewportWidth;
-  else if (simpleDesktop) return Math.min(viewportWidth, 1360);
-  else if (specMobile) return 767;
-  else if (specDesktop) return 1360;
-}
-
 export default function Core(props: ICore) {
   const {} = props;
-
-  const [viewportWidth, viewportHeight] = useViewportSize();
 
   // useEffect(() => {
   //   if (!viewportWidth) return;
@@ -70,31 +54,10 @@ export default function Core(props: ICore) {
     );
   }, []);
 
-  const viewerProps = {
-    externalStyles: classNames(variables.colors, styles.fromCore, variables.w),
-    withFullPage: false,
-    ViewerHeightDefault: viewportHeight,
-  };
-
   return (
     <ThemeContextProvider>
       <MobileContextProvider>
-        <MobileContext.Consumer>
-          {([isMobile, setIsMobile]) => {
-            const virtualWidth = findVirtualWidth(
-              viewportWidth,
-              isMobile === 'mobile'
-            );
-
-            return (
-              <div className={classNames(styles.Core)}>
-                <Viewer {...viewerProps} min={virtualWidth} max={virtualWidth}>
-                  {ViewerChildrenMemo}
-                </Viewer>
-              </div>
-            );
-          }}
-        </MobileContext.Consumer>
+        <CoreViewer>{ViewerChildrenMemo}</CoreViewer>
       </MobileContextProvider>
     </ThemeContextProvider>
   );

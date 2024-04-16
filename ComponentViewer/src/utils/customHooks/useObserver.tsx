@@ -1,18 +1,18 @@
 import { useEffect } from 'react';
 
 export default function useObserver(
-  selector: string,
+  element: Element,
   cb: () => void,
   config: MutationObserverInit
 ) {
   useEffect(() => {
-    const htmlElement = document.querySelector(selector);
+    if (!element) return;
 
     const observer = new MutationObserver(cb);
     cb();
 
-    observer.observe(htmlElement, config);
+    observer.observe(element, config);
 
     return () => observer.disconnect();
-  }, []);
+  }, [element]);
 }

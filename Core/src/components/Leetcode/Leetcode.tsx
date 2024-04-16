@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from '../../utils/Context';
 import waitBySetInterval from '../../../../ComponentViewer/src/utils/asyncTools/waitBySetInterval';
+import waitIframeDocument from '../../../../ComponentViewer/src/utils/asyncTools/waitIframeDocument';
 
 interface ILeetcode {}
 
@@ -20,19 +21,13 @@ export default function Leetcode(props: ILeetcode) {
 
     const iframe = ref.querySelector('iframe');
 
-    let isActual = true;
-    waitBySetInterval(() => {
-      if (!isActual) return true;
-      const leetcode = iframe.contentDocument.documentElement;
-      if (iframe.contentDocument.location.origin !== 'null') {
-        return leetcode;
-      }
-    }, 200).then((leetcodeTagHTML: HTMLElement) => {
-      if (!isActual) return;
-      leetcodeTagHTML.setAttribute('class', theme);
+    let instance = { isActual: true };
+    waitIframeDocument(iframe, instance, 200).then((iframeWindow: Document) => {
+      if (!instance.isActual) return;
+      iframeWindow.documentElement.setAttribute('class', theme);
     });
     return () => {
-      isActual = false;
+      instance.isActual = false;
     };
   }, [theme, ref]);
 

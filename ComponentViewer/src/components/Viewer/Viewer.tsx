@@ -144,11 +144,12 @@ export default function Viewer(props: IViewer) {
   return (
     <div
       ref={ViewerRef}
-      style={{ height: ViewerHeight + 'px' }}
+      style={ViewerHeight ? { height: ViewerHeight + 'px' } : null}
       className={classNames(
         styles.Viewer,
         externalStyles ?? variables.colorsDefault,
-        min === max || fitContent ? styles.width100 : false
+        min === max || fitContent ? styles.width100 : false,
+        !ViewerHeight ? styles.height100 : false
       )}
     >
       <EmbedComponent {...EmbedProps}>{children}</EmbedComponent>

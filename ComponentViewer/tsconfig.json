@@ -6,11 +6,7 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
-    "rootDirs": [
-      "./",
-      "../ComponentViewer/src/components/Viewer",
-      "../ComponentCollection/src"
-    ],
+    "rootDirs": ["./", "../ComponentCollection/src"],
     "allowJs": true,
 
     /* Bundler mode */
@@ -21,13 +17,7 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": [
-    "src",
-    "../ComponentViewer/src/components/Viewer",
-    "../ComponentViewer/src/utils",
-    "../ComponentCollection/src",
-    "../Core/src"
-  ],
+  "include": ["src", "../ComponentCollection/src", "../Core/src"],
   "exclude": ["node_modules", "dist/**/*"],
   "references": [{ "path": "./tsconfig.vite.json" }]
 }

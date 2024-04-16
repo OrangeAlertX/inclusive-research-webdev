@@ -1,4 +1,4 @@
-import { useEffect, useState, ReactNode } from 'react';
+import { useEffect, useState, ReactNode, useContext } from 'react';
 import styles from './EmbedComponent.module.css';
 import { createPortal } from 'react-dom';
 import FullPage from './FullPage/FullPage';
@@ -7,7 +7,8 @@ import StylesForIframe_DEV from './StylesForIframeDev';
 import StylesForIframe_PROD from './StylesForIframeProd';
 import useSize from '../../../utils/customHooks/useSize';
 import Overlay from '../../../UI/Overlay/Overlay';
-import useObserver from '../../../utils/customHooks/useObserver';
+import { ThemeContext } from '../../../../../Core/src/utils/Context';
+import waitIframeDocument from '../../../utils/asyncTools/waitIframeDocument';
 
 interface IEmbedComponent {
   children: ReactNode | ReactNode[];
@@ -54,29 +55,22 @@ export default function EmbedComponent(props: IEmbedComponent) {
   const [iframeClass, setIframeClass] = useState(styles.inner);
   const [mainRef, setMainRef] = useState(null);
   const [mainWidth, mainHeight] = useSize(mainRef);
+  const [theme] = useContext(ThemeContext);
   ////////////////////////////////////////////////////////////////////
-  const [dataTheme, setDataTheme] = useState('dark');
-  useObserver(
-    'html',
-    () => {
-      const newTheme = document.documentElement.getAttribute('data-theme');
-      setDataTheme(newTheme ?? 'dark');
-    },
-    {
-      attributes: true,
-      attributeFilter: ['data-theme'],
-      subtree: false,
-    }
-  );
 
   useEffect(() => {
     if (!iframeRef) return;
 
-    iframeRef.contentDocument.documentElement?.setAttribute(
-      'data-theme',
-      dataTheme
-    );
-  }, [dataTheme]);
+    const instance = { isActual: true };
+    // waitIframeDocument(iframeRef, instance, 500).then((document) => {
+    //   if (document !== true)
+    //     document.documentElement.setAttribute('data-theme', theme);
+    // });
+
+    return () => {
+      instance.isActual = false;
+    };
+  }, [theme]);
 
   useEffect(() => {
     if (!iframeRef) return;
