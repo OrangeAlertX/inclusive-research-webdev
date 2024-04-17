@@ -13,6 +13,7 @@ export default function useViewportSize() {
       setWidth(window.innerWidth);
       setHeight(window.innerHeight);
     };
+    cb();
     const resizeObserver = new ResizeObserver(cb);
     resizeObserver.observe(document.body);
 

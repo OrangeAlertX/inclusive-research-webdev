@@ -7,5 +7,7 @@ export default function debounce(func, delay: number) {
     timeoutId = setTimeout(() => {
       func(args);
     }, delay);
+
+    return timeoutId;
   };
 }

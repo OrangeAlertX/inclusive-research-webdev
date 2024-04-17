@@ -1,18 +1,30 @@
-export default async function waitBySetInterval(cb: () => any, time: number) {
+type cbReturn<U> = () => U | boolean;
+export type FunctionSignature<T extends (...a: any) => any> = {} & ((
+  ...a: Parameters<T>
+) => ReturnType<T>);
+
+export default async function waitBySetInterval<T>(
+  cb: FunctionSignature<cbReturn<T>>,
+  time: number
+): Promise<ReturnType<typeof cb>> {
   return new Promise((res, rej) => {
     const firstTry = cb();
-    if (firstTry) res(firstTry);
+    if (firstTry) {
+      res(firstTry);
+      return;
+    }
 
     let count = 0;
 
     const intervalID = setInterval(() => {
       const isFinished = cb();
-      if (!isFinished) {
-        if (count++ > 50) rej(new Error('timeout'));
+      if (isFinished) {
+        clearInterval(intervalID);
+        res(isFinished);
         return;
       }
-      clearInterval(intervalID);
-      res(isFinished);
+
+      if (count++ > 50) rej(new Error('timeout'));
     }, time);
   });
 }

@@ -62,15 +62,23 @@ export default function EmbedComponent(props: IEmbedComponent) {
     if (!iframeRef) return;
 
     const instance = { isActual: true };
-    // waitIframeDocument(iframeRef, instance, 500).then((document) => {
-    //   if (document !== true)
-    //     document.documentElement.setAttribute('data-theme', theme);
-    // });
+    if (src) {
+      waitIframeDocument(iframeRef, instance, 500).then((iframeDocument) => {
+        if (typeof iframeDocument === 'boolean') return;
 
-    return () => {
-      instance.isActual = false;
-    };
-  }, [theme]);
+        iframeDocument.documentElement.setAttribute('data-theme', theme);
+      });
+
+      return () => {
+        instance.isActual = false;
+      };
+    } else {
+      iframeRef.contentDocument.documentElement.setAttribute(
+        'data-theme',
+        theme
+      );
+    }
+  }, [theme, iframeRef]);
 
   useEffect(() => {
     if (!iframeRef) return;

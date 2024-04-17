@@ -5,7 +5,6 @@ import styles from './Core.module.css';
 import variables from '../App/variables.module.css';
 import classNames from 'classnames';
 import useViewportSize from '../../../../ComponentViewer/src/utils/customHooks/useViewportSize';
-import waitIframeDocument from '../../../../ComponentViewer/src/utils/asyncTools/waitIframeDocument';
 
 interface ICoreViewer {
   children: ReactNode | ReactNode[];
@@ -27,36 +26,27 @@ export default function CoreViewer(props: ICoreViewer) {
   const { children } = props;
 
   const [viewportWidth] = useViewportSize();
-  const [isMobile, setIsMobile] = useContext(MobileContext);
-  const [htmlHeight, setHtmlHeight] = useState(0);
+  const [isMobile, toggleMobile] = useContext(MobileContext);
+
+  useEffect(() => {
+    console.log(viewportWidth);
+    if (!viewportWidth) return;
+    if (viewportWidth > 1024 && isMobile !== 'desktop') toggleMobile();
+    else if (viewportWidth <= 1024 && isMobile !== 'mobile') toggleMobile();
+  }, []);
 
   const virtualWidth = findVirtualWidth(viewportWidth, isMobile === 'mobile');
 
   const viewerProps = {
     externalStyles: classNames(variables.colors, styles.fromCore, variables.w),
     withFullPage: false,
-    ViewerHeightDefault: htmlHeight,
+    ViewerHeightDefault: 0,
     min: virtualWidth,
     max: virtualWidth,
   };
 
-  const [Core, setCore] = useState(null);
-  // useEffect(() => {
-  //   if (!Core) return;
-  //   const iframe = Core.querySelector('iframe');
-
-  //   const instance = { isActual: true };
-  //   waitIframeDocument(iframe, instance, 200).then((iframeDocument) => {
-  //     setHtmlHeight(iframeDocument.body.offsetHeight);
-  //   });
-
-  //   return () => {
-  //     instance.isActual = false;
-  //   };
-  // }, [Core, virtualWidth]);
-
   return (
-    <div className={classNames(styles.Core)} ref={setCore}>
+    <div className={classNames(styles.Core)}>
       <Viewer {...viewerProps}>{children}</Viewer>
     </div>
   );

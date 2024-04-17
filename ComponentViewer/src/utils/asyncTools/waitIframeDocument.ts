@@ -1,5 +1,8 @@
 import waitBySetInterval from './waitBySetInterval';
 
+/**
+ * Only for iframe through src. Not for react portals.
+ */
 export default function waitIframeDocument(
   iframe: HTMLIFrameElement,
   instance: { isActual: boolean },
@@ -7,12 +10,14 @@ export default function waitIframeDocument(
 ) {
   instance.isActual = true;
 
-  return waitBySetInterval(() => {
+  return waitBySetInterval<Document>(() => {
     if (!instance.isActual) return true;
+
     const iframeWindow = iframe.contentDocument;
-    console.log(iframeWindow.location);
-    if (iframeWindow.location.origin !== 'null') {
+    const body = JSON.stringify(iframeWindow.body);
+    if (body !== 'null' && iframeWindow.location.origin !== 'null') {
       return iframeWindow;
     }
-  }, time) as Promise<Document | true>;
+    return false;
+  }, time);
 }
