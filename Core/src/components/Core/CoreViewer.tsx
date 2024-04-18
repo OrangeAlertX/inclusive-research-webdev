@@ -1,4 +1,4 @@
-import { ReactNode, useContext, useEffect, useState } from 'react';
+import { ReactNode, useContext, useEffect, useRef, useState } from 'react';
 import { MobileContext } from '../../utils/Context';
 import { Viewer } from '../App/App';
 import styles from './Core.module.css';
@@ -28,12 +28,15 @@ export default function CoreViewer(props: ICoreViewer) {
   const [viewportWidth] = useViewportSize();
   const [isMobile, toggleMobile] = useContext(MobileContext);
 
+  const runOnce = useRef(false);
   useEffect(() => {
-    console.log(viewportWidth);
     if (!viewportWidth) return;
+    if (runOnce.current) return;
+    runOnce.current = true;
+
     if (viewportWidth > 1024 && isMobile !== 'desktop') toggleMobile();
     else if (viewportWidth <= 1024 && isMobile !== 'mobile') toggleMobile();
-  }, []);
+  }, [viewportWidth]);
 
   const virtualWidth = findVirtualWidth(viewportWidth, isMobile === 'mobile');
 

@@ -11,8 +11,7 @@ let componentFolder = 'components';
 const createComponent = function (name, pathToSrc, componentFolder) {
   const resolvedPath = path.resolve(process.cwd(), pathToSrc, componentFolder);
 
-  const nameTSXcontent = `import { ReactNode } from 'react';
-import styles from './${name}.module.css';
+  const nameTSXcontent = `import styles from './${name}.module.css';
 
 interface I${name} {
   // children: ReactNode | ReactNode[]

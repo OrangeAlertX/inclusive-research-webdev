@@ -7,7 +7,7 @@ import Contacts from '../Contacts/Contacts';
 import global from '../../global.module.css';
 import variables from '../App/variables.module.css';
 import classNames from 'classnames';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import {
   MobileContextProvider,
   ThemeContextProvider,
@@ -20,14 +20,6 @@ Core.defaultProps = {};
 
 export default function Core(props: ICore) {
   const {} = props;
-
-  // useEffect(() => {
-  //   if (!viewportWidth) return;
-
-  //   if (viewportWidth <= 1024) {
-  //     setIsMobile('mobile');
-  //   } else {setIsMobile('desktop')};
-  // }, [viewportWidth]);
 
   const ViewerChildrenMemo = useMemo(() => {
     return (
