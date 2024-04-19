@@ -30,9 +30,9 @@ export default function Popup(props: IPopup) {
   }, [PopupRef]);
 
   const PopupComponent = active ? (
-    <div className={classNames(className ?? styles.Popup)} ref={setPopupRef}>
+    <div className={classNames(className, styles.Popup)} ref={setPopupRef}>
       <div className={styles.content}>
-        <div>{children}</div>
+        <div className={styles.contentInner}>{children}</div>
       </div>
     </div>
   ) : null;

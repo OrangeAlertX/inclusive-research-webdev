@@ -5,9 +5,9 @@ import { ReactComponent as StaticDetails } from '../../../../Landing-Page-Static
 import { ReactComponent as ResponsiveDetails } from '../../../../Landing-Page-Responsive/README.md';
 import { ReactComponent as ColorGameDetails } from '../../../../Paired-Colors/README.md';
 import { ReactComponent as TemplatesDetails } from '../../../../ReactTemplates/README.md';
-import { ReactComponent as ViewerDetails } from '../../../../Viewer/README.md';
+import { ReactComponent as ViewerDetails } from '../../../../ComponentViewer/README.md';
 import { ReactComponent as CoreDetails } from '../../../README.md';
-import { ReactComponent as LeetcodeDetails } from '../../../../Leetcode/README.md';
+import { ReactComponent as LeetcodeDetails } from '../../../../Leetcode-Parser/README.md';
 import { ReactComponent as CollectionDetails } from '../../../../ComponentCollection/README.md';
 import { ReactComponent as DeployDetails } from '../../../../README.md';
 

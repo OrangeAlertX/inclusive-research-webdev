@@ -1,9 +1,9 @@
 import { HiOutlineExternalLink } from 'react-icons/hi';
 import styles from './Project.module.css';
 import variables from '../../App/variables.module.css';
-import GitHubLink from './GitHubLink';
 import { Viewer } from '../../App/App';
 import ButtonPopup from '../../../../../ComponentCollection/src/components/ButtonPopup/ButtonPopup';
+import { FaGithub } from 'react-icons/fa';
 
 export interface ProjectData {
   title: string;
@@ -48,12 +48,19 @@ export default function Project(props: IProject) {
           </div>
 
           {Details && (
-            <ButtonPopup buttonContent={'Подробнее'}>{<Details />}</ButtonPopup>
+            <ButtonPopup
+              classNamePopup={styles.popup}
+              buttonContent={'Подробнее'}
+            >
+              {<Details />}
+            </ButtonPopup>
           )}
         </div>
 
         <div className={styles.links}>
-          <GitHubLink href={project.code} />
+          <a target="_blank" href={project.code}>
+            <FaGithub size={'2em'} />
+          </a>
           {project.src && (
             <a target="_blank" href={project.src}>
               <HiOutlineExternalLink size={'2em'} />
