@@ -3,7 +3,6 @@ import { Viewer } from '../App/App';
 import classNames from 'classnames';
 import { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from '../../utils/Context';
-import waitBySetInterval from '../../../../ComponentViewer/src/utils/asyncTools/waitBySetInterval';
 import waitIframeDocument from '../../../../ComponentViewer/src/utils/asyncTools/waitIframeDocument';
 
 interface ILeetcode {}
@@ -40,10 +39,11 @@ export default function Leetcode(props: ILeetcode) {
           target="_blank"
           rel="noopener noreferrer"
           className={styles.link}
+          data-link="ссылка на профиль"
         >
           OrangeAlertX
         </a>
-        <span className={styles.linkpopup}>(ссылка на профиль)</span>
+        {/* <span className={styles.linkpopup}>(ссылка на профиль)</span> */}
       </h3>
       <div className={styles.container} ref={setRef}>
         <Viewer

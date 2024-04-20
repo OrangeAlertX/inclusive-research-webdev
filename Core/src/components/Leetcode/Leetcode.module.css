@@ -4,8 +4,21 @@
 }
 
 .link {
+  position: relative;
   border-bottom: 1px solid currentColor;
   padding-bottom: 5px;
+}
+.link:hover::after {
+  content: ' ' attr(data-link) ' 🔗';
+  font-size: 0.75em;
+
+  position: absolute;
+  height: 100%;
+  white-space: nowrap;
+  text-align: center;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  margin-left: 0.75em;
 }
 
 .profile {
