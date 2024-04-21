@@ -2,6 +2,7 @@ import {
   Dispatch,
   SetStateAction,
   useCallback,
+  useContext,
   useMemo,
   useState,
 } from 'react';
@@ -11,6 +12,7 @@ import debounce from '../../../utils/asyncTools/debounce';
 import useCallbackOnWheel from '../../../utils/customHooks/useCallbackOnWheel';
 import RangeOptions from './RangeOptions';
 import { v4 as uuidv4 } from 'uuid';
+import { MobileContext } from '../../../../../Core/src/utils/Context';
 
 interface IRangeSlider {
   className?: string;
@@ -63,6 +65,8 @@ export default function RangeSlider(props: IRangeSlider) {
     breakpoints,
   } = props;
 
+  const [isMobile] = useContext(MobileContext);
+
   const [tempValue, setTempValue] = useState(parentValue);
   const parentRerenderDebounce = useCallback(
     debounce((value) => setParentValue(value), 1000),
@@ -92,7 +96,7 @@ export default function RangeSlider(props: IRangeSlider) {
   return (
     <div
       className={classNames(
-        { [styles.horizontal]: min !== max && isHorizontal },
+        { [styles.horizontal]: (min !== max && isHorizontal) || isMobile },
         { [styles.disable]: min === max || !visible },
         props.className
       )}

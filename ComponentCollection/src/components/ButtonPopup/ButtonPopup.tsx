@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useMemo, useState } from 'react';
 import styles from './ButtonPopup.module.css';
 import Popup from '../../UI/Popup/Popup';
 import Button from '../../UI/Button/Button';
@@ -18,11 +18,8 @@ export default function ButtonPopup(props: IButtonPopup) {
   const [active, setActive] = useState(false);
   const toggleActive = () => setActive((prev) => !prev);
 
-  return (
-    <>
-      <Button className={classNameButton} onClick={toggleActive}>
-        {buttonContent}
-      </Button>
+  const PopupComponent = useMemo(
+    () => (
       <Popup
         className={classNamePopup}
         active={active}
@@ -30,6 +27,16 @@ export default function ButtonPopup(props: IButtonPopup) {
       >
         {children}
       </Popup>
+    ),
+    [active]
+  );
+
+  return (
+    <>
+      <Button className={classNameButton} onClick={toggleActive}>
+        {buttonContent}
+      </Button>
+      {PopupComponent}
     </>
   );
 }

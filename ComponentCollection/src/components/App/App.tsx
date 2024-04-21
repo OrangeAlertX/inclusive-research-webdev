@@ -11,8 +11,9 @@ export default function App() {
         externalStyles={classNames(Object.values(variables))}
         fitContent={false}
         withMobileView={false}
+        withFullPage={false}
       >
-        <ButtonPopup>Nothing</ButtonPopup>
+        <ButtonPopup buttonContent={'Nothing'}>EEE</ButtonPopup>
       </Viewer>
     </RootContainer>
   );

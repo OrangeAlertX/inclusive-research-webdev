@@ -10,6 +10,8 @@ import { ReactComponent as CoreDetails } from '../../../README.md';
 import { ReactComponent as LeetcodeDetails } from '../../../../Leetcode-Parser/README.md';
 import { ReactComponent as CollectionDetails } from '../../../../ComponentCollection/README.md';
 import { ReactComponent as DeployDetails } from '../../../../README.md';
+import { useEffect, useState } from 'react';
+import Button from '../../../../ComponentCollection/src/UI/Button/Button';
 
 interface IMyProjects {
   // children: ReactNode | ReactNode[];
@@ -41,6 +43,32 @@ const projectAdaptive: ProjectData = {
   details: ResponsiveDetails,
 };
 
+function ColorGameDetailsWithCheat() {
+  const ResetButton = localStorage.getItem('curDiffAvailable') != '1';
+  const style: React.CSSProperties = { marginLeft: 'auto', display: 'block' };
+
+  console.log(localStorage.getItem('curDiffAvailable'));
+
+  return (
+    <>
+      <Button
+        onClick={() => localStorage.setItem('curDiffAvailable', '8')}
+        style={style}
+      >
+        Cheat Difficulties
+      </Button>
+      {ResetButton && (
+        <Button
+          onClick={() => localStorage.setItem('curDiffAvailable', '1')}
+          style={style}
+        >
+          Reset Progress
+        </Button>
+      )}
+      <ColorGameDetails />
+    </>
+  );
+}
 const projectColorGame: ProjectData = {
   title: 'Игра найди пару',
   newSkills: ['JavaScript', 'Организация кода'],
@@ -48,7 +76,7 @@ const projectColorGame: ProjectData = {
     'Адаптивная игра "найди пару" с несколькими уровнями сложности на чистом JS.',
   code: 'https://github.com/OrangeAlertX/inclusive-research-webdev/tree/main/Paired-Colors',
   src: `/projects/colors-game`,
-  details: ColorGameDetails,
+  details: ColorGameDetailsWithCheat,
 };
 
 const projectTemplates: ProjectData = {
@@ -124,8 +152,17 @@ export default function MyProjects(props: IMyProjects) {
     return <Project {...project} Viewer={Viewer} />;
   };
 
+  const [MyProjectsRef, setMyProjectsRef] = useState(null);
+  useEffect(() => {
+    if (!MyProjectsRef) return;
+
+    const game = MyProjectsRef.querySelector(
+      `iframe[src*='${projectColorGame.src}']`
+    );
+  }, [MyProjectsRef]);
+
   return (
-    <div className={styles.MyProjects}>
+    <div className={styles.MyProjects} ref={setMyProjectsRef}>
       <h2 className={styles.title}>Проекты</h2>
       {projects.map((project) => {
         return <ProjectWithViewer key={project.title} project={project} />;

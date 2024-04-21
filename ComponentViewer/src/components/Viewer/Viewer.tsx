@@ -1,4 +1,4 @@
-import { useState, useRef, ReactNode } from 'react';
+import { useState, useRef, ReactNode, useContext } from 'react';
 import classNames from 'classnames';
 import styles from './Viewer.module.css';
 import RangeSlider from './RangeSlider/RangeSlider';
@@ -6,6 +6,7 @@ import EmbedComponent from './EmbedComponent/EmbedComponent';
 import variables from '../App/variables.module.css';
 import useFullscreen from '../../utils/customHooks/useFullscreen';
 import useStateWithUpdate from '../../utils/customHooks/useStateWithUpdate';
+import { MobileContext } from '../../../../Core/src/utils/Context';
 
 interface IViewer {
   /**
@@ -99,6 +100,8 @@ export default function Viewer(props: IViewer) {
     externalStyles,
   } = props;
 
+  const [isMobile] = useContext(MobileContext);
+
   const [resolution, setResolution] = useStateWithUpdate(Math.max(720, min));
 
   const [ViewerHeight, setViewerHeight] =
@@ -148,8 +151,11 @@ export default function Viewer(props: IViewer) {
       className={classNames(
         styles.Viewer,
         externalStyles ?? variables.colorsDefault,
-        min === max || fitContent ? styles.width100 : false,
-        !ViewerHeight ? styles.height100 : false
+        {
+          [styles.width100]: min === max || fitContent,
+          [styles.height100]: !ViewerHeight,
+          [styles.mobile]: isMobile,
+        }
       )}
     >
       <EmbedComponent {...EmbedProps}>{children}</EmbedComponent>

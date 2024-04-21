@@ -13,6 +13,15 @@
   --second-color: #147053; */
 }
 
+.mobile {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.mobile > [class*='horizontal'] {
+  align-self: center;
+}
+
 .width100 {
   width: 100%;
 }

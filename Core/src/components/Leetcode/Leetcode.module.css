@@ -15,9 +15,7 @@
   position: absolute;
   height: 100%;
   white-space: nowrap;
-  text-align: center;
-  margin-top: 100px;
-  margin-bottom: 100px;
+  line-height: 2em;
   margin-left: 0.75em;
 }
 
@@ -46,6 +44,7 @@
   overflow: hidden;
 
   pointer-events: none;
+  user-select: none;
 }
 
 .colors {
