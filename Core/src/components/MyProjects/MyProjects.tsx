@@ -44,27 +44,52 @@ const projectAdaptive: ProjectData = {
 };
 
 function ColorGameDetailsWithCheat() {
-  const ResetButton = localStorage.getItem('curDiffAvailable') != '1';
-  const style: React.CSSProperties = { marginLeft: 'auto', display: 'block' };
+  const isAvailable = () => localStorage.getItem('curDiffAvailable') != '1';
+  const [isResetButtonVisible, setIsResetButtonVisible] = useState(
+    isAvailable()
+  );
 
-  console.log(localStorage.getItem('curDiffAvailable'));
+  const styleCheat: React.CSSProperties = {
+    marginLeft: 'auto',
+    marginBottom: '0.5em',
+    display: 'block',
+  };
+  const styleReset: React.CSSProperties = { ...styleCheat };
+
+  styleReset.visibility = isResetButtonVisible ? 'visible' : 'hidden';
+
+  useEffect(() => {
+    const cb = () => {
+      setIsResetButtonVisible(isAvailable());
+    };
+
+    window.addEventListener('storageUpdate', cb);
+
+    return () => {
+      window.removeEventListener('storageUpdate', cb);
+    };
+  }, []);
 
   return (
     <>
       <Button
-        onClick={() => localStorage.setItem('curDiffAvailable', '8')}
-        style={style}
+        onClick={() => {
+          localStorage.setItem('curDiffAvailable', '8');
+          setIsResetButtonVisible(isAvailable());
+        }}
+        style={styleCheat}
       >
         Cheat Difficulties
       </Button>
-      {ResetButton && (
-        <Button
-          onClick={() => localStorage.setItem('curDiffAvailable', '1')}
-          style={style}
-        >
-          Reset Progress
-        </Button>
-      )}
+      <Button
+        onClick={() => {
+          localStorage.setItem('curDiffAvailable', '1'),
+            setIsResetButtonVisible(isAvailable());
+        }}
+        style={styleReset}
+      >
+        Reset Progress
+      </Button>
       <ColorGameDetails />
     </>
   );
@@ -141,7 +166,6 @@ const projects = [
   projectViewer,
   projectResume,
   projectLeetcode,
-  projectCollection,
   projectDeploy,
 ];
 
@@ -152,17 +176,8 @@ export default function MyProjects(props: IMyProjects) {
     return <Project {...project} Viewer={Viewer} />;
   };
 
-  const [MyProjectsRef, setMyProjectsRef] = useState(null);
-  useEffect(() => {
-    if (!MyProjectsRef) return;
-
-    const game = MyProjectsRef.querySelector(
-      `iframe[src*='${projectColorGame.src}']`
-    );
-  }, [MyProjectsRef]);
-
   return (
-    <div className={styles.MyProjects} ref={setMyProjectsRef}>
+    <div className={styles.MyProjects}>
       <h2 className={styles.title}>Проекты</h2>
       {projects.map((project) => {
         return <ProjectWithViewer key={project.title} project={project} />;

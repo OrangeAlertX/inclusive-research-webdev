@@ -17,6 +17,12 @@ export default function openCloseDifficulties(diffs) {
   if (!storageListener) {
     storageListener = true;
     window.addEventListener('storage', () => {
+      const event = new Event('storageUpdated');
+      event.key = 'curDiffAvailable';
+      event.value = curDiffAvailable;
+
+      window.dispatchEvent(event);
+
       openCloseDifficulties(diffs);
     });
   }

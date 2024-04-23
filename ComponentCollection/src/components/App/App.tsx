@@ -3,6 +3,7 @@ import variables from '../App/variables.module.css';
 import classNames from 'classnames';
 import RootContainer from '../../../../Core/src/UI/RootContainer/RootContainer';
 import ButtonPopup from '../ButtonPopup/ButtonPopup';
+import Button from '../../UI/Button/Button';
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
       >
         <ButtonPopup buttonContent={'Nothing'}>EEE</ButtonPopup>
       </Viewer>
+      <Button onClick={() => {}}>Button</Button>
     </RootContainer>
   );
 }

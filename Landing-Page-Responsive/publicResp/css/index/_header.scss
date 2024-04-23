@@ -235,8 +235,20 @@ p {
     }
 
     &__burger {
+      position: relative;
       display: block;
       order: -1;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: -100%;
+        top: -100%;
+        right: -100%;
+        bottom: -100%;
+
+        z-index: 1000;
+      }
     }
 
     &__close {

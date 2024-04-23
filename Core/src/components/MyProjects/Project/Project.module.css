@@ -16,7 +16,6 @@
 }
 
 .flexbox > button {
-  outline: 2px solid var(--second-color);
   margin: 2em;
 
   opacity: 0.5;

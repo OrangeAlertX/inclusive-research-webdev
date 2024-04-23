@@ -18,8 +18,11 @@ export default function ButtonPopup(props: IButtonPopup) {
   const [active, setActive] = useState(false);
   const toggleActive = () => setActive((prev) => !prev);
 
-  const PopupComponent = useMemo(
-    () => (
+  return (
+    <>
+      <Button className={classNameButton} onClick={toggleActive}>
+        {buttonContent}
+      </Button>
       <Popup
         className={classNamePopup}
         active={active}
@@ -27,16 +30,6 @@ export default function ButtonPopup(props: IButtonPopup) {
       >
         {children}
       </Popup>
-    ),
-    [active]
-  );
-
-  return (
-    <>
-      <Button className={classNameButton} onClick={toggleActive}>
-        {buttonContent}
-      </Button>
-      {PopupComponent}
     </>
   );
 }
