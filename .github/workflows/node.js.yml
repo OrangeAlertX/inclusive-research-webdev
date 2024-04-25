@@ -1,6 +1,6 @@
 # https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
-name: BUild and deploy on GitHub Pages
+name: Build and deploy on GitHub Pages
 
 on: workflow_dispatch
   # push:
@@ -33,7 +33,7 @@ jobs:
       uses: actions/cache@v3
       with: 
         path: ~/.npm
-        key: key-${{ hashFiles('./package-lock.json') }}
+        key: key-${{ hashFiles('**/Core/package-lock.json') }}
     - name: Install npm
       if: steps.installCore.outputs.cache-hit != 'true'
       run: npm ci
