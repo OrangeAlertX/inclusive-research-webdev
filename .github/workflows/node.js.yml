@@ -28,6 +28,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        cache-dependency-path: './Core/package-lock.json'
       
     - name: Cache next step
       id: installCore
