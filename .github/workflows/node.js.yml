@@ -12,7 +12,7 @@ jobs:
   buildCore:
     strategy:
       matrix:
-        node-version: [latest]
+        node-version: [20.12.2]
         os: [ubuntu-latest]
         
     runs-on: ${{ matrix.os }}
@@ -40,7 +40,9 @@ jobs:
         
     - name: Install npm
       if: steps.installCore.outputs.cache-hit != 'true'
-      run: npm ci
+      run: |
+        ls
+        npm ci
       env:
           NODE_AUTH_TOKEN: ${{ secrets.TOKEN_READ_PACKAGE }}
       
