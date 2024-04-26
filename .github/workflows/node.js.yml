@@ -40,8 +40,9 @@ jobs:
         
     - name: Install npm
       if: steps.installCore.outputs.cache-hit != 'true'
-    - run: ls
-    - run: npm ci
+      run: |
+        ls
+        npm ci
       env:
           NODE_AUTH_TOKEN: ${{ secrets.TOKEN_READ_PACKAGE }}
       
