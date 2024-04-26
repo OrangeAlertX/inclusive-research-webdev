@@ -141,6 +141,7 @@ const projectLeetcode: ProjectData = {
 };
 
 const projectCollection: ProjectData = {
+  // not ready
   title: 'Коллекция компонентов',
   newSkills: ['UI/UX Паттерны'],
   about:
