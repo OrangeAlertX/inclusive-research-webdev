@@ -18,8 +18,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     defaults:
       run:
-        shell: bash
-        working-directory: ./Core
+        working-directory: ./app
     steps:
     - name: Get repository code
       uses: actions/checkout@v4
