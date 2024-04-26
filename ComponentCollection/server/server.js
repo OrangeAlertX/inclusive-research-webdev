@@ -33,7 +33,7 @@ if (isDev) {
   });
   app.use(vite.middlewares);
 
-  app.use('*', async (req, res) => {
+  app.use(async (req, res) => {
     try {
       ///////////////////
       const url = req.originalUrl.replace(base, '');
@@ -68,7 +68,7 @@ if (isProduction) {
     'utf-8'
   );
 
-  app.use('*', async (req, res) => {
+  app.use(async (req, res) => {
     try {
       ///////////////////
       const url = req.originalUrl.replace(base, '');

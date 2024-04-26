@@ -1,13 +1,22 @@
 import Viewer from '../../../../ComponentViewer/src/components/Viewer/Viewer';
-import CounterButton from '../../simple/CounterButton/CounterButton';
-import RootContainer from '../../UI/RootContainer/RootContainer';
+import variables from '../App/variables.module.css';
+import classNames from 'classnames';
+import RootContainer from '../../../../Core/src/UI/RootContainer/RootContainer';
+import ButtonPopup from '../ButtonPopup/ButtonPopup';
+import Button from '../../UI/Button/Button';
 
 export default function App() {
   return (
     <RootContainer>
-      <Viewer min={350}>
-        <CounterButton></CounterButton>
+      <Viewer
+        externalStyles={classNames(Object.values(variables))}
+        fitContent={false}
+        withMobileView={false}
+        withFullPage={false}
+      >
+        <ButtonPopup buttonContent={'Nothing'}>EEE</ButtonPopup>
       </Viewer>
+      <Button onClick={() => {}}>Button</Button>
     </RootContainer>
   );
 }

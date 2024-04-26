@@ -1,0 +1,9 @@
+.ToggleButton {
+  position: relative;
+
+  background-color: var(--background-color);
+  cursor: pointer;
+}
+
+.active {
+}

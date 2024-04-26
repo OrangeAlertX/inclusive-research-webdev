@@ -1,5 +1,4 @@
 const path = require('path');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 module.exports = (env, args) => {
   const isDev = args.mode === 'development';
@@ -18,11 +17,18 @@ module.exports = (env, args) => {
           use: ['style-loader', 'css-loader', 'sass-loader'],
         },
         {
-          test: /\.(png|svg|jpg|jpeg|gif)$/i,
+          test: /\.(png|jpg|jpeg|gif)$/i,
           type: 'asset/resource',
+        },
+        {
+          test: /favicon\.ico$/i,
+          loader: 'url-loader',
+          options: {
+            limit: 1,
+            name: '[name].[ext]',
+          },
         },
       ],
     },
-    plugins: [new FaviconsWebpackPlugin('./publicCol/favicon.ico')],
   };
 };

@@ -1,0 +1,69 @@
+.Switch {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--second-color);
+
+  height: 1em;
+
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.sliderContainer {
+  position: relative;
+  width: 2em;
+
+  padding: 0.25em;
+}
+
+.sliderContainer:not(:first-child) {
+  margin-left: 0.25em;
+}
+.sliderContainer:not(:last-child) {
+  margin-right: 0.25em;
+}
+
+.slider {
+  position: relative;
+  z-index: 2;
+
+  margin-left: 0%;
+
+  width: 1em;
+  height: 1em;
+  border-radius: 100%;
+
+  transition: margin-left 0.3s linear;
+
+  background-color: var(--main-color);
+  border: none;
+}
+
+.active .slider {
+  margin-left: 33%;
+}
+
+.axis {
+  z-index: 1;
+
+  position: absolute;
+  top: 25%;
+  bottom: 25%;
+  left: 0;
+  right: 0;
+  width: 100%;
+
+  opacity: 0.5;
+
+  background-color: var(--second-color);
+  border-radius: 1em;
+}
+
+.active .axis {
+  opacity: 1;
+}

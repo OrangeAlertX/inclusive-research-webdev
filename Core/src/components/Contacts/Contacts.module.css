@@ -5,13 +5,27 @@
 
 .contacts a {
   color: var(--second-color);
+
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .Contacts {
   padding: 1em;
 
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
 
   background-color: black;
+
+  overflow: hidden;
+}
+
+.theme {
+  font-size: 32px;
+}
+
+.mobileTheme {
+  font-size: 32px;
 }

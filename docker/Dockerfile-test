@@ -1,0 +1,24 @@
+FROM node:alpine
+
+WORKDIR /app
+
+EXPOSE 5173
+
+COPY ../Core ./Core
+RUN cd ./Core && npm i && cd ../
+
+COPY ../Landing-Page-Static ./Landing-Page-Static
+
+COPY ../Landing-Page-Responsive ./Landing-Page-Responsive
+RUN cd ./Landing-Page-Responsive && npm i && cd ../
+
+COPY ../Paired-Colors ./Paired-Colors
+RUN cd ./Paired-Colors && npm i && cd ../
+
+COPY ../ComponentViewer ./ComponentViewer
+RUN cd ./ComponentViewer && npm i && cd ../
+
+COPY ../ComponentCollection ./ComponentCollection
+RUN cd ./ComponentCollection && npm i && cd ../Core
+
+CMD ["cd", "./Core", "&&", "npm", "run", "dev"]

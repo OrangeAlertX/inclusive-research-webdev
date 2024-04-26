@@ -3,6 +3,22 @@
   color: var(--main-color);
 }
 
+.link {
+  position: relative;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 5px;
+}
+.link:hover::after {
+  content: ' ' attr(data-link) ' 🔗';
+  font-size: 0.75em;
+
+  position: absolute;
+  height: 100%;
+  white-space: nowrap;
+  line-height: 2em;
+  margin-left: 0.75em;
+}
+
 .profile {
   margin: var(--first-margin);
 }
@@ -26,6 +42,9 @@
 
   border-radius: 1em;
   overflow: hidden;
+
+  pointer-events: none;
+  user-select: none;
 }
 
 .colors {
@@ -33,7 +52,12 @@
   --second-color: tranparent;
 }
 
-.iframeOutline {
+.fromLeetcode iframe[class*='inner'] {
   outline: 10px solid #282828;
+  outline-offset: -10px;
+}
+
+[data-theme='light'] .fromLeetcode iframe[class*='inner'] {
+  outline: 10px solid var(--background-color);
   outline-offset: -10px;
 }

@@ -1,32 +1,83 @@
-import { useState, useMemo, useRef, useEffect } from 'react';
+import { useState, useRef, ReactNode, useContext } from 'react';
 import classNames from 'classnames';
 import styles from './Viewer.module.css';
 import RangeSlider from './RangeSlider/RangeSlider';
 import EmbedComponent from './EmbedComponent/EmbedComponent';
 import variables from '../App/variables.module.css';
-import useSetFalseWhenExitFullscreenAPI from '../../utils/customHooks/useSetFalseWhenExitFullscreenAPI';
+import useFullscreen from '../../utils/customHooks/useFullscreen';
+import useStateWithUpdate from '../../utils/customHooks/useStateWithUpdate';
+import { MobileContext } from '../../../../Core/src/utils/Context';
 
 interface IViewer {
-  withRangeSlider?: boolean;
+  /**
+   * @defaultValue true
+   */
   withFullPage?: boolean;
+  /**
+   * When viewport > 1024px, changing width/height proportion for Viewer < 1024
+   * @defaultValue true
+   */
+  withMobileView?: boolean;
+  /**
+   * Changing height when width was changed, to save width/height proportion
+   * @defaultValue false
+   */
   heightAdjust?: boolean;
+  /**
+   * @defaultValue  true
+   */
+  fitContent: boolean;
+  /**
+   * @defaultValue  400(px)
+   */
   ViewerHeightDefault?: number;
-  children?: React.ReactElement;
-  src?: string;
-  min: number;
-  max: number;
-  colors?: string;
+  /**
+   * Alternative: src.
+   */
+  children?: ReactNode | ReactNode[];
+  /**
+   * Link to the page, can be omitted.
+   * Alternative: children.
+   */
+  src?: string | null;
+  /**\
+   * if min === max, RangeSlider will be omitted
+   * @defaultValue 320
+   */
+  min?: number;
+  /**\
+   * if min === max, RangeSlider will be omitted
+   * @defaultValue 3840
+   */
+  max?: number;
+  /**
+   * @defaultValue pass className with defined
+   --main-color, 
+   --second-color
+   - Viewer
+    - - container
+        - - - main
+          - - - - outer
+            - - - - - inner
+        - - - Overlay
+    - - RangeSlider
+      - - - container
+        - - - - slider
+        - - - - tooltip
+    - ~FullPage
+   */
+  externalStyles?: string;
 }
 
 Viewer.defaultProps = {
-  withRangeSlider: true,
   withFullPage: true,
+  withMobileView: true,
+  fitContent: true,
   heightAdjust: false,
   ViewerHeightDefault: 400,
-  src: '',
+  src: null,
   min: 320,
   max: 3840,
-  colors: variables.colorsDefault,
 };
 
 const breakpoints = [
@@ -37,97 +88,78 @@ const breakpoints = [
 /////////////////////////
 export default function Viewer(props: IViewer) {
   const {
-    withRangeSlider,
     withFullPage,
+    withMobileView,
+    fitContent,
     heightAdjust,
     ViewerHeightDefault,
     children,
     src,
     min,
     max,
-    colors,
+    externalStyles,
   } = props;
 
-  const breakpointsOnMinMax = useMemo(() => {
-    const newBreakpoints = breakpoints.filter((point) => {
-      if (point > min && point < max) return true;
-      return false;
-    });
-    newBreakpoints.push(max);
-    newBreakpoints.unshift(min);
-    return newBreakpoints;
-  }, [min, max]);
+  const [isMobile] = useContext(MobileContext);
 
-  const [resolution, setResolution] = useState(Math.max(720, min));
-  const [fullscreen, toggleFullscreen] = useState(false);
-  const onClick = () => {
-    toggleFullscreen((fullscreen) => !fullscreen);
-  };
-  const [ViewerHeight, setViewerHeight] = useState(ViewerHeightDefault);
+  const [resolution, setResolution] = useStateWithUpdate(Math.max(720, min));
+
+  const [ViewerHeight, setViewerHeight] =
+    useStateWithUpdate(ViewerHeightDefault);
   const setViewerHeightHandler = (multiplier: number) =>
     setViewerHeight(ViewerHeightDefault * multiplier);
 
-  const RangeSliderRef = useRef(null);
+  const [RangeSliderRef, setRangeSliderRef] = useState<Element>(null);
+
   const ViewerRef = useRef(null);
-
-  useEffect(() => {
-    if (fullscreen) ViewerRef.current.requestFullscreen();
-    else if (document.fullscreenElement) document.exitFullscreen();
-  }, [fullscreen]);
-
-  useSetFalseWhenExitFullscreenAPI({
-    target: ViewerRef,
-    setState: toggleFullscreen,
-  });
+  const [fullscreen, setFullscreen] = useFullscreen(ViewerRef);
+  const toggleFullscreen = () => {
+    setFullscreen((fullscreen) => !fullscreen);
+  };
 
   const RangeSliderProps = {
-    resolution,
-    setResolution,
+    className: classNames({ [styles.RangeSlider]: fullscreen }),
+    colors: externalStyles ?? variables.colorsDefault,
+    parentValue: resolution,
+    setParentValue: setResolution,
     min,
     max,
-    className: styles.RangeSlider,
-    fullscreen,
-    RangeSliderRef,
-    withRangeSlider,
+    setRangeSliderRef,
+    breakpoints,
+    isHorizontal: fullscreen,
+    visible: !fitContent || fullscreen,
   };
   const EmbedProps = {
     resolution,
     fullscreen,
-    onClick,
+    toggleFullscreen,
     src,
     RangeSliderRef,
-    withRangeSlider,
+    withRangeSlider: min !== max,
     withFullPage,
+    withMobileView,
+    fitContent,
     heightAdjust,
     ViewerHeight,
     setViewerHeightHandler,
   };
 
-  const RangeOptions =
-    min !== max ? (
-      <datalist id="markersOfRangeSlider">
-        {breakpointsOnMinMax.map((point) => {
-          return (
-            <option key={point} value={point} label={point.toString()}></option>
-          );
-        })}
-      </datalist>
-    ) : null;
-
   return (
     <div
       ref={ViewerRef}
-      style={{ height: ViewerHeight + 'px' }}
+      style={ViewerHeight ? { height: ViewerHeight + 'px' } : null}
       className={classNames(
         styles.Viewer,
-        colors,
-        !withRangeSlider ? styles.width100 : false
+        externalStyles ?? variables.colorsDefault,
+        {
+          [styles.width100]: min === max || fitContent,
+          [styles.height100]: !ViewerHeight,
+          [styles.mobile]: isMobile,
+        }
       )}
     >
       <EmbedComponent {...EmbedProps}>{children}</EmbedComponent>
-      <RangeSlider {...RangeSliderProps} />
-
-      {RangeOptions}
+      {min !== max && <RangeSlider {...RangeSliderProps} />}
     </div>
   );
 }

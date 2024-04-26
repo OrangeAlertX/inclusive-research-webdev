@@ -33,6 +33,7 @@ p {
     height: var(--header__height);
 
     max-width: 1770px;
+    width: 100%;
     padding: 0 var(--global-indentation);
     background-color: var(--element-background);
     border-radius: 0 0 var(--border-radius) var(--border-radius);
@@ -234,8 +235,20 @@ p {
     }
 
     &__burger {
+      position: relative;
       display: block;
       order: -1;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: -100%;
+        top: -100%;
+        right: -100%;
+        bottom: -100%;
+
+        z-index: 1000;
+      }
     }
 
     &__close {

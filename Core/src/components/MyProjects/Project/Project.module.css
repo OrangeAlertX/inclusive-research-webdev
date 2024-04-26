@@ -7,6 +7,42 @@
   }
 }
 
+.flexbox {
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.flexbox > button {
+  margin: 2em;
+
+  opacity: 0.5;
+}
+.flexbox > button:hover {
+  opacity: 1;
+}
+
+@media (max-width: 767px) {
+  .flexbox > button {
+    align-self: start;
+  }
+}
+
+.popup ul {
+  list-style: inside;
+}
+
+.popup li {
+  text-indent: 0.5em;
+  margin: 0.5em 0;
+}
+
+.popup p {
+  text-indent: 1em;
+}
+
 .content {
   position: relative;
   flex: 1;

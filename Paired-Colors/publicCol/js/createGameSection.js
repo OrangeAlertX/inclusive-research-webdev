@@ -1,4 +1,5 @@
 import '../css/styles.scss';
+import '../favicon.ico';
 
 import Section from './structure/Section';
 import createDifficulties from './structure/createDifficulties';

@@ -1,6 +1,6 @@
 {
   "name": "@orangealertx/gen",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "generate React-component",
   "main": "createComponent.js",
   "bin": "./createComponent.js",

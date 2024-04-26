@@ -5,3 +5,7 @@
 
   color: var(--main-color);
 }
+
+[data-theme='light'] .svg {
+  color: var(--second-color);
+}

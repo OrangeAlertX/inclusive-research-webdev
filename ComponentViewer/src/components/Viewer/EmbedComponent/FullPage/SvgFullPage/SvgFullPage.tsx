@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styles from './SvgFullPage.module.css';
 
 interface ISvgFullPage {

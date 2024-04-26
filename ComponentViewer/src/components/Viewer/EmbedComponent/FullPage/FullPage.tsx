@@ -1,5 +1,5 @@
+import Button from '../../../../../../ComponentCollection/src/UI/Button/Button';
 import styles from './FullPage.module.css';
-import Button from '../../../../UI/Button/Button';
 import SvgFullPage from './SvgFullPage/SvgFullPage';
 
 interface IFullPage {

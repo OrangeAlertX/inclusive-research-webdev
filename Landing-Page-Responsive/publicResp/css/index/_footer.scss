@@ -16,6 +16,7 @@
 
   &__nav {
     & a {
+      display: block;
       color: var(--border-color);
       @media (hover: hover) {
         &:hover {

@@ -1,9 +1,18 @@
+:root,
 .colors {
   --main-color: #ffa500;
   --second-color: #147053;
+  --background-color: #242424;
 }
 
+:root,
 .w {
-  --background-color: #242424;
   --first-margin: 1.5em;
+}
+
+:root[data-theme='light'],
+[data-theme='light'] .colors {
+  --background-color: white;
+  --main-color: black;
+  --second-color: #ffa500;
 }

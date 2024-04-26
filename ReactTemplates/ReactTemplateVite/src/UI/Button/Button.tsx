@@ -1,7 +1,8 @@
 import styles from './Button.module.css';
+import {ReactElement} from "react";
 
 interface IButton {
-  children: React.ReactElement | string | number | JSX.Element | (() => string);
+  children: ReactElement | string | number | (() => string);
   onClick: () => void;
 }
 

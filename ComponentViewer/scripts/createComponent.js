@@ -9,11 +9,12 @@ let componentFolder = 'components';
 const createComponent = function (name, pathToSrc, componentFolder) {
   const resolvedPath = path.resolve(process.cwd(), pathToSrc, componentFolder);
 
-  const nameTSXcontent = `import { useState } from 'react';
+  const nameTSXcontent =
+  `import { ReactElement } from 'react';
 import styles from './${name}.module.css';
 
 interface I${name} {
-  children: React.ReactElement | string | JSX.Element;
+  children?: ReactElement | null;
 }
 
 ${name}.defaultProps = {
@@ -21,7 +22,7 @@ ${name}.defaultProps = {
 }
 
 export default function ${name}(props: I${name}) {
-  const { children } = props;
+  const {} = props;
 
   return (<div className={styles.${name}}></div>);
 }`;

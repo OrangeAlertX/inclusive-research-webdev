@@ -1,38 +1,34 @@
 import styles from './Leetcode.module.css';
-import { useEffect, useRef } from 'react';
 import { Viewer } from '../App/App';
+import classNames from 'classnames';
+import { useContext, useEffect, useState } from 'react';
+import { ThemeContext } from '../../utils/Context';
+import waitIframeDocument from '../../../../ComponentViewer/src/utils/asyncTools/waitIframeDocument';
 
-interface ILeetcode {
-  // children: React.ReactElement | string | JSX.Element;
-}
+interface ILeetcode {}
 
 Leetcode.defaultProps = {};
 
 export default function Leetcode(props: ILeetcode) {
   const {} = props;
 
-  const ref = useRef(null);
+  const [ref, setRef] = useState(null);
+  const [theme] = useContext(ThemeContext);
 
   useEffect(() => {
-    let iframe = ref.current?.querySelector('iframe');
+    if (!ref) return;
 
-    const setStyles = () => {
-      const style = {
-        outline: '10px solid #282828',
-        outlineOffset: '-10px',
-      };
+    const iframe = ref.querySelector('iframe');
 
-      iframe.classList.add(styles.iframeOutline);
+    let instance = { isActual: true };
+    waitIframeDocument(iframe, instance, 200).then((iframeWindow: Document) => {
+      if (!instance.isActual) return;
+      iframeWindow.documentElement.setAttribute('class', theme);
+    });
+    return () => {
+      instance.isActual = false;
     };
-
-    if (!iframe) {
-      const interval = setInterval(() => {
-        iframe = ref.current.querySelector('iframe');
-        if (iframe) clearInterval(interval);
-        setStyles();
-      }, 2000);
-    } else setStyles();
-  }, []);
+  }, [theme, ref]);
 
   return (
     <div className={styles.Leetcode}>
@@ -43,21 +39,22 @@ export default function Leetcode(props: ILeetcode) {
           target="_blank"
           rel="noopener noreferrer"
           className={styles.link}
+          data-link="ссылка на профиль"
         >
           OrangeAlertX
         </a>
-        <span className={styles.linkpopup}>(ссылка на профиль)</span>
+        {/* <span className={styles.linkpopup}>(ссылка на профиль)</span> */}
       </h3>
-      <div ref={ref} className={styles.container}>
+      <div className={styles.container} ref={setRef}>
         <Viewer
           src={`/projects/leetcode`}
           min={800}
           max={800}
-          withRangeSlider={false}
           withFullPage={false}
+          withMobileView={false}
           heightAdjust={true}
           ViewerHeightDefault={368}
-          colors={styles.colors}
+          externalStyles={classNames(styles.colors, styles.fromLeetcode)}
         ></Viewer>
       </div>
     </div>

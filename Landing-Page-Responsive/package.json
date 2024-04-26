@@ -1,5 +1,9 @@
 {
+  "scripts": {
+    "watch": "sass -w publicResp/css/index:publicResp/css"
+  },
   "devDependencies": {
-    "poly-fluid-sizing": "^1.2.1"
+    "poly-fluid-sizing": "^1.2.1",
+    "sass": "^1.72.0"
   }
 }

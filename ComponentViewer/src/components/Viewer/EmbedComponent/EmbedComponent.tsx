@@ -1,114 +1,101 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState, ReactNode, useContext } from 'react';
 import styles from './EmbedComponent.module.css';
 import { createPortal } from 'react-dom';
 import FullPage from './FullPage/FullPage';
 import classNames from 'classnames';
+import StylesForIframe_DEV from './StylesForIframeDev';
+import StylesForIframe_PROD from './StylesForIframeProd';
+import useSize from '../../../utils/customHooks/useSize';
+import Overlay from '../../../UI/Overlay/Overlay';
+import { ThemeContext } from '../../../../../Core/src/utils/Context';
+import waitIframeDocument from '../../../utils/asyncTools/waitIframeDocument';
 
 interface IEmbedComponent {
-  children?: React.ReactElement | undefined;
+  children: ReactNode | ReactNode[];
   resolution: number;
   fullscreen: boolean;
-  onClick: () => void;
-  RangeSliderRef: React.MutableRefObject<any>;
+  toggleFullscreen: () => void;
+  RangeSliderRef: Element;
   withRangeSlider: boolean;
   withFullPage: boolean;
+  withMobileView: boolean;
+  fitContent: boolean;
   heightAdjust: boolean;
   ViewerHeight: number;
   setViewerHeightHandler: (multiplier: number) => void;
-  src?: string | undefined;
+  src: string | null;
 }
-
-const cssOrLink = (cssLink, updateCssLink, mountedObservers) => {
-  if (cssLink || typeof window === 'undefined') return cssLink;
-
-  const head = document.head;
-
-  if (import.meta.env.DEV) {
-    const styles = head.querySelectorAll('style[type="text/css"]');
-
-    styles.forEach((style) => {
-      cssLink += style.innerHTML + ' ';
-    });
-
-    const observer = new MutationObserver((mutationsList) => {
-      cssLink = '';
-      styles.forEach((style) => {
-        cssLink += style.innerHTML + ' ';
-      });
-      updateCssLink(cssLink);
-    });
-    mountedObservers.push(observer);
-    observer.observe(head, { childList: true });
-    //////////
-  } else {
-    //////////
-    const cssBundle = head.querySelector('link[rel="stylesheet"]');
-    cssLink = cssBundle.getAttribute('href');
-  }
-
-  return cssLink;
-};
 
 export default function EmbedComponent(props: IEmbedComponent) {
   const {
     children,
     resolution,
     fullscreen,
-    onClick,
+    toggleFullscreen,
     RangeSliderRef,
     withRangeSlider,
     withFullPage,
+    withMobileView,
+    fitContent,
     heightAdjust,
-    ViewerHeight,
     setViewerHeightHandler: setViewerHeight,
     src,
   } = props;
 
-  const EmbedClassName = classNames(
-    styles.container,
-    fullscreen ? styles.fullscreen : false
-  );
-  const mainClassName = classNames(
-    styles.main,
-    fullscreen ? styles.fullscreenMain : false
-  );
+  // className
+  const EmbedClassName = classNames(styles.container, {
+    [styles.fullscreen]: fullscreen,
+  });
+  const mainClassName = classNames(styles.main, {
+    [styles.fullscreenMain]: fullscreen,
+  });
 
-  const [ref, setRef] = useState(null);
-  const [cssLink, updateCssLink] = useState('');
-  const [mainWidth, setMainWidth] = useState(0);
-  const [mainHeight, setMainHeight] = useState(ViewerHeight);
+  ////////////////////////////////////////////////////////////////////
+  const [iframeRef, setIframeRef] = useState(null);
+  const [iframeClass, setIframeClass] = useState(styles.inner);
+  const [mainRef, setMainRef] = useState(null);
+  const [mainWidth, mainHeight] = useSize(mainRef);
+  const [theme] = useContext(ThemeContext);
+  ////////////////////////////////////////////////////////////////////
 
-  const mountedObservers = useRef([]);
   useEffect(() => {
-    const iframe = ref;
-    if (!iframe) return;
-    if (!src) {
-      iframe.contentDocument.body.style = `display: flex; justify-content: center; align-items: center;`;
+    if (!iframeRef) return;
+
+    const instance = { isActual: true };
+    if (src) {
+      waitIframeDocument(iframeRef, instance, 500).then((iframeDocument) => {
+        if (typeof iframeDocument === 'boolean') return;
+
+        iframeDocument.documentElement.setAttribute('data-theme', theme);
+      });
+
+      return () => {
+        instance.isActual = false;
+      };
+    } else {
+      iframeRef.contentDocument.documentElement.setAttribute(
+        'data-theme',
+        theme
+      );
     }
-
-    const main = iframe.parentElement.parentElement;
-
-    //state for next useEffect, rerender when size of main is changing
-    const cb = () => {
-      setMainHeight(main.offsetHeight);
-      setMainWidth(main.offsetWidth);
-    };
-    const resizeObserver = new ResizeObserver(cb);
-    resizeObserver.observe(main);
-
-    return () => {
-      mountedObservers.current.forEach((observer) => observer.disconnect());
-      mountedObservers.current.length = 0; // eslint-disable-line
-
-      resizeObserver.disconnect();
-    };
-  }, [ref, src]);
+  }, [theme, iframeRef]);
 
   useEffect(() => {
-    const iframe = ref;
-    if (!iframe) return;
+    if (!iframeRef) return;
+    if (!src) {
+      const body = iframeRef.contentDocument.body;
+      const centered = `
+        display: flex; justify-content: center; align-items: center; position: relative; flex: 1`;
+      body.style = `display: flex; align-items: center; `;
+      body.querySelector('div').style = centered;
+    }
+  }, [src, iframeRef, children]);
 
-    const outer = iframe.parentElement;
+  // resolution logic
+  useEffect(() => {
+    if (!iframeRef) return;
+
+    const outer = iframeRef.parentElement;
 
     const multiplier = mainWidth / resolution;
 
@@ -121,12 +108,36 @@ export default function EmbedComponent(props: IEmbedComponent) {
     outer.style.setProperty('width', resolution + 'px');
     outer.style.setProperty('height', height + 'px');
     outer.style.setProperty('transform', `scale(${multiplier})`);
-    iframe.style.setProperty('height', height + 'px');
 
+    let multiplierMobile = 1;
+    if (withMobileView && window.innerWidth > 1024 && resolution <= 1024) {
+      const targetAspectRatio = resolution > 768 ? 4 / 3 : 16 / 9;
+      const currentAspectRatio = height / resolution;
+
+      multiplierMobile = targetAspectRatio / currentAspectRatio;
+    }
+    iframeRef.style.setProperty('height', height * multiplierMobile + 'px');
+
+    if (multiplierMobile !== 1) {
+      const scale = 1 / multiplierMobile;
+      const translate = 50 * (multiplierMobile - 1);
+
+      iframeRef.style.setProperty(
+        'transform',
+        `scale(${scale}) translateY(-${translate}%)`
+      );
+    } else if (iframeRef.style.getPropertyValue('transform')) {
+      iframeRef.style.setProperty('transform', '');
+    }
+    setIframeClass(
+      classNames(styles.inner, {
+        [styles.mobileOutline]: iframeRef?.style.getPropertyValue('transform'),
+      })
+    );
     //
   }, [
     resolution,
-    ref,
+    iframeRef,
     fullscreen,
     mainWidth,
     mainHeight,
@@ -134,38 +145,27 @@ export default function EmbedComponent(props: IEmbedComponent) {
     setViewerHeight,
   ]);
 
-  const mountBody = ref?.contentDocument?.body;
-  const mountHead = ref?.contentDocument?.body;
-  const headStyle = (
-    <>
-      {import.meta.env.DEV && (
-        <style>
-          {cssOrLink(cssLink, updateCssLink, mountedObservers.current)}
-        </style>
-      )}
-      {import.meta.env.PROD && (
-        <link
-          rel="stylesheet"
-          href={cssOrLink(cssLink, updateCssLink, mountedObservers.current)}
-        ></link>
-      )}
-    </>
+  const iframeBody = iframeRef?.contentDocument?.body;
+  const stylesIframe = import.meta.env.DEV ? (
+    <StylesForIframe_DEV />
+  ) : (
+    <StylesForIframe_PROD />
   );
-  const childrenDiv = <div>{children}</div>;
-  const FullPageWithProps = (
-    <FullPage
-      className={classNames(
-        styles.FullPage,
-        withRangeSlider ? false : styles.FullPageWithoutTransition
-      )}
-      onClick={onClick}
-    />
-  );
+
+  const FullPageProps = {
+    className: classNames(styles.FullPage, {
+      [styles.FullPageWithoutTransition]: !withRangeSlider || fitContent,
+    }),
+    onClick: toggleFullscreen,
+  };
+
   const FullPageComponent = withFullPage ? (
     <>
-      {fullscreen
-        ? createPortal(FullPageWithProps, RangeSliderRef.current)
-        : FullPageWithProps}
+      {fullscreen && RangeSliderRef ? (
+        createPortal(<FullPage {...FullPageProps} />, RangeSliderRef)
+      ) : (
+        <FullPage {...FullPageProps} />
+      )}
     </>
   ) : (
     false
@@ -173,9 +173,9 @@ export default function EmbedComponent(props: IEmbedComponent) {
 
   return (
     <div className={EmbedClassName}>
-      <div className={mainClassName}>
+      <div className={mainClassName} ref={setMainRef}>
         <div className={styles.outer}>
-          <iframe src={src ? src : null} className={styles.inner} ref={setRef}>
+          <iframe src={src} className={iframeClass} ref={setIframeRef}>
             {src && (
               <div
                 style={{
@@ -189,18 +189,19 @@ export default function EmbedComponent(props: IEmbedComponent) {
             )}
             {!src &&
               !children &&
-              mountBody &&
-              createPortal(<div>Not Found</div>, mountBody, 'NotFound')}
+              iframeBody &&
+              createPortal(<div>No content</div>, iframeBody, 'NoContent')}
             {!src &&
-              mountHead &&
-              createPortal(headStyle, mountHead, 'injectedStyles')}
+              iframeBody &&
+              createPortal(stylesIframe, iframeBody, 'injectedStyles')}
             {!src &&
-              mountBody &&
-              createPortal(childrenDiv, mountBody, 'EmbedZoomer')}
+              iframeBody &&
+              createPortal(<div>{children}</div>, iframeBody, 'EmbedZoomer')}
           </iframe>
         </div>
       </div>
       {FullPageComponent}
+      {withFullPage && <Overlay></Overlay>}
     </div>
   );
 }

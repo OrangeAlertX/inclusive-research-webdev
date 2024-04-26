@@ -11,10 +11,11 @@ let componentFolder = 'components';
 const createComponent = function (name, pathToSrc, componentFolder) {
   const resolvedPath = path.resolve(process.cwd(), pathToSrc, componentFolder);
 
-  const nameTSXcontent = `
-import styles from './${name}.module.css';
+  const nameTSXcontent = `import styles from './${name}.module.css';
 
-interface I${name} {}
+interface I${name} {
+  // children: ReactNode | ReactNode[]
+}
 
 ${name}.defaultProps = {}
 
@@ -22,8 +23,7 @@ export default function ${name}(props: I${name}) {
   const {} = props;
 
   return (<div className={styles.${name}}></div>);
-}
-`;
+}`;
 
   const cbError = (e) => {
     if (e) console.log(e);
@@ -42,7 +42,11 @@ export default function ${name}(props: I${name}) {
 
 const error1 =
   'Wrong args, expected ComponentName and ?componentFolder("components" are default)';
-if (args.length > 2 || args.length < 1) throw error1;
+if (args.length > 2) throw error1;
+if (args.length < 1) {
+  console.log('ComponentName and ?componentFolder("components" are default)');
+  exit(0);
+}
 
 if (args[1]) componentFolder = './' + args[1];
 if (/^[A-Z]*$/.test(args[0][0]))
