@@ -52,7 +52,7 @@ reactRouter.use(async (req, res) => {
 
     const ssrLoader = isDev
       ? await vite.ssrLoadModule('./src/entry-server.tsx')
-      : await import('../dist/server/entry-server.js');
+      : await import('../../dist/server/entry-server.js');
     const rendered = isDev
       ? await ssrLoader.render({ url, req })
       : ssrLoader.render({ url, req, ssrManifest });
@@ -63,7 +63,9 @@ reactRouter.use(async (req, res) => {
 
     res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
   } catch (e) {
-    vite.ssrFixStacktrace(e);
+    if (isDev) {
+      vite.ssrFixStacktrace(e);
+    }
     console.log(e.stack);
     res.status(500).end(e.stack);
   }
