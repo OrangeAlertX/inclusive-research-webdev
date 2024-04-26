@@ -16,17 +16,19 @@ jobs:
         os: [ubuntu-latest]
         
     runs-on: ${{ matrix.os }}
-
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./Core
     steps:
     - name: Get repository code
       uses: actions/checkout@v4
+      
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - name: Go to Core
-      run: cd Core
       
     - name: Cache next step
       id: installCore
@@ -34,6 +36,7 @@ jobs:
       with: 
         path: ~/.npm
         key: key-${{ hashFiles('**/Core/package-lock.json') }}
+        
     - name: Install npm
       if: steps.installCore.outputs.cache-hit != 'true'
       run: npm ci
