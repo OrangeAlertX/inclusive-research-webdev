@@ -33,16 +33,14 @@ jobs:
       
     - name: Cache next step
       id: installCore
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with: 
         path: ~/.npm
         key: key-${{ hashFiles('**/Core/package-lock.json') }}
         
     - name: Install npm
       if: steps.installCore.outputs.cache-hit != 'true'
-      run: |
-        ls
-        npm ci
+      run: npm run update
       env:
           NODE_AUTH_TOKEN: ${{ secrets.TOKEN_READ_PACKAGE }}
       
