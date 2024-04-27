@@ -9,16 +9,13 @@ on: workflow_dispatch
   #   branches: [ "main" ]
 
 jobs:
-  buildCore:
+  BuildCore:
     strategy:
       matrix:
         node-version: [20.12.2]
         os: [ubuntu-latest]
         
     runs-on: ${{ matrix.os }}
-    defaults:
-      run:
-        working-directory: ./Core
     steps:
     - name: Get repository code
       uses: actions/checkout@v4
@@ -32,28 +29,79 @@ jobs:
         registry-url: https://npm.pkg.github.com/
       
     - name: Cache next step
-      id: installCore
+      id: installAllDependencies
       uses: actions/cache@v4
       with: 
         path: ~/.npm
-        key: key-${{ hashFiles('**/Core/package-lock.json') }}
+        key: key-${{ hashFiles('**/package-lock.json') }}
         
     - name: Install npm
       if: steps.installCore.outputs.cache-hit != 'true'
-      run: npm run update
+      run: |
+        cd ./Core
+        npm run update
       env:
           NODE_AUTH_TOKEN: ${{ secrets.TOKEN_READ_PACKAGE }}
       
     - name: Build Core
-      run: npm run build
-
-    - name: Save Artifacts
+      run: | 
+        cd ./Core
+        npm run build
+    - name: Save Artifact
       uses: actions/upload-artifact@v4
       with:
         name: Core
-        path: Core/dist
-  deploy:
-    needs: buildCore
+        path: ./Core/dist
+
+    - name: Build Adaptive Landing
+      run: |
+        cd ./Landing-Page-Responsive
+        npm run build
+    - name: Save Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Landing-Page-Responsive
+        path: | 
+          ./Landing-Page-Responsive/publicResp
+          ./Landing-Page-Responsive/index.html
+
+    - name: Build Static Landing
+      run: |
+        cd ./Landing-Page-Static
+        npm run build
+    - name: Save Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Landing-Page-Static
+        path: | 
+          ./Landing-Page-Static/static
+          ./Landing-Page-Static/index.html
+
+    - name: Paired-Colors
+      run: |
+        cd ./Paired-Colors
+        npm run build
+    - name: Save Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Paired-Colors
+        path: | 
+          ./Paired-Colors/distCol
+          ./Paired-Colors/index.html
+
+    - name: Leetcode-Parser
+      run: |
+        cd ./Leetcode-Parser
+        npm run updateHTML
+    - name: Save Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Leetcode-Parser
+        path: ./Leetcode-Parser/index.html
+
+
+  Deploy:
+    needs: BuildCore
     strategy:
       matrix:
         node-version: [latest]
@@ -61,7 +109,16 @@ jobs:
         
     runs-on: ${{ matrix.os }}
     steps:
-    - name: Upload to GitHub Pages
-      uses: actions/download-artifact@v4
+    - name: Get access to GitHub Pages
+    - uses: actions/checkout@v4
       with:
-        name: Core
+        repository: OrangeAlertx.github.io
+        ref: 'main'
+        token:  ${{ secrets.TOKEN_GITHUB_PAGES }}
+
+    
+    
+    # - name: Upload to GitHub Pages
+    #   uses: actions/download-artifact@v4
+    #   with:
+    #     name: Core
