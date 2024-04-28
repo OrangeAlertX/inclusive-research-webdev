@@ -1,5 +1,5 @@
 import leetcodeStats from './leetcodeStats.js';
-import { leetcodeQuery } from './leetcodeParser.js';
+import leetcodeQuery from './utils/leetcodeQuery.js';
 import fs from 'fs';
 
 export default function leetcodeUpdateHTML() {
