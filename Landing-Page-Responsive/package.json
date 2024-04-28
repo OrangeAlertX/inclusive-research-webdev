@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "watch": "sass -w publicResp/css/index:publicResp/css"
+    "watch": "sass -w publicResp/css/index:publicResp/css",
+    "build": "sass publicResp/css/index:publicResp/css"
   },
   "devDependencies": {
     "poly-fluid-sizing": "^1.2.1",

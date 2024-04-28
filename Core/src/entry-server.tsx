@@ -3,7 +3,7 @@ import { StaticRouter } from 'react-router-dom/server';
 import App from './components/App/App';
 
 export function render(props) {
-  const { url, req } = props;
+  const { req } = props;
 
   const html = renderToString(
     <StaticRouter location={req.url}>

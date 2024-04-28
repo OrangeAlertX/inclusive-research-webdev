@@ -2,7 +2,8 @@
 
 name: Build and deploy on GitHub Pages
 
-on: workflow_dispatch
+on:
+  workflow_dispatch
   # push:
   #   branches: [ "main" ]
   # pull_request:
@@ -14,91 +15,96 @@ jobs:
       matrix:
         node-version: [20.12.2]
         os: [ubuntu-latest]
-        
+
     runs-on: ${{ matrix.os }}
     steps:
-    - name: Get repository code
-      uses: actions/checkout@v4
-      
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-        cache-dependency-path: './Core/package-lock.json'
-        registry-url: https://npm.pkg.github.com/
-      
-    - name: Cache next step
-      id: installAllDependencies
-      uses: actions/cache@v4
-      with: 
-        path: ~/.npm
-        key: key-${{ hashFiles('**/package-lock.json') }}
-        
-    - name: Install npm
-      if: steps.installCore.outputs.cache-hit != 'true'
-      run: |
-        cd ./Core
-        npm run update
-      env:
+      - name: Get repository code
+        uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: './Core/package-lock.json'
+          registry-url: https://npm.pkg.github.com/
+
+      - name: Cache next step
+        id: installAllDependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: key-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install npm
+        if: steps.installCore.outputs.cache-hit != 'true'
+        run: |
+          cd ./Core
+          npm run update
+        env:
           NODE_AUTH_TOKEN: ${{ secrets.TOKEN_READ_PACKAGE }}
-      
-    - name: Build Core
-      run: | 
-        cd ./Core
-        npm run build
-    - name: Save Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: Core
-        path: ./Core/dist
 
-    - name: Build Adaptive Landing
-      run: |
-        cd ./Landing-Page-Responsive
-        npm run build
-    - name: Save Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: Landing-Page-Responsive
-        path: | 
-          ./Landing-Page-Responsive/publicResp
-          ./Landing-Page-Responsive/index.html
+      - name: Build Core
+        run: |
+          cd ./Core
+          npm run build
 
-    - name: Build Static Landing
-      run: |
-        cd ./Landing-Page-Static
-        npm run build
-    - name: Save Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: Landing-Page-Static
-        path: | 
-          ./Landing-Page-Static/static
-          ./Landing-Page-Static/index.html
+      - name: Apply SSR
+        run: |
+          cd ./Core
+          npm run applySSR
 
-    - name: Paired-Colors
-      run: |
-        cd ./Paired-Colors
-        npm run build
-    - name: Save Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: Paired-Colors
-        path: | 
-          ./Paired-Colors/distCol
-          ./Paired-Colors/index.html
+      - name: Save Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Core
+          path: ./Core/dist/client
 
-    - name: Leetcode-Parser
-      run: |
-        cd ./Leetcode-Parser
-        npm run updateHTML
-    - name: Save Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: Leetcode-Parser
-        path: ./Leetcode-Parser/index.html
+      - name: Build Adaptive Landing
+        run: |
+          cd ./Landing-Page-Responsive
+          npm run build
+      - name: Save Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Landing-Page-Responsive
+          path: |
+            ./Landing-Page-Responsive/publicResp
+            ./Landing-Page-Responsive/index.html
 
+      - name: Build Static Landing
+        run: |
+          cd ./Landing-Page-Static
+          npm run build
+      - name: Save Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Landing-Page-Static
+          path: |
+            ./Landing-Page-Static/static
+            ./Landing-Page-Static/index.html
+
+      - name: Paired-Colors
+        run: |
+          cd ./Paired-Colors
+          npm run build
+      - name: Save Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Paired-Colors
+          path: |
+            ./Paired-Colors/distCol
+            ./Paired-Colors/index.html
+
+      - name: Leetcode-Parser
+        run: |
+          cd ./Leetcode-Parser
+          npm run updateHTML
+      - name: Save Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Leetcode-Parser
+          path: ./Leetcode-Parser/index.html
 
   Deploy:
     needs: BuildCore
@@ -106,19 +112,51 @@ jobs:
       matrix:
         node-version: [latest]
         os: [ubuntu-latest]
-        
+
     runs-on: ${{ matrix.os }}
     steps:
-    - name: Get access to GitHub Pages
-    - uses: actions/checkout@v4
-      with:
-        repository: OrangeAlertx.github.io
-        ref: 'main'
-        token:  ${{ secrets.TOKEN_GITHUB_PAGES }}
+      - name: Get access to GitHub Pages
+      - uses: actions/checkout@v4
+        with:
+          repository: OrangeAlertx.github.io
+          ref: 'main'
+          token: ${{ secrets.TOKEN_GITHUB_PAGES }}
 
-    
-    
-    # - name: Upload to GitHub Pages
-    #   uses: actions/download-artifact@v4
-    #   with:
-    #     name: Core
+      - name: Clear old files
+        run: rm -rf ./*
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Core
+          path: ./
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Landing-Page-Responsive
+          path: ./projects/adaptive-landing
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Landing-Page-Static
+          path: ./projects/static-landing
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Paired-Colors
+          path: ./projects/colors-game
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Leetcode-Parser
+          path: ./projects/leetcode
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.TOKEN_GITHUB_PAGES }}
+          publish_dir: ./

@@ -7,7 +7,7 @@ import Contacts from '../Contacts/Contacts';
 import global from '../../global.module.css';
 import variables from '../App/variables.module.css';
 import classNames from 'classnames';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import {
   MobileContextProvider,
   ThemeContextProvider,

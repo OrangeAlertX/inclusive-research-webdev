@@ -1,4 +1,4 @@
-import { ReactNode, useContext, useEffect, useRef, useState } from 'react';
+import { ReactNode, useContext, useEffect, useRef } from 'react';
 import { MobileContext } from '../../utils/Context';
 import { Viewer } from '../App/App';
 import styles from './Core.module.css';

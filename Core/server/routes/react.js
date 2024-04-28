@@ -27,7 +27,6 @@ if (isDev) {
 }
 
 let templateHtml;
-let ssrManifest;
 if (isProduction) {
   const compression = (await import('compression')).default;
   const sirv = (await import('sirv')).default;
@@ -35,10 +34,6 @@ if (isProduction) {
   reactRouter.use(base, sirv('./dist/client', { extensions: [] }));
 
   templateHtml = await fs.readFile('./dist/client/index.html', 'utf-8');
-  ssrManifest = await fs.readFile(
-    './dist/client/.vite/ssr-manifest.json',
-    'utf-8'
-  );
 }
 
 reactRouter.use(async (req, res) => {
@@ -54,8 +49,8 @@ reactRouter.use(async (req, res) => {
       ? await vite.ssrLoadModule('./src/entry-server.tsx')
       : await import('../../dist/server/entry-server.js');
     const rendered = isDev
-      ? await ssrLoader.render({ url, req })
-      : ssrLoader.render({ url, req, ssrManifest });
+      ? await ssrLoader.render({ req })
+      : ssrLoader.render({ req });
 
     const html = templateHtml
       .replace(`<!--app-head-->`, rendered.head ?? '')

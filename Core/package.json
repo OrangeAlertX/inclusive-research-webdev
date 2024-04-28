@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon --watch './server/**/*' ./server/server",
-    "update": "npm i  &  cd ../Landing-Page-Responsive && npm i  &  cd ../Paired-Colors && npm i  &  cd ../ComponentViewer && npm i  &  cd ../ComponentCollection && npm i",
+    "update": "npm ci  &  cd ../Landing-Page-Responsive && npm ci  &  cd ../Paired-Colors && npm ci  &  cd ../ComponentViewer && npm ci  &  cd ../ComponentCollection && npm ci",
     "build": "npm run build:client && npm run build:server",
-    "build:client": "vite build --ssrManifest --outDir dist/client",
+    "build:client": "vite build --outDir dist/client",
     "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
+    "applySSR": "node -e 'import(\"./server/utils/makeSSRforPages.js\").then(script => script.default({url: \"/\"}))'",
     "preview": "cross-env NODE_ENV=production nodemon --watch './server/**/*' ./server/server",
     "lint": "eslint . --ext js,jsx,ts,tsx --report-unused-disable-directives --max-warnings 0",
     "gen": "npx @orangealertx/gen"
