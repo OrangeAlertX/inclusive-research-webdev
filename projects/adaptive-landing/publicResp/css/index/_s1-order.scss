@@ -1,0 +1,129 @@
+.order {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: var(--order__bottom);
+  width: var(--swiper__width);
+  height: var(--swiper__height);
+
+  &__content {
+    position: absolute;
+    z-index: 5;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: var(--content__padding);
+
+    pointer-events: none;
+  }
+
+  &__title {
+    margin-bottom: var(--title__bottom);
+    margin-top: 0;
+    display: block;
+    width: var(--title__width);
+    height: var(--title__height);
+
+    color: white;
+    font-size: var(--h1__size);
+    line-height: 1.214em;
+    text-wrap: nowrap;
+    font-weight: 900;
+  }
+
+  &__text {
+    width: var(--text__width);
+    margin: 0;
+
+    color: white;
+    font-size: var(--text__font);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  &__btn {
+    position: relative;
+    z-index: 12;
+    margin-top: auto;
+    padding: var(--btn__padding);
+    background-color: var(--UI-color);
+    border-radius: var(--border-radius-btn);
+
+    font-size: var(--btn__font);
+    font-weight: 700;
+    color: white;
+
+    align-self: flex-start;
+    pointer-events: all;
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--btn-color-focus);
+      }
+    }
+    &:focus-visible {
+      background-color: var(--btn-color-focus);
+    }
+
+    &:active {
+      background-color: var(--UI-color-active);
+    }
+  }
+
+  .swiper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+
+    &-slide {
+      border-radius: var(--border-radius);
+      overflow: hidden;
+
+      &--container {
+        height: 100%;
+        width: 100%;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+      }
+
+      &--left img {
+        object-position: 0% 50%;
+      }
+    }
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 85% 50%;
+
+    border-radius: var(--border-radius);
+  }
+
+  .swiper-pagination-bullet {
+    background-color: var(--main-color);
+    width: var(--bullet-size);
+    height: var(--bullet-size);
+    --swiper-pagination-bullet-horizontal-gap: 10px;
+  }
+}
+
+@media (max-width: 767px) {
+  .order {
+    &__title,
+    &__text,
+    &__btn {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}

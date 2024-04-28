@@ -1,0 +1,26 @@
+@import '../../../node_modules/poly-fluid-sizing/_poly-fluid-sizing.scss';
+@import 'vars';
+@import 'header';
+@import 's1-order';
+@import 's2-about';
+@import 's3-details';
+@import 's4-questions';
+@import 'footer';
+
+// @import 'Montserrat';
+@import url(https://fonts.googleapis.com/css?family=Montserrat:regular,500,600,700,800,italic,500italic,600italic,700italic,800italic&display=swap);
+
+.main {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 var(--global-indentation);
+  width: clamp(320px, 100%, 1920px);
+}
+
+.disable {
+  display: none;
+}
+
+h2 {
+  font-weight: 400;
+}

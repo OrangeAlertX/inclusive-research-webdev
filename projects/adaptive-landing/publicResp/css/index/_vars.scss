@@ -1,0 +1,763 @@
+// Global Scss Variables //
+@mixin selectDisable() {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+@mixin objectSVG() {
+  position: relative;
+  > object {
+    position: absolute;
+    pointer-events: none;
+    left: 0;
+    top: 0;
+  }
+}
+@mixin scaleBasedOnMaxMinWidth(
+  $maxWidth,
+  $minWidth,
+  $maxCSS,
+  $minCSS,
+  $nameOfVar
+) {
+  $diffWidth: $maxWidth - $minWidth;
+  $diffCSS: $maxCSS - $minCSS;
+  $cssPixelOnEveryWidthPixel: calc($diffCSS / $diffWidth);
+  #{$nameOfVar}: calc(
+    $minCSS + (100% - $minWidth) * $cssPixelOnEveryWidthPixel
+  );
+}
+
+:root {
+  --main-color: white;
+  --text-color: black;
+  --element-background: white;
+  --UI-color: #ff9900;
+  --UI-color-active: #e1670e;
+  --btn-color-focus: #ffb84d;
+  --border-color: #cacaca;
+
+  @include poly-fluid-sizing(
+    '--global-indentation',
+    (
+      320px: 15px,
+      768px: 50px,
+      1024px: 50px,
+      1920px: 75px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--border-radius',
+    (
+      320px: 16px,
+      768px: 24px,
+      1024px: 32px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--border-radius-btn',
+    (
+      320px: 8px,
+      768px: 16px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--title__font',
+    (
+      320px: 24px,
+      768px: 48px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--text__minfont',
+    (
+      320px: 14px,
+      768px: 16px,
+    )
+  );
+}
+
+.header {
+  @include poly-fluid-sizing(
+    '--header__margin-bottom',
+    (
+      320px: 30px,
+      768px: 40px,
+      1024px: 40px,
+      1920px: 50px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--header__height',
+    (
+      320px: 69px,
+      768px: 69px,
+      1024px: 100px,
+      1920px: 100px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--burger__padding',
+    (
+      320px: 78px auto auto 15px,
+      768px: 152px auto auto 50px,
+      1024px: 170px auto auto 50px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--logo__width',
+    (
+      320px: 110px,
+      768px: 150px,
+      1024px: 150px,
+      1920px: 225px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--logo__height',
+    (
+      320px: 35px,
+      768px: 48px,
+      1024px: 48px,
+      1920px: 72px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--close__left',
+    (
+      320px: 15px,
+      768px: 48px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--close__top',
+    (
+      320px: 22px,
+      768px: 22px,
+      1024px: 38px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--nav__width',
+    (
+      320px: 320px,
+      768px: 420px,
+      1024px: 420px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--nav__margin-left',
+    (
+      1025px: 100px,
+      1920px: 553px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--item__margin-bottom',
+    (
+      320px: 32px,
+      768px: 60px,
+      1024px: 60px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--item__font-size',
+    (
+      320px: 16px,
+      768px: 24px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--bar__width',
+    (
+      320px: 320px,
+      768px: 539px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--bar__height',
+    (
+      320px: 69px,
+      768px: 60px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--input__width',
+    (
+      320px: 222px,
+      768px: 412px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--input__margin',
+    (
+      320px: auto 1px 21px 15px,
+      768px: auto 14px 16px 32px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--return__right',
+    (
+      320px: 15px,
+      768px: 13px,
+      1024px: 18px,
+    )
+  );
+}
+
+.order {
+  @include poly-fluid-sizing(
+    '--order__bottom',
+    (
+      320px: 60px,
+      768px: 40px,
+      1024px: 40px,
+      1920px: 50px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--content__padding',
+    (
+      320px: 60px 21px,
+      768px: 160px 40px,
+      1024px: 160px 77px,
+      1920px: 100px 80px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--h1__size',
+    (
+      320px: 20px,
+      768px: 50px,
+      1024px: 60px,
+      1920px: 70px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--title__bottom',
+    (
+      320px: 6px,
+      768px: 16px,
+      1024px: 16px,
+      1920px: 24px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--title__width',
+    (
+      320px: 247px,
+      768px: 588px,
+      1024px: 770px,
+      1920px: 837px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--title__height',
+    (
+      320px: 49px,
+      768px: 122px,
+      1024px: 146px,
+      1920px: 170px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--text__width',
+    (
+      320px: 247px,
+      768px: 588px,
+      1024px: 660px,
+      1920px: 790px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--text__font',
+    (
+      320px: 12px,
+      768px: 18px,
+      1024px: 20px,
+      1920px: 24px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--btn__padding',
+    (
+      320px: 13px 28px,
+      768px: 25px 39px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--btn__font',
+    (
+      320px: 12px,
+      768px: 23px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--swiper__width',
+    (
+      320px: 290px,
+      768px: 668px,
+      1024px: 924px,
+      1920px: 1770px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--swiper__height',
+    (
+      320px: 308px,
+      768px: 662px,
+      1024px: 662px,
+      1920px: 620px,
+    )
+  );
+  @include poly-fluid-sizing(
+    '--bullet-size',
+    (
+      320px: 10px,
+      768px: 15px,
+    )
+  );
+}
+
+.about {
+  @include poly-fluid-sizing(
+    '--about_bottom',
+    (
+      320px: 60px,
+      768px: 80px,
+      1024px: 83px,
+      1920px: 100px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--text__width',
+    (
+      320px: 290px,
+      768px: 668px,
+      1024px: 924px,
+      1920px: 1235px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--text__bottom',
+    (
+      320px: 13px,
+      768px: 55px,
+      1024px: 55px,
+      1920px: 46px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--text__width--content',
+    (
+      320px: 290px,
+      768px: 450px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--img__height',
+    (
+      320px: 200px,
+      768px: 650px,
+      1024px: 640px,
+      1920px: 622px,
+    )
+  );
+
+  @media (min-width: 320px) {
+    .about {
+      --img__height: 200px;
+    }
+  }
+  @media (min-width: 768px) {
+    .about {
+      --img__height: 650px;
+    }
+  }
+  @media (min-width: 1024px) {
+    .about {
+      --img__height: 640px;
+    }
+  }
+  @media (min-width: 1920px) {
+    .about {
+      --img__height: 622px;
+    }
+  }
+
+  @include poly-fluid-sizing(
+    '--svg__width',
+    (
+      768px: 72px,
+      1440px: 120px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--svg1__height',
+    (
+      768px: 79px,
+      1440px: 132px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--svg2__size',
+    (
+      768px: 81px,
+      1440px: 135px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--svg__translate',
+    (
+      768px: 5.5px,
+      1440px: 7px,
+    )
+  );
+
+  &__rightitem {
+    @include scaleBasedOnMaxMinWidth(924px, 668px, 77px, 40px, '--margin-left');
+    @include scaleBasedOnMaxMinWidth(
+      924px,
+      668px,
+      50px,
+      16px,
+      '--margin-right'
+    );
+    @include scaleBasedOnMaxMinWidth(
+      924px,
+      668px,
+      65px,
+      35px,
+      '--padding-height'
+    );
+  }
+
+  &__more {
+    @include scaleBasedOnMaxMinWidth(
+      924px,
+      668px,
+      50px,
+      40px,
+      '--resize-margin'
+    );
+  }
+}
+
+.details {
+  @include poly-fluid-sizing(
+    '--items__margin',
+    (
+      320px: 44px,
+      768px: 155px,
+      1024px: 85px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--items__font',
+    (
+      320px: 14px,
+      768px: 18px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--title__bottom',
+    (
+      320px: 20px,
+      768px: 50px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--items__bottom',
+    (
+      320px: 16px,
+      768px: 50px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--left__width',
+    (
+      1024px: 437px,
+      1920px: 768px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--right__width',
+    (
+      1024px: 437px,
+      1920px: 870px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--content__height',
+    (
+      1024px: 689px,
+      1920px: 460px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--title3__margin',
+    (
+      320px: 16px,
+      768px: 38px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--font-size',
+    (
+      320px: 14px,
+      768px: 16px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--btn__padding1',
+    (
+      320px: 12px 44px,
+      768px: 20px 38px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--btn__padding2',
+    (
+      320px: 12px 32px,
+      768px: 20px 38px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--btn__gap',
+    (
+      320px: 7px,
+      768px: 32px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--p__margin',
+    (
+      1024px: 25px,
+      1920px: 18px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--details__bottom',
+    (
+      320px: 60px,
+      768px: 49px,
+      1024px: 80px,
+      1920px: 100px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--mintitle__font',
+    (
+      320px: 18px,
+      768px: 24px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--btn__font',
+    (
+      320px: 12px,
+      768px: 16px,
+    )
+  );
+}
+
+.questions {
+  @include poly-fluid-sizing(
+    '--mintitle__font',
+    (
+      320px: 14px,
+      768px: 20px,
+      1024px: 20px,
+      1920px: 24px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--title__margin',
+    (
+      320px: 16px,
+      768px: 32px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--h3__margin',
+    (
+      320px: 30px 0,
+      768px: 40px 0,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--mintitle__margin',
+    (
+      320px: 20px,
+      768px: 50px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--questions__bottom',
+    (
+      320px: 60px,
+      768px: 110px,
+      1024px: 80px,
+      1920px: 100px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--svg__size',
+    (
+      320px: 30px,
+      768px: 50px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--p__font',
+    (
+      320px: 14px,
+      768px: 16px,
+    )
+  );
+}
+
+.footer {
+  @include poly-fluid-sizing(
+    '--footer__padding',
+    (
+      320px: 30px 15px,
+      768px: 50px 50px,
+      1024px: 50px 50px,
+      1920px: 50px 75px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--footer__center',
+    (
+      320px: 290px,
+      768px: 540px,
+      1024px: 540px,
+      1920px: 570px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--footer__logo',
+    (
+      320px: 131px,
+      768px: 224px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--footer__gap',
+    (
+      320px: 16px,
+      768px: 25px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--footer__social',
+    (
+      320px: 40px,
+      768px: 60px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--title__bottom',
+    (
+      320px: 20px,
+      768px: 25px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--title__font',
+    (
+      320px: 24px,
+      768px: 48px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--footer__btn',
+    (
+      320px: 12px 28px,
+      768px: 19px 38px,
+      1024px: 19px 38px,
+      1920px: 19px 52px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--btn__font',
+    (
+      320px: 12px,
+      768px: 16px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--btn__margin',
+    (
+      320px: 37px,
+      768px: 32px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--input__padding',
+    (
+      320px: 14px 20px,
+      768px: 14px 24px,
+    )
+  );
+
+  @include poly-fluid-sizing(
+    '--logo__mobile',
+    (
+      320px: 33px 0px 16px,
+      1023px: 46px 0px 20px,
+    )
+  );
+}
