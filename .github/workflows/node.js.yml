@@ -72,10 +72,10 @@ jobs:
             ./Landing-Page-Responsive/publicResp
             ./Landing-Page-Responsive/index.html
 
-      - name: Build Static Landing
-        run: |
-          cd ./Landing-Page-Static
-          npm run build
+      # - name: Build Static Landing
+      #   run: |
+      #     cd ./Landing-Page-Static
+      #     npm run build
       - name: Save Artifact
         uses: actions/upload-artifact@v4
         with:
