@@ -47,7 +47,9 @@ export default function Leetcode(props: ILeetcode) {
       </h3>
       <div className={styles.container} ref={setRef}>
         <Viewer
-          src={`/projects/leetcode`}
+          src={`${
+            (import.meta.env?.BASE_URL || process?.env.BASE) ?? ''
+          }/projects/leetcode`}
           min={800}
           max={800}
           withFullPage={false}

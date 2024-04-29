@@ -3,11 +3,9 @@
 name: Build and deploy on GitHub Pages
 
 on:
-  workflow_dispatch
-  # push:
-  #   branches: [ "main" ]
-  # pull_request:
-  #   branches: [ "main" ]
+  workflow_dispatch:
+  push:
+    branches: ['main']
 
 jobs:
   BuildCore:
