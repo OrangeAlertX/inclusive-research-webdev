@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon --watch './server/**/*' ./server/server",
     "update": "npm ci  &  cd ../Landing-Page-Responsive && npm ci  &  cd ../Paired-Colors && npm ci  &  cd ../ComponentViewer && npm ci  &  cd ../ComponentCollection && npm ci",
-    "build": "npm run build:client && npm run build:server",
+    "build": "export BASE=/inclusive-research-webdev/ && npm run build:client && npm run build:server",
     "build:client": "vite build --outDir dist/client",
     "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
     "applySSR": "node -e 'import(\"./server/utils/makeSSRforPages.js\").then(script => script.default({url: \"/\"}))'",
