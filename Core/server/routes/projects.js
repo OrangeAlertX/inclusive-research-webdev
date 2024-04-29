@@ -1,7 +1,7 @@
 import express from 'express';
 import fs from 'node:fs/promises';
 import leetcodeStats from '../../../Leetcode-Parser/leetcodeStats.js';
-import { leetcodeQuery } from '../../../Leetcode-Parser/leetcodeParser.js';
+import leetcodeQuery from '../../../Leetcode-Parser/utils/leetcodeQuery.js';
 
 export const projectsRouter = express.Router();
 

@@ -3,11 +3,13 @@ import { hydrateRoot, createRoot } from 'react-dom/client';
 import App from './components/App/App';
 import './index.css';
 
+const BrowserRouterProps = { basename: import.meta.env.BASE_URL };
+
 if (import.meta.env.DEV) {
   //////////////////////
   const root = createRoot(document.getElementById('root') as HTMLElement);
   root.render(
-    <BrowserRouter>
+    <BrowserRouter {...BrowserRouterProps}>
       <App />
     </BrowserRouter>
   );
@@ -16,7 +18,7 @@ if (import.meta.env.DEV) {
   //////////////////////
   hydrateRoot(
     document.getElementById('root') as HTMLElement,
-    <BrowserRouter>
+    <BrowserRouter {...BrowserRouterProps}>
       <App />
     </BrowserRouter>
   );

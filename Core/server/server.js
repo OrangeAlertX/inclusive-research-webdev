@@ -6,9 +6,13 @@ import getPrivateIP from './utils/getPrivateIP.js';
 // Constants
 const isNginxHandleStaticPages = process.env.DOCKER_RUNNING == 'true';
 const port = process.env.PORT || 5173;
+const BASE = process.env.BASE ?? '/';
 
 // Create http server
 const app = express();
+if (process.env.BASE) {
+  app.set('base', process.env.BASE);
+}
 
 // Static pages
 if (!isNginxHandleStaticPages) {
@@ -23,7 +27,9 @@ app.listen(port, async () => {
   const ip = await getPrivateIP(192);
   console.log(
     `Server started at ${
-      isNginxHandleStaticPages ? `http://${ip}` : `http://${ip}:${port}`
+      isNginxHandleStaticPages
+        ? `http://${ip}${BASE}`
+        : `http://${ip}:${port}${BASE}`
     }`
   );
 });

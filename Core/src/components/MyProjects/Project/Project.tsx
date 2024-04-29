@@ -29,6 +29,11 @@ export default function Project(props: IProject) {
   const { project } = props;
   const Details = project.details;
 
+  if (project.src && (import.meta.env?.BASE_URL || process?.env.BASE))
+    project.src = `${import.meta.env?.BASE_URL || process?.env.BASE}/${
+      project.src
+    }`;
+
   return (
     <div className={styles.Project}>
       <div className={styles.content}>

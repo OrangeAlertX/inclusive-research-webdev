@@ -6,7 +6,7 @@ export function render(props) {
   const { req } = props;
 
   const html = renderToString(
-    <StaticRouter location={req.url}>
+    <StaticRouter basename={process.env.BASE ?? '/'} location={req.url}>
       <App />
     </StaticRouter>
   );
