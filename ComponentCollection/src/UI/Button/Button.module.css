@@ -14,9 +14,15 @@
 
   -webkit-tap-highlight-color: transparent;
 }
-/* .button:hover {
-  outline-color: #646cff;
+
+@-moz-document url-prefix() {
+  .button {
+    border: 1px solid transparent;
+  }
+  .button:hover {
+    outline-color: #646cff;
+  }
+  .button:active {
+    outline: 3px solid orange;
+  }
 }
-.button:active {
-  outline: 3px solid orange;
-}  */

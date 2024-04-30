@@ -4,6 +4,7 @@ import variables from '../../App/variables.module.css';
 import { Viewer } from '../../App/App';
 import ButtonPopup from '../../../../../ComponentCollection/src/components/ButtonPopup/ButtonPopup';
 import { FaGithub } from 'react-icons/fa';
+import path from 'path-browserify';
 
 export interface ProjectData {
   title: string;
@@ -29,10 +30,12 @@ export default function Project(props: IProject) {
   const { project } = props;
   const Details = project.details;
 
-  if (project.src && (import.meta.env?.BASE_URL || process?.env.BASE))
-    project.src = `${import.meta.env?.BASE_URL || process?.env.BASE}/${
-      project.src
-    }`;
+  const srcLeetcode = project.src
+    ? path.join(
+        (import.meta.env?.BASE_URL || process?.env.BASE) ?? '',
+        project.src ?? ''
+      )
+    : null;
 
   return (
     <div className={styles.Project}>
@@ -66,17 +69,17 @@ export default function Project(props: IProject) {
           <a target="_blank" href={project.code}>
             <FaGithub size={'2em'} />
           </a>
-          {project.src && (
-            <a target="_blank" href={project.src}>
+          {srcLeetcode && (
+            <a target="_blank" href={srcLeetcode}>
               <HiOutlineExternalLink size={'2em'} />
             </a>
           )}
         </div>
       </div>
       <div className={styles.viewer}>
-        {project.src && (
+        {srcLeetcode && (
           <Viewer
-            src={project.src}
+            src={srcLeetcode}
             min={project.viewerProps?.min}
             max={project.viewerProps?.max}
             externalStyles={variables.colors}

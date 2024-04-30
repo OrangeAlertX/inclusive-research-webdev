@@ -10,6 +10,10 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Core />} />
       <Route path="/collection" element={<AppCollection />} />
+      <Route
+        path="*"
+        element={<h1 style={{ color: 'blue', textAlign: 'center' }}>404</h1>}
+      />
     </Routes>
   );
 }

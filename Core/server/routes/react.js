@@ -21,7 +21,6 @@ if (isDev) {
   var vite = await createServer({
     server: { middlewareMode: true },
     appType: 'custom',
-    base,
   });
   reactRouter.use(vite.middlewares);
 }
@@ -31,7 +30,7 @@ if (isProduction) {
   const compression = (await import('compression')).default;
   const sirv = (await import('sirv')).default;
   reactRouter.use(compression());
-  reactRouter.use(base, sirv('./dist/client', { extensions: [] }));
+  reactRouter.use('/', sirv('./dist/client', { extensions: [] }));
 
   templateHtml = await fs.readFile('./dist/client/index.html', 'utf-8');
 }

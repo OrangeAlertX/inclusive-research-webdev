@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from '../../utils/Context';
 import waitIframeDocument from '../../../../ComponentViewer/src/utils/asyncTools/waitIframeDocument';
+import path from 'path-browserify';
 
 interface ILeetcode {}
 
@@ -43,13 +44,13 @@ export default function Leetcode(props: ILeetcode) {
         >
           OrangeAlertX
         </a>
-        {/* <span className={styles.linkpopup}>(ссылка на профиль)</span> */}
       </h3>
       <div className={styles.container} ref={setRef}>
         <Viewer
-          src={`${
-            (import.meta.env?.BASE_URL || process?.env.BASE) ?? ''
-          }/projects/leetcode`}
+          src={path.join(
+            (import.meta.env?.BASE_URL || process?.env.BASE) ?? '',
+            '/projects/leetcode'
+          )}
           min={800}
           max={800}
           withFullPage={false}

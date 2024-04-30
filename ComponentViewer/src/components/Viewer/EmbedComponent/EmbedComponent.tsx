@@ -193,10 +193,14 @@ export default function EmbedComponent(props: IEmbedComponent) {
               createPortal(<div>No content</div>, iframeBody, 'NoContent')}
             {!src &&
               iframeBody &&
-              createPortal(stylesIframe, iframeBody, 'injectedStyles')}
-            {!src &&
-              iframeBody &&
-              createPortal(<div>{children}</div>, iframeBody, 'EmbedZoomer')}
+              createPortal(
+                <>
+                  {stylesIframe}
+                  <div>{children}</div>
+                </>,
+                iframeBody,
+                'EmbedZoomer'
+              )}
           </iframe>
         </div>
       </div>

@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from 'express';
 import { projectsRouter } from './routes/projects.js';
 import { reactRouter } from './routes/react.js';
@@ -10,17 +11,14 @@ const BASE = process.env.BASE ?? '/';
 
 // Create http server
 const app = express();
-if (process.env.BASE) {
-  app.set('base', process.env.BASE);
-}
 
 // Static pages
 if (!isNginxHandleStaticPages) {
-  app.use('/projects', projectsRouter);
+  app.use(BASE + 'projects', projectsRouter);
 }
 
 // Collapse to React
-app.use(reactRouter);
+app.use(BASE, reactRouter);
 
 // Start http server
 app.listen(port, async () => {

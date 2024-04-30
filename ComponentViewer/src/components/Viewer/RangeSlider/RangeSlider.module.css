@@ -76,12 +76,12 @@
   transform: translateY(var(--thumbTranslate));
   border-radius: 50%;
 }
+
 .slider::-moz-range-thumb {
   appearance: none;
   background-color: var(--main-color);
   width: calc(var(--thumbSize) / 2);
   height: var(--thumbSize);
-  transform: translateY(var(--thumbTranslate));
   border-radius: 50%;
 }
 
