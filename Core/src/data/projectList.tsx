@@ -1,15 +1,15 @@
-import { ProjectData } from './Project/Project';
-import { ReactComponent as StaticDetails } from '../../../../Landing-Page-Static/README.md';
-import { ReactComponent as ResponsiveDetails } from '../../../../Landing-Page-Responsive/README.md';
-import { ReactComponent as ColorGameDetails } from '../../../../Paired-Colors/README.md';
-import { ReactComponent as TemplatesDetails } from '../../../../ReactTemplates/README.md';
-import { ReactComponent as ViewerDetails } from '../../../../ComponentViewer/README.md';
-import { ReactComponent as CoreDetails } from '../../../README.md';
-import { ReactComponent as LeetcodeDetails } from '../../../../Leetcode-Parser/README.md';
-import { ReactComponent as CollectionDetails } from '../../../../ComponentCollection/README.md';
-import { ReactComponent as DeployDetails } from '../../../../README.md';
+import { ProjectData } from '../components/MyProjects/Project/Project';
+import { ReactComponent as StaticDetails } from '../../../Landing-Page-Static/README.md';
+import { ReactComponent as ResponsiveDetails } from '../../../Landing-Page-Responsive/README.md';
+import { ReactComponent as ColorGameDetails } from '../../../Paired-Colors/README.md';
+import { ReactComponent as TemplatesDetails } from '../../../ReactTemplates/README.md';
+import { ReactComponent as ViewerDetails } from '../../../ComponentViewer/README.md';
+import { ReactComponent as CoreDetails } from '../../README.md';
+import { ReactComponent as LeetcodeDetails } from '../../../Leetcode-Parser/README.md';
+import { ReactComponent as CollectionDetails } from '../../../ComponentCollection/README.md';
+import { ReactComponent as DeployDetails } from '../../../README.md';
 import { useEffect, useState } from 'react';
-import Button from '../../../../ComponentCollection/src/UI/Button/Button';
+import Button from '../../../ComponentCollection/src/UI/Button/Button';
 
 const projectStatic: ProjectData = {
   title: 'Cтатичный лэндинг',

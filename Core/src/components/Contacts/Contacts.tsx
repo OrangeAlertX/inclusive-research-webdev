@@ -10,6 +10,7 @@ import { IoIosDesktop } from 'react-icons/io';
 import { MobileContext, ThemeContext } from '../../utils/Context';
 import ToggleContext from '../../../../ComponentCollection/src/components/ToggleContext/ToggleContext';
 import { FaGithub } from 'react-icons/fa';
+import { leetcodeLink } from '../../data/links';
 
 interface IContacts {}
 
@@ -43,7 +44,7 @@ export default function Contacts(props: IContacts) {
           <CgMail size={'2em'} />
         </a>
         <h3 className={global.disable}>Leetcode</h3>
-        <a href="https://leetcode.com/orangealertx/" title="leetcode">
+        <a target="_blank" href={leetcodeLink} title="leetcode">
           <TbBrandLeetcode size={'2em'} />
         </a>
         <h3 className={global.disable}>GitHub</h3>

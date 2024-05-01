@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from '../../utils/Context';
 import waitIframeDocument from '../../../../ComponentViewer/src/utils/asyncTools/waitIframeDocument';
 import path from 'path-browserify';
+import { leetcodeLink } from '../../data/links';
 
 interface ILeetcode {}
 
@@ -36,7 +37,7 @@ export default function Leetcode(props: ILeetcode) {
       <h2 className={styles.title}>Leetcode</h2>
       <h3 className={styles.profile}>
         <a
-          href="https://leetcode.com/orangealertx/"
+          href={leetcodeLink}
           target="_blank"
           rel="noopener noreferrer"
           className={styles.link}

@@ -2,33 +2,13 @@ import classNames from 'classnames';
 import styles from './AboutMe.module.css';
 import SkillSet from './SkillSet/SkillSet';
 import variables from '../App/variables.module.css';
+import { skillSets } from '../../data/skillSets';
 
 interface IAboutMe {
   // children?: React.ReactElement | string | JSX.Element;
 }
 
 AboutMe.defaultProps = {};
-
-const Frontend = {
-  title: 'Frontend',
-  skills: [
-    'React',
-    'TypeScript/JavaScript',
-    'SCSS/CSS',
-    'Vite/Webpack',
-    'HTML',
-    'Figma',
-  ],
-};
-const Backend = {
-  title: 'Backend',
-  skills: ['NodeJS(Express)', 'MySQL'],
-};
-const Others = {
-  title: 'Others',
-  skills: ['Python', 'Java', 'English: свободное чтение и аудирование'],
-};
-const skillSets = [Frontend, Backend, Others];
 
 export default function AboutMe(props: IAboutMe) {
   const {} = props;

@@ -1,7 +1,7 @@
 import styles from './MyProjects.module.css';
 import Project from './Project/Project';
 import { Viewer } from '../App/App';
-import { projects } from './projectList';
+import { projects } from '../../data/projectList';
 
 interface IMyProjects {
   // children: ReactNode | ReactNode[];
