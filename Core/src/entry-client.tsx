@@ -3,7 +3,8 @@ import { hydrateRoot, createRoot } from 'react-dom/client';
 import App from './components/App/App';
 import './index.css';
 
-const BrowserRouterProps = { basename: import.meta.env.BASE_URL.slice(0, -1) };
+const BASE = import.meta.env.BASE_URL;
+const BrowserRouterProps = { basename: BASE };
 
 if (import.meta.env.DEV) {
   //////////////////////

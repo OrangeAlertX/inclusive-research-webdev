@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon --watch './server/**/*' ./server/server",
     "build": "npm run build:client && npm run build:server",
-    "build:client": "vite build --ssrManifest --outDir dist/client",
+    "build:client": "vite build --outDir dist/client",
     "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
     "preview": "cross-env NODE_ENV=production nodemon --watch './server/**/*' ./server/server",
     "lint": "eslint . --ext js,jsx,ts,tsx --report-unused-disable-directives --max-warnings 0",
@@ -21,7 +21,9 @@
     "react-router": "^6.21.1",
     "react-router-dom": "^6.21.1",
     "sirv": "^2.0.3",
-    "classnames": "2.5.1"
+    "classnames": "2.5.1",
+    "uuid": "^9.0.1",
+    "path-browserify": "^1.0.1"
   },
   "devDependencies": {
     "@orangealertx/gen": "latest",

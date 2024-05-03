@@ -1,7 +1,7 @@
 import styles from './RootContainer.module.css';
 import classNames from 'classnames';
 import variablesDefault from '../../components/App/variables.module.css';
-import { ReactNode, useState } from 'react';
+import { ReactNode } from 'react';
 
 interface IRootContainer {
   children: ReactNode | ReactNode[];

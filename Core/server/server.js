@@ -7,7 +7,7 @@ import getPrivateIP from './utils/getPrivateIP.js';
 // Constants
 const isNginxHandleStaticPages = process.env.DOCKER_RUNNING == 'true';
 const port = process.env.PORT || 5173;
-const BASE = process.env.BASE ?? '/';
+const BASE = (process.env.BASE ?? '') + '/';
 
 // Create http server
 const app = express();

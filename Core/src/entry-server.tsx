@@ -4,12 +4,10 @@ import App from './components/App/App';
 
 export function render(props) {
   const { req } = props;
+  const BASE = process.env.BASE ?? '';
 
   const html = renderToString(
-    <StaticRouter
-      basename={process.env.BASE.slice(0, -1) ?? '/'}
-      location={process.env.BASE + req.url}
-    >
+    <StaticRouter basename={BASE} location={BASE + req.url}>
       <App />
     </StaticRouter>
   );

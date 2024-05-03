@@ -3,10 +3,11 @@ import { StaticRouter } from 'react-router-dom/server';
 import App from './components/App/App';
 
 export function render(props) {
-  const { url, req } = props;
+  const { req } = props;
+  const BASE = process.env.BASE ?? '';
 
   const html = renderToString(
-    <StaticRouter location={req.url}>
+    <StaticRouter basename={BASE} location={BASE + req.url}>
       <App />
     </StaticRouter>
   );
