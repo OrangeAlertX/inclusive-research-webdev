@@ -1,9 +1,9 @@
 import fs from 'node:fs/promises';
 import { render as ssrLoader } from '../../dist/server/entry-server.js';
 
-export default function makeSSRforPages(req) {
+export default function makeSSRforPages(path) {
   fs.readFile('./dist/client/index.html', 'utf-8').then((templateHTML) => {
-    const rendered = ssrLoader({ req });
+    const rendered = ssrLoader({ req: path });
     const html = templateHTML
       .replace(`<!--app-head-->`, rendered.head ?? '')
       .replace(`<!--app-html-->`, rendered.html);

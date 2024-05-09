@@ -43,7 +43,7 @@ const error1 =
 if (args.length > 2) throw error1;
 if (args.length < 1) {
   console.log('ComponentName and ?componentFolder("components" are default)');
-  exit(0);
+  process.exit(0);
 }
 
 if (args[1]) componentFolder = './' + args[1];

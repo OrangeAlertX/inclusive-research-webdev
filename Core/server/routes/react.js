@@ -48,8 +48,8 @@ reactRouter.use(async (req, res) => {
       ? await vite.ssrLoadModule('./src/entry-server.tsx')
       : await import('../../dist/server/entry-server.js');
     const rendered = isDev
-      ? await ssrLoader.render({ req })
-      : ssrLoader.render({ req });
+      ? await ssrLoader.render({ url })
+      : ssrLoader.render({ url });
 
     const html = templateHtml
       .replace(`<!--app-head-->`, rendered.head ?? '')

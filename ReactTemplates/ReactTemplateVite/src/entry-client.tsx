@@ -1,7 +1,7 @@
 import { BrowserRouter } from 'react-router-dom';
 import { hydrateRoot, createRoot } from 'react-dom/client';
 import App from './components/App/App';
-import './index.css';
+import './index.module.css';
 
 const BASE = import.meta.env.BASE_URL;
 const BrowserRouterProps = { basename: BASE };
