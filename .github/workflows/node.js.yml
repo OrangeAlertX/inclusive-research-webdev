@@ -98,6 +98,7 @@ jobs:
         run: |
           cd ./Leetcode-Parser
           npm run updateHTML
+        continue-on-error: true
       - name: Save Artifact
         uses: actions/upload-artifact@v4
         with:
