@@ -47,10 +47,10 @@ jobs:
           cd ./Core
           npm run build
 
-      # - name: Apply SSR
-      #   run: |
-      #     cd ./Core
-      #     npm run applySSR
+      - name: Apply SSR
+        run: |
+          cd ./Core
+          npm run applySSR
 
       - name: Save Artifact
         uses: actions/upload-artifact@v4
