@@ -8,7 +8,7 @@ export default async function leetcodeQuery() {
     totalMedium,
     hardSolved,
     totalHard,
-  } = await fetch('https://leetcodestats.cyclic.app/orangealertx')
+  } = await fetch('https://leetcode-stats-api.herokuapp.com/orangealertx')
     .then((res) => res.text())
     .then((json) => JSON.parse(json));
 
