@@ -146,7 +146,7 @@ const projectCollection: ProjectData = {
 const projectDeploy: ProjectData = {
   title: 'DevOps',
   newSkills: ['Docker', 'NGINX', 'Микросервисы'],
-  about: 'Знакомство с девопс технологиями. Девелопмент и продакшн кластер.',
+  about: 'Знакомство с девопс технологиями..',
   code: 'https://github.com/OrangeAlertX/inclusive-research-webdev/tree/main/.nginx',
   details: DeployDetails,
 };

@@ -84,9 +84,7 @@ export default function EmbedComponent(props: IEmbedComponent) {
     if (!iframeRef) return;
     if (!src) {
       const body = iframeRef.contentDocument.body;
-      const centered = `
-        display: flex; justify-content: center; align-items: center; position: relative; flex: 1`;
-      body.style = `display: flex; align-items: center; `;
+      const centered = `display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; flex: 1;`;
       body.querySelector('div').style = centered;
     }
   }, [src, iframeRef, children]);
